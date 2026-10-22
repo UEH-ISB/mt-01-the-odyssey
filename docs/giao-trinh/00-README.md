@@ -46,7 +46,7 @@ Nhịp 2 buổi/tuần → **8 tuần**.
 
 | Buổi | Nội dung | Hiện vật trong repo |
 |---|---|---|
-| [01](buoi-01.md) | Lộ trình 6 tuần, Gates G1–G6, 10 deliverables, 6 tiêu chí chấm · **PR đầu tiên** | `docs/doi-ngu/<tên>.md` qua PR đã merge · `JOURNAL.md` |
+| [01](buoi-01.md) | Lộ trình 6 tuần, Gates G1–G6, 10 deliverables, 6 tiêu chí chấm · **PR đầu tiên** | Dòng của bạn trong bảng Đội ngũ (`README.md`) qua PR đã merge · `JOURNAL.md` |
 | [02](buoi-02.md) | Khởi tạo dự án: môi trường, `.env`, AI logging hooks, git workflow, PR đầu | `make run` chạy · `pytest.ini` · PR merged |
 | 03 | Thiết kế kiến trúc 3 tầng, vẽ diagram, viết ADR | `ARCHITECTURE.md` · `docs/adr/0001` |
 | 04 | Agent Core: state, nodes, edges, tools, ReAct, error handling | `src/agents/` chạy năng lực B |

@@ -43,7 +43,7 @@ thì bước 3 của lab không chạy được.
 | 10 | Agent là thợ, mentor là người nghiệm thu | Vòng lặp 4 bước: *ra yêu cầu rõ → agent làm → **mentor chạy phép kiểm** → sửa yêu cầu*. Bỏ bước 3 thì ba bước còn lại vô nghĩa. | Trả lời câu hỏi số 3 của đội: dùng AI viết code **không** bị trừ điểm; không kiểm được thứ AI viết mới bị trừ. Suốt 15 buổi, mỗi bài thực hành đều có một phép kiểm — đó là phần được chấm. |
 | 11 | Đề xuyên suốt: MT-01 — ba tầng | **Hệ thống AI agent chuẩn hóa chất lượng đào tạo đại học** (case TTN–UEH). **A. Người học**: hỏi đáp grounded + hỗ trợ ESL. **B. Môn học**: rubric 6 tiêu chí, giảng viên duyệt. **C. Chương trình**: số tổng hợp ẩn danh. | Giới thiệu đề, và nói rõ nó **không chỉ là rà đề cương** — đó là tầng B. Ba tầng nối nhau: bản đã duyệt ở B mới là nguồn cho A, số liệu từ B lên C. Ta build thật, deploy thật, eval thật; cuối 15 buổi mỗi mentor có repo đi đủ G1→G6. |
 | 12 | Scope guard — thứ MT-01 cố tình không làm | Không LMS thật · không chấm điểm sinh viên · không multi-agent · không fine-tune · không Next.js ở bản cơ bản. | Đọc to danh sách này và dán lên tường. Mentor sẽ phải nói đúng câu này với đội của mình vào tuần 3, khi đội muốn thêm tính năng thay vì hoàn thiện cái đang có. |
-| 13 | Lab hôm nay: bốn người, một đội, bốn PR | Sáu động tác: `switch -c` → `add` → `commit` → `push` → `pr create` → **người khác** `pr merge`. Luật: **không ai tự merge PR của mình.** | Slide cuối, chiếu ngay trước khi vào lab. Nói rõ cả lứa là **một đội, một repo** — vì cái khó của GitHub không phải gõ lệnh, mà là bốn người sửa cùng một repo không đè lên nhau. Và nói luật không-tự-merge như một luật của đội, không phải thủ tục: đó chính là nghề mentor thu nhỏ thành một động tác. Ai chưa bấm nhận lời mời collaborator thì gỡ ngay bây giờ, đừng để đến bước 3. |
+| 13 | Lab hôm nay: bốn người, một đội, bốn PR | Việc: thêm tên mình vào **bảng Đội ngũ** trong `README.md`, đúng dòng được giao. Sáu động tác: `switch -c` → `add` → `commit` → `push` → `pr create` → **người khác** `pr merge`. Luật: **không ai tự merge PR của mình.** | Slide cuối, chiếu ngay trước khi vào lab. Nói rõ cả lứa là **một đội, một repo** — vì cái khó của GitHub không phải gõ lệnh, mà là bốn người sửa cùng một repo không đè lên nhau. Và nói luật không-tự-merge như một luật của đội, không phải thủ tục: đó chính là nghề mentor thu nhỏ thành một động tác. Ai chưa bấm nhận lời mời collaborator thì gỡ ngay bây giờ, đừng để đến bước 3. |
 
 ---
 
@@ -53,37 +53,47 @@ thì bước 3 của lab không chạy được.
 sau này cũng làm vậy, và cái khó của GitHub không nằm ở chỗ gõ lệnh — nằm ở chỗ **bốn người sửa
 cùng một repo mà không đè lên nhau**. Buổi 01 dạy đúng chỗ đó.
 
-**Sau lab, repo đội có:** một file giới thiệu cho mỗi người trong `docs/doi-ngu/`, bốn PR đã
-merge — **mỗi PR do người khác merge, không ai tự merge của mình** — và một dòng `JOURNAL.md` ghi
-chỗ agent nói sai.
+**Sau lab, repo đội có:** bảng **Đội ngũ** trong `README.md` đã điền đủ bốn dòng, bốn PR đã merge
+— **mỗi PR do người khác merge, không ai tự merge của mình** — và một dòng `JOURNAL.md` ghi chỗ
+agent nói sai.
 
-> **Người dạy chuẩn bị trước buổi** (10', làm trước **một ngày** vì lời mời collaborator cần được
-> bấm nhận):
+> **Repo đội:** <https://github.com/UEH-ISB/mt-01-the-odyssey>
+>
+> **Người dạy chuẩn bị trước buổi** (10', làm trước **một ngày** vì lời mời vào org cần được bấm
+> nhận): mời bốn mentor vào org **UEH-ISB** với quyền `member`, rồi cho team/người dùng quyền
+> `push` trên repo. Và **giao số dòng** trong bảng Đội ngũ: mentor A dòng 1, B dòng 2, C dòng 3,
+> D dòng 4 — viết lên bảng lớp.
+>
 > ```bash
-> gh repo create <ORG>/mt-01-the-odyssey --template <ORG>/mt-01-starter --public
-> for u in <user1> <user2> <user3> <user4>; do
->   gh api -X PUT "repos/<ORG>/mt-01-the-odyssey/collaborators/$u" -f permission=push
-> done
+> gh api -X PUT "repos/UEH-ISB/mt-01-the-odyssey/collaborators/<github-username>" -f permission=push
 > ```
-> Muốn ép bước review thì bật ruleset cho `main`: **Require a pull request before merging** +
-> **Require 1 approval**. Lúc đó không ai push thẳng vào `main` được, kể cả người dạy — đó là
-> điều đúng, nhưng nói trước với phòng để không ai tưởng máy mình hỏng.
+>
+> Muốn **ép** luật không-tự-merge thì bật ruleset cho `main`: **Require a pull request before
+> merging** + **Require 1 approval** (repo public nên ruleset miễn phí). Lúc đó không ai push
+> thẳng vào `main` được, kể cả người dạy — đó là điều đúng, nhưng nói trước với phòng để không ai
+> tưởng máy mình hỏng.
 
 ### Bước 1 — Clone repo đội (8')
 
 Bạn **không** tạo repo. Repo đội đã có, bạn là **collaborator** — nghĩa là có quyền đẩy nhánh lên.
 
 ```bash
-gh repo clone <ORG>/mt-01-the-odyssey
+gh repo clone UEH-ISB/mt-01-the-odyssey
 cd mt-01-the-odyssey
 ls docs/giao-trinh/ docs/de-bai.md   # giáo trình và đề bài nằm sẵn trong repo
 ```
 
-**Phép kiểm:** `git remote -v` trỏ về `<ORG>/mt-01-the-odyssey`, và
-`gh api repos/<ORG>/mt-01-the-odyssey/collaborators --jq 'length'` ra **4**.
+**Phép kiểm:** `git remote -v` trỏ về `UEH-ISB/mt-01-the-odyssey`, và `git log --oneline` thấy
+commit đầu của repo.
 
-Chưa clone được, hoặc báo `Permission denied`? Chưa bấm nhận lời mời collaborator trong hộp thư
-GitHub. Gỡ ngay tại chỗ, đừng để đến bước 3.
+Clone được nhưng **push sẽ hỏng** nếu chưa bấm nhận lời mời vào org — kiểm luôn bây giờ:
+
+```bash
+gh api repos/UEH-ISB/mt-01-the-odyssey --jq '.permissions.push'   # phải ra true
+```
+
+Ra `false` hoặc báo lỗi `404`? Chưa nhận lời mời trong hộp thư GitHub. Gỡ ngay tại chỗ, đừng để
+đến bước 3.
 
 ### Bước 2 — Đọc đề bài và khung 6 tuần (10')
 
@@ -117,28 +127,33 @@ gì" trước khi phòng gõ:
 | `gh pr create` | Xin ý kiến: "đây là thứ tôi muốn đưa vào". Mở ra chỗ cho người khác đọc. |
 | `gh pr merge` | Đồng ý và nhập vào repo chính. **Việc của người review, không của tác giả.** |
 
+Việc cụ thể: mở `README.md`, tìm bảng **Đội ngũ**, điền **đúng dòng số người dạy giao cho bạn**.
+
+```
+| # | Tên | GitHub | Vai mình nhận trong đội | Câu mình chưa rõ về MT-01 |
+|---|---|---|---|---|
+| 1 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |     ← dòng của mentor A
+| 2 | _(chưa điền)_ | ...                                                  ← dòng của mentor B
+```
+
+thành:
+
+```
+| 1 | Nguyễn Văn A | @nguyenvana | Người theo deliverables | Tầng C lấy số từ đâu khi chưa môn nào được duyệt? |
+```
+
+> **Chỉ sửa dòng của bạn.** Mỗi người một dòng riêng nên git ghép được bốn PR mà không cãi nhau.
+> Sửa nhầm dòng người khác thì git báo **xung đột** — đó là bài của buổi sau, hôm nay tránh.
+> Và cột cuối viết **một câu hỏi thật**, không phải câu cho đẹp: buổi 03 sẽ lấy đúng các câu hỏi
+> đó ra trả lời.
+
 Làm từng lệnh, đừng dán cả khối:
 
 ```bash
 git switch -c gioi-thieu/<ten-ban>
-mkdir -p docs/doi-ngu
-```
-
-Tạo file `docs/doi-ngu/<ten-ban>.md`, đúng năm dòng (mỗi người **một file riêng**, nên không ai
-đụng vào dòng của ai — xung đột là bài của buổi 02, không phải hôm nay):
-
-```markdown
-# <Tên bạn>
-
-- **Vai mình nhận trong đội:** <ví dụ: người theo deliverables / người theo eval / người theo demo>
-- **Việc mình làm hằng ngày:** <một dòng>
-- **Hôm nay mình đã tự chạy được lệnh:** <dán đúng một lệnh bạn đã chạy>
-- **Câu mình chưa rõ về đề MT-01:** <một câu hỏi thật, không phải câu cho đẹp>
-```
-
-```bash
-git add docs/doi-ngu/<ten-ban>.md
-git commit -m "docs: them <ten-ban> vao doi ngu"
+# ... sửa dòng của bạn trong README.md, lưu lại ...
+git add README.md
+git commit -m "docs: them <ten-ban> vao bang doi ngu"
 git push -u origin gioi-thieu/<ten-ban>
 gh pr create --fill --base main
 ```
@@ -146,12 +161,13 @@ gh pr create --fill --base main
 **Phép kiểm:**
 ```bash
 gh pr status                                   # thấy PR của bạn, có số
-gh pr view --json files --jq '.files[].path'   # phải ra ĐÚNG MỘT file: của bạn
+gh pr diff                                     # phải chỉ có MỘT dòng thêm, MỘT dòng bớt
 ```
 
-**Đạt khi** PR chỉ chứa một file và file đó là của bạn. PR lẫn file của người khác nghĩa là bạn
-đã `git add -A` — đó là lỗi phổ biến nhất của đội ở tuần 1, và là lý do mentor phải biết đọc cột
-**Files changed** trước khi bấm merge.
+**Đạt khi** `gh pr diff` chỉ hiện **một dòng `+` và một dòng `-`** — đúng dòng của bạn. Thấy nhiều
+dòng hơn nghĩa là bạn đã chạm vào dòng người khác, hoặc `git add -A` kéo theo thứ khác. Đó là lỗi
+phổ biến nhất của đội ở tuần 1, và là lý do mentor phải biết đọc tab **Files changed** trước khi
+bấm merge.
 
 ### Bước 4 — Review PR của người bên cạnh (12') ⭐
 
@@ -163,7 +179,15 @@ gh pr list                        # bốn PR, bốn người
 gh pr diff <số-PR-người-bên-cạnh> # đọc ĐÚNG thứ họ đổi, không đọc cả repo
 ```
 
-Để lại **một câu hỏi thật** về nội dung PR đó, rồi mới duyệt:
+Trước khi duyệt, kiểm đúng ba thứ — đây là bản thu nhỏ của việc nghiệm thu PR thật:
+
+| Kiểm gì | Đạt khi |
+|---|---|
+| Họ có sửa **đúng dòng của họ** không? | Diff chỉ có một dòng `+` và một dòng `-` |
+| Cột **GitHub** có đúng username thật không? | Mở `github.com/<username>` ra xem |
+| Câu hỏi ở cột cuối có phải **câu hỏi thật** không? | Trả lời được bằng đề bài, không phải câu xã giao |
+
+Rồi để lại **một câu hỏi thật** về nội dung PR đó, rồi mới duyệt:
 
 ```bash
 gh pr review <số> --comment -b "Câu bạn chưa rõ về MT-01 là ... — bạn muốn trả lời nó bằng tầng nào của đề?"
@@ -175,11 +199,11 @@ Xong rồi lấy kết quả của cả đội về máy mình:
 
 ```bash
 git switch main && git pull
-ls docs/doi-ngu/                  # giờ có file của người khác trên máy bạn
+grep -n "^| [0-9] |" README.md    # giờ thấy dòng của người khác trên máy bạn
 ```
 
-**Đạt khi** `ls docs/doi-ngu/` thấy **≥2 file**, và `gh pr list --state merged` cho thấy PR của bạn
-do **người khác** merge.
+**Đạt khi** bảng Đội ngũ trên máy bạn có **≥2 dòng đã điền**, và `gh pr list --state merged` cho
+thấy PR của bạn do **người khác** merge.
 
 Hai thứ phải nói rõ ở bước này, vì đội sẽ mắc đúng hai thứ đó:
 - **Merge rồi không `git pull` thì máy bạn vẫn là bản cũ.** Câu "sao máy em không có file đó" ở
@@ -256,10 +280,10 @@ Ghép cặp. A làm **trưởng đội tuần 1**, B làm **mentor**. Sau 15' đ
 
 ## Tiêu chí đạt buổi 01
 
-- [ ] Clone được repo đội; `git remote -v` trỏ về repo đội
+- [ ] Clone được repo đội `UEH-ISB/mt-01-the-odyssey`; `gh api repos/UEH-ISB/mt-01-the-odyssey --jq '.permissions.push'` ra `true`
 - [ ] **PR của bạn đã merge, và do người khác merge** — `gh pr list --state merged` xác nhận
 - [ ] Bạn đã review PR của người khác: có **một comment nội dung** trước khi approve
-- [ ] `git pull` xong, `ls docs/doi-ngu/` thấy file của người khác trên máy bạn
+- [ ] `git pull` xong, bảng Đội ngũ trong `README.md` trên máy bạn có dòng của người khác
 - [ ] Nói được MT-01 có **ba tầng** và ba ràng buộc khiến nó không phải chatbot bọc API
 - [ ] `JOURNAL.md` ghi ≥1 chỗ agent nói sai về trạng thái repo, kèm **nguyên nhân** và **lệnh đã chạy**
 - [ ] Nói được 6 gate + 3 con số (100% / 82% / 64%) mà không mở tài liệu
