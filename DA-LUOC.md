@@ -6,7 +6,7 @@ giữ nguyên file của nó, chỉ **xoá phần cả 15 buổi không dùng t�
 
 | | Template gốc | Repo này |
 |---|---|---|
-| Số file git theo dõi | 94 | **68** |
+| Số file git theo dõi | 94 | **70** |
 | Trong đó `docs/guide/` | 37 file · 436 KB · ~3/4 dung lượng | đã xoá |
 
 ## Đã xoá
@@ -17,7 +17,7 @@ giữ nguyên file của nó, chỉ **xoá phần cả 15 buổi không dùng t�
 | `docs/COHORT3_REPORT.md` | 1 | Báo cáo tổng hợp của BTC về Cohort 3 — tài liệu tham khảo, không dùng trong buổi nào. Bản online: [docs/COHORT3_REPORT.md](https://github.com/hailoc12/ai20k-agent-template/blob/main/docs/COHORT3_REPORT.md) |
 
 Hai mục trên chiếm **38/94 file** và khoảng **3/4 dung lượng** của template. Phần còn lại
-(94 − 38 = **56 file**) cộng **12 file thêm vào** = **68 file**:
+(94 − 38 = **56 file**) cộng **14 file thêm vào** = **70 file**:
 
 | Thêm vào | Số file |
 |---|---|
@@ -26,8 +26,9 @@ Hai mục trên chiếm **38/94 file** và khoảng **3/4 dung lượng** của 
 | Dữ liệu đề bài: `data/rubric.yaml`, `data/plo.md`, `data/de-cuong/` | 4 |
 | Đề bài: `docs/de-bai.md` | 1 |
 | Giáo trình: `docs/giao-trinh/` | 4 |
+| Slide bài giảng: `docs/giao-trinh/slide/*.html` | 2 |
 
-`README.md` bị **ghi đè** (bản của khoá thay bản template) nên không cộng thêm file. Số 68 sẽ
+`README.md` bị **ghi đè** (bản của khoá thay bản template) nên không cộng thêm file. Số 70 sẽ
 tăng khi giáo trình soạn xong buổi 03–15.
 
 ## Giữ lại — và buổi nào dùng
@@ -63,6 +64,7 @@ Hai file `setup_hooks.ps1` và `_pyrun.cmd` là bản Windows. Mentor dùng Wind
 | Thêm | Vì sao |
 |---|---|
 | `docs/giao-trinh/` | **Giáo trình từng buổi** — tài liệu học chính của khoá |
+| `docs/giao-trinh/slide/` | **Slide bài giảng** dạng HTML độc lập, mở bằng trình duyệt |
 | `docs/de-bai.md` | Đề bài xuyên suốt MT-01. Nguồn duy nhất nằm ở thư mục giáo trình, script copy vào |
 | `data/rubric.yaml` | Rubric 6 tiêu chí — **dữ liệu riêng** của đề, thứ khiến hệ thống không phải AI wrapper |
 | `data/plo.md`, `data/de-cuong/` | PLO mẫu và đề cương tập **có lỗi cố ý ở cả 6 tiêu chí** |
