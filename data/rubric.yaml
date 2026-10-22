@@ -1,0 +1,39 @@
+# Rubric chuẩn hóa đề cương — 6 tiêu chí.
+#
+# Đây là "dữ liệu riêng" của đề MT-01: thứ khiến hệ thống không phải AI wrapper.
+# Mỗi tiêu chí phải có `nguong` ĐẾM ĐƯỢC. Ngưỡng định tính ("rõ ràng", "hợp lý")
+# thì người chấm tay không kết luận được, và agent cũng không.
+#
+# `da_cai: false` ở CẢ SÁU tiêu chí là đúng sự thật ở buổi 01-03: chưa có dòng code nào
+# kiểm chúng. Buổi 04 bạn dựng agent trên src/agents/ và bật dần lên true.
+# Tên field để không dấu vì code đọc chúng làm khóa; phần người đọc thì đủ dấu.
+
+- id: TC1
+  ten: Chuẩn đầu ra đo được
+  nguong: Không CLO nào chứa từ mơ hồ (hiểu, nắm được, biết được, làm quen, nhận thức)
+  da_cai: false
+
+- id: TC2
+  ten: CLO - PLO
+  nguong: Không CLO nào thiếu mapping; không PLO nào cả chương trình bỏ trống
+  da_cai: false
+
+- id: TC3
+  ten: CLO - đánh giá
+  nguong: Không CLO nào không được đánh giá; tổng trọng số bằng 100%
+  da_cai: false
+
+- id: TC4
+  ten: Phân bố Bloom
+  nguong: Không quá 70% CLO ở mức Remember cộng Understand
+  da_cai: false
+
+- id: TC5
+  ten: Tài liệu có nguồn và còn hạn
+  nguong: Không tài liệu nào thiếu năm; cảnh báo tài liệu quá 10 năm
+  da_cai: false
+
+- id: TC6
+  ten: ESL readiness
+  nguong: Không câu nào quá 40 từ; thuật ngữ cốt lõi có bản tiếng Anh
+  da_cai: false
