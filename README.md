@@ -14,6 +14,32 @@ Bạn **không cần biết code**. Bạn cần chạy được vài lệnh và 
 
 ---
 
+## Đội ngũ
+
+Bảng này là **bài tập đầu tiên của buổi 01**: mỗi người tự thêm tên mình vào **đúng dòng của
+mình**, bằng một Pull Request — không ai sửa thẳng vào `main`.
+
+| # | Tên | GitHub | Vai mình nhận trong đội | Câu mình chưa rõ về MT-01 |
+|---|---|---|---|---|
+| 1 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |
+| 2 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |
+| 3 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |
+| 4 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |
+| 5 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |
+| 6 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |
+
+**Ba luật của bảng này, đọc trước khi sửa:**
+
+1. **Chỉ sửa dòng số của bạn.** Người dạy giao số ở đầu buổi. Hai người sửa cùng một dòng thì git
+   báo **xung đột** — đó là bài của buổi sau, hôm nay tránh.
+2. **Không ai merge PR của chính mình.** PR của bạn do người bên cạnh đọc và merge.
+3. **Merge xong phải `git pull`.** Không pull thì máy bạn vẫn là bản cũ, và tuần sau bạn sẽ hỏi
+   "sao máy em không có file đó".
+
+Các bước cụ thể: [`docs/giao-trinh/buoi-01.md`](docs/giao-trinh/buoi-01.md) — Thực hành, bước 3.
+
+---
+
 ## Chạy lần đầu
 
 Cần sẵn: Python 3.12 (hoặc 3.11), Git. Kiểm: `python3 --version`.
