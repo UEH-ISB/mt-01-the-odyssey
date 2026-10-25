@@ -1,8 +1,6 @@
 # Installation & Environment Setup Guide
 
-**Project:** MT-01 · The Odyssey  ·  **Working branch:** `ai4b_tur`  ·  **Version:** 1.0 (22 Oct 2026)
-
-This guide takes you from an empty computer to a working development environment for this repository. It explains **what** each technology is for (Section 0), **how** to install, test and first-run it on **Windows, macOS and Linux** (Section 1), and **where** to read further (Section 2).
+**Project:** MT-01 · The Odyssey  ·  **Working branch:** `ai4b_tur`
 
 > **How to read the commands.** Every command block is labelled with the operating system it is for. Windows commands are for **PowerShell**, macOS commands are for **Terminal (zsh)**, and Linux commands are for **Ubuntu/Debian (bash)**. Type a command, press **Enter**, then compare the result with the **Check** line below it before moving on.
 
@@ -23,9 +21,9 @@ This guide takes you from an empty computer to a working development environment
 
 ### 0.1 The big picture
 
-The project is a web application with an AI agent inside it. A user opens the **frontend** in a browser; the frontend calls the **backend API** written in Python; the backend reads and writes data in a **database** using SQL, and calls large language models for its AI features. A set of developer tools and AI assistants support every layer.
+![Figure 1. Main technologies.](images/installations/fig-01-tech-stack.png)
 
-![Figure 1. How the technologies used in this project fit together.](images/installations/fig-01-tech-stack.png)
+*Figure 1. Main technologies.*
 
 ### 0.2 Programming, query and web languages
 
@@ -42,15 +40,15 @@ In short: **HTML** gives the page its structure, **CSS** makes it look good, **J
 
 ### 0.3 AI tools
 
-| Tool | Provider | Main objective | Best used for | Priority |
-|---|---|---|---|---|
-| **Claude** (Claude Code, Desktop app, VS Code extension) | Anthropic | AI assistant and **agentic coding tool** that reads your codebase, edits files, runs commands and works with Git | Building features, fixing bugs, explaining code, writing tests and documents | **Primary** |
-| **ChatGPT** | OpenAI | General conversational assistant | Brainstorming, explanations, second opinions | Optional |
-| **Cursor** | Anysphere | AI-first code editor based on VS Code | Inline AI completions and chat inside an editor | Optional |
-| **Codex** | OpenAI | Coding agent for the terminal and cloud | Alternative coding agent for comparison | Optional |
-| **Gemini** (app, Gemini CLI) | Google | General assistant and terminal coding agent | Alternative assistant; long-document questions | Optional |
+| Tool | Provider | Main objective | Best used for |
+|---|---|---|---|
+| **Claude** (Claude Code, Desktop app, VS Code extension) | Anthropic | AI assistant and **agentic coding tool** that reads your codebase, edits files, runs commands and works with Git | Building features, fixing bugs, explaining code, writing tests and documents |
+| **ChatGPT** | OpenAI | General conversational assistant | Brainstorming, explanations, second opinions |
+| **Cursor** | Anysphere | AI-first code editor based on VS Code | Inline AI completions and chat inside an editor |
+| **Codex** | OpenAI | Coding agent for the terminal and cloud | Alternative coding agent for comparison |
+| **Gemini** (app, Gemini CLI) | Google | General assistant and terminal coding agent | Alternative assistant; long-document questions |
 
-> **Note:** This repository is already prepared for several AI tools. Look for `CLAUDE.md`, `.claude/`, `.cursor/`, `.codex/` and `.gemini/` in the project root, plus shared rules in `.agents/rules/`. Each tool reads its own folder automatically, so the whole team gets the same rules.
+> **Note:** for `CLAUDE.md`, `.claude/`, `.cursor/`, `.codex/` and `.gemini/` in the project root, plus shared rules in `.agents/rules/`. Each tool reads its own folder automatically, so the whole team gets the same rules.
 
 ### 0.4 Supporting tools
 
@@ -68,6 +66,8 @@ In short: **HTML** gives the page its structure, **CSS** makes it look good, **J
 Install the tools in the order below. Git comes first because Claude Code on Windows needs Git Bash, and Node.js comes before the frontend frameworks because they run on it.
 
 ![Figure 2. Recommended installation order. Dark blue and orange boxes are the main components; grey boxes are the other tools.](images/installations/fig-02-install-order.png)
+
+*Figure 2. Recommended installation order. Dark blue and orange boxes are the main components; grey boxes are the other tools.*
 
 | Requirement | Minimum |
 |---|---|
@@ -93,6 +93,18 @@ A **terminal** is a window where you type commands.
 | **macOS** | Press **Cmd + Space**, type `Terminal`, press **Enter** |
 | **Linux** | Press **Ctrl + Alt + T** |
 
+Example with Windows:
+
+- **PowerShell:** search > PowerShell
+
+  ![PowerShell window](images/installations/shot-01-powershell-window.png)
+
+  *PowerShell Window*
+
+- **Command Prompt:** search > cmd > Command Prompt (Run as Administrator)
+
+  ![Command Prompt window](images/installations/shot-02-command-prompt.png)
+
 #### Step 2 — Get a package manager
 
 A **package manager** installs software with one command. The commands in this guide use these.
@@ -102,6 +114,8 @@ A **package manager** installs software with one command. The commands in this g
 ```powershell
 winget --version
 ```
+
+![winget --version output](images/installations/shot-03-winget-version.png)
 
 **macOS** — install Homebrew:
 
@@ -126,6 +140,8 @@ sudo apt update
 $env:Path -split ';'
 ```
 
+![Folders on PATH in PowerShell](images/installations/shot-04-path-folders.png)
+
 **macOS / Linux** — show the folders on PATH:
 
 ```bash
@@ -138,17 +154,20 @@ echo $PATH | tr ':' '\n'
 
 ### 1.1 Python
 
-Python 3.12 is the version used by this project (3.11 also works).
+Python 3.12 is recommended (3.11 also works).
 
 #### Step 1 — Download and install
 
-**Windows (PowerShell)**
+- **Windows (PowerShell)**
 
-```powershell
-winget install -e --id Python.Python.3.12
-```
+  ```powershell
+  winget install -e --id Python.Python.3.12
+  ```
 
-Or download the installer from **python.org/downloads**. On the first screen, tick **"Add python.exe to PATH"**, then click **Install Now**.
+- Or download the installer from **python.org/downloads**. On the first screen, tick **"Add python.exe to PATH"**, then click **Install Now**.
+- Test in terminal PowerShell:
+
+  ![Testing Python in PowerShell](images/installations/shot-05-python-test-powershell.png)
 
 **macOS (Terminal)**
 
@@ -172,13 +191,18 @@ sudo apt install -y python3.12 python3.12-venv
 
 #### Step 2 — Set the environment variable (PATH)
 
-**Windows** — if `python` is not found after installation:
+**Windows** — if `python` is not found after installation (common error):
 
 1. Press **Start**, type **"Edit environment variables for your account"**, open it.
 2. Select **Path** → **Edit** → **New**, and add these two lines (replace `<you>` with your user name):
    `C:\Users\<you>\AppData\Local\Programs\Python\Python312\` and `C:\Users\<you>\AppData\Local\Programs\Python\Python312\Scripts\`
+
+   ![Adding the Python folders to Path](images/installations/shot-06-edit-path-python.png)
+
 3. Click **OK**, then close and reopen PowerShell.
 4. If typing `python` opens the **Microsoft Store**, open **Settings → Apps → Advanced app settings → App execution aliases** and switch off **python.exe** and **python3.exe**.
+
+   ![App execution aliases](images/installations/shot-07-app-execution-aliases.png)
 
 **macOS / Linux** — Homebrew and apt already put Python on PATH. To check which Python runs, and to add a folder to PATH permanently:
 
@@ -192,13 +216,15 @@ echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc   # Linux (bash)
 
 #### Step 3 — Test the installation
 
-**Windows**
+**Windows (Terminal: PowerShell or Command Prompt)**
 
 ```powershell
 python --version
 python -m pip --version
 python -c "print('Hello from Python')"
 ```
+
+![Python test output](images/installations/shot-08-python-test.png)
 
 **macOS / Linux**
 
@@ -210,7 +236,7 @@ python3 -c "print('Hello from Python')"
 
 > **Check:** You see `Python 3.12.x`, a `pip` version, and `Hello from Python`.
 
-#### Step 4 — Create a virtual environment for the project
+#### Step 4 — Create a virtual environment for the project (recommended)
 
 A **virtual environment** (`.venv`) is a private folder of Python packages for one project. It keeps this project's packages separate from every other project on your computer. Create it **once**, inside the project folder.
 
@@ -238,9 +264,9 @@ source .venv/bin/activate
 
 > **Check:** Your prompt now starts with `(.venv)`. Run `deactivate` to leave the environment. **Activate it again every time you open a new terminal.**
 
-#### Step 5 — Install the project packages and create `.env`
+#### Step 5 — Install the project packages and create `.env` (Important)
 
-With `(.venv)` active, on any OS:
+With `(.venv)` active, on any OS => In the terminal (PowerShell, Command Prompt):
 
 ```bash
 python -m pip install --upgrade pip
@@ -263,7 +289,7 @@ cp .env.example .env
 
 > **Important:** `.env` holds your API keys and is listed in `.gitignore`. **Never commit `.env`** and never paste its contents into a chat.
 
-#### Step 6 — First run
+#### Step 6 — First run (recommended)
 
 1. Create a file `hello.py` containing `print("Hello, Odyssey!")` and run it with `python hello.py`.
 2. Start the project API (keep this terminal open).
@@ -290,7 +316,7 @@ curl.exe -s localhost:8000/health    # Windows PowerShell
 
 > **Check:** The response contains `"status":"ok"`. Press **Ctrl + C** in the first terminal to stop the server. Note: `make test` currently shows *2 passed, 3 errors*. This is expected and is fixed in session 02 (see `README.md`).
 
-**Project folders after this step**
+**Potential project folders after this step**
 
 ```text
 mt-01-the-odyssey/
@@ -319,6 +345,8 @@ mt-01-the-odyssey/
 winget install -e --id Microsoft.VisualStudioCode
 ```
 
+Or
+
 If you use the installer from **code.visualstudio.com/download**, tick **"Add to PATH"** and **"Add 'Open with Code' action"**.
 
 **macOS**
@@ -343,6 +371,8 @@ Or download the `.deb` file from code.visualstudio.com and run `sudo apt install
 code --version
 ```
 
+![code --version output](images/installations/shot-09-code-version.png)
+
 > **Check:** A version number is printed. Inside the project folder, `code .` opens the whole folder in VS Code.
 
 #### Step 3 — Install the recommended extensions
@@ -356,6 +386,10 @@ code --version
 | Docker | `ms-azuretools.vscode-docker` | Manage containers and Dockerfiles |
 | ESLint | `dbaeumer.vscode-eslint` | Find problems in JavaScript/TypeScript |
 | Prettier | `esbenp.prettier-vscode` | Format frontend code |
+
+![Installing extensions in VS Code](images/installations/shot-10-vscode-extensions.png)
+
+Or
 
 Install them all at once from a terminal (same on every OS):
 
@@ -373,6 +407,9 @@ code --install-extension esbenp.prettier-vscode
 
 1. **File → Open Folder…** and choose `mt-01-the-odyssey`.
 2. Press **Ctrl + Shift + P** (macOS: **Cmd + Shift + P**) → **Python: Select Interpreter** → choose the one inside **`.venv`**.
+
+   ![Python: Select Interpreter](images/installations/shot-11-select-interpreter.png)
+
 3. Open the built-in terminal with **Ctrl + `** (backtick). It activates `.venv` automatically.
 
 #### Step 5 — First run
@@ -381,21 +418,27 @@ code --install-extension esbenp.prettier-vscode
 2. Click the **▶ Run Python File** button at the top right. The output appears in the terminal panel.
 3. To debug, click to the left of a line number to set a red **breakpoint**, then press **F5**.
 
+   Or run it in the terminal:
+
+   ```bash
+   python hello.py
+   ```
+
 > **Tip:** The `.vscode/` folder is in `.gitignore`, so your personal editor settings are never pushed to the team.
 
 ---
 
 ### 1.3 Claude
 
-Claude is the **primary AI tool** for this project. You can use it in three places, and all three share your account and read the same project instructions in `CLAUDE.md`.
-
 ![Figure 3. The three ways to use Claude and what each is best for.](images/installations/fig-03-claude-surfaces.png)
+
+*Figure 3. The three ways to use Claude and what each is best for.*
 
 > **Account:** Claude Code needs a paid **Claude Pro, Max, Team or Enterprise** plan, or a **Claude Console** (API) account. Check the current plans at claude.com/pricing.
 
 #### 1.3.1 Claude Code in the terminal (most important)
 
-**Step 1 — Prerequisites.** On **Windows**, install **Git for Windows** first (section 1.4.1). Claude Code uses Git Bash to run commands. Nothing extra is needed on macOS or Linux.
+**Step 1 — Prerequisites.** On **Windows**, install **Git for Windows** first (section 1.4.1). Claude Code uses Git Bash to run commands. Nothing extra is needed on macOS or Linux. (https://code.claude.com/docs/en/overview#vs-code)
 
 **Step 2 — Install.** Use the **native installer**, which updates itself automatically.
 
@@ -404,6 +447,14 @@ Claude is the **primary AI tool** for this project. You can use it in three plac
 ```powershell
 irm https://claude.ai/install.ps1 | iex
 ```
+
+**Windows (Command Prompt)**
+
+```bat
+curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
+```
+
+![Installing Claude Code from Command Prompt](images/installations/shot-12-claude-install-cmd.png)
 
 **macOS / Linux / WSL**
 
@@ -422,6 +473,14 @@ claude --version
 claude doctor
 ```
 
+- Click on this symbol in VS Code to open the terminal panel:
+
+  ![Opening the terminal in VS Code](images/installations/shot-13-vscode-open-terminal.png)
+
+- Test the installation with the commands above:
+
+  ![claude --version and claude doctor output](images/installations/shot-14-claude-version-doctor.png)
+
 > **Check:** A version number is printed, and `claude doctor` reports no errors.
 
 **Step 5 — First run and login**
@@ -431,17 +490,13 @@ cd mt-01-the-odyssey
 claude
 ```
 
-1. Choose a **login method** (your Claude subscription, or Console account). A browser window opens; sign in and approve.
-2. When asked whether you **trust this folder**, choose **Yes**.
-3. Try your first prompts:
+![Trust this folder prompt](images/installations/shot-15-claude-trust-folder.png)
 
-```text
-> what does this project do?
-> explain the folder structure of this repo
-> where is the FastAPI entry point, and how do I run it?
-```
+![Claude Code welcome screen](images/installations/shot-16-claude-welcome.png)
 
-4. Claude shows you every file change and command and asks for permission before it acts. Read each one, then approve or reject it.
+Ten Ten. We almost finished the set-up :D !!!
+
+> **Note:** For the new user, we need to choose a **login method** (your Claude subscription, or Console account). A browser window opens; sign in and approve.
 
 > **Important:** This repo **already has a `CLAUDE.md`**, so Claude follows the course rules automatically. Do **not** run `/init` here, because it would rewrite that file. Use `/init` only in a new project to generate a first `CLAUDE.md`.
 
@@ -493,7 +548,9 @@ mt-01-the-odyssey/
 - **macOS:** download the `.dmg` from **claude.ai/download** and drag **Claude** into **Applications**.
 - **Linux:** there is no official desktop app. Use **claude.ai** in your browser together with Claude Code in the terminal.
 
-**Step 2 — Sign in and test.** Open Claude and sign in with the same account. Ask a short question such as *"Explain what FastAPI is in three sentences"*.
+![Claude Desktop app](images/installations/shot-17-claude-desktop.png)
+
+**Step 2 — Sign in and test.** Open Claude and sign in with the same account.
 
 **Step 3 — First run with the project.** Use the **chat** for planning, explanations and documents; attach files with the paperclip icon. To work on code from the app, open the **Code** tab, choose the `mt-01-the-odyssey` folder, and describe the task. It runs the same Claude Code engine as the terminal.
 
@@ -524,7 +581,7 @@ code --install-extension anthropic.claude-code
 | **Edits files / runs commands** | In the Code tab | Yes | Yes |
 | **Start it with** | Claude app icon | `claude` | Spark icon in VS Code |
 
-> **Good practice:** Always work on branch `ai4b_tur`, ask Claude for **small** changes, read every diff before accepting, and commit after each working step.
+=> **Terminal is priority.**
 
 ---
 
@@ -541,6 +598,10 @@ winget install -e --id Git.Git
 ```
 
 Keep the default options in the installer. They include **Git Bash** and **Git Credential Manager**.
+
+Or download directly from the website: https://git-scm.com/install/
+
+![Git download page](images/installations/shot-18-git-download.png)
 
 **macOS**
 
@@ -563,7 +624,15 @@ git config --global user.email "you@example.com"
 git config --global init.defaultBranch main
 ```
 
+Open Git Bash:
+
+![Opening Git Bash](images/installations/shot-19-open-git-bash.png)
+
+![git --version in Git Bash](images/installations/shot-20-git-bash-version.png)
+
 > **Check:** `git --version` prints a version, and `git config --global --list` shows your name and email. Use the **same email as your GitHub account**.
+
+![git config --global --list output](images/installations/shot-21-git-config-list.png)
 
 **Step 3 — Connect to GitHub.** The first `git push` opens a browser window to sign in to GitHub (Git Credential Manager). If it fails, install the GitHub CLI and sign in with it. When asked, choose **GitHub.com → HTTPS → Login with a web browser**.
 
@@ -594,6 +663,8 @@ git push
 When the work is ready, open GitHub → **Pull requests → New pull request**, set **base: `main`** and **compare: `ai4b_tur`**, and ask a teammate to review and merge.
 
 ![Figure 4. The daily development loop on the team branch.](images/installations/fig-04-dev-workflow.png)
+
+*Figure 4. The daily development loop on the team branch.*
 
 #### 1.4.2 Node.js (and npm)
 
