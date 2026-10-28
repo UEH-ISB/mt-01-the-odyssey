@@ -6,7 +6,7 @@ giữ nguyên file của nó, chỉ **xoá phần cả 15 buổi không dùng t�
 
 | | Template gốc | Repo này |
 |---|---|---|
-| Số file git theo dõi | 94 | **100** |
+| Số file git theo dõi | 94 | **104** |
 | Trong đó `docs/guide/` | 37 file · 436 KB · ~3/4 dung lượng | đã xoá |
 
 ## Đã xoá
@@ -17,7 +17,7 @@ giữ nguyên file của nó, chỉ **xoá phần cả 15 buổi không dùng t�
 | `docs/COHORT3_REPORT.md` | 1 | Báo cáo tổng hợp của BTC về Cohort 3 — tài liệu tham khảo, không dùng trong buổi nào. Bản online: [docs/COHORT3_REPORT.md](https://github.com/hailoc12/ai20k-agent-template/blob/main/docs/COHORT3_REPORT.md) |
 
 Hai mục trên chiếm **38/94 file** và khoảng **3/4 dung lượng** của template. Phần còn lại
-(94 − 38 = **56 file**) cộng **44 file thêm vào** = **100 file**:
+(94 − 38 = **56 file**) cộng **48 file thêm vào** = **104 file**:
 
 | Thêm vào | Số file |
 |---|---|
@@ -30,7 +30,7 @@ Hai mục trên chiếm **38/94 file** và khoảng **3/4 dung lượng** của 
 | Hướng dẫn cài đặt: `docs/installations.md` + `.docx` | 2 |
 | Ảnh chụp màn hình: `docs/images/installations/` | 25 |
 
-`README.md` bị **ghi đè** (bản của khoá thay bản template) nên không cộng thêm file. Số 100 sẽ
+`README.md` bị **ghi đè** (bản của khoá thay bản template) nên không cộng thêm file. Số 104 sẽ
 tăng khi giáo trình soạn xong các buổi còn lại.
 
 ## Giữ lại — và buổi nào dùng

@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="vi">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Buổi 01 — Sáu tuần, sáu cổng</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&amp;display=swap">
+<title>Session 01 — Six weeks, six gates</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400..700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&amp;display=swap">
 <style>
   :root { --backdrop:#0E141C; --ui:#8E9CAA; --ui-strong:#F6F6F2; }
   * { box-sizing:border-box; }
@@ -21,7 +21,7 @@
   #stage > section:not(.live) { display:none !important; }
 
   /* --- mac dinh cho the trong slide --- */
-  #stage h1, #stage h2, #stage h3, #stage p, #stage ul, #stage ol, #stage table { margin:0; }
+  #stage h1, #stage h2, #stage h3, #stage p, #stage ul, #stage ol, #stage table, #stage pre { margin:0; }
   #stage h1, #stage h2, #stage h3 { text-wrap:balance; }
   #stage ul, #stage ol { padding-left:34px; }
   #stage li { margin:0 0 6px; }
@@ -42,6 +42,144 @@
   #stage x-shape[kind="arrow-down"]  { clip-path:polygon(30% 0,70% 0,70% 62%,100% 62%,50% 100%,0 62%,30% 62%); }
   #stage x-shape[kind="arrow-up"]    { clip-path:polygon(30% 100%,70% 100%,70% 38%,100% 38%,50% 0,0 38%,30% 38%); }
   #stage x-shape[kind="line"] { }
+
+  /* --- hinh SVG: icon dung chung (#defs) + so do trong slide --- */
+  #defs { position:absolute; width:0; height:0; overflow:hidden; }
+  #stage svg { display:block; flex:none; overflow:visible; fill:#16202E;
+               font-family:'Be Vietnam Pro', Arial, sans-serif; }
+  #stage svg .mono { font-family:'Courier New', monospace; }
+  #stage .ic { width:40px; height:40px; flex:none; }
+  #stage .eyebrow { font-size:24px; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:#1C6B72; }
+  #stage pre.code { font-family:'Courier New', monospace; background:#16202E; color:#E6E9EC;
+                    border-radius:12px; padding:22px 26px; white-space:pre; }
+  #stage pre.code .c { color:#8E9CAA; }
+  #stage pre.code .h { color:#E8B34A; font-weight:700; }
+  #stage pre.code .k { color:#7FC4C9; }
+  #stage code { font-family:'Courier New', monospace; }
+  /* tu dong nghia (a.k.a.) dat sau mot thuat ngu */
+  #stage .aka { font-weight:400; font-style:italic; color:#7E8A96; }
+
+  /* --- slide bai tap (exercise) --- */
+  #stage .eyebrow.ex { color:#B07A12; }
+  #stage .tag { display:inline-block; font-size:14px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+                padding:3px 10px; border-radius:999px; white-space:nowrap; }
+  #stage .tag.must { background:#A3302A; color:#FFFFFF; }
+  #stage .tag.rec  { background:#1C6B72; color:#FFFFFF; }
+  #stage .tag.opt  { background:#EDEDE7; color:#48515E; border:1px solid #C9CCC4; }
+  #stage .path { font-family:'Courier New', monospace; color:#6B4A0C; }
+  #stage kbd { font-family:'Courier New', monospace; font-size:.9em; background:#EDEDE7; border:1px solid #C9CCC4;
+               border-radius:4px; padding:1px 6px; }
+
+  /* --- exercise v2: workflow chips, Claude Code cards, role/page cards, step tables, questions, endpoint strip --- */
+  #stage .flow { flex:1; display:flex; flex-direction:column; justify-content:space-between; gap:8px; background:#FFFFFF;
+                 border:1px solid #D9DBD4; border-radius:10px; padding:10px 12px; }
+  #stage .flow b { color:#1C6B72; font-size:18px; }
+  #stage .cc { flex:1; display:flex; flex-direction:column; gap:9px; background:#FFFFFF; padding:16px 22px 18px;
+               border:1px solid #D9DBD4; border-top:6px solid; border-radius:12px; }
+  #stage .cc h3 { font-size:28px; font-weight:600; }
+  #stage .cc h3 span { display:block; font-size:17px; font-weight:400; font-style:italic; color:#7E8A96; margin-top:2px; }
+  #stage .cc p { font-size:17px; line-height:1.4; color:#48515E; }
+  #stage .cc p > b:first-child { display:inline-block; width:66px; color:#16202E; }
+  #stage .cc pre.code { font-size:15px; line-height:1.38; padding:12px 14px; margin-top:auto; }
+  #stage .role { flex:1; display:flex; flex-direction:column; gap:10px; }
+  #stage .role .who { color:#F6F6F2; font-size:18px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+                      padding:8px 16px; border-radius:10px; text-align:center; }
+  #stage .page { display:flex; flex-direction:column; gap:8px; background:#FFFFFF; border:1px solid #D9DBD4;
+                 border-radius:12px; padding:14px 16px; }
+  #stage .page.key { flex:1; border:2px solid #E8B34A; }
+  #stage .page .pt { font-size:22px; font-weight:600; }
+  #stage .page .pt span { font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; background:#E8B34A;
+                          color:#16202E; padding:3px 8px; border-radius:999px; margin-left:8px; vertical-align:middle; }
+  #stage .page ul { font-size:17px; line-height:1.38; color:#48515E; padding-left:22px; }
+  #stage .page li { margin:0 0 4px; }
+  #stage .page ul b { color:#16202E; }
+  #stage .page .pat { margin-top:auto; font-size:15px; line-height:1.4; color:#6B4A0C; background:#FBF4E4; border-radius:8px; padding:8px 10px; }
+  #stage table.steps { font-size:18px; line-height:1.34; border:1px solid #D9DBD4; border-radius:10px; }
+  #stage table.steps th { background:#16202E; color:#F6F6F2; font-weight:600; padding:10px 14px; }
+  #stage table.steps td { padding:12px 14px; color:#48515E; }
+  #stage table.steps tr:nth-child(odd) td { background:#EDEDE7; }
+  #stage table.steps td b { color:#16202E; }
+  #stage table.steps td i { color:#7E8A96; }
+  #stage table.steps td.n { font-weight:700; color:#16202E; }
+  #stage table.steps td.n .tag { display:table; margin-top:6px; }
+  #stage table.steps code { font-size:.92em; color:#6B4A0C; }
+  #stage .tag.today { background:#1C6B72; color:#FFFFFF; }
+  #stage .tag.later { background:#16202E; color:#E8B34A; }
+  #stage .q { flex:1; display:flex; gap:16px; align-items:flex-start; background:#FFFFFF; border:1px solid #D9DBD4;
+              border-left:5px solid #1C6B72; border-radius:12px; padding:12px 18px; }
+  #stage .q .qn { font-size:30px; font-weight:700; color:#1C6B72; width:24px; line-height:1.1; }
+  #stage .q .qt { font-size:21px; font-weight:600; }
+  #stage .q .qh { font-size:17px; line-height:1.4; color:#48515E; }
+  #stage .ep { flex:1; display:flex; flex-direction:column; gap:6px; background:#FFFFFF; border:1px solid #D9DBD4;
+               border-top:4px solid #1C6B72; border-radius:10px; padding:10px 12px; font-size:16px; }
+  #stage .ep .eh { font-size:16px; font-weight:700; color:#1C6B72; }
+  #stage .ep pre { font-family:'Courier New', monospace; font-size:13px; line-height:1.35; background:#16202E; color:#E6E9EC;
+                   border-radius:6px; padding:7px 9px; white-space:pre; }
+  #stage .ep .c2 { font-size:14px; line-height:1.35; color:#48515E; }
+  #stage .ep .m { font-family:'Courier New', monospace; font-weight:700; background:#E8B34A; border-radius:5px; padding:1px 6px; }
+  #stage .ep .m.ok { background:#7FC4C9; }
+  #stage .ea { align-self:center; font-size:22px; color:#7E8A96; }
+
+  /* --- exercise v3: common format — brief (task · input & tools · output), steps (main · manual · keywords) --- */
+  #stage .card { display:flex; flex-direction:column; gap:8px; background:#FFFFFF; padding:16px 22px;
+                 border:1px solid #D9DBD4; border-left:5px solid #1C6B72; border-radius:12px; }
+  #stage .lb { font-size:16px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#1C6B72; }
+  #stage .tx { font-size:19px; line-height:1.42; color:#48515E; }
+  #stage ul.tx { padding-left:24px; }
+  #stage .tx b { color:#16202E; }
+  #stage .nt { font-size:16px; line-height:1.4; color:#7E8A96; }
+  #stage .inp { display:grid; grid-template-columns:104px 1fr; gap:8px 12px; font-size:17px; line-height:1.38; color:#48515E; }
+  #stage .inp > b { color:#16202E; }
+  #stage .out { flex:1; display:flex; flex-direction:column; background:#FFFFFF; border:1px solid #D9DBD4;
+                border-radius:12px; overflow:hidden; }
+  #stage .oh { display:flex; justify-content:space-between; align-items:center; gap:16px; background:#16202E; padding:10px 20px; }
+  #stage .of { font-family:'Courier New', monospace; font-size:18px; color:#F6F6F2; }
+  #stage .ol { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#E8B34A; white-space:nowrap; }
+  #stage .ob { flex:1; display:flex; flex-direction:column; gap:10px; padding:14px 20px 16px; }
+  #stage .os { font-size:17px; font-weight:700; color:#1C6B72; }
+  #stage table.tt { font-size:16px; line-height:1.3; border:1px solid #D9DBD4; border-radius:8px; }
+  #stage table.tt th { background:#EDEDE7; font-weight:600; text-align:left; padding:6px 10px; }
+  #stage table.tt td { padding:6px 10px; color:#48515E; border-top:1px solid #E4E5DF; }
+  #stage table.tt td:first-child { font-weight:600; color:#16202E; }
+  #stage table.tt[style] td, #stage table.tt[style] th { padding:8px 12px; }
+  #stage table.tt td.te { font-weight:700; color:#1C6B72; }
+  #stage .st { display:flex; gap:14px; align-items:flex-start; background:#FFFFFF; border:1px solid #D9DBD4;
+               border-radius:10px; padding:9px 14px; }
+  #stage .st .sn { flex:none; width:30px; height:30px; border-radius:50%; background:#1C6B72; color:#FFFFFF;
+                   font-size:17px; font-weight:700; text-align:center; line-height:30px; }
+  #stage .st > div { flex:1; display:flex; flex-direction:column; gap:4px; }
+  #stage .st .stt { font-size:19px; font-weight:600; }
+  #stage .st .sd { font-size:16px; line-height:1.35; color:#48515E; }
+  #stage .pr { font-size:16px; line-height:1.38; color:#16202E; background:#E7F0F1; border-left:3px solid #1C6B72;
+               border-radius:4px; padding:4px 10px; }
+  #stage table.steps .pr { display:block; font-size:15px; margin:2px 0 3px; }
+  #stage table.cmp { font-size:16px; line-height:1.32; border:1px solid #D9DBD4; border-radius:10px; }
+  #stage table.cmp th { color:#FFFFFF; font-size:19px; font-weight:600; padding:8px 12px; text-align:left; }
+  #stage table.cmp th:first-child { background:#16202E; }
+  #stage table.cmp td { padding:6px 12px; color:#48515E; vertical-align:top; background:#FFFFFF; border-top:1px solid #E4E5DF; }
+  #stage table.cmp td:first-child { font-weight:700; color:#16202E; background:#EDEDE7; width:84px; }
+  #stage table.cmp tr.nx td { background:#FBF5E6; }
+  #stage table.cmp tr.nx td:first-child { background:#F3E3BA; }
+  #stage .low { display:flex; gap:18px; align-items:stretch; }
+  #stage .manual { flex:1.5; display:flex; flex-direction:column; gap:6px; background:#FBEDEC; border:1px solid #E7C3BF;
+                   border-left:5px solid #A3302A; border-radius:12px; padding:11px 20px; }
+  #stage .manual .lb { color:#A3302A; }
+  #stage .manual ul { display:grid; grid-template-columns:1fr 1fr; gap:3px 26px; font-size:16px; line-height:1.36;
+                      color:#48515E; padding-left:20px; }
+  #stage .manual b { color:#16202E; }
+  #stage .kw { flex:1; display:flex; flex-direction:column; gap:8px; background:#16202E; border-radius:12px; padding:11px 20px; }
+  #stage .kw .lb { color:#E8B34A; }
+  #stage .kw p { display:flex; flex-wrap:wrap; gap:6px; }
+  #stage .kw p span { font-size:15px; color:#F6F6F2; background:#2A3A50; border-radius:999px; padding:3px 11px; }
+  #stage .tag.man { background:#A3302A; color:#FFFFFF; }
+  #stage .api { display:inline-block; font-family:'Courier New', monospace; font-size:14px; background:#16202E; color:#E6E9EC;
+                border-radius:5px; padding:2px 7px; margin:0 4px 4px 0; white-space:nowrap; }
+  #stage .api b { color:#E8B34A; }
+  #stage .cmpn { font-size:15px; line-height:1.35; color:#7E8A96; }
+  #stage .cmpn b { color:#48515E; }
+  #stage table.steps.v3 td.n .tag { display:inline-block; margin:0 0 0 4px; font-size:12px; padding:2px 8px; vertical-align:1px; }
+  #stage table.steps.v3 td { padding:10px 12px; }
+  #stage table.steps.v3.roomy td { padding:13px 12px; }
 
   /* --- thanh dieu khien --- */
   #bar { position:fixed; left:0; right:0; bottom:0; height:44px; display:flex; align-items:center;
@@ -77,885 +215,1219 @@
 </style>
 </head>
 <body>
+
+
+<!-- icon + mui ten dung chung cho moi so do -->
+<svg id="defs" aria-hidden="true">
+<defs>
+  <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7E8A96"/></marker>
+  <marker id="ah-t" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1C6B72"/></marker>
+  <marker id="ah-a" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E8B34A"/></marker>
+  <marker id="ah-b" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6B4A0C"/></marker>
+  <marker id="ah-r" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#A3302A"/></marker>
+</defs>
+<symbol id="i-user" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="15" r="8"/><path d="M8 43a16 16 0 0 1 32 0"/></g></symbol>
+<symbol id="i-browser" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="40" height="32" rx="4"/><path d="M4 17h40"/><path d="M10 12.5h1M15 12.5h1M20 12.5h1"/><path d="M12 25h16M12 31h24"/></g></symbol>
+<symbol id="i-server" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="6" width="34" height="15" rx="3"/><rect x="7" y="27" width="34" height="15" rx="3"/><path d="M13 13.5h1M13 34.5h1M22 13.5h13M22 34.5h13"/></g></symbol>
+<symbol id="i-db" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="10" rx="15" ry="5"/><path d="M9 10v28c0 2.8 6.7 5 15 5s15-2.2 15-5V10"/><path d="M9 24c0 2.8 6.7 5 15 5s15-2.2 15-5"/></g></symbol>
+<symbol id="i-agent" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="9" r="5"/><circle cx="9" cy="38" r="5"/><circle cx="39" cy="38" r="5"/><circle cx="24" cy="26" r="4"/><path d="M24 14v8M21 29l-8 6M27 29l8 6M14 38h20"/></g></symbol>
+<symbol id="i-cloud" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 37h22a8 8 0 0 0 1-16 11 11 0 0 0-21-3 9 9 0 0 0-2 19z"/></g></symbol>
+<symbol id="i-gear" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="7"/><path d="M24 4v7M24 37v7M4 24h7M37 24h7M10 10l5 5M33 33l5 5M38 10l-5 5M15 33l-5 5"/></g></symbol>
+<symbol id="i-store" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18 9 7h30l4 11"/><path d="M5 18h38v3a6 6 0 0 1-9.5 0 6 6 0 0 1-9.5 0 6 6 0 0 1-9.5 0A6 6 0 0 1 5 21z"/><path d="M9 25v17h30V25"/><path d="M20 42V32h8v10"/></g></symbol>
+<symbol id="i-menu" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 11c-5-4-12-4-18-2v30c6-2 13-2 18 2 5-4 12-4 18-2V9c-6-2-13-2-18 2z"/><path d="M24 11v30M11 18h8M11 24h8M29 18h8M29 24h8"/></g></symbol>
+<symbol id="i-waiter" viewBox="0 0 48 48"><path d="M4 46V31a11 11 0 0 1 22 0v15z" fill="currentColor" opacity=".14"/><path d="M30 23a7 7 0 0 1 14 0z" fill="currentColor" opacity=".14"/><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="9" r="5.5"/><path d="M4 46V31a11 11 0 0 1 22 0v15"/><path d="M15 23l-3.5 9M15 23l3.5 9"/><path d="M26 30l6-6"/><path d="M27 23h19"/><path d="M30 23a7 7 0 0 1 14 0"/><path d="M37 14.5v1.5"/></g><path d="M11.2 18.4l3.8 2 3.8-2v4l-3.8-2-3.8 2z" fill="currentColor"/></symbol>
+<symbol id="i-pot" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h32v13a7 7 0 0 1-7 7H15a7 7 0 0 1-7-7z"/><path d="M3 25h5M40 25h5"/><path d="M7 18h34M21 14h6"/><path d="M16 3c-2 2.5 2 3.5 0 6.5M24 2c-2 2.5 2 3.5 0 6.5M32 3c-2 2.5 2 3.5 0 6.5"/><path d="M5 46h38"/></g></symbol>
+<symbol id="i-ticket" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5h26v38l-4.3-3-4.4 3-4.3-3-4.3 3-4.4-3L11 43z"/><path d="M17 14h14M17 21h14M17 28h8"/></g></symbol>
+<symbol id="i-chef" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 24a7 7 0 0 1 1.5-13.5A9 9 0 0 1 32.5 10.5 7 7 0 0 1 34 24z"/><path d="M15 24v6h18v-6"/><path d="M16 36h16M18 42h12"/></g></symbol>
+<symbol id="i-flask" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 5h12M20 5v13L9 38a3.5 3.5 0 0 0 3 5h24a3.5 3.5 0 0 0 3-5L28 18V5"/><path d="M13 31h22"/><circle cx="21" cy="36" r="1.5"/><circle cx="28" cy="35" r="1"/></g></symbol>
+<symbol id="i-fridge" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="4" width="26" height="40" rx="3"/><path d="M11 18h26M16 9v5M16 23v8"/><path d="M28 30l4 4M32 30l-4 4M30 28v8"/></g></symbol>
+<symbol id="i-license" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4h20l8 8v32H10z"/><path d="M30 4v8h8"/><path d="M16 17h12M16 23h16"/><circle cx="24" cy="33" r="5"/><path d="M21 37l-2 6 5-2 5 2-2-6"/></g></symbol>
+<symbol id="i-lock" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="21" width="28" height="22" rx="3"/><path d="M16 21v-6a8 8 0 0 1 16 0v6M24 30v5"/></g></symbol>
+<symbol id="i-chart" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6v36h36"/><path d="M12 32l9-10 7 6 12-14"/></g></symbol>
+<symbol id="i-doc" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4h20l8 8v32H10z"/><path d="M30 4v8h8M16 20h16M16 27h16M16 34h10"/></g></symbol>
+<symbol id="i-image" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="38" height="32" rx="4"/><circle cx="16" cy="18" r="4"/><path d="M5 34l11-10 9 8 6-5 12 10"/></g></symbol>
+<symbol id="i-audio" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24h3M13 16v16M19 10v28M25 18v12M31 13v22M37 20v8M42 24h1"/></g></symbol>
+</svg>
+
+
 <div id="stage">
+
+<!-- ============ 1 · COVER ============ -->
 <section id="cover" data-transition="fade" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#E8B34A">The Odyssey · Đào tạo mentor mới · Buổi 01</p>
-<div style="display:flex;flex-direction:column;gap:32px">
-<h1 style="font-family:'Lora', Georgia, serif;font-size:112px;font-weight:600;line-height:1.05;color:#F6F6F2">Sáu tuần, sáu cổng,<br>sáu tiêu chí</h1>
-<p style="font-size:40px;font-weight:300;line-height:1.35;color:#BFD0D8;width:1300px">Mentor sẽ bị đội hỏi gì trong 6 tuần — và kiểm bằng cách nào khi mình không viết code</p>
+<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#E8B34A">Session 01 · Mentor training · The Odyssey</p>
+<div style="display:flex;flex-direction:column;gap:32px;width:1300px">
+<h1 style="font-family:'Lora', Georgia, serif;font-size:112px;font-weight:600;line-height:1.05;color:#F6F6F2">Six weeks, six gates,<br>six criteria</h1>
+<p style="font-size:38px;font-weight:300;line-height:1.35;color:#BFD0D8">What a team will ask its mentor over six weeks — and how to check the answer when you do not write the code yourself.</p>
 </div>
 <div style="position:absolute;left:128px;bottom:64px;width:1664px;display:flex;justify-content:space-between;border-top:1px solid #3A4654;padding:28px 0 0">
-<p style="font-size:24px;color:#8E9CAA">Giáo trình trong repo: docs/giao-trinh/</p>
-<p style="font-size:24px;color:#8E9CAA">120 phút</p>
-<p style="font-size:24px;color:#8E9CAA">Dự án xuyên suốt: MT-01 · TTN SyllabusAgent</p>
+<p style="font-size:24px;color:#8E9CAA">Course material in the repo: docs/giao-trinh/</p>
+<p style="font-size:24px;color:#8E9CAA">120 minutes</p>
+<p style="font-size:24px;color:#8E9CAA">Project: MT-01 · TTN SyllabusAgent</p>
 </div>
-<aside>Mở buổi bằng lo lắng thật của phòng: "em không biết code thì mentor kiểu gì". Trả lời ngay, đừng để treo đến cuối buổi: 15 buổi này không dạy bạn code, dạy bạn kiểm. Người nghiệm thu một căn nhà không cần biết trộn vữa, nhưng phải biết gõ vào tường và biết chỗ nào đáng gõ.
+<aside>Open with the real worry in the room: "I cannot code — how am I supposed to mentor?" Answer it now, not at the end. These fifteen sessions do not teach you to write code; they teach you to check it. The person who signs off a building does not need to mix mortar, but does need to know where to knock on the wall, and which walls are worth knocking on.
 
-Nói trước ba thứ sẽ lấy về sau buổi hôm nay: một PR của chính mình đã được người khác merge trong repo đội, một ghi chép về chỗ agent đã nói sai với mình, và sáu động tác GitHub dùng lại suốt 15 buổi.
+Name the three things everyone leaves with today: a pull request of your own that somebody else merged in the team repo, a written note of one place the agent told you something false, and the six Git moves you will reuse in all fifteen sessions.
 
-Và nói luôn cho rõ: cả lứa mentor là MỘT đội, làm trên MỘT repo. Không phải mỗi người một repo.</aside>
+And say it plainly up front: this whole cohort of mentors is ONE team working on ONE repo. Not one repo each.</aside>
 </section>
-<section id="vai-mentor" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
-<div style="display:flex;flex-direction:column;gap:20px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1">Mentor không phải người giỏi code nhất trong phòng</h2>
-<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1400px">Vai của bạn gồm đúng hai việc. Cả hai đều làm được mà không cần viết một dòng code nào.</p>
-</div>
-<div style="display:flex;gap:32px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FFFFFF;padding:44px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#1C6B72">Việc một</p>
-<h3 style="font-size:40px;font-weight:600;line-height:1.2">Ra yêu cầu</h3>
-<p style="font-size:28px;line-height:1.45;color:#48515E">Nói rõ đội phải nộp gì, dưới dạng gì, hạn nào. Yêu cầu mơ hồ thì về sau không có gì để nghiệm thu.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FFFFFF;padding:44px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#1C6B72">Việc hai</p>
-<h3 style="font-size:40px;font-weight:600;line-height:1.2">Nghiệm thu</h3>
-<p style="font-size:28px;line-height:1.45;color:#48515E">Mở hiện vật ra xem. Chạy phép kiểm. Hỏi “bằng chứng đâu” thay vì tin câu trả lời.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#EDEDE7;padding:44px;border:1px dashed #BCC0B8;border-radius:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#8A9188">Không tồn tại</p>
-<h3 style="font-size:40px;font-weight:600;line-height:1.2;color:#8A9188;text-decoration:line-through">Viết hộ code</h3>
-<p style="font-size:28px;line-height:1.45;color:#8A9188">Viết hộ là cách nhanh nhất để tuần 6 đội không bảo vệ được sản phẩm của chính mình.</p>
-</div>
-</div>
-<aside>Đây là slide trả lời nỗi lo lớn nhất của phòng, nên đừng vội đi qua.
 
-Nhấn thẻ thứ ba. Mentor mới rất hay rơi vào bẫy này vì nó cho cảm giác mình hữu ích ngay: đội kẹt, mình gỡ được, ai cũng vui. Nhưng Demo Day thì đội đứng một mình trước ban giám khảo, và câu "chỗ này ai viết" là câu ban giám khảo hay hỏi nhất khi nhìn một đoạn code lệch hẳn trình độ phần còn lại.
+<!-- ============ 2 · AGENDA ============ -->
+<section id="agenda" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:112px 128px 120px;display:flex;flex-direction:column;gap:40px">
+<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1">Sections:</h2>
+<div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:24px">
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:28px 28px 30px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:44px;font-weight:700;color:#1C6B72;line-height:1">1</p>
+<h3 style="font-size:30px;font-weight:600;line-height:1.2">What a mentor is for</h3>
+<ul style="list-style:none;padding-left:0;font-size:21px;line-height:1.35;color:#48515E">
+<li>1.1 Two jobs, not three</li>
+<li>1.2 The four-step loop</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:28px 28px 30px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:44px;font-weight:700;color:#1C6B72;line-height:1">2</p>
+<h3 style="font-size:30px;font-weight:600;line-height:1.2">Six weeks, six gates</h3>
+<ul style="list-style:none;padding-left:0;font-size:21px;line-height:1.35;color:#48515E">
+<li>2.1 G1 to G6</li>
+<li>2.2 Minimum evidence per gate</li>
+<li>2.3 At-risk triggers</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:28px 28px 30px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:44px;font-weight:700;color:#1C6B72;line-height:1">3</p>
+<h3 style="font-size:30px;font-weight:600;line-height:1.2">“Running” is not “done”</h3>
+<ul style="list-style:none;padding-left:0;font-size:21px;line-height:1.35;color:#48515E">
+<li>3.1 Ten deliverables</li>
+<li>3.2 Three numbers to memorise</li>
+<li>3.3 Six criteria × five levels</li>
+<li>3.4 Six engineering mistakes</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:28px 28px 30px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:44px;font-weight:700;color:#1C6B72;line-height:1">4</p>
+<h3 style="font-size:30px;font-weight:600;line-height:1.2">MT-01, the project behind every session</h3>
+<ul style="list-style:none;padding-left:0;font-size:21px;line-height:1.35;color:#48515E">
+<li>4.1 Three layers</li>
+<li>4.2 The five-step flow</li>
+<li>4.3 Three roles, one boundary</li>
+<li>4.4 Scope guard</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:28px 28px 30px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:44px;font-weight:700;color:#1C6B72;line-height:1">5</p>
+<h3 style="font-size:30px;font-weight:600;line-height:1.2">Why the agent sounds certain and is wrong</h3>
+<ul style="list-style:none;padding-left:0;font-size:21px;line-height:1.35;color:#48515E">
+<li>5.1 Guessing instead of running</li>
+<li style="color:#B07A12;font-weight:600">▸ the rule of the whole course</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:28px 28px 30px;border:1px solid #D9DBD4;border-top:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:44px;font-weight:700;color:#B07A12;line-height:1">L</p>
+<h3 style="font-size:30px;font-weight:600;line-height:1.2">Lab · 60 min</h3>
+<ul style="list-style:none;padding-left:0;font-size:21px;line-height:1.35;color:#48515E">
+<li style="color:#B07A12;font-weight:600">▸ Ex 1.1 · join the team repo</li>
+<li style="color:#B07A12;font-weight:600">▸ Ex 1.2 · your first PR</li>
+<li style="color:#B07A12;font-weight:600">▸ Ex 1.3 · review, then merge</li>
+<li style="color:#B07A12;font-weight:600">▸ Ex 1.4 · demand the command</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:28px 28px 30px;border:1px solid #D9DBD4;border-top:5px solid #A3302A;border-radius:12px">
+<p style="font-size:44px;font-weight:700;color:#A3302A;line-height:1">X</p>
+<h3 style="font-size:30px;font-weight:600;line-height:1.2">Cross-exercise · 20 min</h3>
+<ul style="list-style:none;padding-left:0;font-size:21px;line-height:1.35;color:#48515E">
+<li>Swap roles: team lead and mentor</li>
+<li>Three sentences you must answer</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#16202E;padding:28px 28px 30px;border-top:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:44px;font-weight:700;color:#E8B34A;line-height:1">+</p>
+<h3 style="font-size:30px;font-weight:600;line-height:1.2;color:#F6F6F2">Summary, Q&amp;A, References</h3>
+<ul style="list-style:none;padding-left:0;font-size:21px;line-height:1.35;color:#BFD0D8">
+<li>Key takeaways</li>
+<li>Homework</li>
+<li>Sources in this repo</li>
+</ul>
+</div>
+</div>
+<aside>Read the map once, quickly. Sections 1 to 3 answer the three questions the team will actually ask. Section 4 is the project those answers apply to. Section 5 is the one slide that matters most today, and the lab turns it into a habit.
 
-Cách từ chối mà vẫn giúp: đổi yêu cầu "anh code hộ em" thành một câu hỏi mở — "em đã thử gì rồi, lỗi nó in ra cái gì, em kỳ vọng nó ra gì". Mentor ngồi cạnh trong lúc đội tự sửa thì vẫn là giúp, mà không lấy mất bài của họ.</aside>
+Tell the room the shape of the time: thirty minutes of slides, sixty minutes of lab, twenty minutes of the cross-exercise. The lab is not a demo you watch; everybody types.
+
+Hold questions for the end, except questions about vocabulary — answer those immediately, because every later slide builds on the words.</aside>
 </section>
-<section id="sau-tuan" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+
+<!-- ============ 3 · S1 · MENTOR'S TWO JOBS ============ -->
+<section id="mentor-role" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
 <div style="display:flex;flex-direction:column;gap:20px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1">Sáu tuần, sáu cổng</h2>
-<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1400px">Gate là <b>cổng</b>, không phải mốc báo cáo. Không qua cổng thì tuần sau không bắt đầu đúng được.</p>
+<p class="eyebrow">Section 1.1</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1">A mentor is not the best coder in the room</h2>
+<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1400px">A mentor has two jobs. There is no third job called “write the code for them”.</p>
+</div>
+<div style="flex:1;display:flex;gap:32px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:18px;background:#FFFFFF;padding:44px 48px;border:1px solid #D9DBD4;border-top:6px solid #1C6B72;border-radius:14px">
+<svg class="ic" style="width:56px;height:56px;color:#1C6B72"><use href="#i-doc"/></svg>
+<h3 style="font-size:46px;font-weight:600;line-height:1.1">① Set the requirement</h3>
+<p style="font-size:26px;line-height:1.45;color:#48515E">Say what “done” means before the work starts, in a form that can be checked. A requirement nobody can check is a wish.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:18px;background:#FFFFFF;padding:44px 48px;border:1px solid #D9DBD4;border-top:6px solid #1C6B72;border-radius:14px">
+<svg class="ic" style="width:56px;height:56px;color:#1C6B72"><use href="#i-flask"/></svg>
+<h3 style="font-size:46px;font-weight:600;line-height:1.1">② Accept the work</h3>
+<p style="font-size:26px;line-height:1.45;color:#48515E">Run the check yourself and read the result. Not “the team said it works”, not “the agent said it works”.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:18px;background:#FBEDEC;padding:44px 48px;border:1px solid #E7C3BF;border-top:6px solid #A3302A;border-radius:14px">
+<h3 style="font-size:46px;font-weight:600;line-height:1.1;color:#A3302A">✗ Write it for them</h3>
+<p style="font-size:26px;line-height:1.45;color:#48515E">The fastest way to reach week 6 with a team that cannot defend its own product. If you are typing in their repo, something has already gone wrong.</p>
+</div>
+</div>
+<aside>This is the answer to the worry in the room, and it needs to be said in the first five minutes.
+
+The building-inspector comparison is the one that lands: an inspector does not mix mortar. But an inspector knows where to knock, which paperwork must exist, and what a crack near a window means. That is exactly the skill set of these fifteen sessions.
+
+The third card is the failure mode, not a joke. Write code for a team in week 2 and in week 6 they cannot answer the judges' questions about their own system, because it is not theirs. Say that out loud; some people in the room will be tempted precisely because they want to help.</aside>
+</section>
+
+<!-- ============ 4 · S1 · THE FOUR-STEP LOOP ============ -->
+<section id="accept-loop" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+<div style="display:flex;flex-direction:column;gap:20px">
+<p class="eyebrow">Section 1.2</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1">The agent is the worker. You are the inspector.</h2>
+<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1500px">Four steps. Drop step ③ and the other three become theatre.</p>
+</div>
+<div style="display:flex;gap:16px;align-items:center">
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:30px 26px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:24px;font-weight:600;color:#1C6B72">① You</p>
+<h3 style="font-size:32px;font-weight:600;line-height:1.15">State a clear requirement</h3>
+<p style="font-size:22px;line-height:1.35;color:#48515E">…including how it will be checked.</p>
+</div>
+<x-shape kind="arrow-right" style="width:44px;height:22px;background:#B3BAB2"></x-shape>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:30px 26px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:24px;font-weight:600;color:#1C6B72">② Agent</p>
+<h3 style="font-size:32px;font-weight:600;line-height:1.15">Does the work</h3>
+<p style="font-size:22px;line-height:1.35;color:#48515E">Fast, confident, and sometimes wrong.</p>
+</div>
+<x-shape kind="arrow-right" style="width:44px;height:22px;background:#B3BAB2"></x-shape>
+<div style="flex:1.25;display:flex;flex-direction:column;gap:12px;background:#16202E;padding:30px 26px;border-top:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:24px;font-weight:600;color:#E8B34A">③ You — the step people skip</p>
+<h3 style="font-size:32px;font-weight:600;line-height:1.15;color:#F6F6F2">Run the check</h3>
+<p style="font-size:22px;line-height:1.35;color:#BFD0D8">One command. Read the output with your own eyes.</p>
+</div>
+<x-shape kind="arrow-right" style="width:44px;height:22px;background:#B3BAB2"></x-shape>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:30px 26px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:24px;font-weight:600;color:#1C6B72">④ You</p>
+<h3 style="font-size:32px;font-weight:600;line-height:1.15">Revise the requirement</h3>
+<p style="font-size:22px;line-height:1.35;color:#48515E">The check failed? The requirement was unclear.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:26px;color:#16202E;background:#E7F0F1;border-left:5px solid #1C6B72;border-radius:6px;padding:16px 24px">Using AI to write code <b>costs no marks</b>. Not being able to check what the AI wrote does.</p>
+<aside>This answers the team's third question — "I let the AI write most of the code, do I lose marks?" — and the answer is no. Nobody is penalised for using an agent. Marks are lost when nobody can check what the agent produced.
+
+Point at step three and say: this is the only step that cannot be delegated. Steps one, two and four can all be done with help. Step three is you, a command, and the output on screen.
+
+Every lab in all fifteen sessions ends with a check. That check is the part that is graded.</aside>
+</section>
+
+<!-- ============ 5 · S2 · SIX WEEKS, SIX GATES ============ -->
+<section id="six-weeks" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+<div style="display:flex;flex-direction:column;gap:20px">
+<p class="eyebrow">Section 2.1</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1">Six weeks, six gates</h2>
+<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1400px">A gate is a <b>gate</b>, not a reporting milestone. Fail to pass one and the next week cannot start correctly.</p>
 </div>
 <div style="display:flex;gap:14px;align-items:center">
 <div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:28px 22px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:600;color:#1C6B72">Tuần 1</p>
+<p style="font-size:24px;font-weight:600;color:#1C6B72">Week 1</p>
 <h3 style="font-size:34px;font-weight:700;line-height:1.1">G1</h3>
-<p style="font-size:26px;line-height:1.3;color:#48515E">Ý tưởng<br>và USP</p>
+<p style="font-size:26px;line-height:1.3;color:#48515E">Idea<br>and USP</p>
 </div>
 <x-shape kind="arrow-right" style="width:38px;height:19px;background:#B3BAB2"></x-shape>
 <div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:28px 22px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:600;color:#1C6B72">Tuần 2</p>
+<p style="font-size:24px;font-weight:600;color:#1C6B72">Week 2</p>
 <h3 style="font-size:34px;font-weight:700;line-height:1.1">G2</h3>
-<p style="font-size:26px;line-height:1.3;color:#48515E">Kiến trúc<br>và repo</p>
+<p style="font-size:26px;line-height:1.3;color:#48515E">Architecture<br>and repo</p>
 </div>
 <x-shape kind="arrow-right" style="width:38px;height:19px;background:#B3BAB2"></x-shape>
 <div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:28px 22px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:600;color:#1C6B72">Tuần 3</p>
+<p style="font-size:24px;font-weight:600;color:#1C6B72">Week 3</p>
 <h3 style="font-size:34px;font-weight:700;line-height:1.1">G3</h3>
-<p style="font-size:26px;line-height:1.3;color:#48515E">Agent<br>chạy thật</p>
+<p style="font-size:26px;line-height:1.3;color:#48515E">Agent<br>really runs</p>
 </div>
 <x-shape kind="arrow-right" style="width:38px;height:19px;background:#B3BAB2"></x-shape>
 <div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:28px 22px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:600;color:#1C6B72">Tuần 4</p>
+<p style="font-size:24px;font-weight:600;color:#1C6B72">Week 4</p>
 <h3 style="font-size:34px;font-weight:700;line-height:1.1">G4</h3>
-<p style="font-size:26px;line-height:1.3;color:#48515E">Deploy<br>và eval</p>
+<p style="font-size:26px;line-height:1.3;color:#48515E">Deploy<br>and eval</p>
 </div>
 <x-shape kind="arrow-right" style="width:38px;height:19px;background:#B3BAB2"></x-shape>
 <div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:28px 22px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:600;color:#1C6B72">Tuần 5</p>
+<p style="font-size:24px;font-weight:600;color:#1C6B72">Week 5</p>
 <h3 style="font-size:34px;font-weight:700;line-height:1.1">G5</h3>
-<p style="font-size:26px;line-height:1.3;color:#48515E">Before<br>after</p>
+<p style="font-size:26px;line-height:1.3;color:#48515E">Before<br>and after</p>
 </div>
 <x-shape kind="arrow-right" style="width:38px;height:19px;background:#B3BAB2"></x-shape>
 <div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#16202E;padding:28px 22px;border:1px solid #16202E;border-top:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:24px;font-weight:600;color:#E8B34A">Tuần 6</p>
+<p style="font-size:24px;font-weight:600;color:#E8B34A">Week 6</p>
 <h3 style="font-size:34px;font-weight:700;line-height:1.1;color:#F6F6F2">G6</h3>
 <p style="font-size:26px;line-height:1.3;color:#BFD0D8">Demo<br>Day</p>
 </div>
 </div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E7680">Nguồn: docs/giao-trinh/00-khung-danh-gia.md §1 — ngay trong repo của bạn</p>
-<aside>Chỉ vào từng mũi tên, đừng đọc cả sáu ô một lượt.
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E7680">Source: <code>docs/giao-trinh/00-khung-danh-gia.md</code> §1 — inside your own repo</p>
+<aside>Point at the arrows one at a time; do not read all six boxes at once.
 
-Điểm phải nói cho bằng được: trễ cộng dồn, không tự khỏi. Đội trễ G2 ba ngày thì tuần 3 họ vừa phải dựng agent vừa phải sửa kiến trúc, nên G3 gần như chắc chắn trễ tiếp. Mentor nhìn ra chuỗi này từ tuần 2 thì can thiệp còn rẻ; nhìn ra ở tuần 4 thì chỉ còn cách cắt phạm vi.
+Press on the word gate. A team that is three days late on G2 cannot be on time for G3, because G3's work needs G2's architecture to exist. Lateness accumulates and does not heal by itself. That is the difference between a gate and a reporting milestone, and it is the sentence a mentor repeats in week 2.
 
-Ô tuần 6 để màu khác vì đó là ngày duy nhất không gia hạn được.
-
-Nếu phòng hỏi "trễ thì xử lý sao" — trả lời ngắn rằng đó là ba Playbook L1 Remind, L2 Listen, L3 1-on-1 bên giáo trình vận hành, không phải nội dung buổi hôm nay.</aside>
+Say where the table lives: the framework file in the repo, section 1. From session 02 onward, every check in this course points back to that file.</aside>
 </section>
-<section id="bang-chung-gate" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1">Bằng chứng tối thiểu của từng cổng</h2>
-<table style="font-family:'Be Vietnam Pro', Arial, sans-serif;font-size:24px;color:#16202E;border:1px solid #D9DBD4;border-radius:10px;padding:14px">
-<tr style="background:#16202E">
-<th style="width:10%;color:#F6F6F2;font-size:24px;font-weight:600;text-align:left">Cổng</th>
-<th style="width:9%;color:#F6F6F2;font-size:24px;font-weight:600;text-align:left">Tuần</th>
-<th style="width:60%;color:#F6F6F2;font-size:24px;font-weight:600;text-align:left">Bằng chứng tối thiểu (trích nguyên văn)</th>
-<th style="width:21%;color:#F6F6F2;font-size:24px;font-weight:600;text-align:left">Học ở buổi</th>
-</tr>
-<tr>
-<td style="font-weight:600">G1</td>
-<td>1</td>
-<td>USP statement + 1 trang proposal + prototype tầng 1 đã cho 5 user xem</td>
-<td style="color:#1C6B72;font-weight:600">Buổi 02</td>
-</tr>
-<tr style="background:#EDEDE7">
-<td style="font-weight:600">G2</td>
-<td>2</td>
-<td>Kiến trúc diagram + API skeleton chạy + repo đúng cấu trúc template</td>
-<td style="color:#1C6B72;font-weight:600">Buổi 03–04</td>
-</tr>
-<tr>
-<td style="font-weight:600">G3</td>
-<td>3</td>
-<td>Agent trả lời được 5 câu hỏi cốt lõi + tools thật được gọi + guardrail 1 lớp</td>
-<td style="color:#1C6B72;font-weight:600">Buổi 05–08</td>
-</tr>
-<tr style="background:#EDEDE7">
-<td style="font-weight:600">G4</td>
-<td>4</td>
-<td>Deploy lên cloud + CI xanh + golden dataset ≥45 case + eval vòng 1 có số</td>
-<td style="color:#1C6B72;font-weight:600">Buổi 12–13</td>
-</tr>
-<tr>
-<td style="font-weight:600">G5</td>
-<td>5</td>
-<td>Eval before/after + feedback ≥5 user thật + slop-check CLEAN + tổng duyệt BGK</td>
-<td style="color:#1C6B72;font-weight:600">Buổi 12</td>
-</tr>
-<tr style="background:#EDEDE7">
-<td style="font-weight:600">G6</td>
-<td>6</td>
-<td>10/10 deliverables + video demo + pitch theo AIDA</td>
-<td style="color:#1C6B72;font-weight:600">Buổi 14</td>
-</tr>
+
+<!-- ============ 6 · S2 · MINIMUM EVIDENCE ============ -->
+<section id="gate-evidence" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:96px 128px 120px;display:flex;flex-direction:column;gap:34px">
+<div style="display:flex;flex-direction:column;gap:14px">
+<p class="eyebrow">Section 2.2</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:62px;font-weight:600;line-height:1.1">Minimum evidence, gate by gate</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1500px">This column is the answer to <i>“what do I have to hand in this week?”</i> — quoted word for word, not paraphrased.</p>
+</div>
+<table class="steps v3" style="font-size:22px">
+<tr><th style="width:9%">Gate</th><th style="width:7%">Week</th><th>Minimum evidence</th><th style="width:13%">Taught in</th></tr>
+<tr><td class="n">G1</td><td>1</td><td>USP statement + a one-page proposal + a layer-1 prototype shown to <b>5 real users</b></td><td>05 · 02</td></tr>
+<tr><td class="n">G2</td><td>2</td><td>architecture diagram + a running API skeleton + repo in the template's structure</td><td>03 · 02</td></tr>
+<tr><td class="n">G3</td><td>3</td><td>the agent answers <b>5 core questions</b> + real tools are actually called + one guardrail layer</td><td>04 · 07</td></tr>
+<tr><td class="n">G4</td><td>4</td><td>deployed to cloud + CI green + golden dataset <b>≥45 cases</b> + eval round 1 with numbers</td><td>12 · 10</td></tr>
+<tr><td class="n">G5</td><td>5</td><td>before/after eval + feedback from <b>≥5 real users</b> + slop-check CLEAN + panel review</td><td>10 · 11</td></tr>
+<tr><td class="n">G6</td><td>6</td><td><b>10/10 deliverables</b> + demo video + an AIDA pitch</td><td>13</td></tr>
 </table>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E7680">Nguồn: docs/giao-trinh/00-khung-danh-gia.md §1 — trong repo của bạn · cột “Học ở buổi” là của giáo trình này</p>
-<aside>Đọc chậm cột bằng chứng. Đây là câu trả lời cho câu hỏi số một mà đội sẽ hỏi: "tuần này em nộp gì là đủ ạ". Mentor thuộc cột này thì trả lời được ngay trong buổi mentor duty, không phải hẹn "mai anh xem lại rồi nói".
+<p class="pr" style="font-size:24px;padding:14px 22px">A mentor should be able to say this column without looking it up. “Let me check and get back to you tomorrow” is a week of a team's time.</p>
+<aside>Read the evidence column slowly, gate by gate. This is the answer to the team's first question, and the reason to memorise it is practical: a team asks on Monday, and if the mentor has to look it up and reply on Tuesday, the team has lost a day of a six-day week.
 
-Một lưu ý về nguồn, nói luôn để phòng quen với thói quen kiểm nguồn: bảng này nằm trong repo của chính họ, ở docs/giao-trinh/00-khung-danh-gia.md mục 1. Nghĩa là lát nữa khi hỏi agent "bằng chứng tối thiểu của G4 là gì", agent có nguồn thật để dẫn — và họ mở đúng mục đó ra kiểm lại được. Cột "Học ở buổi" là phần giáo trình này thêm, không phải phần kế thừa.
+Note which numbers are hard numbers: five users at G1, five questions at G3, forty-five cases and a green CI at G4, five users again at G5, ten out of ten at G6. Hard numbers are what make a gate checkable instead of arguable.
 
-Nếu phải chọn một dòng để nhấn thì chọn G4: "golden dataset ≥45 case" là con số cụ thể nhất trong cả bảng.</aside>
+The last column tells each mentor which session of this course teaches the thing their team is stuck on. It is a lookup table for the whole six weeks.</aside>
 </section>
-<section id="at-risk" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+
+<!-- ============ 7 · S2 · AT-RISK TRIGGERS ============ -->
+<section id="at-risk" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
 <div style="display:flex;flex-direction:column;gap:20px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#E8B34A">At-risk triggers</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1;color:#F6F6F2">Ba dấu hiệu mentor phải tự thấy</h2>
+<p class="eyebrow" style="color:#E8B34A">Section 2.3</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1;color:#F6F6F2">At-risk triggers — your job, not the organisers'</h2>
+<p style="font-size:30px;font-weight:300;line-height:1.4;color:#BFD0D8;width:1500px">Three mechanical signals. No judgement call required, which is exactly why they work.</p>
 </div>
-<div style="display:flex;gap:28px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:18px;background:#1E2B3C;padding:44px;border-left:5px solid #E8B34A;border-radius:12px">
-<h3 style="font-size:40px;font-weight:600;line-height:1.2;color:#F6F6F2">Miss standup<br>2 ngày liên tiếp</h3>
-<p style="font-size:28px;line-height:1.45;color:#BFD0D8">Thường là dấu hiệu đội đang kẹt chứ đang không lười — họ im vì chưa có gì để báo.</p>
+<div style="flex:1;display:flex;gap:32px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:18px;background:#1C2836;padding:48px;border-top:6px solid #E8B34A;border-radius:14px">
+<h3 style="font-family:'Lora', Georgia, serif;font-size:84px;font-weight:600;line-height:1;color:#E8B34A">2</h3>
+<p style="font-size:32px;font-weight:600;line-height:1.25">standups missed in a row</p>
 </div>
-<div style="flex:1;display:flex;flex-direction:column;gap:18px;background:#1E2B3C;padding:44px;border-left:5px solid #E8B34A;border-radius:12px">
-<h3 style="font-size:40px;font-weight:600;line-height:1.2;color:#F6F6F2">Không commit<br>3 ngày</h3>
-<p style="font-size:28px;line-height:1.45;color:#BFD0D8">Kiểm bằng một cái nhìn vào trang repo. Không cần đọc code, chỉ cần xem ngày commit cuối.</p>
+<div style="flex:1;display:flex;flex-direction:column;gap:18px;background:#1C2836;padding:48px;border-top:6px solid #E8B34A;border-radius:14px">
+<h3 style="font-family:'Lora', Georgia, serif;font-size:84px;font-weight:600;line-height:1;color:#E8B34A">3</h3>
+<p style="font-size:32px;font-weight:600;line-height:1.25">days with no commit</p>
 </div>
-<div style="flex:1;display:flex;flex-direction:column;gap:18px;background:#1E2B3C;padding:44px;border-left:5px solid #E8B34A;border-radius:12px">
-<h3 style="font-size:40px;font-weight:600;line-height:1.2;color:#F6F6F2">Gate trễ<br>hơn 3 ngày</h3>
-<p style="font-size:28px;line-height:1.45;color:#BFD0D8">Trễ một cổng thì cổng sau trễ theo. Đây là trigger đắt nhất nếu bỏ qua.</p>
+<div style="flex:1;display:flex;flex-direction:column;gap:18px;background:#1C2836;padding:48px;border-top:6px solid #A3302A;border-radius:14px">
+<h3 style="font-family:'Lora', Georgia, serif;font-size:84px;font-weight:600;line-height:1;color:#E8B34A">&gt;3</h3>
+<p style="font-size:32px;font-weight:600;line-height:1.25">days late on a gate</p>
 </div>
 </div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:28px;color:#E8B34A">Theo dõi ba trigger này là việc của mentor, không phải việc của BTC.</p>
-<aside>Nhấn dòng vàng ở chân slide. Mentor mới hay nghĩ BTC có một hệ thống theo dõi tự động và mình sẽ được báo khi đội có vấn đề. Không phải. Người nhìn thấy sớm nhất là mentor, vì mentor là người duy nhất mở repo của đội mỗi tuần.
+<p style="font-size:26px;line-height:1.45;color:#BFD0D8">When a trigger fires, open the L1 / L2 / L3 playbook in the operations course material. Do not wait for the next scheduled meeting — the point of a trigger is that it fires before anyone has formed an opinion.</p>
+<aside>These three triggers belong to the mentor, not to the organising committee. Nobody will send you a report; you watch for them.
 
-Trigger thứ hai là trigger dễ nhất trong ba cái và cũng là cái mentor không-biết-code dùng được ngay từ tuần 1: vào trang GitHub của đội, xem ngày commit cuối. Không cần hiểu commit đó làm gì.
+Why mechanical numbers rather than judgement: because a mentor who waits to "feel" that a team is struggling always notices in week 4, when there is no time left. Two missed standups is observable on day two.
 
-Cảnh báo một chỗ hay nhầm: thấy trigger không có nghĩa là đội tệ. Nghĩa là đến lúc hỏi. Ba Playbook L1 Remind, L2 Listen, L3 1-on-1 nằm bên giáo trình vận hành — chọn mức nào thì tùy đã hỏi mấy lần, không tùy mình đang sốt ruột bao nhiêu.</aside>
+Three days with no commit is the one people argue about — "they were thinking". Fine: then there is a design document to show. No artefact for three days is the signal, whatever the reason.</aside>
 </section>
-<section id="chay-duoc-khong-xong" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+
+<!-- ============ 8 · S3 · TEN DELIVERABLES ============ -->
+<section id="done-vs-running" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:84px 128px 104px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p class="eyebrow">Section 3.1</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1">“It runs” is not “it's done”</h2>
+<p style="font-size:27px;font-weight:300;line-height:1.4;color:#48515E;width:1500px">Ten deliverables, each with a place in the repo. Most teams lose marks not for weak code but for <b>missing paperwork</b>.</p>
+</div>
+<table class="steps v3" style="font-size:20px">
+<tr><th style="width:4%">#</th><th style="width:21%">Deliverable</th><th style="width:19%">Previous cohort</th><th style="width:30%">Why it goes missing</th><th>Where it lives</th></tr>
+<tr><td class="n">1</td><td>Source code (GitHub repo)</td><td>most had it</td><td>reluctant to push unfinished code</td><td><code>src/</code></td></tr>
+<tr><td class="n">2</td><td>README.md</td><td>most had it</td><td>written last, when time has run out</td><td><code>README.md</code></td></tr>
+<tr><td class="n">3</td><td>Architecture diagram</td><td>often missing</td><td>treated as “drawing something pretty”</td><td><code>ARCHITECTURE.md</code></td></tr>
+<tr><td class="n">4</td><td>AI logs</td><td>most had it</td><td>did not know how to configure it</td><td>hook + <code>.ai-log/</code></td></tr>
+<tr><td class="n">5</td><td>Live URL</td><td>usually there</td><td>deploy left to the last day</td><td>README + deploy</td></tr>
+<tr><td class="n">6</td><td>Video demo</td><td><b style="color:#A3302A">missing in 11/11 teams</b></td><td>left to the end; nobody takes the job</td><td><code>docs/video-demo.md</code></td></tr>
+<tr><td class="n">7</td><td>Pitch deck</td><td><b style="color:#A3302A">~64% missing</b></td><td>writing slides is harder than writing code</td><td><code>docs/pitch-deck.pdf</code></td></tr>
+<tr><td class="n">8</td><td>Development journal</td><td>most had it</td><td>daily notes feel like overhead</td><td><code>JOURNAL.md</code></td></tr>
+<tr><td class="n">9</td><td>Worklog (commit history)</td><td>most had it</td><td>unsure how to submit it</td><td><code>WORKLOG.md</code></td></tr>
+<tr><td class="n">10</td><td>Evaluation evidence</td><td><b style="color:#A3302A">~82% missing</b></td><td>did not know what to measure, or how</td><td><code>eval/</code> + <code>docs/evaluation.md</code></td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:34px;width:1664px;font-size:22px;color:#6E7680">Source: <code>docs/giao-trinh/00-khung-danh-gia.md</code> §3 · when you quote this to a team, say where it comes from: <i>“the previous cohort of the predecessor programme”</i></p>
+<aside>This slide answers the team's second question — "it runs, so am I done?" — and the answer is on the right-hand column: done means ten artefacts in ten known places.
+
+Say the uncomfortable part plainly: working code is the necessary condition, the paperwork is the sufficient one. Teams with good code and no evaluation evidence score below teams with ordinary code and complete evidence, and that is not unfair — it is what the rubric measures.
+
+Three rows are in red. Those are the next slide. Notice the "why it goes missing" column: none of the reasons is "too difficult". They are all scheduling and ownership failures, which is to say, mentoring failures.</aside>
+</section>
+
+<!-- ============ 9 · S3 · THREE NUMBERS ============ -->
+<section id="three-numbers" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:52px">
+<div style="display:flex;flex-direction:column;gap:20px">
+<p class="eyebrow" style="color:#E8B34A">Section 3.2</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:72px;font-weight:600;line-height:1.1;color:#F6F6F2">Three numbers to know by heart</h2>
+<p style="font-size:30px;font-weight:300;line-height:1.4;color:#BFD0D8;width:1500px">The strongest coaching tool a mentor has — and all three cost <b>no extra coding skill</b>.</p>
+</div>
+<div style="display:flex;gap:32px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#1C2836;padding:52px 44px;border-top:6px solid #A3302A;border-radius:14px">
+<h3 style="font-family:'Lora', Georgia, serif;font-size:104px;font-weight:600;line-height:1;color:#E8B34A">100%</h3>
+<p style="font-size:34px;font-weight:600;line-height:1.2">Video demo</p>
+<p style="font-size:24px;line-height:1.4;color:#BFD0D8">Missing in <b>11 of 11</b> teams. A screen recording with a voice-over. One afternoon of work.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#1C2836;padding:52px 44px;border-top:6px solid #A3302A;border-radius:14px">
+<h3 style="font-family:'Lora', Georgia, serif;font-size:104px;font-weight:600;line-height:1;color:#E8B34A">82%</h3>
+<p style="font-size:34px;font-weight:600;line-height:1.2">Evaluation evidence</p>
+<p style="font-size:24px;line-height:1.4;color:#BFD0D8">A golden dataset and a number. Not an opinion about whether the answers “feel good”.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#1C2836;padding:52px 44px;border-top:6px solid #A3302A;border-radius:14px">
+<h3 style="font-family:'Lora', Georgia, serif;font-size:104px;font-weight:600;line-height:1;color:#E8B34A">64%</h3>
+<p style="font-size:34px;font-weight:600;line-height:1.2">Pitch deck</p>
+<p style="font-size:24px;line-height:1.4;color:#BFD0D8">Six weeks of work, judged in eight minutes of talking. Teams discover this in week 6.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:26px;color:#F6F6F2;background:#243245;border-left:5px solid #E8B34A;border-radius:6px;padding:16px 24px">A team that delivers all three is almost certainly ahead of most of the field — without writing one line of better code.</p>
+<aside>Make the room say these three numbers out loud: one hundred, eighty-two, sixty-four. They are on the session's pass checklist, and the reason is not trivia — these are the three sentences that change a team's behaviour in week 3.
+
+Here is how to use them. When a team says "we will skip the eval to add two more features", the useful answer is not general advice about quality. It is: eighty-two percent of the previous cohort skipped it, and that is where the marks were lost. A number ends the argument; advice invites negotiation.
+
+Say the source honestly when you quote it to a team: the previous cohort of the predecessor programme. Do not inflate it, and do not present it as this cohort's data.</aside>
+</section>
+
+<!-- ============ 10 · S3 · SIX CRITERIA ============ -->
+<section id="six-criteria" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:84px 128px 104px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p class="eyebrow">Section 3.3</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1">Demo Day: six criteria × five levels</h2>
+<p style="font-size:27px;font-weight:300;line-height:1.4;color:#48515E;width:1500px">Behind each criterion sits a question the panel is really asking. Teach the team the question, not the label.</p>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<table class="steps v3" style="flex:1;font-size:20px">
+<tr><th style="width:5%">#</th><th style="width:26%">Criterion</th><th style="width:30%">What the panel is really asking</th><th>What a 9–10 demands</th></tr>
+<tr><td class="n">1</td><td>Product completeness (demo)</td><td>Does the demo run without breaking?</td><td>core features complete, edge cases handled, tests for the edge cases</td></tr>
+<tr><td class="n">2</td><td>AI engineering</td><td>Real AI work, or just an API call?</td><td>RAG · ≥2 guardrail layers · real conditional edges · a mechanism against hallucination</td></tr>
+<tr><td class="n">3</td><td>Evaluation</td><td>Is there data to prove it?</td><td>golden dataset ≥45 cases, measurements, a baseline, real user feedback</td></tr>
+<tr><td class="n">4</td><td>UI and experience</td><td>Usable, responsive, presentable?</td><td>the main flow completes without getting stuck; no dangling placeholders</td></tr>
+<tr><td class="n">5</td><td>Idea and real application</td><td>A real problem for real people?</td><td>real users have used it, and their feedback is quoted</td></tr>
+<tr><td class="n">6</td><td>Pitch</td><td>Clear story, convincing, good Q&amp;A?</td><td>AIDA structure + demo video + answers to the hard questions</td></tr>
+</table>
+<div style="width:300px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:22px 24px;border:1px solid #D9DBD4;border-radius:12px">
+<p class="lb">Five levels</p>
+<table class="tt" style="font-size:19px">
+<tr><td>9–10</td><td class="te">Excellent</td></tr>
+<tr><td>7–8</td><td>Good</td></tr>
+<tr><td>5–6</td><td>Average</td></tr>
+<tr><td>3–4</td><td>Weak</td></tr>
+<tr><td>1–2</td><td>Poor</td></tr>
+</table>
+</div>
+<div class="manual" style="flex:1;padding:22px 24px">
+<p class="lb">Say the limit out loud</p>
+<p class="tx" style="font-size:18px">Criterion names and level descriptions are stable. <b>Weights can change per cohort.</b> Check against the released version at the start of every cohort.</p>
+<p class="nt" style="font-size:17px">Sounding certain about something uncertain is the fastest way for a mentor to lose the room's trust.</p>
+</div>
+</div>
+</div>
+<aside>Read the middle column, not the left one. "Product completeness" means nothing to a team; "does the demo run without breaking" means something they can act on this week.
+
+Criterion two is where most teams misjudge themselves. Calling an LLM API and getting good answers is a five or six, not a nine. A nine needs retrieval over their own material, more than one guardrail layer, and a mechanism — not a prompt — that stops the model inventing things.
+
+Then say the limit honestly, because it is on the slide for a reason: the names and the level descriptions are stable, but the weights can change from cohort to cohort. At the start of each cohort you compare against the released rubric. A mentor who states a weight confidently and is wrong loses the room, and the room is the only authority a mentor has.</aside>
+</section>
+
+<!-- ============ 11 · S3 · SIX ENGINEERING MISTAKES ============ -->
+<section id="six-mistakes" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:112px 128px 140px;display:flex;flex-direction:column;gap:44px">
 <div style="display:flex;flex-direction:column;gap:16px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1">“Chạy được” không phải “xong”</h2>
-<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1500px">Mười deliverables BTC yêu cầu, kèm chỗ đặt trong repo.</p>
+<p class="eyebrow">Section 3.4</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">Six engineering mistakes you can catch by opening the repo</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1500px">None of these is an algorithm bug. All six are visible without reading a line of logic — which is why a mentor who does not code can still find them.</p>
 </div>
-<div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:16px">
-<div style="display:flex;gap:20px;align-items:center;background:#FFFFFF;padding:22px 26px;border:1px solid #D9DBD4;border-radius:10px">
-<p style="font-size:28px;font-weight:700;color:#1C6B72;width:44px">1</p>
-<p style="font-size:28px;font-weight:600">Source Code</p>
-<div style="flex:1"></div>
-<p style="font-size:24px;color:#6E7680">src/</p>
+<div style="flex:1;display:grid;grid-template-columns:repeat(3, 1fr);grid-template-rows:1fr 1fr;gap:24px">
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:30px 32px;border:1px solid #D9DBD4;border-left:5px solid #A3302A;border-radius:12px">
+<h3 style="font-size:32px;font-weight:600;line-height:1.2">No CI/CD</h3>
+<p style="font-size:22px;line-height:1.4;color:#48515E">Check: is there a <code>.github/workflows/</code> folder, and is the latest run green?</p>
 </div>
-<div style="display:flex;gap:20px;align-items:center;background:#FFFFFF;padding:22px 26px;border:1px solid #D9DBD4;border-radius:10px">
-<p style="font-size:28px;font-weight:700;color:#1C6B72;width:44px">2</p>
-<p style="font-size:28px;font-weight:600">README.md</p>
-<div style="flex:1"></div>
-<p style="font-size:24px;color:#6E7680">README.md</p>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:30px 32px;border:1px solid #D9DBD4;border-left:5px solid #A3302A;border-radius:12px">
+<h3 style="font-size:32px;font-weight:600;line-height:1.2">Evaluation skipped</h3>
+<p style="font-size:22px;line-height:1.4;color:#48515E">Check: is <code>eval/</code> empty? Deliverable #10, missing in ~82% of teams.</p>
 </div>
-<div style="display:flex;gap:20px;align-items:center;background:#FFFFFF;padding:22px 26px;border:1px solid #D9DBD4;border-radius:10px">
-<p style="font-size:28px;font-weight:700;color:#1C6B72;width:44px">3</p>
-<p style="font-size:28px;font-weight:600">Architecture Diagram</p>
-<div style="flex:1"></div>
-<p style="font-size:24px;color:#6E7680">docs/architecture.md</p>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:30px 32px;border:1px solid #D9DBD4;border-left:5px solid #A3302A;border-radius:12px">
+<h3 style="font-size:32px;font-weight:600;line-height:1.2">Thin README</h3>
+<p style="font-size:22px;line-height:1.4;color:#48515E">Check: can a stranger install and run it from the README alone?</p>
 </div>
-<div style="display:flex;gap:20px;align-items:center;background:#FFFFFF;padding:22px 26px;border:1px solid #D9DBD4;border-radius:10px">
-<p style="font-size:28px;font-weight:700;color:#1C6B72;width:44px">4</p>
-<p style="font-size:28px;font-weight:600">AI Logs</p>
-<div style="flex:1"></div>
-<p style="font-size:24px;color:#6E7680">LangSmith</p>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:30px 32px;border:1px solid #D9DBD4;border-left:5px solid #A3302A;border-radius:12px">
+<h3 style="font-size:32px;font-weight:600;line-height:1.2">No clear environment setup</h3>
+<p style="font-size:22px;line-height:1.4;color:#48515E">Check: is there an <code>.env.example</code> and a pinned dependency list?</p>
 </div>
-<div style="display:flex;gap:20px;align-items:center;background:#FFFFFF;padding:22px 26px;border:1px solid #D9DBD4;border-radius:10px">
-<p style="font-size:28px;font-weight:700;color:#1C6B72;width:44px">5</p>
-<p style="font-size:28px;font-weight:600">Live URL</p>
-<div style="flex:1"></div>
-<p style="font-size:24px;color:#6E7680">Render · Vercel</p>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:30px 32px;border:1px solid #D9DBD4;border-left:5px solid #A3302A;border-radius:12px">
+<h3 style="font-size:32px;font-weight:600;line-height:1.2">Everything in one file</h3>
+<p style="font-size:22px;line-height:1.4;color:#48515E">Check: one 2000-line file, or folders that match the architecture diagram?</p>
 </div>
-<div style="display:flex;gap:20px;align-items:center;background:#FFFFFF;padding:22px 26px;border:1px solid #D9DBD4;border-radius:10px">
-<p style="font-size:28px;font-weight:700;color:#1C6B72;width:44px">6</p>
-<p style="font-size:28px;font-weight:600">Video Demo</p>
-<div style="flex:1"></div>
-</div>
-<div style="display:flex;gap:20px;align-items:center;background:#FFFFFF;padding:22px 26px;border:1px solid #D9DBD4;border-radius:10px">
-<p style="font-size:28px;font-weight:700;color:#1C6B72;width:44px">7</p>
-<p style="font-size:28px;font-weight:600">Pitch Deck</p>
-<div style="flex:1"></div>
-</div>
-<div style="display:flex;gap:20px;align-items:center;background:#FFFFFF;padding:22px 26px;border:1px solid #D9DBD4;border-radius:10px">
-<p style="font-size:28px;font-weight:700;color:#1C6B72;width:44px">8</p>
-<p style="font-size:28px;font-weight:600">Development Journal</p>
-<div style="flex:1"></div>
-<p style="font-size:24px;color:#6E7680">docs/journal.md</p>
-</div>
-<div style="display:flex;gap:20px;align-items:center;background:#FFFFFF;padding:22px 26px;border:1px solid #D9DBD4;border-radius:10px">
-<p style="font-size:28px;font-weight:700;color:#1C6B72;width:44px">9</p>
-<p style="font-size:28px;font-weight:600">Worklog</p>
-<div style="flex:1"></div>
-<p style="font-size:24px;color:#6E7680">docs/worklog.md</p>
-</div>
-<div style="display:flex;gap:20px;align-items:center;background:#FFFFFF;padding:22px 26px;border:1px solid #D9DBD4;border-radius:10px">
-<p style="font-size:28px;font-weight:700;color:#1C6B72;width:44px">10</p>
-<p style="font-size:28px;font-weight:600">Evaluation Evidence</p>
-<div style="flex:1"></div>
-<p style="font-size:24px;color:#6E7680">eval/</p>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:30px 32px;border:1px solid #D9DBD4;border-left:5px solid #A3302A;border-radius:12px">
+<h3 style="font-size:32px;font-weight:600;line-height:1.2">No tests</h3>
+<p style="font-size:22px;line-height:1.4;color:#48515E">Check: does <code>tests/</code> exist, and what does <code>make test</code> actually print?</p>
 </div>
 </div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E7680">Nguồn: docs/giao-trinh/00-khung-danh-gia.md §3 — trong repo của bạn</p>
-<aside>Đây là câu trả lời cho câu hỏi thứ hai của đội: "sản phẩm em chạy được rồi, vậy là xong chưa anh". Chưa. Code chạy là điều kiện cần, hồ sơ là điều kiện đủ.
+<p style="position:absolute;left:128px;bottom:52px;width:1664px;font-size:24px;color:#6E7680">Source: <code>docs/giao-trinh/00-khung-danh-gia.md</code> §5</p>
+<aside>These are trade mistakes, not algorithm mistakes, and that distinction is the point of the slide. You do not need to understand a team's retrieval logic to see that their eval folder is empty.
 
-Nói thẳng một câu mà mentor nên lặp lại với đội suốt 6 tuần: nhiều đội mất điểm không phải vì code kém, mà vì thiếu hồ sơ.
+Read the check line on each card, because the check is the deliverable of this slide. Six cards, six commands or six clicks. That is a repo review, and it takes about ten minutes.
 
-Chỉ vào hai ô dễ nhất, số 4 AI Logs và số 9 Worklog. Cả hai không cần code thêm: LangSmith là ba biến môi trường, worklog là một lệnh git log. Hai ô này là kỷ luật, không phải kỹ năng — nên nếu đội thiếu chúng ở tuần 5 thì vấn đề không nằm ở năng lực.</aside>
+The last one has a trap in it that we will use in the lab today: do not ask whether tests exist, run them and read the output. "We have tests" and "the tests pass" are different statements, and teams routinely confuse them.</aside>
 </section>
-<section id="sau-tieu-chi" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1">Sáu tiêu chí chấm Demo Day</h2>
-<div style="display:flex;gap:14px;align-items:center">
-<p style="font-size:26px;font-weight:600;background:#16202E;color:#F6F6F2;padding:12px 24px;border-radius:40px">9–10 Giỏi</p>
-<p style="font-size:26px;font-weight:600;background:#1C6B72;color:#F6F6F2;padding:12px 24px;border-radius:40px">7–8 Khá</p>
-<p style="font-size:26px;font-weight:600;background:#D9DBD4;color:#16202E;padding:12px 24px;border-radius:40px">5–6 Trung bình</p>
-<p style="font-size:26px;font-weight:600;background:#EDEDE7;color:#6E7680;padding:12px 24px;border-radius:40px">3–4 Yếu</p>
-<p style="font-size:26px;font-weight:600;background:#EDEDE7;color:#6E7680;padding:12px 24px;border-radius:40px">1–2 Kém</p>
+
+<!-- ============ 12 · S4 · MT-01 THREE LAYERS ============ -->
+<section id="mt-01" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:96px 128px 120px;display:flex;flex-direction:column;gap:36px">
+<div style="display:flex;flex-direction:column;gap:14px">
+<p class="eyebrow">Section 4.1</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:62px;font-weight:600;line-height:1.1">MT-01 — an AI agent for standardising teaching quality</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1560px">Case: TTN – UEH. One project, <b>three layers</b>. The one project every session of this course is built on.</p>
 </div>
-<table style="font-family:'Be Vietnam Pro', Arial, sans-serif;font-size:26px;color:#16202E;border:1px solid #D9DBD4;border-radius:10px;padding:14px">
-<tr style="background:#16202E">
-<th style="width:7%;color:#F6F6F2;font-size:26px;font-weight:600;text-align:left">#</th>
-<th style="width:35%;color:#F6F6F2;font-size:26px;font-weight:600;text-align:left">Tiêu chí</th>
-<th style="width:58%;color:#F6F6F2;font-size:26px;font-weight:600;text-align:left">Câu hỏi ban giám khảo ngầm đặt ra</th>
-</tr>
-<tr>
-<td style="font-weight:600;color:#1C6B72">1</td>
-<td style="font-weight:600">Mức độ hoàn thiện (Demo)</td>
-<td style="color:#48515E">Demo có chạy ổn định không lỗi không?</td>
-</tr>
-<tr style="background:#EDEDE7">
-<td style="font-weight:600;color:#1C6B72">2</td>
-<td style="font-weight:600">Kỹ thuật AI</td>
-<td style="color:#48515E">Đây là kỹ thuật AI thật hay chỉ gọi API?</td>
-</tr>
-<tr>
-<td style="font-weight:600;color:#1C6B72">3</td>
-<td style="font-weight:600">Đánh giá hiệu quả</td>
-<td style="color:#48515E">Có số liệu chứng minh agent hiệu quả không?</td>
-</tr>
-<tr style="background:#EDEDE7">
-<td style="font-weight:600;color:#1C6B72">4</td>
-<td style="font-weight:600">Giao diện và trải nghiệm</td>
-<td style="color:#48515E">Đẹp, tiện dụng, responsive không?</td>
-</tr>
-<tr>
-<td style="font-weight:600;color:#1C6B72">5</td>
-<td style="font-weight:600">Ý tưởng và ứng dụng thật</td>
-<td style="color:#48515E">Giải quyết vấn đề thật cho người dùng thật không?</td>
-</tr>
-<tr style="background:#EDEDE7">
-<td style="font-weight:600;color:#1C6B72">6</td>
-<td style="font-weight:600">Thuyết trình</td>
-<td style="color:#48515E">Kể chuyện rõ ràng, trả lời Q&amp;A tốt không?</td>
-</tr>
-</table>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#A3302A;font-weight:600">Tên tiêu chí và mô tả mức thì ổn định — trọng số từng tiêu chí có thể đổi theo cohort. Đầu mỗi cohort phải đối chiếu với bản BTC phát hành.</p>
-<aside>Sáu tiêu chí này là north star của cả khoá: mọi buổi đều dẫn về đây. Bảng đầy đủ nằm trong repo, ở docs/giao-trinh/00-khung-danh-gia.md mục 4.
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px 38px;border:1px solid #D9DBD4;border-top:6px solid #1C6B72;border-radius:14px">
+<svg class="ic" style="width:48px;height:48px;color:#1C6B72"><use href="#i-user"/></svg>
+<p style="font-size:22px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1C6B72">Layer A</p>
+<h3 style="font-size:38px;font-weight:600;line-height:1.15">The learner</h3>
+<p style="font-size:23px;line-height:1.42;color:#48515E">Grounded question answering over <b>approved</b> material, plus support for students studying in a second language.</p>
+<p class="pr" style="margin-top:auto;font-size:20px">Reads only what layer B has approved.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px 38px;border:2px solid #E8B34A;border-top:6px solid #E8B34A;border-radius:14px">
+<svg class="ic" style="width:48px;height:48px;color:#6B4A0C"><use href="#i-license"/></svg>
+<p style="font-size:22px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#6B4A0C">Layer B</p>
+<h3 style="font-size:38px;font-weight:600;line-height:1.15">The course</h3>
+<p style="font-size:23px;line-height:1.42;color:#48515E">Syllabus review against a <b>6-criterion rubric</b>, with a lecturer who approves or rejects. The human stays in the loop.</p>
+<p class="pr" style="margin-top:auto;font-size:20px">This is the layer people mistake for the whole project.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px 38px;border:1px solid #D9DBD4;border-top:6px solid #1C6B72;border-radius:14px">
+<svg class="ic" style="width:48px;height:48px;color:#1C6B72"><use href="#i-chart"/></svg>
+<p style="font-size:22px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1C6B72">Layer C</p>
+<h3 style="font-size:38px;font-weight:600;line-height:1.15">The programme</h3>
+<p style="font-size:23px;line-height:1.42;color:#48515E">Anonymised, aggregated numbers across courses — so a programme manager can see the shape of the whole curriculum.</p>
+<p class="pr" style="margin-top:auto;font-size:20px">Its data comes from approved reviews in B.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:40px;width:1664px;font-size:24px;color:#6E7680">Source: <code>docs/de-bai.md</code> — the project brief, in your repo</p>
+<aside>Introduce the project, and immediately correct the misreading that happens every time: MT-01 is not "a syllabus checker". That is layer B, the middle one.
 
-Đọc cột bên phải, không đọc cột tên tiêu chí. Cột bên phải là cái ban giám khảo thật sự hỏi, và nó cụ thể hơn tên tiêu chí nhiều. Tiêu chí 2 là ví dụ rõ nhất: "kỹ thuật AI thật hay chỉ gọi API" — câu này phân biệt đội được 9 với đội được 4, và nó không nằm trong cái tên "Kỹ thuật AI".
+The three layers are chained, and the chain is the design. Only material approved in B becomes a source for A, and only reviews completed in B produce numbers for C. If someone proposes to build A first with unapproved documents, they have broken the chain and the product no longer means anything.
 
-Bắt buộc nói dòng đỏ ở chân slide, đừng bỏ qua cho nhanh. Mentor nói chắc chắn về thứ chưa chắc là cách mất uy tín nhanh nhất với đội. Nếu có ai hỏi trọng số cụ thể từng tiêu chí, câu trả lời đúng là "đầu cohort mình đối chiếu với bản BTC phát hành rồi nói lại", không phải một con số nhớ từ cohort trước.</aside>
+Say what we actually do with it: we build it for real, deploy it for real, evaluate it for real. By the end of the fifteen sessions each mentor owns a repo that has been through G1 to G6 — which is the only honest way to mentor a team through those gates.</aside>
 </section>
-<section id="sau-sai-lam" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+
+<!-- ============ 13 · S4 · FIVE-STEP FLOW ============ -->
+<section id="mt-01-flow" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:112px 128px 140px;display:flex;flex-direction:column;gap:44px">
 <div style="display:flex;flex-direction:column;gap:16px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1">Sáu sai lầm nghề, không phải sai lầm thuật toán</h2>
-<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1560px">Cả sáu đều kiểm được bằng cách <b>mở repo ra xem</b> — không cần đọc logic. Đó là lý do mentor không-biết-code vẫn phát hiện được.</p>
+<p class="eyebrow">Section 4.2</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">The five-step flow of layer B</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1500px">Where the human sits in the loop is the whole design. Step ④ is not optional, and it is not a formality.</p>
 </div>
-<div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:20px">
-<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:32px;border:1px solid #D9DBD4;border-radius:12px">
-<h3 style="font-size:32px;font-weight:600;line-height:1.2">Không có CI/CD</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Kiểm: tab Actions trong repo có gì không, có dấu tích xanh không.</p>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:22px">
+<div class="st" style="padding:20px 26px">
+<span class="sn" style="width:40px;height:40px;line-height:40px;font-size:22px">1</span>
+<div><p class="stt" style="font-size:28px">A lecturer submits a syllabus</p><p class="sd" style="font-size:22px">PDF or DOCX, with the course code and term. Nothing happens automatically before this.</p></div>
 </div>
-<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:32px;border:1px solid #D9DBD4;border-radius:12px">
-<h3 style="font-size:32px;font-weight:600;line-height:1.2">Bỏ qua evaluation</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Kiểm: mở thư mục <b>eval/</b>. Rỗng hoặc chỉ có file mẫu là trống.</p>
+<div class="st" style="padding:20px 26px">
+<span class="sn" style="width:40px;height:40px;line-height:40px;font-size:22px">2</span>
+<div><p class="stt" style="font-size:28px">The agent reviews it against the rubric</p><p class="sd" style="font-size:22px">Six criteria. Every finding must <b>cite the passage</b> it came from — a finding with no citation is a hallucination with good manners.</p></div>
 </div>
-<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:32px;border:1px solid #D9DBD4;border-radius:12px">
-<h3 style="font-size:32px;font-weight:600;line-height:1.2">README sơ sài</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Kiểm: đọc README rồi tự cài thử. Cài không nổi là README chưa đạt.</p>
+<div class="st" style="padding:20px 26px">
+<span class="sn" style="width:40px;height:40px;line-height:40px;font-size:22px">3</span>
+<div><p class="stt" style="font-size:28px">A draft report is produced</p><p class="sd" style="font-size:22px">Status <code>PENDING</code>. Visible to the lecturer, invisible to students.</p></div>
 </div>
-<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:32px;border:1px solid #D9DBD4;border-radius:12px">
-<h3 style="font-size:32px;font-weight:600;line-height:1.2">Môi trường không rõ</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Kiểm: có <b>.env.example</b> không, và “trên máy em chạy được” xuất hiện mấy lần.</p>
+<div class="st" style="padding:20px 26px;border:2px solid #E8B34A;background:#FBF4E4">
+<span class="sn" style="width:40px;height:40px;line-height:40px;font-size:22px;background:#6B4A0C">4</span>
+<div><p class="stt" style="font-size:28px">The lecturer approves or rejects — the human in the loop</p><p class="sd" style="font-size:22px">Only an <b>approved</b> report becomes source material for layer A and a data point for layer C. The agent never approves its own work.</p></div>
 </div>
-<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:32px;border:1px solid #D9DBD4;border-radius:12px">
-<h3 style="font-size:32px;font-weight:600;line-height:1.2">Gộp hết vào một file</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Kiểm: xem số dòng từng file. Một file nghìn dòng thì nhìn ra ngay.</p>
-</div>
-<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:32px;border:1px solid #D9DBD4;border-radius:12px">
-<h3 style="font-size:32px;font-weight:600;line-height:1.2">Không viết test</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Kiểm: mở <b>tests/</b> và đếm file. Không có test thì không refactor an toàn.</p>
+<div class="st" style="padding:20px 26px">
+<span class="sn" style="width:40px;height:40px;line-height:40px;font-size:22px">5</span>
+<div><p class="stt" style="font-size:28px">Approved content flows outward</p><p class="sd" style="font-size:22px">To layer A as a citable source, to layer C as an anonymised number.</p></div>
 </div>
 </div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E7680">Nguồn: docs/giao-trinh/00-khung-danh-gia.md §5 · cách kiểm từng cái: bổ sung của giáo trình này</p>
-<aside>Nhấn câu dưới tiêu đề. Sáu thứ này không phải lỗi thuật toán, là lỗi nghề — và cả sáu đều hiện ra khi mở repo, không nằm trong logic code.
+<p style="position:absolute;left:128px;bottom:52px;width:1664px;font-size:24px;color:#6E7680">Source: <code>docs/de-bai.md</code> §<i>Ba năng lực</i></p>
+<aside>Walk down the five steps and stop at step four.
 
-Đi qua từng thẻ bằng cách làm thật trên máy chiếu, đừng chỉ đọc. Mở một repo đội Cohort-4 bất kỳ, bấm vào tab Actions, mở thư mục eval. Hai phút cho cả sáu thẻ. Phòng phải thấy rằng đây là việc nhìn, không phải việc đọc code.
+Step four is the reason this project is worth building. An agent that reviewed syllabi and published the results itself would be unusable in a real university, and would also be a much easier piece of software. The approval gate is what makes it real, and it is also what makes it technically interesting: a pending state, a permission check, and a flow that waits for a person.
 
-Thẻ "Môi trường không rõ" có một mẹo đáng nói: câu "trên máy em chạy được" là câu chẩn đoán. Khi đội nói câu đó, nghĩa là họ chưa có môi trường tái lập được, và tuần 4 deploy sẽ hỏng đúng vì lý do đó.
-
-Phần cách kiểm từng cái là bổ sung của giáo trình này — nói rõ để phòng biết chỗ nào là phần kế thừa, chỗ nào là mình thêm.</aside>
+Note the sentence in step two for later use in session 07: a finding without a citation is a hallucination with good manners. That is the guardrail requirement for G3, expressed in a form a team can test.</aside>
 </section>
-<section id="agent-doan" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:44px">
-<div style="display:flex;flex-direction:column;gap:20px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:66px;font-weight:600;line-height:1.1">Agent nói rất chắc về thứ nó chưa hề kiểm</h2>
-<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1480px">Hai câu hỏi về <b>trạng thái repo</b>. Hai câu trả lời tự tin. Không câu nào được chạy.</p>
-</div>
-<div style="display:flex;gap:28px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FFFFFF;padding:38px;border:1px solid #D9DBD4;border-left:5px solid #A3302A;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#A3302A">Agent trả lời</p>
-<p style="font-size:28px;line-height:1.45;color:#16202E">“Repo này có <b>khoảng 40 file</b>.”</p>
-<p style="font-size:28px;line-height:1.45;color:#16202E">“<b>make test</b> sẽ pass hết.”</p>
-<hr style="border-top:1px solid #D9DBD4;width:100%">
-<p style="font-size:26px;line-height:1.45;color:#48515E">Nó không bịa cho vui. Nó <b>đoán theo cái quen thuộc nhất</b> — repo nào mà test chẳng xanh.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#16202E;padding:38px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Phép kiểm — bạn tự chạy</p>
-<p style="font-size:28px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">git ls-files | wc -l<br>make test</p>
-<hr style="border-top:1px solid #3A4654;width:100%">
-<p style="font-size:28px;line-height:1.45;color:#BFD0D8">Sự thật: <b style="color:#E8B34A">100 file</b> và <b style="color:#E8B34A">2 passed, 3 errors</b>.</p>
-</div>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:28px;font-weight:600;color:#1C6B72">Câu hỏi về trạng thái repo chỉ được trả lời bằng <u>một lệnh</u> — không bằng một câu.</p>
-<aside>Slide quan trọng nhất của buổi. Việc này là lab bước 5, làm trên repo đội sau khi mỗi người đã mở PR đầu tiên.
 
-Chạy số thật trước buổi: git ls-files | wc -l. Con số 100 sẽ tăng khi giáo trình soạn thêm buổi, nên đừng đọc số trên slide nếu đã lệch — sửa slide, hoặc nói "số trên máy tôi là bao nhiêu".
-
-Điểm phải nói cho bằng được: agent sai ở đây KHÔNG phải vì nó kém, mà vì nó đoán thay vì chạy. Hai lỗi đó khác nhau và cách xử lý khác nhau hoàn toàn. Agent dẫn nguồn một file có thật mà trích sai mục thì mentor chỉ vào đúng mục. Agent trả lời một con số mà không chạy lệnh nào thì mentor đòi lệnh — không có lệnh thì không có câu trả lời.
-
-Đội của bạn sẽ nhận đúng kiểu câu trả lời này hàng ngày: tự tin, hợp lý, và không ai kiểm. Mentor phân biệt được "agent đã chạy và báo lại" với "agent đoán rồi nói như đã chạy" thì coaching được; không phân biệt được thì chỉ biết nói "em kiểm tra lại đi".
-
-Quy tắc này đã viết sẵn trong CLAUDE.md của repo, nên agent tự đọc từ phiên đầu. Buổi hôm nay là lần mentor kiểm xem nó có tuân không.</aside>
-</section>
-<section id="vong-lap-4-buoc" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
-<div style="display:flex;flex-direction:column;gap:20px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1">Agent là thợ. Mentor là người nghiệm thu.</h2>
-<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1500px">Vòng lặp bốn bước, lặp lại suốt 15 buổi. Bỏ bước ba thì ba bước còn lại vô nghĩa.</p>
+<!-- ============ 14 · S4 · THREE ROLES ============ -->
+<section id="mt-01-roles" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:112px 128px 140px;display:flex;flex-direction:column;gap:44px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p class="eyebrow">Section 4.3</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">Three roles, and the boundary between them</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1500px">“Who is allowed to do this?” is a server-side question. A UI that hides a button has not answered it.</p>
 </div>
-<div style="display:flex;gap:18px;align-items:center">
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px 30px;border:1px solid #D9DBD4;border-radius:12px">
-<p style="font-size:26px;font-weight:700;color:#1C6B72">Bước 1</p>
-<h3 style="font-size:34px;font-weight:600;line-height:1.2">Ra yêu cầu rõ</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Nói rõ nộp gì, dạng gì.</p>
-</div>
-<x-shape kind="arrow-right" style="width:44px;height:22px;background:#B3BAB2"></x-shape>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px 30px;border:1px solid #D9DBD4;border-radius:12px">
-<p style="font-size:26px;font-weight:700;color:#1C6B72">Bước 2</p>
-<h3 style="font-size:34px;font-weight:600;line-height:1.2">Agent làm</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Nhanh, và rất tự tin.</p>
-</div>
-<x-shape kind="arrow-right" style="width:44px;height:22px;background:#B3BAB2"></x-shape>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:36px 30px;border:1px solid #16202E;border-top:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:26px;font-weight:700;color:#E8B34A">Bước 3</p>
-<h3 style="font-size:34px;font-weight:600;line-height:1.2;color:#F6F6F2">Mentor chạy phép kiểm</h3>
-<p style="font-size:26px;line-height:1.4;color:#BFD0D8">Đây là phần được chấm.</p>
-</div>
-<x-shape kind="arrow-right" style="width:44px;height:22px;background:#B3BAB2"></x-shape>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px 30px;border:1px solid #D9DBD4;border-radius:12px">
-<p style="font-size:26px;font-weight:700;color:#1C6B72">Bước 4</p>
-<h3 style="font-size:34px;font-weight:600;line-height:1.2">Sửa yêu cầu</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Rồi quay lại bước 1.</p>
-</div>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:30px;font-weight:600;color:#16202E">Dùng AI viết code <u>không</u> bị trừ điểm. Không kiểm được thứ AI viết thì mới bị trừ.</p>
-<aside>Đây là câu trả lời cho câu hỏi thứ ba của đội, và là câu hỏi mentor sẽ bị hỏi nhiều nhất trong tuần 1: "em để AI viết gần hết code, có bị trừ điểm không".
-
-Đọc đúng dòng ở chân slide. Không trừ. Cái bị trừ là không bảo vệ được, không giải thích được, không kiểm được.
-
-Nhấn thẻ bước 3 đang để màu khác. Suốt 15 buổi, mỗi bài thực hành đều có một phép kiểm — và chính phép kiểm là phần được chấm, không phải code agent sinh ra. Mentor nào về nhà chỉ copy prompt mà không chạy phép kiểm thì buổi đó coi như không học.
-
-Một mẹo thực tế đáng cho: phép kiểm tốt nhất là phép kiểm mà agent không biết mình sẽ chạy. Nếu bảo agent "viết xong rồi tự kiểm giúp anh" thì nó sẽ báo đã kiểm xong.</aside>
-</section>
-<section id="mt-01" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
-<div style="display:flex;flex-direction:column;gap:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#1C6B72">Đề xuyên suốt 15 buổi · MT-01</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:56px;font-weight:600;line-height:1.1">Hệ thống AI agent chuẩn hóa chất lượng đào tạo</h2>
-</div>
-<p style="font-family:'Lora', Georgia, serif;font-size:36px;font-weight:400;line-height:1.3;color:#16202E;width:1560px">Ba tầng, không phải một: <i>người học</i>, <i>môn học</i>, <i>chương trình</i>. Chuẩn hóa đề cương là tầng giữa.</p>
-<div style="display:flex;gap:22px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:32px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#1C6B72">A · Người học</p>
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Trợ lý người học</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Hỏi đáp trên tài liệu <b>đã duyệt</b>, có trích nguồn. Thuật ngữ song ngữ cho người học ESL.</p>
-<p style="font-size:26px;line-height:1.4;color:#A3302A"><b>Từ chối</b> làm hộ bài tính điểm.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:32px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#1C6B72">B · Môn học</p>
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Chuẩn hóa môn học</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Đối chiếu <b>rubric 6 tiêu chí</b>, báo cáo trích đúng dòng trong đề cương.</p>
-<p style="font-size:26px;line-height:1.4;color:#A3302A"><b>Giảng viên duyệt</b> là bước bắt buộc.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:32px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#1C6B72">C · Chương trình</p>
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Bức tranh chương trình</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Môn nào đã rà, tiêu chí nào cả chương trình yếu, PLO nào chưa phủ.</p>
-<p style="font-size:26px;line-height:1.4;color:#A3302A">Số tổng hợp <b>ẩn danh</b>.</p>
-</div>
-</div>
-<div style="display:flex;gap:32px;align-items:center;background:#16202E;padding:28px 36px;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A;width:300px">Ba tầng nối nhau</p>
-<p style="font-size:26px;line-height:1.4;color:#F6F6F2;flex:1">Bản đã duyệt ở <b>B</b> mới là nguồn cho <b>A</b> · số liệu từ <b>B</b> lên <b>C</b>. Chưa duyệt thì trợ lý không có gì để trả lời — đúng hành vi, không phải thiếu tính năng.</p>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E7680">Nghiên cứu trường hợp: Trường Tài năng, ĐH Kinh tế TP.HCM · định hướng quốc tế hóa cho người học ESL · đề đầy đủ: docs/de-bai.md trong repo của bạn</p>
-<aside>Giới thiệu đề, và sửa ngay chỗ hay bị hiểu hẹp: đây không phải hệ thống rà đề cương. Rà đề cương là tầng B. Hệ thống gánh cả ba tầng — người học, môn học, chương trình.
-
-Đọc to câu Lora ở giữa slide, rồi đọc dòng đỏ trong từng thẻ. Ba dòng đỏ đó là ba ràng buộc khiến đề này không phải một chatbot bọc API: từ chối làm hộ bài, bắt buộc người duyệt, ẩn danh khi tổng hợp. Đó là guardrail theo domain giáo dục — platform không chịu trách nhiệm chỗ đó thay bạn.
-
-Dải tối cuối slide là thứ tự phụ thuộc giữa ba tầng, và cũng là câu trả lời cho câu đội hay hỏi ở tuần 3: "sao trợ lý chưa trả lời được gì" — vì chưa có tài liệu nào được duyệt.
-
-Nếu có người hỏi đề này giống AI Learning Companion không: giống khối, khác trọng tâm. Learning Companion lấy sinh viên làm trung tâm và cần LMS thật; MT-01 không nối LMS, nhập file là đủ, nên chạy được trong lớp.
-
-Ta build thật, deploy thật, eval thật. Cuối 15 buổi mỗi mentor có một repo đã đi đủ G1 đến G6.</aside>
-</section>
-<section id="mt-01-luong" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
-<div style="display:flex;flex-direction:column;gap:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#1C6B72">MT-01 · Luồng tầng B nối sang tầng A</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1">Năm bước, mỗi bước một phép kiểm</h2>
-</div>
-<div style="display:flex;gap:16px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:30px 24px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:700;color:#1C6B72">Bước 1</p>
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Giảng viên nộp đề cương</h3>
-<p style="font-size:24px;line-height:1.4;color:#48515E">Nhập file, không qua LMS.</p>
-<hr style="border-top:1px solid #D9DBD4;width:100%">
-<p style="font-size:24px;font-weight:600;color:#1C6B72">Mentor kiểm</p>
-<p style="font-size:24px;line-height:1.4;color:#16202E">Nộp một file hỏng: hệ thống báo lỗi rõ, hay im lặng?</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:30px 24px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:700;color:#1C6B72">Bước 2</p>
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Agent đối chiếu rubric</h3>
-<p style="font-size:24px;line-height:1.4;color:#48515E">Xét đề cương theo từng tiêu chí trong 6 tiêu chí.</p>
-<hr style="border-top:1px solid #D9DBD4;width:100%">
-<p style="font-size:24px;font-weight:600;color:#1C6B72">Mentor kiểm</p>
-<p style="font-size:24px;line-height:1.4;color:#16202E">Chạy cùng một đề cương hai lần: kết luận có giữ nguyên?</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:30px 24px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:700;color:#1C6B72">Bước 3</p>
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Báo cáo có trích dẫn</h3>
-<p style="font-size:24px;line-height:1.4;color:#48515E">Mỗi nhận xét kèm dòng trích từ đề cương.</p>
-<hr style="border-top:1px solid #D9DBD4;width:100%">
-<p style="font-size:24px;font-weight:600;color:#1C6B72">Mentor kiểm</p>
-<p style="font-size:24px;line-height:1.4;color:#16202E">Mở đúng dòng được trích: câu đó có thật, và có nói điều đó?</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:30px 24px;border:1px solid #16202E;border-top:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:24px;font-weight:700;color:#E8B34A">Bước 4 · Buổi 08</p>
-<h3 style="font-size:30px;font-weight:600;line-height:1.2;color:#F6F6F2">Giảng viên duyệt</h3>
-<p style="font-size:24px;line-height:1.4;color:#BFD0D8">Bắt buộc. Agent không tự công bố báo cáo.</p>
-<hr style="border-top:1px solid #3A4654;width:100%">
-<p style="font-size:24px;font-weight:600;color:#E8B34A">Mentor kiểm</p>
-<p style="font-size:24px;line-height:1.4;color:#F6F6F2">Gọi thẳng lệnh công bố khi chưa duyệt: phải bị chặn.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:30px 24px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:700;color:#1C6B72">Bước 5</p>
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Sinh viên hỏi–đáp</h3>
-<p style="font-size:24px;line-height:1.4;color:#48515E">Chỉ trên bản đã duyệt, có trích nguồn.</p>
-<hr style="border-top:1px solid #D9DBD4;width:100%">
-<p style="font-size:24px;font-weight:600;color:#1C6B72">Mentor kiểm</p>
-<p style="font-size:24px;line-height:1.4;color:#16202E">Hỏi điều đề cương không có: agent nói “không có”, hay bịa?</p>
-</div>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E7680">Đây là luồng của tầng B nối sang tầng A · tầng C đọc số tổng hợp từ bước 4 · phép kiểm từng bước: đề xuất của giáo trình này</p>
-<aside>Đi từ trái sang phải, nhưng mỗi thẻ chỉ đọc nửa dưới: "Mentor kiểm". Nửa trên là việc của hệ thống, đội sẽ tự kể. Nửa dưới là việc của mentor, và không bước nào cần đọc code.
-
-Ô màu khác là ô đáng nhất của cả đề: giảng viên duyệt là một bước trong luồng, không phải một nút tuỳ chọn. Buổi 08 sẽ dựng đúng cơ chế chặn này, và đó cũng là câu trả lời cho các đội đang hỏi về HITL. Phép kiểm ở bước này là gọi thẳng lệnh công bố, không đi qua giao diện — vì giao diện ẩn nút thì chưa chứng minh được gì.
-
-Bước 2 có một bẫy đáng nói: agent chạy hai lần cho hai kết luận khác nhau thì báo cáo đó chưa dùng để giảng viên duyệt được, dù lần nào nghe cũng hợp lý.
-
-Bước 5: agent trả lời "đề cương không nói điều này" là trả lời đúng, không phải lỗi.</aside>
-</section>
-<section id="mt-01-vai" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
-<div style="display:flex;flex-direction:column;gap:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#1C6B72">MT-01 · Ba vai</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1">Ba vai, ba ranh giới quyền</h2>
-</div>
-<table style="font-family:'Be Vietnam Pro', Arial, sans-serif;font-size:26px;color:#16202E;border:1px solid #D9DBD4;border-radius:10px;padding:16px">
-<tr style="background:#16202E">
-<th style="width:20%;color:#F6F6F2;font-size:26px;font-weight:600;text-align:left">Vai</th>
-<th style="width:25%;color:#F6F6F2;font-size:26px;font-weight:600;text-align:left">Được làm</th>
-<th style="width:23%;color:#E8B34A;font-size:26px;font-weight:600;text-align:left">Không được</th>
-<th style="width:32%;color:#F6F6F2;font-size:26px;font-weight:600;text-align:left">Mentor kiểm bằng cách</th>
-</tr>
-<tr>
-<td style="font-weight:600">Giảng viên</td>
-<td>Nộp, sửa, duyệt đề cương của mình</td>
-<td style="font-weight:600;color:#A3302A">Xem đề cương của giảng viên khác</td>
-<td style="color:#48515E">Đăng nhập giảng viên A, xin đề cương của B: phải bị từ chối</td>
-</tr>
-<tr style="background:#EDEDE7">
-<td style="font-weight:600">Sinh viên</td>
-<td>Hỏi–đáp có trích nguồn trên bản đã duyệt</td>
-<td style="font-weight:600;color:#A3302A">Nhờ làm hộ bài tính điểm</td>
-<td style="color:#48515E">Hỏi “giải giúp em bài tập 2”: agent phải từ chối</td>
-</tr>
-<tr>
-<td style="font-weight:600">Quản lý chương trình</td>
-<td>Xem số tổng hợp ẩn danh</td>
-<td style="font-weight:600;color:#A3302A">Đọc câu hỏi của từng sinh viên</td>
-<td style="color:#48515E">Bằng tài khoản quản lý, xin chi tiết câu hỏi: phải bị chặn</td>
-</tr>
-</table>
-<div style="display:flex;gap:32px;align-items:center;background:#16202E;padding:32px 40px;border-radius:12px">
-<p style="font-family:'Lora', Georgia, serif;font-size:40px;font-weight:600;line-height:1.2;color:#F6F6F2;flex:1">Ẩn nút không phải kiểm quyền.</p>
-<p style="font-size:26px;line-height:1.4;color:#BFD0D8;width:760px">Ranh giới phải nằm trong code ở server. Câu này quay lại ở buổi <b style="color:#E8B34A">09, 10 và 14</b>.</p>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E7680">Cột phép kiểm: đề xuất của giáo trình này</p>
-<aside>Đọc to cột "Không được" — cột màu đỏ. Ba dòng đó là ba capability của đề, và cũng là ba chỗ đội dễ làm sai nhất vì làm sai vẫn demo được.
-
-Cột cuối là cách mentor kiểm mà không đọc code: đăng nhập bằng vai này, xin thứ của vai khác. Nếu hệ thống trả về dữ liệu — dù giao diện không có nút nào dẫn tới đó — thì quyền chưa được kiểm.
-
-Dòng sinh viên khác hai dòng còn lại: ranh giới ở đây là guardrail của agent, không chỉ là quyền truy cập dữ liệu. Nên phép kiểm là một câu hỏi, không phải một lần đăng nhập.
-
-Chốt bằng dòng tối màu: ẩn nút không phải kiểm quyền. Nói câu này hôm nay để buổi 09, 10 và 14 chỉ cần nhắc lại.</aside>
-</section>
-<section id="mt-01-sau-cong" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
-<div style="display:flex;flex-direction:column;gap:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#1C6B72">MT-01 · Sáu cổng</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1">MT-01 đi qua sáu cổng thế nào</h2>
-</div>
-<table style="font-family:'Be Vietnam Pro', Arial, sans-serif;font-size:24px;color:#16202E;border:1px solid #D9DBD4;border-radius:10px;padding:14px">
-<tr style="background:#16202E">
-<th style="width:9%;color:#F6F6F2;font-size:24px;font-weight:600;text-align:left">Cổng</th>
-<th style="width:39%;color:#F6F6F2;font-size:24px;font-weight:600;text-align:left">Bằng chứng tối thiểu</th>
-<th style="width:52%;color:#E8B34A;font-size:24px;font-weight:600;text-align:left">Với MT-01 nghĩa là</th>
-</tr>
-<tr>
-<td style="font-weight:600">G1</td>
-<td style="color:#48515E">USP + 1 trang proposal + prototype cho 5 user xem</td>
-<td>USP của hệ thống, nháp 5 use case trên cả ba tầng, đưa người ngoài lớp nghe thử</td>
-</tr>
-<tr style="background:#EDEDE7">
-<td style="font-weight:600">G2</td>
-<td style="color:#48515E">Kiến trúc + API skeleton + repo đúng template</td>
-<td>Repo riêng từ template chính thức; sơ đồ có đủ ba tầng, ba vai, và bước giảng viên duyệt</td>
-</tr>
-<tr>
-<td style="font-weight:600">G3</td>
-<td style="color:#48515E">Agent trả lời 5 câu hỏi cốt lõi + tools thật + guardrail</td>
-<td>Agent đối chiếu rubric, trích đúng dòng; bước duyệt chặn được (buổi 08)</td>
-</tr>
-<tr style="background:#EDEDE7">
-<td style="font-weight:600">G4</td>
-<td style="color:#48515E">Deploy + CI xanh + golden dataset ≥45 case + eval vòng 1</td>
-<td>Bản Streamlit chạy trên cloud; ≥45 case trên đề cương mẫu, eval có số</td>
-</tr>
-<tr>
-<td style="font-weight:600">G5</td>
-<td style="color:#48515E">Eval before/after + feedback ≥5 user thật + slop-check</td>
-<td>Before/after trên cùng golden set; giảng viên, sinh viên thật dùng thử</td>
-</tr>
-<tr style="background:#EDEDE7">
-<td style="font-weight:600">G6</td>
-<td style="color:#48515E">10/10 deliverables + video demo + pitch</td>
-<td>Demo chạy đủ năm bước, bước duyệt chạy thật trước ban giám khảo</td>
-</tr>
-</table>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E7680">Cột giữa: rút gọn từ docs/giao-trinh/00-khung-danh-gia.md §1 · cột phải: cách giáo trình này áp bảng cổng vào MT-01</p>
-<aside>Slide này nối đề với bảng cổng đã xem ở đầu buổi. Cột giữa là thứ chung cho mọi đội; cột phải là cùng yêu cầu đó, viết lại cho MT-01. Mentor tự đi đường này trước thì lúc đội hỏi "tuần này em nộp gì" sẽ trả lời bằng ví dụ cụ thể, không phải bằng câu chữ trong tài liệu.
-
-Chỉ vào G1: bài về nhà hôm nay — nháp 5 use case của MT-01 — chính là bước đầu của cổng này.
-
-Chỉ vào G3: bước giảng viên duyệt phải chặn được ngay từ cổng 3, không để đến tuần cuối mới thêm vào.
-
-Nếu phòng hỏi golden dataset của MT-01 đo cái gì cụ thể: đó là nội dung buổi 12–13, hôm nay chỉ cần biết là ≥45 case.</aside>
-</section>
-<section id="scope-guard" data-transition="fade" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1;color:#F6F6F2">Ranh giới phạm vi, và thứ bạn mang về hôm nay</h2>
-<div style="display:flex;gap:40px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#1E2B3C;padding:44px;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">MT-01 cố tình không làm</p>
-<ul style="font-size:30px;line-height:1.5;color:#BFD0D8">
-<li>Không tích hợp LMS thật — nhập file là đủ</li>
-<li>Không chấm điểm, không đọc bài làm sinh viên</li>
-<li>Không multi-agent, không fine-tune</li>
-<li>Không vector DB có phí</li>
-<li>Không Next.js ở bản cơ bản — Streamlit trước, đẹp sau</li>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div class="role">
+<p class="who" style="background:#1C6B72;font-size:22px">Student</p>
+<div class="page" style="flex:1;padding:26px 28px">
+<p class="pt" style="font-size:28px">Can</p>
+<ul style="font-size:21px;line-height:1.4">
+<li>ask questions, get <b>cited</b> answers</li>
+<li>read approved material only</li>
+<li>ask for ESL support on a passage</li>
 </ul>
-<p style="font-size:26px;line-height:1.45;color:#8E9CAA">Đọc lại danh sách này mỗi lần có người muốn thêm tính năng vào tuần 3.</p>
+<p class="pat" style="font-size:19px">Must never see a <code>PENDING</code> report.</p>
 </div>
-<div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#1E2B3C;padding:44px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Cuối buổi hôm nay bạn có</p>
-<ul style="font-size:30px;line-height:1.5;color:#F6F6F2">
-<li>Một PR của bạn đã merge — <b>do người khác merge</b></li>
-<li>Dòng của bạn trong bảng <b>Đội ngũ</b> ở README, và dòng của ba người kia trên máy bạn</li>
-<li>Một chỗ agent đã nói sai, kèm nguyên nhân và phép kiểm đã dùng</li>
+</div>
+<div class="role">
+<p class="who" style="background:#6B4A0C;font-size:22px">Lecturer</p>
+<div class="page key" style="flex:1;padding:26px 28px">
+<p class="pt" style="font-size:28px">Can <span>the approval</span></p>
+<ul style="font-size:21px;line-height:1.4">
+<li>submit a syllabus</li>
+<li>read the draft report</li>
+<li><b>approve or reject</b> — their own courses</li>
 </ul>
-<p style="font-size:26px;line-height:1.45;color:#8E9CAA">Ô thứ ba là ô duy nhất không đạt thì không sang buổi 02. Hai ô đầu là thủ tục; ô thứ ba là nghề.</p>
+<p class="pat" style="font-size:19px">Approving someone else's course → <b>403</b>, from the server.</p>
 </div>
 </div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:26px;color:#E8B34A">Bài về nhà: đọc hết docs/de-bai.md · bản đồ 6 cổng tự điền rồi nộp bằng PR · cài sẵn Python 3.12 · nháp 5 use case</p>
-<aside>Đọc to danh sách bên trái và đề nghị cả phòng chụp lại. Mentor sẽ phải nói đúng những câu này với đội của mình vào tuần 3, khi đội muốn thêm tính năng thay vì hoàn thiện cái đang có — và lúc đó rất khó nói nếu chưa từng nói thành tiếng.
+<div class="role">
+<p class="who" style="background:#16202E;font-size:22px">Programme manager</p>
+<div class="page" style="flex:1;padding:26px 28px">
+<p class="pt" style="font-size:28px">Can</p>
+<ul style="font-size:21px;line-height:1.4">
+<li>see <b>anonymised aggregates</b></li>
+<li>compare across courses and terms</li>
+<li>export the programme view</li>
+</ul>
+<p class="pat" style="font-size:19px">Cannot read one named lecturer's report.</p>
+</div>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:52px;width:1664px;font-size:26px;color:#16202E;background:#E7F0F1;border-left:5px solid #1C6B72;border-radius:6px;padding:16px 24px">The check for this, from session 03 onward: call the approve endpoint as the wrong role and confirm the server returns <b>403</b>. Hiding the button in the UI is not a permission system.</p>
+<aside>Three roles, and one sentence that matters: permissions live on the server.
 
-Cột bên phải là tiêu chí đạt của buổi. Nhấn ô thứ ba lần nữa: ghi chép về chỗ agent nói sai là thứ duy nhất không đạt thì không sang buổi sau.
+Teams will implement this in the front end first, because it is easier and it looks right in a demo. Then a judge opens the network tab, calls the endpoint directly, and the whole permission model evaporates. We will test exactly this in session 03's exercise, and it is worth saying today so nobody is surprised.
 
-Bài về nhà có một việc dễ bị bỏ mà sẽ làm hỏng buổi 02: rủ trước 3 người ngoài lớp. Buổi 02 phải đưa câu positioning cho ba người không biết đề nghe rồi hỏi họ ba câu. Không có ba người đó thì bước quan trọng nhất của buổi 02 không làm được, và không mượn người trong lớp thay được — họ đã biết đề rồi.
-
-Đóng buổi bằng một câu: tuần sau chúng ta chưa viết dòng code nào, mà đi chốt xem đề này có đáng build không.</aside>
+The manager's restriction is the subtle one. Aggregated and anonymised means the manager cannot drill down to a named lecturer, even though the data exists. That is a design decision from the brief, not an oversight, and a team will try to "improve" it in week 3.</aside>
 </section>
-<section id="vong-pr" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:44px">
-<div style="display:flex;flex-direction:column;gap:16px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#E8B34A">Lab 60 phút — bắt đầu ngay sau slide này</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1;color:#F6F6F2">Bốn người, một đội, một repo, bốn PR</h2>
-<p style="font-size:30px;font-weight:300;line-height:1.4;color:#BFD0D8;width:1500px">Việc hôm nay: thêm tên mình vào <b>bảng Đội ngũ</b> trong <b>README.md</b> — và PR của bạn do <b>người khác</b> merge.</p>
-</div>
-<div style="display:flex;gap:14px;align-items:center">
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#1E2B3C;padding:26px 20px;border-radius:12px">
-<p style="font-size:24px;font-weight:700;color:#1C6B72">1</p>
-<h3 style="font-size:27px;font-weight:600;line-height:1.2;color:#F6F6F2">switch -c</h3>
-<p style="font-size:24px;line-height:1.35;color:#BFD0D8">Bản nháp riêng của bạn</p>
-</div>
-<x-shape kind="arrow-right" style="width:32px;height:16px;background:#3A4654"></x-shape>
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#1E2B3C;padding:26px 20px;border-radius:12px">
-<p style="font-size:24px;font-weight:700;color:#1C6B72">2</p>
-<h3 style="font-size:27px;font-weight:600;line-height:1.2;color:#F6F6F2">add + commit</h3>
-<p style="font-size:24px;line-height:1.35;color:#BFD0D8">Chọn file, ghi lý do</p>
-</div>
-<x-shape kind="arrow-right" style="width:32px;height:16px;background:#3A4654"></x-shape>
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#1E2B3C;padding:26px 20px;border-radius:12px">
-<p style="font-size:24px;font-weight:700;color:#1C6B72">3</p>
-<h3 style="font-size:27px;font-weight:600;line-height:1.2;color:#F6F6F2">push</h3>
-<p style="font-size:24px;line-height:1.35;color:#BFD0D8">Lên GitHub, chưa vào repo chính</p>
-</div>
-<x-shape kind="arrow-right" style="width:32px;height:16px;background:#3A4654"></x-shape>
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#1E2B3C;padding:26px 20px;border-radius:12px">
-<p style="font-size:24px;font-weight:700;color:#1C6B72">4</p>
-<h3 style="font-size:27px;font-weight:600;line-height:1.2;color:#F6F6F2">pr create</h3>
-<p style="font-size:24px;line-height:1.35;color:#BFD0D8">Xin ý kiến người khác</p>
-</div>
-<x-shape kind="arrow-right" style="width:32px;height:16px;background:#3A4654"></x-shape>
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#1E2B3C;padding:26px 20px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:24px;font-weight:700;color:#E8B34A">5</p>
-<h3 style="font-size:27px;font-weight:600;line-height:1.2;color:#F6F6F2">review + merge</h3>
-<p style="font-size:24px;line-height:1.35;color:#E8B34A">Người khác làm, không phải bạn</p>
-</div>
-<x-shape kind="arrow-right" style="width:32px;height:16px;background:#3A4654"></x-shape>
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#1E2B3C;padding:26px 20px;border-radius:12px">
-<p style="font-size:24px;font-weight:700;color:#1C6B72">6</p>
-<h3 style="font-size:27px;font-weight:600;line-height:1.2;color:#F6F6F2">pull</h3>
-<p style="font-size:24px;line-height:1.35;color:#BFD0D8">Lấy bài của đội về máy</p>
-</div>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:28px;font-weight:600;color:#E8B34A">Luật của đội từ hôm nay: <u>không ai tự merge PR của mình</u>.</p>
-<aside>Slide cuối, chiếu ngay trước khi vào lab. Đọc to sáu động tác một lượt, rồi vào lab làm từng cái — đừng giảng git ở đây, phòng sẽ không nhớ gì nếu chưa gõ.
 
-Nói rõ vì sao cả lứa là MỘT đội, một repo: cái khó của GitHub không phải gõ lệnh, mà là bốn người sửa cùng một repo mà không đè lên nhau. Mỗi người một repo thì học được cú pháp, không học được nghề.
+<!-- ============ 15 · S4 · MT-01 ACROSS SIX GATES ============ -->
+<section id="mt-01-gates" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:96px 128px 120px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:14px">
+<p class="eyebrow">Section 4.4</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:62px;font-weight:600;line-height:1.1">MT-01 across the six gates</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1500px">The same project, seen from each gate. This is the table you will fill in for your own team in week 1.</p>
+</div>
+<table class="steps v3 roomy" style="font-size:21px">
+<tr><th style="width:8%">Gate</th><th style="width:34%">What MT-01 looks like at this gate</th><th>The check a mentor runs</th></tr>
+<tr><td class="n">G1</td><td>Layer B scoped to one faculty; a USP sentence; a paper prototype of the report</td><td>Who were the <b>5 users</b>? Name them, and say what each one said.</td></tr>
+<tr><td class="n">G2</td><td>Five-block diagram; API skeleton answering on localhost; repo in the template's shape</td><td>Clone the repo on a clean machine and follow the README. Does it run?</td></tr>
+<tr><td class="n">G3</td><td>The agent reviews a real syllabus and cites passages; one guardrail layer</td><td>Ask it something outside the material. Does it <b>refuse</b>, or invent?</td></tr>
+<tr><td class="n">G4</td><td>Deployed; CI green; golden dataset ≥45 cases; eval round 1 with numbers</td><td>Open the live URL. Then open the CI run and read the <b>latest</b> result.</td></tr>
+<tr><td class="n">G5</td><td>Before/after numbers on the same dataset; feedback from ≥5 real users</td><td>Which number moved, by how much, measured on which dataset?</td></tr>
+<tr><td class="n">G6</td><td>10/10 deliverables; demo video; AIDA pitch</td><td>Walk the ten rows of §3 and tick each one against the repo.</td></tr>
+</table>
+<aside>This table is the bridge between the framework and the project. The left two columns are what the team builds; the right column is your job each week.
 
-Vì sao mỗi người một DÒNG riêng trong bảng: git ghép được bốn PR mà không cãi nhau, nên hôm nay không ai phải xử lý xung đột. Xung đột là bài của buổi sau. Nhớ giao số dòng cho từng người trước khi vào lab — không giao thì cả bốn cùng sửa dòng 1.
+Point at the G4 check and the word "latest". A green badge in a README can be months old. Open the actual run. This is a small habit that catches a surprising number of overstatements.
 
-Luật không-tự-merge ở chân slide là luật quan trọng nhất của buổi, và nó không phải thủ tục hành chính — nó là nghề mentor thu nhỏ thành một động tác. Người nghiệm thu không nghiệm thu bài của chính mình. Ai approve mà không mở tab Files changed thì đang ký khống, và mentor ký khống một lần thì cả đội học theo.
-
-Kiểm trước khi vào lab: ai đã bấm nhận lời mời vào org UEH-ISB chưa. Chưa nhận thì bước 3 không push được, và đó là 5 phút gỡ ở đây thay vì 20 phút giữa lab. Repo đội: github.com/UEH-ISB/mt-01-the-odyssey</aside>
+The G3 check is the one mentors enjoy once they try it: ask the system a question its material cannot answer, and watch what happens. A good system refuses. A system that invents a confident answer has no guardrail, whatever the architecture diagram claims.</aside>
 </section>
-<section id="lab-b1" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:44px">
-<div style="display:flex;flex-direction:column;gap:16px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#1C6B72">Lab · Bước 1 · 8 phút</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">Clone repo đội</h2>
-<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1480px">Bạn <b>không</b> tạo repo. Repo đội đã có, bạn là <b>thành viên org</b> — nghĩa là có quyền đẩy nhánh lên.</p>
+
+<!-- ============ 16 · S4 · SCOPE GUARD ============ -->
+<section id="scope-guard" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:52px">
+<div style="display:flex;flex-direction:column;gap:20px">
+<p class="eyebrow" style="color:#E8B34A">Section 4.5</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1;color:#F6F6F2">Scope guard — what MT-01 deliberately does not do</h2>
+<p style="font-size:30px;font-weight:300;line-height:1.4;color:#BFD0D8;width:1500px">Read this list aloud and put it on the wall. You will need it in week 3, word for word.</p>
 </div>
-<div style="display:flex;gap:28px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:38px;border-radius:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Ba lệnh</p>
-<p style="font-size:26px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">gh repo clone UEH-ISB/mt-01-the-odyssey<br>cd mt-01-the-odyssey<br>ls docs/giao-trinh/ docs/de-bai.md</p>
-<p style="font-size:25px;line-height:1.45;color:#BFD0D8">Clone về <b>đâu cũng được</b> — giáo trình và đề bài nằm sẵn trong repo.</p>
+<div style="display:grid;grid-template-columns:repeat(5, 1fr);gap:24px">
+<div style="display:flex;flex-direction:column;gap:14px;background:#1C2836;padding:34px 30px;border-top:5px solid #A3302A;border-radius:12px">
+<p style="font-size:40px;color:#A3302A;line-height:1">✗</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.25">No real LMS integration</h3>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;background:#1C2836;padding:34px 30px;border-top:5px solid #A3302A;border-radius:12px">
+<p style="font-size:40px;color:#A3302A;line-height:1">✗</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.25">No grading of students</h3>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;background:#1C2836;padding:34px 30px;border-top:5px solid #A3302A;border-radius:12px">
+<p style="font-size:40px;color:#A3302A;line-height:1">✗</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.25">No multi-agent setup</h3>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;background:#1C2836;padding:34px 30px;border-top:5px solid #A3302A;border-radius:12px">
+<p style="font-size:40px;color:#A3302A;line-height:1">✗</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.25">No fine-tuning</h3>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;background:#1C2836;padding:34px 30px;border-top:5px solid #A3302A;border-radius:12px">
+<p style="font-size:40px;color:#A3302A;line-height:1">✗</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.25">No Next.js in the basic version</h3>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:26px;color:#F6F6F2;background:#243245;border-left:5px solid #E8B34A;border-radius:6px;padding:16px 24px">In week 3 a team will want to <b>add a feature</b> instead of finishing the one they have. This list is the answer, and it is easier to give when it was written down in week 1.</p>
+<aside>Read the five items out loud. They sound like limitations; they are the project's spine.
+
+Explain why each one is excluded, briefly: a real LMS integration is someone else's credentials and someone else's release cycle; grading students is an ethics review, not a sprint; multi-agent and fine-tuning are both ways to spend six weeks and have nothing to demo; Next.js is a front-end decision the brief defers so the team can ship something visible in week 1.
+
+Then the real point: scope creep in week 3 is the single most common way a team fails Demo Day, and it never arrives as "let us abandon the plan". It arrives as one more good idea. A mentor who agreed the scope in writing in week 1 can say no in one sentence in week 3.</aside>
+</section>
+
+<!-- ============ 17 · S5 · THE AGENT GUESSES ============ -->
+<section id="agent-guesses" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:96px 128px 120px;display:flex;flex-direction:column;gap:34px">
+<div style="display:flex;flex-direction:column;gap:14px">
+<p class="eyebrow" style="color:#E8B34A">Section 5 · the most important slide today</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:62px;font-weight:600;line-height:1.1;color:#F6F6F2">The agent is most confident about what it never checked</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#BFD0D8;width:1560px">Ask it two questions about your own repo. Then run the commands yourself.</p>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:18px">
+<div class="ep" style="flex:none;background:#1C2836;border-color:#2A3645;border-top-color:#A3302A">
+<p class="eh" style="color:#E8B34A">Question 1 — what the agent says</p>
+<p class="c2" style="color:#BFD0D8;font-size:19px">“How many files does this repo track?”</p>
+<pre style="font-size:17px">A confident number. Usually wrong.</pre>
+</div>
+<div class="ep" style="flex:none;background:#1C2836;border-color:#2A3645;border-top-color:#A3302A">
+<p class="eh" style="color:#E8B34A">Question 2 — what the agent says</p>
+<p class="c2" style="color:#BFD0D8;font-size:19px">“What happens if I run <code>make test</code>?”</p>
+<pre style="font-size:17px">“The tests pass.” Said with total certainty.</pre>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#243245;border-left:5px solid #E8B34A;border-radius:8px;padding:22px 26px">
+<p style="font-size:22px;font-weight:700;color:#E8B34A">Why it is wrong</p>
+<p style="font-size:22px;line-height:1.45;color:#F6F6F2">Not because it is weak. Because it <b>guessed instead of running</b> — and it guesses towards the most familiar world, where every repo's tests are green.</p>
+</div>
+</div>
+<div style="flex:1.1;display:flex;flex-direction:column;gap:18px">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#1C2836;padding:32px 34px;border-top:5px solid #7FC4C9;border-radius:12px">
+<p style="font-size:22px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#7FC4C9">The truth — run it</p>
+<pre class="code" style="font-size:22px;background:#0E141C">$ <span class="h">git ls-files | wc -l</span>
+<span class="k">104</span>
+
+$ <span class="h">make test</span>
+<span class="c">...</span>
+<span class="k">2 passed, 3 errors</span></pre>
+<p style="font-size:21px;line-height:1.4;color:#BFD0D8">The three errors are <b>left red on purpose</b>. Session 02 fixes them, and the fixing is the lesson.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;background:#E8B34A;color:#16202E;border-radius:12px;padding:26px 30px">
+<p style="font-size:22px;font-weight:700;letter-spacing:2px;text-transform:uppercase">The rule of this whole course</p>
+<p style="font-size:30px;font-weight:600;line-height:1.3">A question about the state of a repo is answered by <b>a command</b> — never by a sentence.</p>
+</div>
+</div>
+</div>
+<aside>This is the slide to spend the most time on, and the one the lab turns into a habit.
+
+Run both commands live if you can. The file count moves as the course material grows, so check it before the session with git ls-files piped to wc -l and use today's number. The test result is the interesting one: two passed, three errors, and those errors are deliberate — the template ships with a real defect so that session 02 has something real to fix.
+
+Say the diagnosis carefully, because it changes how people treat the tool for the rest of the course. The agent is not failing at arithmetic. It answered from the most probable world rather than from this repo, and in the most probable world the tests are green. That failure mode never announces itself; it arrives as a fluent, plausible sentence.
+
+Then give the rule, and mean it: questions about repo state are answered by a command. Everybody will hear this sentence from their own team within three weeks, phrased as "it works on my machine".</aside>
+</section>
+
+<!-- ============ 18 · LAB OVERVIEW ============ -->
+<section id="lab-overview" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:84px 128px 104px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p class="eyebrow ex">Lab · 60 minutes · four exercises</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1">Four people, one team, one repo, four pull requests</h2>
+<p style="font-size:27px;font-weight:300;line-height:1.4;color:#48515E;width:1560px">The hard part of GitHub is not typing the commands. It is four people editing one repo without overwriting each other.</p>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="flex:1.15;display:flex;flex-direction:column;gap:14px">
+<p class="lb">The six Git moves — all the GitHub you need for fifteen sessions</p>
+<table class="tt" style="font-size:19px">
+<tr><th style="width:38%">Move</th><th>What it actually means</th></tr>
+<tr><td><code>git switch -c &lt;branch&gt;</code></td><td>Open your own draft. Nobody else sees it; nobody gets overwritten.</td></tr>
+<tr><td><code>git add &lt;file&gt;</code></td><td>Choose exactly what you are submitting — not everything you touched.</td></tr>
+<tr><td><code>git commit -m "…"</code></td><td>Package it, with the reason. Someone will read that sentence, including you in three weeks.</td></tr>
+<tr><td><code>git push -u origin &lt;branch&gt;</code></td><td>Send the draft to GitHub. Still <b>not</b> in the main branch.</td></tr>
+<tr><td><code>gh pr create</code></td><td>Ask: “this is what I want to add.” It opens a place for someone to read it.</td></tr>
+<tr><td><code>gh pr merge</code></td><td>Agree, and take it in. <b>The reviewer's job, not the author's.</b></td></tr>
+</table>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:18px">
-<div style="display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:30px;border:1px solid #D9DBD4;border-left:5px solid #1C6B72;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Phép kiểm — làm ngay bây giờ</h3>
-<p style="font-size:25px;line-height:1.5;color:#16202E;font-family:'Courier New', monospace">gh api repos/UEH-ISB/mt-01-the-odyssey<br>&nbsp;&nbsp;--jq '.permissions.push'</p>
-<p style="font-size:25px;line-height:1.4;color:#48515E">Phải ra <b>true</b>. Clone được <b>không</b> có nghĩa là push được.</p>
+<div class="out" style="flex:none">
+<div class="oh"><p class="of">The four exercises</p><p class="ol">60 min</p></div>
+<div class="ob" style="gap:8px">
+<table class="tt" style="font-size:19px">
+<tr><td style="width:14%">1.1</td><td>Join the team repo · clone, check your push right, read the brief</td><td style="width:12%" class="te">18′</td></tr>
+<tr><td>1.2</td><td>Your first PR · add your own row to the team table</td><td class="te">22′</td></tr>
+<tr><td>1.3</td><td>Review the PR next to you, then merge it</td><td class="te">12′</td></tr>
+<tr><td>1.4</td><td>Ask the agent two questions, then demand the command</td><td class="te">8′</td></tr>
+</table>
 </div>
-<div style="display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:30px;border:1px solid #D9DBD4;border-left:5px solid #A3302A;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Ra <i>false</i> hoặc <i>404</i>?</h3>
-<p style="font-size:25px;line-height:1.4;color:#48515E">Chưa bấm <b>nhận lời mời vào org</b> trong hộp thư GitHub. Gỡ ngay, đừng để đến bước 3.</p>
+</div>
+<div class="manual" style="flex:1">
+<p class="lb">The team's law, from today to the end of the course</p>
+<p class="tx" style="font-size:26px;font-weight:600;color:#16202E">Nobody merges their own pull request.</p>
+<p class="tx" style="font-size:19px">Not red tape. This is the mentor's whole trade compressed into one action: somebody else reads the work before it counts as done.</p>
+<p class="nt" style="font-size:18px">Haven't accepted the collaborator invitation yet? Fix it now, not at exercise 1.2.</p>
 </div>
 </div>
 </div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:26px;color:#1C6B72;font-weight:600">Người dạy giao <b>số dòng</b> trong bảng Đội ngũ ngay lúc này — ghi lên bảng lớp, mỗi người một số.</p>
-<aside>Bước nhanh nhưng đừng bỏ phép kiểm quyền push. Đây là chỗ cả lab sẽ kẹt nếu ai đó chưa nhận lời mời, và nó chỉ lộ ra ở bước 3 khi push — tức là mười lăm phút sau, giữa lúc đang làm bài.
+<aside>Show this immediately before the lab starts, and say the framing sentence first: this whole cohort is one team on one repo. Not one repo each. Their real teams will work this way, and the difficulty of GitHub was never the commands.
 
-Nói rõ sự khác nhau, vì nó phản trực giác với người mới: repo public thì ai cũng clone được, kể cả người ngoài. Quyền push mới là thứ phải được cấp. Clone được không có nghĩa là push được.
+Read the "what it actually means" column out loud before anyone types. Six moves, six plain sentences. The one people get wrong is the last: merging is the reviewer's action. Authors push, reviewers merge.
 
-Dòng xanh ở chân slide là việc của người dạy, làm ngay tại đây: giao số dòng cho từng người, viết lên bảng. Nếu không giao số, bốn người sẽ cùng sửa dòng 1 và tạo ra xung đột ở bài đầu tiên trong đời họ — không đáng.</aside>
+Then state the law as a law, not a procedure. Nobody merges their own PR. The reason to say it today, on a one-line change to a README, is that a habit formed on a trivial change survives into week 4 when the change is frightening.
+
+Last thing before you release the room: anyone whose collaborator invitation is still sitting in their GitHub inbox should fix it right now. Otherwise they will discover it in the middle of exercise 1.2 with a push that fails.</aside>
 </section>
-<section id="lab-b2" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:44px">
-<div style="display:flex;flex-direction:column;gap:16px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#1C6B72">Lab · Bước 2 · 10 phút</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">Đọc đề bài — chưa cài gì cả</h2>
-<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1480px">Dựng môi trường là buổi 02. Hôm nay chỉ <b>đọc</b> và <b>dùng GitHub</b>.</p>
+
+<!-- ============ 19 · EX 1.1 BRIEF ============ -->
+<section id="ex1-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 1.1 · after slides 3–16 · 18 minutes</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Join the team repo — and prove you can push to it</h2>
 </div>
-<div style="display:flex;gap:28px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:38px;border-radius:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Hai lệnh</p>
-<p style="font-size:27px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">cat docs/de-bai.md | head -60<br>ls docs/giao-trinh/</p>
-<p style="font-size:25px;line-height:1.45;color:#BFD0D8">Đọc 10 phút. Phần còn lại là bài về nhà.</p>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="width:620px;display:flex;flex-direction:column;gap:16px">
+<div class="card">
+<p class="lb">① Task</p>
+<p class="tx">You do <b>not</b> create a repo. The team repo already exists and you are a <b>collaborator</b> on it.</p>
+<ul class="tx">
+<li>clone <code class="path">UEH-ISB/mt-01-the-odyssey</code></li>
+<li>prove your <b>push right</b> works — before you need it</li>
+<li>read the brief and the framework that ship inside the repo</li>
+</ul>
+<p class="nt">Nothing is installed today. Building the environment is session 02.</p>
 </div>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:38px;border:1px solid #D9DBD4;border-left:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#1C6B72">Đạt khi trả lời được, không mở lại file</p>
-<ol style="font-size:27px;line-height:1.45;color:#16202E">
-<li>MT-01 có <b>mấy tầng</b>, chuẩn hoá đề cương là tầng nào?</li>
-<li>Ba ràng buộc nào khiến đề này <b>không phải</b> chatbot bọc API?</li>
-<li>Thư mục nào ứng với <b>deliverable #10</b> — thứ 82% đội trước bỏ trống?</li>
+<div class="card" style="flex:1;border-left-color:#E8B34A">
+<p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
+<div class="inp" style="font-size:19px;gap:12px">
+<b>Knowledge</b><span>clone vs fork · collaborator vs owner · what a remote is</span>
+<b>Tools</b><span><code>git</code> · <code>gh</code> (logged in: <code>gh auth status</code>)</span>
+<b>Files</b><span><code class="path">docs/de-bai.md</code> · <code class="path">docs/giao-trinh/00-khung-danh-gia.md</code></span>
+<b>Slides</b><span>5–7 the gates · 12–16 MT-01 · 18 the lab</span>
+</div>
+</div>
+</div>
+<div class="out">
+<div class="oh"><p class="of">a working clone + an answer to three questions</p><p class="ol">③ Expected output</p></div>
+<div class="ob">
+<p class="os">On your machine</p>
+<pre class="code" style="font-size:19px">$ <span class="h">git remote -v</span>
+origin  https://github.com/<span class="k">UEH-ISB/mt-01-the-odyssey</span>.git (fetch)
+
+$ <span class="h">gh api repos/UEH-ISB/mt-01-the-odyssey --jq '.permissions.push'</span>
+<span class="k">true</span>      <span class="c"># false or 404 → the invitation is still unaccepted</span></pre>
+<p class="os">Three questions you can answer without reopening the file</p>
+<table class="tt" style="font-size:18px">
+<tr><td style="width:5%">1</td><td>How many <b>layers</b> does MT-01 have, and which one is syllabus review?</td><td style="width:26%" class="te">three · the middle one</td></tr>
+<tr><td>2</td><td>Which <b>three constraints</b> stop this being a chatbot wrapped around an API?</td><td class="te">approval · citation · roles</td></tr>
+<tr><td>3</td><td>Which folder holds deliverable #10 — the one ~82% of teams left empty?</td><td class="te"><code>eval/</code></td></tr>
+</table>
+<p class="nt">Question 1 is the one people get wrong, answering “a syllabus-checking system”. That is layer B only.</p>
+</div>
+</div>
+</div>
+<aside>Every exercise today has these same two slides: the brief, then the steps. The brief says the task, what you have to work with, and what must exist when you are done.
+
+Two things to stress here. First, nobody creates a repo — a surprising number of people will reflexively fork or create their own, and then spend the rest of the lab pushing to the wrong place. Second, the push-permission check is deliberately done now, in exercise 1.1, before anything depends on it. A failed push in the middle of your first ever pull request is a bad way to learn what an org invitation is.
+
+The three questions are the reading check. They are answered from the brief and the framework file, both of which are inside the repo — that is the point of shipping the course material in the repo.</aside>
+</section>
+
+<!-- ============ 20 · EX 1.1 STEPS ============ -->
+<section id="ex1-steps" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 1.1 · steps</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Clone, verify, read</h2>
+</div>
+<table class="steps v3" style="font-size:20px">
+<tr><th style="width:5%">#</th><th style="width:27%">Step</th><th>What you run, and what you are looking at</th><th style="width:9%">Time</th></tr>
+<tr><td class="n">1</td><td>Clone the team repo</td><td><code>gh repo clone UEH-ISB/mt-01-the-odyssey</code> → <code>cd mt-01-the-odyssey</code><p class="pr">Check: <code>git remote -v</code> points at UEH-ISB, and <code>git log --oneline</code> shows history.</p></td><td>4′</td></tr>
+<tr><td class="n">2</td><td>Prove the push right <span class="tag must">do not skip</span></td><td><code>gh api repos/UEH-ISB/mt-01-the-odyssey --jq '.permissions.push'</code><p class="pr">Must print <code>true</code>. <code>false</code> or <code>404</code> means the org invitation is still unaccepted — open your GitHub inbox now.</p></td><td>4′</td></tr>
+<tr><td class="n">3</td><td>See that the course ships inside the repo</td><td><code>ls docs/giao-trinh/ docs/de-bai.md</code><p class="pr">Every source this course cites is a file in here. Nothing points at an external handbook.</p></td><td>2′</td></tr>
+<tr><td class="n">4</td><td>Read the brief, answer the three questions</td><td><code>head -60 docs/de-bai.md</code>, then the <i>Ba năng lực</i> and <i>Ba vai</i> sections<p class="pr">Answer out loud to the person beside you, with the file closed.</p></td><td>8′</td></tr>
+</table>
+<div class="low">
+<div class="manual">
+<p class="lb">Manual — do this yourself, no AI</p>
+<ul>
+<li><b>Accepting the invitation</b> — an account action, in your own inbox</li>
+<li><b>Reading the brief</b> — a summary of it is not the same as having read it</li>
+<li><b>Answering the three questions</b> — from memory, not from a prompt</li>
+<li><b>Checking the push right</b> — read the output yourself</li>
+</ul>
+</div>
+<div class="kw">
+<p class="lb">Keywords — look these up after the session</p>
+<p><span>clone vs fork</span><span>remote · origin</span><span>collaborator</span><span>organisation member</span><span>gh auth status</span><span>repository permissions</span><span>grounded answer</span><span>human in the loop</span></p>
+</div>
+</div>
+<p class="pr" style="font-size:22px;padding:12px 20px">Done when: <code>.permissions.push</code> prints <code>true</code>, and you answered all three questions with the file closed.</p>
+<aside>Four steps, eighteen minutes, and the only one that reliably goes wrong is step two.
+
+Walk the room during step two rather than waiting for hands. The failure is silent: clone works for anyone who can read a public repo, so somebody with no push right looks fine until they try to push. The API call is the cheap way to find out, and the fix — accept the invitation — takes thirty seconds now and derails the whole lab later.
+
+Step three looks like filler and is not. Open the folder and let people see that the brief, the framework and the slides are files in their own repo. From session 02 onward every check in this course points at a path inside that repo, and the agent can read all of it.
+
+The manual block is the same shape in all four exercises: things a person does, where handing it to an agent defeats the purpose.</aside>
+</section>
+
+<!-- ============ 21 · EX 1.2 BRIEF ============ -->
+<section id="ex2-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 1.2 · the core exercise of the session · 22 minutes</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Your first pull request: add yourself to the team</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="width:620px;display:flex;flex-direction:column;gap:16px">
+<div class="card">
+<p class="lb">① Task</p>
+<p class="tx">Open <code class="path">README.md</code>, find the <b>Đội ngũ</b> table, and fill in <b>the one row the facilitator assigned to you</b>.</p>
+<ul class="tx">
+<li>your name · your real GitHub username</li>
+<li>the role you are taking in the team</li>
+<li><b>one real question</b> you still have about MT-01</li>
+</ul>
+<p class="nt">Edit your row only. One row each is why four pull requests can merge without a conflict.</p>
+</div>
+<div class="card" style="flex:1;border-left-color:#E8B34A">
+<p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
+<div class="inp" style="font-size:19px;gap:12px">
+<b>Knowledge</b><span>branch · commit · push · pull request — the six moves on slide 18</span>
+<b>Tools</b><span><code>git</code> · <code>gh</code> · a text editor</span>
+<b>Files</b><span><code class="path">README.md</code>, the <b>Đội ngũ</b> table only</span>
+<b>Given</b><span>your row number, written on the board by the facilitator</span>
+</div>
+</div>
+<div class="manual" style="flex:none">
+<p class="lb">The last column is not decoration</p>
+<p class="tx" style="font-size:18px">Write a question you actually want answered. Session 03 takes these exact questions and answers them.</p>
+</div>
+</div>
+<div class="out">
+<div class="oh"><p class="of">README.md · one row changed · one open pull request</p><p class="ol">③ Expected output</p></div>
+<div class="ob">
+<p class="os">Before — the row assigned to you</p>
+<pre class="code" style="font-size:18px">| # | Tên | GitHub | Vai mình nhận trong đội | Câu mình chưa rõ về MT-01 |
+|---|---|---|---|---|
+<span class="c">| 1 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_   ← your row</span></pre>
+<p class="os">After</p>
+<pre class="code" style="font-size:18px">| 1 | <span class="h">Nguyễn Văn A</span> | <span class="h">@nguyenvana</span> | <span class="h">Deliverables</span> | <span class="h">Where do layer C numbers come from?</span> |</pre>
+<p class="os">And the check that this went in cleanly</p>
+<pre class="code" style="font-size:19px">$ <span class="h">gh pr status</span>     <span class="c"># your PR exists, and has a number</span>
+$ <span class="h">gh pr diff</span>       <span class="c"># exactly ONE + line and ONE − line</span></pre>
+<p class="nt">More than one line changed means you touched somebody else's row, or <code>git add -A</code> pulled in something extra. That is the most common week-1 mistake on a real team.</p>
+</div>
+</div>
+</div>
+<aside>This is the core exercise of the session: the first pull request most people in the room have ever opened.
+
+The design is deliberate. Everyone gets their own row, so four pull requests into the same table merge cleanly and nobody meets a merge conflict on their first day. Conflicts are a later session's lesson, and meeting one now would teach fear rather than process.
+
+Spend a moment on the output check, because it is the transferable skill. One plus line, one minus line. A diff that is bigger than the change you described is the single most useful warning sign a reviewer has, and it is why a mentor opens the Files changed tab before approving anything.
+
+And hold the line on the last column. A question written to look good is worthless; session 03 is built from these questions, so a vague one wastes the writer's own time.</aside>
+</section>
+
+<!-- ============ 22 · EX 1.2 STEPS ============ -->
+<section id="ex2-steps" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 1.2 · steps</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Branch, commit, push, open the pull request</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<table class="steps v3" style="flex:1.35;font-size:20px">
+<tr><th style="width:6%">#</th><th style="width:30%">Step</th><th>Run it one line at a time — do not paste the block</th></tr>
+<tr><td class="n">1</td><td>Open your own draft</td><td><code>git switch -c gioi-thieu/&lt;your-name&gt;</code></td></tr>
+<tr><td class="n">2</td><td>Edit <b>your row</b> and save</td><td>README.md → the <b>Đội ngũ</b> table → the row number you were given</td></tr>
+<tr><td class="n">3</td><td>Choose what you submit</td><td><code>git add README.md</code><p class="pr">Not <code>git add -A</code>. Name the file.</p></td></tr>
+<tr><td class="n">4</td><td>Package it with a reason</td><td><code>git commit -m "docs: them &lt;ten-ban&gt; vao bang doi ngu"</code></td></tr>
+<tr><td class="n">5</td><td>Send the draft to GitHub</td><td><code>git push -u origin gioi-thieu/&lt;your-name&gt;</code><p class="pr">Fails here? Exercise 1.1 step 2 was skipped.</p></td></tr>
+<tr><td class="n">6</td><td>Open the pull request</td><td><code>gh pr create --fill --base main</code></td></tr>
+<tr><td class="n">7</td><td>Check your own diff <span class="tag must">the check</span></td><td><code>gh pr diff</code> → exactly <b>one <code>+</code> and one <code>−</code></b></td></tr>
+<tr><td class="n">8</td><td>Stop. Do not merge.</td><td>Your pull request is now exercise 1.3 for the person beside you.</td></tr>
+</table>
+<div style="width:420px;display:flex;flex-direction:column;gap:16px">
+<div class="manual" style="flex:none">
+<p class="lb">Manual — no AI</p>
+<ul style="grid-template-columns:1fr">
+<li><b>Your own row</b> — your name, your username, your question</li>
+<li><b>Reading your own diff</b> before asking anyone to review it</li>
+<li><b>The commit message</b> — one line, in your own words</li>
+</ul>
+</div>
+<div class="kw" style="flex:1">
+<p class="lb">Keywords</p>
+<p><span>branch</span><span>staging area</span><span>commit message convention</span><span>push -u / upstream</span><span>pull request</span><span>base branch</span><span>diff</span><span>merge conflict</span><span>squash merge</span></p>
+</div>
+<p class="pr" style="font-size:20px">Done when: <code>gh pr diff</code> shows one added line and one removed line — and you have not merged it.</p>
+</div>
+</div>
+<aside>Make the room run these one line at a time. Pasting the whole block works and teaches nothing; the point is to see what each move does to the state of the repo.
+
+Step three is worth stopping on. Name the file. git add dash capital A is how unrelated files end up in a pull request, and once a team has that habit, every review gets harder.
+
+Step five is where exercise 1.1's shortcut comes back. If somebody's push is rejected here, it is almost always the unaccepted invitation, not a typo.
+
+Step eight is the hardest instruction of the lab: stop. People who have just made something work want to finish it. Finishing it is somebody else's turn, and that is the law from slide 18.</aside>
+</section>
+
+<!-- ============ 23 · EX 1.3 BRIEF ============ -->
+<section id="ex3-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 1.3 · 12 minutes</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Review the pull request next to you — then merge it</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="width:620px;display:flex;flex-direction:column;gap:16px">
+<div class="card">
+<p class="lb">① Task</p>
+<p class="tx">Take the pull request of the person beside you. Check three things, leave <b>one real question</b>, then approve and merge.</p>
+<p class="tx">Afterwards, bring the team's work down to your own machine — and notice that it did not arrive by itself.</p>
+<p class="nt">This is the mentor's trade, compressed into one action: somebody else reads the work before it counts as done.</p>
+</div>
+<div class="card" style="flex:1;border-left-color:#E8B34A">
+<p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
+<div class="inp" style="font-size:19px;gap:12px">
+<b>Knowledge</b><span>reading a diff · approve vs comment · squash merge · why <code>pull</code> is a separate act</span>
+<b>Tools</b><span><code>gh pr list</code> · <code>gh pr diff</code> · <code>gh pr review</code> · <code>gh pr merge</code></span>
+<b>Files</b><span>somebody else's row in <code class="path">README.md</code></span>
+<b>Given</b><span>the pull request number of the person beside you</span>
+</div>
+</div>
+</div>
+<div class="out">
+<div class="oh"><p class="of">three checks · one question · one merge · one pull</p><p class="ol">③ Expected output</p></div>
+<div class="ob">
+<p class="os">The three checks — a real PR review, in miniature</p>
+<table class="tt" style="font-size:19px">
+<tr><th style="width:44%">Check</th><th>Passes when</th></tr>
+<tr><td>Did they edit <b>only their own row</b>?</td><td>the diff has one <code>+</code> line and one <code>−</code> line</td></tr>
+<tr><td>Is the <b>GitHub</b> column a real username?</td><td>open <code>github.com/&lt;username&gt;</code> and look</td></tr>
+<tr><td>Is the last column a <b>real question</b>?</td><td>it can be answered from the brief — not a polite placeholder</td></tr>
+</table>
+<p class="os">Then, and only then</p>
+<pre class="code" style="font-size:18px">$ <span class="h">gh pr review &lt;n&gt; --comment</span> -b "Your open question is … — which layer would you answer it in?"
+$ <span class="h">gh pr review &lt;n&gt; --approve</span>
+$ <span class="h">gh pr merge  &lt;n&gt; --squash --delete-branch</span>
+
+$ <span class="h">git switch main &amp;&amp; git pull</span>
+$ <span class="h">grep -n "^| [0-9] |" README.md</span>   <span class="c"># somebody else's row, now on your machine</span></pre>
+<p class="nt">Approving without opening the diff is signing a blank page. A mentor who does it once teaches the whole team to do it.</p>
+</div>
+</div>
+</div>
+<aside>Twelve minutes, and the law is the whole content: nobody merges their own pull request.
+
+Say why it is a law and not a procedure. The three checks on this slide are a real code review shrunk to fit a one-line change — scope, truthfulness, substance. Those are the same three questions you will ask in week 4 about a change to the agent's guardrail, where you cannot read the logic. The habit is what transfers, not the checks themselves.
+
+The question before the approval is not a formality either. It forces the reviewer to have read the content rather than just the diff size.
+
+Then the last two commands, which teach the thing teams get wrong for six weeks: merging happens on GitHub, and your machine knows nothing about it until you pull. "Why don't I have that file" in week 3 is almost always this.</aside>
+</section>
+
+<!-- ============ 24 · EX 1.3 STEPS ============ -->
+<section id="ex3-steps" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 1.3 · steps</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Read it, question it, approve it, pull it</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<table class="steps v3" style="flex:1.35;font-size:20px">
+<tr><th style="width:6%">#</th><th style="width:30%">Step</th><th>What you run</th></tr>
+<tr><td class="n">1</td><td>Find the four pull requests</td><td><code>gh pr list</code> — four people, four PRs</td></tr>
+<tr><td class="n">2</td><td>Read <b>only</b> what they changed</td><td><code>gh pr diff &lt;n&gt;</code><p class="pr">Read their change, not the whole repo. Scope first.</p></td></tr>
+<tr><td class="n">3</td><td>Run the three checks</td><td>scope · real username · real question</td></tr>
+<tr><td class="n">4</td><td>Leave a question about the content</td><td><code>gh pr review &lt;n&gt; --comment -b "…"</code></td></tr>
+<tr><td class="n">5</td><td>Approve</td><td><code>gh pr review &lt;n&gt; --approve</code></td></tr>
+<tr><td class="n">6</td><td>Merge <span class="tag rec">not your own</span></td><td><code>gh pr merge &lt;n&gt; --squash --delete-branch</code></td></tr>
+<tr><td class="n">7</td><td>Bring the team's work to your machine</td><td><code>git switch main &amp;&amp; git pull</code><p class="pr">Check: <code>grep -n "^| [0-9] |" README.md</code> shows <b>≥2 filled rows</b>.</p></td></tr>
+</table>
+<div style="width:420px;display:flex;flex-direction:column;gap:16px">
+<div class="manual" style="flex:none">
+<p class="lb">Two things the room will get wrong</p>
+<ul style="grid-template-columns:1fr">
+<li><b>Merged but never pulled</b> — your machine is still the old version</li>
+<li><b>Approved without opening <code>Files changed</code></b> — signing a blank page</li>
+</ul>
+</div>
+<div class="kw" style="flex:1">
+<p class="lb">Keywords</p>
+<p><span>code review</span><span>approve vs request changes</span><span>squash merge</span><span>delete branch</span><span>git pull vs fetch</span><span>fast-forward</span><span>branch protection</span><span>ruleset</span></p>
+</div>
+<p class="pr" style="font-size:20px">Done when: your own PR shows as merged <b>by somebody else</b> (<code>gh pr list --state merged</code>), and ≥2 rows are filled on your machine.</p>
+</div>
+</div>
+<aside>Pair people deliberately so every pull request has exactly one reviewer and nobody is left holding their own.
+
+Step seven is the step to insist on, because skipping it has no visible consequence today and a very confusing one in week 3. Merging changed GitHub. Your laptop finds out when you ask it to.
+
+The two mistakes in the red box are worth naming out loud as mistakes a mentor makes, not just a student. Approving without reading is contagious: the team copies whatever their mentor actually does, not what their mentor says.
+
+If you want to enforce the law rather than rely on it, the facilitator can switch on a ruleset for main — require a pull request, require one approval. The repo is public, so rulesets are free. Tell the room before you do it, so nobody thinks their machine is broken when a direct push to main is rejected.</aside>
+</section>
+
+<!-- ============ 25 · EX 1.4 BRIEF ============ -->
+<section id="ex4-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 1.4 · after slide 17 · 8 minutes</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Ask the agent two questions — then demand the command</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="width:620px;display:flex;flex-direction:column;gap:16px">
+<div class="card">
+<p class="lb">① Task</p>
+<p class="tx">Now open the agent. Two questions, <b>one per turn</b>:</p>
+<pre class="code" style="font-size:18px">1. How many files does this repo
+   currently track in git?
+   Answer with a number.
+
+2. If I run `make test` right now,
+   what is the result?</pre>
+<p class="tx">Then run both commands yourself and write down the gap.</p>
+</div>
+<div class="card" style="flex:1;border-left-color:#E8B34A">
+<p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
+<div class="inp" style="font-size:19px;gap:12px">
+<b>Knowledge</b><span>slide 17 — guessing instead of running</span>
+<b>Tools</b><span>your coding agent · <code>git ls-files</code> · <code>make</code></span>
+<b>Files</b><span><code class="path">JOURNAL.md</code> — one line, in the repo</span>
+<b>Slides</b><span>17 the two questions and the real answers</span>
+</div>
+</div>
+<div class="manual" style="flex:none">
+<p class="lb">If your agent is careful and runs the commands first</p>
+<p class="tx" style="font-size:18px">Newer agents often do. Still do the exercise: <b>write down which command it ran</b>, run it again yourself, compare. The goal is the habit of demanding a source, not catching the agent out.</p>
+</div>
+</div>
+<div class="out">
+<div class="oh"><p class="of">JOURNAL.md · one honest line</p><p class="ol">③ Expected output</p></div>
+<div class="ob">
+<p class="os">Run it yourself — do not trust the answer</p>
+<pre class="code" style="font-size:19px">$ <span class="h">git ls-files | wc -l</span>
+<span class="k">104</span>
+
+$ <span class="h">make test</span>
+<span class="k">2 passed, 3 errors</span>   <span class="c"># no environment yet? write the error down verbatim —
+                      # that is also a result</span></pre>
+<p class="os">The journal line, in this shape</p>
+<pre class="code" style="font-size:18px"><span class="c">2026-10-28 ·</span> Q2: the agent answered “the tests will all pass”. <span class="h">WRONG.</span>
+  Ran it: <span class="h">2 passed, 3 errors</span>.
+  Cause: it guessed from the familiar case instead of running anything.
+  Lesson: a question about repo state is answered by a command — here, make test.</pre>
+<p class="nt">Four parts, every time: what it claimed · what is true · <b>why</b> it was wrong · the command that settles it. The “why” is the part that makes it reusable.</p>
+</div>
+</div>
+</div>
+<aside>Eight minutes, and it is the exercise that carries the session's one transferable idea.
+
+Insist on one question per turn. Asked together, the agent often hedges on both; asked separately, you get the confident wrong answer that makes the point.
+
+The journal line has four parts and the third is the one people drop. What it claimed and what is true are easy. Why it was wrong is what turns an anecdote into something you can recognise again — and recognising it in your own team's standup is the actual skill.
+
+The grey box matters more every month: careful agents do run the command first. That is not a failed exercise, it is a better one. Ask which command, run it yourself, compare. A mentor's question is "what did you run", not "are you sure".</aside>
+</section>
+
+<!-- ============ 26 · EX 1.4 STEPS ============ -->
+<section id="ex4-steps" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 1.4 · steps</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Ask, run, compare, write it down</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<table class="steps v3 roomy" style="flex:1.3;font-size:20px">
+<tr><th style="width:6%">#</th><th style="width:30%">Step</th><th>What you do</th></tr>
+<tr><td class="n">1</td><td>Ask question 1, alone</td><td>“How many files does this repo currently track in git? Answer with a number.”<p class="pr">Write the answer down <b>before</b> you check it. Writing it first is what stops you rewriting your memory afterwards.</p></td></tr>
+<tr><td class="n">2</td><td>Ask question 2, alone</td><td>“If I run <code>make test</code> right now, what is the result?”</td></tr>
+<tr><td class="n">3</td><td>Run both yourself</td><td><code>git ls-files | wc -l</code> · <code>make test</code></td></tr>
+<tr><td class="n">4</td><td>Write one journal line</td><td><code class="path">JOURNAL.md</code> — claim · truth · <b>cause</b> · command</td></tr>
+<tr><td class="n">5</td><td>Ship it in your next PR</td><td>Same six moves as exercise 1.2 — this time nobody talks you through them.</td></tr>
+</table>
+<div style="width:420px;display:flex;flex-direction:column;gap:16px">
+<div class="manual" style="flex:none">
+<p class="lb">Manual — no AI</p>
+<ul style="grid-template-columns:1fr">
+<li><b>Running the two commands</b> — the whole point</li>
+<li><b>Writing the cause</b> in your own words</li>
+<li><b>Reading the error verbatim</b> if <code>make test</code> cannot run yet</li>
+</ul>
+</div>
+<div class="kw" style="flex:1">
+<p class="lb">Keywords</p>
+<p><span>hallucination</span><span>grounding</span><span>tool use</span><span>git ls-files</span><span>make target</span><span>pytest exit code</span><span>reproducible check</span><span>development journal</span></p>
+</div>
+<p class="pr" style="font-size:20px">Done when: <code>JOURNAL.md</code> has one line with all four parts, and it is in a pull request of yours.</p>
+</div>
+</div>
+<aside>Step one has a quiet trick in it: write the agent's answer down before checking. Memory is generous to tools we like, and people who check first will later swear the agent was roughly right.
+
+Step five is the real assessment of the session. Opening a second pull request, with no one reading the commands out, is how you find out whether exercise 1.2 taught anything. Expect two or three people to need help, and let them ask each other first.
+
+If make test cannot run because nothing is installed yet, that is fine and expected — the environment is session 02. Write the error down word for word. An error message is a result, and copying it accurately is itself a skill the room will need all course.</aside>
+</section>
+
+<!-- ============ 27 · SUMMARY + REFERENCES ============ -->
+<section id="summary" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:84px 128px 104px;display:flex;flex-direction:column;gap:30px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p class="eyebrow" style="color:#E8B34A">Summary · Q&amp;A · References</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:58px;font-weight:600;line-height:1.1;color:#F6F6F2">Six things to take away</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="flex:1.25;display:grid;grid-template-columns:1fr 1fr;gap:18px">
+<div style="display:flex;flex-direction:column;gap:8px;background:#1C2836;padding:22px 26px;border-left:4px solid #E8B34A;border-radius:10px">
+<p style="font-size:21px;font-weight:700;color:#E8B34A">1 · Two jobs</p>
+<p style="font-size:20px;line-height:1.4;color:#BFD0D8">Set the requirement, accept the work. Never write it for them.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1C2836;padding:22px 26px;border-left:4px solid #E8B34A;border-radius:10px">
+<p style="font-size:21px;font-weight:700;color:#E8B34A">2 · A gate is a gate</p>
+<p style="font-size:20px;line-height:1.4;color:#BFD0D8">Three days late at G2 means G3 cannot be on time. Lateness accumulates.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1C2836;padding:22px 26px;border-left:4px solid #E8B34A;border-radius:10px">
+<p style="font-size:21px;font-weight:700;color:#E8B34A">3 · Running ≠ done</p>
+<p style="font-size:20px;line-height:1.4;color:#BFD0D8">Ten deliverables in ten known places. Code is necessary; the record is sufficient.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1C2836;padding:22px 26px;border-left:4px solid #E8B34A;border-radius:10px">
+<p style="font-size:21px;font-weight:700;color:#E8B34A">4 · 100 / 82 / 64</p>
+<p style="font-size:20px;line-height:1.4;color:#BFD0D8">Video, evaluation, pitch. Three gaps, none of which needs better code.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1C2836;padding:22px 26px;border-left:4px solid #E8B34A;border-radius:10px">
+<p style="font-size:21px;font-weight:700;color:#E8B34A">5 · MT-01 has three layers</p>
+<p style="font-size:20px;line-height:1.4;color:#BFD0D8">Learner · course · programme. Syllabus review is the middle one, not the whole thing.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#243245;padding:22px 26px;border-left:4px solid #7FC4C9;border-radius:10px">
+<p style="font-size:21px;font-weight:700;color:#7FC4C9">6 · The rule of the course</p>
+<p style="font-size:20px;line-height:1.4;color:#F6F6F2">A question about repo state is answered by <b>a command</b>, never a sentence.</p>
+</div>
+</div>
+<div style="width:620px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;flex-direction:column;gap:10px;background:#1C2836;padding:24px 28px;border-top:4px solid #E8B34A;border-radius:10px">
+<p style="font-size:18px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B34A">Homework</p>
+<ol style="font-size:19px;line-height:1.4;color:#BFD0D8;padding-left:26px">
+<li>Read <code>docs/de-bai.md</code> and the framework file in full — not skim.</li>
+<li>Fill the six-gate map <b>by hand first</b>, then ask the agent, then <code>diff</code> the two. Submit as a second PR.</li>
+<li>Install Python 3.12 (or 3.11); check with <code>python3 --version</code>.</li>
+<li>Draft <b>five use cases</b> of MT-01 — five groups of people, five concrete jobs.</li>
 </ol>
 </div>
+<div style="display:flex;flex-direction:column;gap:10px;background:#1C2836;padding:24px 28px;border-top:4px solid #7FC4C9;border-radius:10px">
+<p style="font-size:18px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#7FC4C9">Sources — all inside your repo</p>
+<ul style="list-style:none;padding-left:0;font-size:19px;line-height:1.5;color:#BFD0D8">
+<li><code>docs/giao-trinh/00-khung-danh-gia.md</code> — gates, deliverables, rubric</li>
+<li><code>docs/de-bai.md</code> — the MT-01 brief</li>
+<li><code>docs/giao-trinh/slide/buoi-01_ex.md</code> — the exercise book for this lab</li>
+<li><code>docs/giao-trinh/slide/buoi-01_lecture_note.md</code> — this session, slide by slide</li>
+<li><code>README.md</code> — the <b>Đội ngũ</b> table you just edited</li>
+</ul>
 </div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:26px;color:#A3302A;font-weight:600">Câu một hay bị trả lời sai thành “hệ thống rà đề cương”. Rà đề cương là <u>tầng giữa</u>, không phải cả hệ thống.</p>
-<aside>Mười phút đọc, không giảng. Người dạy đi vòng và hỏi miệng ba câu bên phải cho từng người — đó là cách kiểm duy nhất ở bước này.
+<p class="pr" style="font-size:20px;background:#243245;color:#F6F6F2;border-left:4px solid #A3302A">Pass check: fail the <b>journal</b> box and you do not move on to session 02. The other boxes are procedure and can be fixed later; that one is the trade.</p>
+</div>
+</div>
+<aside>Close on the six cards, then hand over to questions.
 
-Dòng đỏ ở chân slide là lỗi hiểu phổ biến nhất sau buổi 01, và nó kéo theo hậu quả thật ở buổi 03: ai nghĩ đề chỉ là rà đề cương thì vẽ kiến trúc thiếu hai tầng.
+If you only get one of the six to stick, make it number six. Everything else in this session is a table someone can look up; the habit of answering a state question with a command is the thing that makes a non-coding mentor useful rather than decorative.
 
-Ai trả lời xong sớm thì cho đọc tiếp docs/giao-trinh/00-khung-danh-gia.md mục 3 — bảng 10 deliverables — vì câu hỏi thứ ba lấy ở đó.</aside>
+Read the homework out rather than letting people find it later. Item two is the one with teaching in it: fill the gate map from memory first, then ask the agent, then diff the two. The places where your memory was wrong are exactly the places your team will ask about next week.
+
+Say the pass rule honestly. Five of the eight checklist boxes are procedure. The journal box — one documented case of the agent being confidently wrong, with its cause and the command that settled it — is the one that decides whether somebody is ready for session 02.</aside>
 </section>
-<section id="lab-b3" data-transition="push" style="background:#E8B34A;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:30px">
-<div style="display:flex;flex-direction:column;gap:12px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#6B4A0C">Lab · Bước 3 · 22 phút · bài cốt lõi của buổi</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:62px;font-weight:600;line-height:1.1">PR đầu tiên: thêm tên mình vào bảng Đội ngũ</h2>
-<p style="font-size:27px;font-weight:500;line-height:1.4;color:#6B4A0C;width:1540px">Mở <b>README.md</b>, tìm bảng <b>Đội ngũ</b>, điền <b>đúng dòng số người dạy giao cho bạn</b>.</p>
-</div>
-<div style="display:flex;gap:26px;align-items:stretch">
-<div style="flex:52;display:flex;flex-direction:column;gap:12px;background:#16202E;padding:32px;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Sửa dòng của bạn</p>
-<p style="font-size:23px;line-height:1.5;color:#8E9CAA;font-family:'Courier New', monospace">| 1 | _(chưa điền)_ | _(chưa điền)_ | …</p>
-<p style="font-size:23px;line-height:1.5;color:#F6F6F2;font-family:'Courier New', monospace">| 1 | Nguyễn Văn A | @nguyenvana |<br>&nbsp;&nbsp;Người theo deliverables |<br>&nbsp;&nbsp;Tầng C lấy số từ đâu khi chưa môn nào<br>&nbsp;&nbsp;được duyệt? |</p>
-<p style="font-size:24px;line-height:1.4;color:#E8B34A">Cột cuối: <b>một câu hỏi thật</b>. Buổi 03 sẽ lấy đúng các câu đó ra trả lời.</p>
-</div>
-<div style="flex:48;display:flex;flex-direction:column;gap:12px;background:#16202E;padding:32px;border-left:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Năm lệnh — gõ từng cái</p>
-<p style="font-size:24px;line-height:1.55;color:#F6F6F2;font-family:'Courier New', monospace">git switch -c gioi-thieu/&lt;ten-ban&gt;<br><span style="color:#8E9CAA"># … sửa README.md, lưu …</span><br>git add README.md<br>git commit -m "docs: them &lt;ten&gt; vao doi ngu"<br>git push -u origin gioi-thieu/&lt;ten-ban&gt;<br>gh pr create --fill --base main</p>
-</div>
-</div>
-<div style="display:flex;gap:26px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#F6E3BE;padding:26px 30px;border-left:5px solid #1C6B72;border-radius:10px">
-<h3 style="font-size:28px;font-weight:600;line-height:1.2">Phép kiểm</h3>
-<p style="font-size:24px;line-height:1.5;color:#16202E;font-family:'Courier New', monospace">gh pr status<br>gh pr diff</p>
-<p style="font-size:24px;line-height:1.35;color:#48515E">Diff phải chỉ có <b>một dòng +</b> và <b>một dòng −</b>.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:26px 30px;border-left:5px solid #A3302A;border-radius:10px">
-<h3 style="font-size:28px;font-weight:600;line-height:1.2">Nhiều dòng hơn?</h3>
-<p style="font-size:24px;line-height:1.35;color:#48515E">Bạn đã chạm dòng người khác, hoặc <b>git add -A</b> kéo theo thứ khác. Sửa trước khi nhờ review.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#16202E;padding:26px 30px;border-radius:10px">
-<h3 style="font-size:28px;font-weight:600;line-height:1.2;color:#E8B34A">Chỉ sửa dòng của bạn</h3>
-<p style="font-size:24px;line-height:1.35;color:#BFD0D8">Mỗi người một dòng riêng nên git ghép được bốn PR mà không cãi nhau. Xung đột là bài của buổi sau.</p>
-</div>
-</div>
-<aside>Bài cốt lõi của buổi. Hai mươi hai phút, và người dạy đừng gõ hộ ai — ngồi cạnh, chỉ màn hình, để họ tự gõ.
 
-Nhắc trước khi phòng bắt đầu: gõ TỪNG lệnh, đừng dán cả khối. Người mới dán cả khối thì khi hỏng không biết hỏng ở đâu.
+</div>
 
-Ô vàng bên phải dưới cùng giải thích vì sao mỗi người một dòng. Nói thẳng rằng hôm nay ta cố tình tránh xung đột — không phải vì xung đột khó, mà vì đây là PR đầu tiên trong đời họ và một bài một lúc là đủ.
-
-Phép kiểm gh pr diff là thứ đáng dạy nhất ở đây, và nó là kỹ năng mentor dùng thật: nhìn diff trước khi bàn về nội dung. Một dòng thêm, một dòng bớt — đúng như kỳ vọng. Nếu ra nhiều hơn thì có chuyện, và người mới gần như luôn là do git add -A.
-
-Cột cuối của bảng không phải trang trí: thu thập câu hỏi thật của bốn mentor về đề bài, rồi buổi 03 mở ra trả lời. Nói điều đó trước thì họ viết nghiêm túc hơn.</aside>
-</section>
-<section id="lab-b4" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
-<div style="display:flex;flex-direction:column;gap:12px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#E8B34A">Lab · Bước 4 · 12 phút · bài cốt lõi của buổi</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:62px;font-weight:600;line-height:1.1;color:#F6F6F2">Review PR của người bên cạnh</h2>
-<p style="font-size:28px;font-weight:300;line-height:1.4;color:#BFD0D8;width:1540px">Luật của đội từ hôm nay đến hết khoá: <b>không ai tự merge PR của mình</b>.</p>
-</div>
-<div style="display:flex;gap:26px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#1E2B3C;padding:32px;border-left:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Đọc rồi mới duyệt</p>
-<p style="font-size:24px;line-height:1.55;color:#F6F6F2;font-family:'Courier New', monospace">gh pr list<br>gh pr diff &lt;số&gt;<br>gh pr review &lt;số&gt; --comment -b "…"<br>gh pr review &lt;số&gt; --approve<br>gh pr merge &lt;số&gt; --squash --delete-branch</p>
-<p style="font-size:24px;line-height:1.4;color:#E8B34A">Rồi lấy bài của đội về máy mình:</p>
-<p style="font-size:24px;line-height:1.55;color:#F6F6F2;font-family:'Courier New', monospace">git switch main &amp;&amp; git pull</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#1E2B3C;padding:32px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Kiểm ba thứ trước khi approve</p>
-<p style="font-size:25px;line-height:1.45;color:#BFD0D8"><b>1.</b> Diff chỉ có <b>một dòng +</b>, <b>một dòng −</b>?</p>
-<p style="font-size:25px;line-height:1.45;color:#BFD0D8"><b>2.</b> Cột GitHub đúng username thật? Mở <b>github.com/&lt;username&gt;</b> ra xem.</p>
-<p style="font-size:25px;line-height:1.45;color:#BFD0D8"><b>3.</b> Câu hỏi ở cột cuối là <b>câu hỏi thật</b>? Trả lời được bằng đề bài, không phải câu xã giao.</p>
-</div>
-</div>
-<div style="display:flex;gap:26px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#1E2B3C;padding:26px 30px;border-left:5px solid #A3302A;border-radius:10px">
-<h3 style="font-size:28px;font-weight:600;line-height:1.2;color:#F6F6F2">Merge rồi không <i>git pull</i></h3>
-<p style="font-size:24px;line-height:1.35;color:#BFD0D8">Máy bạn vẫn là bản cũ. Tuần 3 sẽ thành câu “sao máy em không có cái đó”.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#1E2B3C;padding:26px 30px;border-left:5px solid #A3302A;border-radius:10px">
-<h3 style="font-size:28px;font-weight:600;line-height:1.2;color:#F6F6F2">Approve mà không mở diff</h3>
-<p style="font-size:24px;line-height:1.35;color:#BFD0D8">Là <b>ký khống</b>. Mentor ký khống một lần thì cả đội học theo.</p>
-</div>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:27px;font-weight:600;color:#E8B34A">Đạt khi: bảng Đội ngũ trên máy bạn có <u>≥2 dòng đã điền</u>, và PR của bạn <u>do người khác merge</u>.</p>
-<aside>Đây là chỗ bài git biến thành bài mentor, nên nói rõ vì sao luật không-tự-merge tồn tại: người nghiệm thu không nghiệm thu bài của chính mình. Nó không phải thủ tục hành chính.
-
-Ô bên phải là bản thu nhỏ của việc duyệt PR thật. Ba câu hỏi, ba mươi giây. Mentor sẽ dùng đúng ba kiểu câu hỏi này với đội: thay đổi có đúng phạm vi không, thông tin có kiểm được không, nội dung có thật không.
-
-Hai ô đỏ là hai lỗi sẽ xảy ra trong chính buổi hôm nay. Lỗi "merge rồi không pull" gần như chắc chắn có ít nhất một người mắc — để họ mắc, rồi chỉ ra, đừng cảnh báo trước quá kỹ.
-
-Nếu lớp có người xong sớm, giao thêm: mở tab Pull requests trên giao diện web, lọc Closed, xem lại PR đã merge của mình. Mentor sẽ dùng đúng màn hình đó để đánh giá tiến độ đội ở tuần 2.</aside>
-</section>
-<section id="lab-b5" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:40px">
-<div style="display:flex;flex-direction:column;gap:16px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#1C6B72">Lab · Bước 5 · 8 phút</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:62px;font-weight:600;line-height:1.1">Hỏi agent hai câu — rồi đòi lệnh</h2>
-</div>
-<div style="display:flex;gap:28px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:36px;border-left:5px solid #A3302A;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Hai câu, mỗi câu một lượt riêng</p>
-<p style="font-size:25px;line-height:1.5;color:#F6F6F2;font-family:'Courier New', monospace">1. Repo này có bao nhiêu file đang<br>&nbsp;&nbsp; được git theo dõi? Trả lời bằng<br>&nbsp;&nbsp; một số.</p>
-<p style="font-size:25px;line-height:1.5;color:#F6F6F2;font-family:'Courier New', monospace">2. Nếu tôi chạy `make test` bây giờ<br>&nbsp;&nbsp; thì ra kết quả gì?</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:36px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Phép kiểm — tự chạy, đừng tin</p>
-<p style="font-size:27px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">git ls-files | wc -l<br>make test</p>
-<p style="font-size:25px;line-height:1.45;color:#BFD0D8">Chưa dựng môi trường thì <b>ghi lại nguyên văn lỗi</b> — đó cũng là một kết quả.</p>
-</div>
-</div>
-<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:34px;border:1px solid #D9DBD4;border-left:5px solid #1C6B72;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Đạt khi <b>JOURNAL.md</b> có một dòng theo mẫu — và nó nằm trong PR tiếp theo của bạn</h3>
-<p style="font-size:24px;line-height:1.55;color:#48515E;font-family:'Courier New', monospace">2026-10-21 · Câu 2: agent trả lời "test sẽ pass hết". SAI. Chạy thật: 2 passed, 3 errors.<br>&nbsp;&nbsp;Nguyên nhân: agent đoán theo cái quen thuộc, không chạy lệnh nào.<br>&nbsp;&nbsp;Bài học: câu hỏi về trạng thái repo phải trả lời bằng lệnh — ở đây là make test.</p>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:27px;font-weight:600;color:#1C6B72">Agent của bạn <u>tự chạy lệnh</u> trước khi trả lời? Vẫn làm bước này — ghi lại lệnh nó chạy, rồi tự chạy lại và so.</p>
-<aside>Tám phút, và đây là bước duy nhất của lab không liên quan đến git. Nó gài lại slide "agent nói rất chắc về thứ nó chưa hề kiểm" ở phần trình bày.
-
-Nhắc họ mở hai lượt riêng, đừng hỏi gộp. Hỏi gộp thì agent trả lời một đoạn dài và không ai phân biệt được câu nào nó đọc được, câu nào nó đoán.
-
-Mẫu JOURNAL ở ô dưới là mẫu dùng lại suốt khoá: agent nói gì, sự thật là gì, kiểm bằng lệnh nào. Ba dòng. Ai viết "agent trả lời sai" mà không có lệnh thì chưa đạt.
-
-Dòng xanh chân slide xử lý trường hợp agent ngoan: bản mới hay tự chạy lệnh trước khi trả lời. Khi đó mục tiêu đổi từ "bắt agent sai" sang "đòi lệnh và tự chạy lại" — thói quen mới là thứ ta dạy, không phải việc bắt lỗi.
-
-Hết bước này là hết lab. Chuyển sang bài tập chéo đổi vai, 20 phút.</aside>
-</section>
-</div>
 <div id="bar">
-  <b>Buổi 01 — Sáu tuần, sáu cổng</b>
+  <b>Session 01 — Six weeks, six gates</b>
   <span>·</span>
   <span id="counter">1 / 1</span>
   <span id="secname"></span>
   <span class="sp"></span>
   <button id="prev">←</button>
   <button id="next">→</button>
-  <button id="togglenotes">Ghi chú (N)</button>
-  <span><kbd>←</kbd> <kbd>→</kbd> chuyển slide · <kbd>F</kbd> toàn màn hình · <kbd>Ctrl/Cmd+P</kbd> in ra PDF</span>
+  <button id="togglenotes">Notes (N)</button>
+  <span><kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>F</kbd> fullscreen · <kbd>Ctrl/Cmd+P</kbd> print to PDF</span>
 </div>
-<div id="notes"><h4>Người trình bày nói gì</h4><div id="notesbody"></div></div>
+<div id="notes"><h4>Speaker notes</h4><div id="notesbody"></div></div>
 <script>
 (function () {
-  var SECTIONS = {"cover": "Mentor làm hai việc: ra yêu cầu và nghiệm thu — không có việc thứ ba là viết hộ code.", "sau-tuan": "Sáu tuần, sáu cổng, và bằng chứng tối thiểu của từng cổng.", "chay-duoc-khong-xong": "“Xong” nghĩa là gì: 10 deliverables và 6 tiêu chí chấm.", "agent-doan": "Agent đoán thay vì chạy — đòi lệnh, và lái agent bằng phép kiểm.", "mt-01": "Đề xuyên suốt MT-01: bài toán, luồng năm bước, ba vai, sáu cổng, và ranh giới phạm vi.", "vong-pr": "Lab 60 phút: bốn người, một đội, một repo, bốn PR — và không ai tự merge PR của mình."};
+  var SECTIONS = {"cover": "Session 01 — Six weeks, six gates", "agenda": "Opening — Agenda", "mentor-role": "Section 1 — What a mentor is for", "six-weeks": "Section 2 — Six weeks, six gates", "done-vs-running": "Section 3 — \"Running\" is not \"done\"", "mt-01": "Section 4 — MT-01, the project behind every session", "agent-guesses": "Section 5 — Why the agent sounds certain and is wrong", "lab-overview": "Lab — Four people, one team, one repo", "ex1-brief": "Exercise 1.1 — Join the team repo", "ex2-brief": "Exercise 1.2 — Your first pull request", "ex3-brief": "Exercise 1.3 — Review, then merge someone else's", "ex4-brief": "Exercise 1.4 — Demand the command", "summary": "Summary · Q&A · References"};
   var stage = document.getElementById('stage');
   var slides = Array.prototype.slice.call(stage.querySelectorAll(':scope > section'));
   var notesBody = document.getElementById('notesbody');
@@ -983,7 +1455,7 @@ Hết bước này là hết lab. Chuyển sang bài tập chéo đổi vai, 20 
     if (!aside || !aside.textContent.trim()) {
       var e = document.createElement('p');
       e.className = 'none';
-      e.textContent = 'Slide này không có ghi chú.';
+      e.textContent = 'No notes for this slide.';
       notesBody.appendChild(e);
       return;
     }
@@ -995,11 +1467,17 @@ Hết bước này là hết lab. Chuyển sang bài tập chéo đổi vai, 20 
     });
   }
 
+  // ten section cua slide hien tai = section gan nhat phia truoc
+  function sectionOf(n) {
+    for (var k = n; k >= 0; k--) { if (SECTIONS[slides[k].id]) return SECTIONS[slides[k].id]; }
+    return '';
+  }
+
   function show(n) {
     i = Math.max(0, Math.min(slides.length - 1, n));
     slides.forEach(function (s, k) { s.classList.toggle('live', k === i); });
     counter.textContent = (i + 1) + ' / ' + slides.length;
-    secname.textContent = SECTIONS[slides[i].id] ? '· ' + SECTIONS[slides[i].id] : '';
+    secname.textContent = sectionOf(i) ? '· ' + sectionOf(i) : '';
     renderNotes(slides[i]);
     try { location.hash = slides[i].id; } catch (e) {}
   }
@@ -1021,6 +1499,10 @@ Hết bước này là hết lab. Chuyển sang bài tập chéo đổi vai, 20 
   });
 
   window.addEventListener('resize', fit);
+  window.addEventListener('hashchange', function () {
+    var n = slides.findIndex(function (s) { return '#' + s.id === location.hash; });
+    if (n >= 0 && n !== i) show(n);
+  });
   fit();
   var start = slides.findIndex(function (s) { return '#' + s.id === location.hash; });
   show(start > 0 ? start : 0);

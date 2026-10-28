@@ -10,7 +10,7 @@ repo dự án. Mentor không phải mở tài liệu nào bên ngoài.
 |---|---|
 | **Đề xuyên suốt** | [MT-01 — Hệ thống AI agent chuẩn hóa chất lượng đào tạo đại học](../de-bai.md) · case TTN–UEH |
 | **Khung đánh giá** | [Gates G1–G6 · 10 deliverables · rubric 6×5](00-khung-danh-gia.md) — nguồn duy nhất, mọi buổi trỏ về đây |
-| **Repo mẫu** | [`repo-mau/`](repo-mau/) — template chính thức, đã lược + giáo trình, slide và hướng dẫn cài đặt copy vào repo: **94 file → 100 file** |
+| **Repo mẫu** | [`repo-mau/`](repo-mau/) — template chính thức, đã lược + giáo trình, slide và hướng dẫn cài đặt copy vào repo: **94 file → 104 file** |
 | **Giáo trình vận hành** (song song) | [../../02_Quy_trinh_mentor/Giao_trinh_mentor_moi/](../../02_Quy_trinh_mentor/Giao_trinh_mentor_moi/index.html) — 12 buổi coaching, mentor duty, cách chấm Gate |
 
 ## Bốn nguyên tắc
@@ -35,7 +35,7 @@ tới; bảng lược-giữ kèm lý do ở `repo-mau/overlay/DA-LUOC.md`. Scrip
 dữ liệu tập, đề bài, **giáo trình** (`docs/giao-trinh/`), **slide đã dựng sẵn**
 (`docs/giao-trinh/slide/*.html`, mở bằng trình duyệt là chạy) và **hướng dẫn cài đặt môi trường**
 (`docs/installations.md` + 25 ảnh chụp màn hình) — **không thêm dòng code nào**; code là bài của
-học viên. **94 file → 100 file**, và số này tăng khi soạn xong các buổi còn lại.
+học viên. **94 file → 104 file**, và số này tăng khi soạn xong các buổi còn lại.
 
 **4. Mỗi buổi để lại hiện vật.**
 Không đảo thứ tự buổi. Mỗi buổi kết thúc bằng một thứ kiểm được trong repo, không kết thúc bằng
@@ -48,8 +48,8 @@ Nhịp 2 buổi/tuần → **8 tuần**.
 
 | Buổi | Nội dung | Hiện vật trong repo |
 |---|---|---|
-| [01](buoi-01.md) | Lộ trình 6 tuần, Gates G1–G6, 10 deliverables, 6 tiêu chí chấm · **PR đầu tiên** | Dòng của bạn trong bảng Đội ngũ (`README.md`) qua PR đã merge · `JOURNAL.md` |
-| [02](buoi-02.md) | Khởi tạo dự án: môi trường, `.env`, AI logging hooks, git workflow, PR đầu | `make run` chạy · `pytest.ini` · PR merged |
+| [01](buoi-01.md) | Lộ trình 6 tuần, Gates G1–G6, 10 deliverables, 6 tiêu chí chấm · **PR đầu tiên** · [deck](slide/buoi-01.html) · [lecture note](slide/buoi-01_lecture_note.md) · [bài tập](slide/buoi-01_ex.md) | Dòng của bạn trong bảng Đội ngũ (`README.md`) qua PR đã merge · `JOURNAL.md` |
+| [02](buoi-02.md) | Khởi tạo dự án: môi trường, `.env`, AI logging hooks, git workflow, PR đầu · [deck](slide/buoi-02.html) · [lecture note](slide/buoi-02_lecture_note.md) · [bài tập](slide/buoi-02_ex.md) | `make run` chạy · `pytest.ini` · PR merged |
 | 03 | Thiết kế kiến trúc 3 tầng, vẽ diagram, viết ADR | `ARCHITECTURE.md` · `docs/adr/0001` |
 | 04 | Agent Core: state, nodes, edges, tools, ReAct, error handling | `src/agents/` chạy năng lực B |
 | 05 | Từ đề bài đến USP: wrapper test, beachhead, positioning | `usp/` 5 file |
@@ -68,11 +68,22 @@ Nhịp 2 buổi/tuần → **8 tuần**.
 > ReAct, harness, MCP, loop, cascade, error handling, testing. Người dạy tự quyết tách hay không
 > sau khi chạy thử buổi 03; đừng tách sẵn trên giấy.
 
-## Cấu trúc mỗi file buổi
+## Cấu trúc mỗi buổi — bốn file
+
+Từ buổi 01 trở đi mỗi buổi gồm **bốn file**, theo đúng khuôn buổi 03:
+
+| File | Nội dung |
+|---|---|
+| `buoi-NN.md` | **Kế hoạch buổi**: mục tiêu · điều kiện trước · bảng run-of-show · bài tập chéo · bài về nhà · tiêu chí đạt |
+| `slide/buoi-NN.html` | **Deck**: cover · agenda · các section · cặp `ex-brief` / `ex-steps` cho từng bài tập · summary. Ghi chú người trình bày bật bằng phím `N` |
+| `slide/buoi-NN_lecture_note.md` | **Lecture note**: mỗi slide một mục — ý chính · giải thích · thuật ngữ Anh–Việt · self-check |
+| `slide/buoi-NN_ex.md` | **Sách bài tập**: bản đầy đủ của lab — task · input & tools · expected output · các bước · *Manual (không dùng AI)* · keywords · *Done when* |
+
+Nội dung trong từng file:
 
 1. **Mentor xong buổi này phải làm được** — hành vi quan sát được, không phải "hiểu".
 2. **Câu đội sẽ hỏi mà buổi này trả lời** — lý do buổi học tồn tại.
-3. **Slide** — bảng *tiêu đề · nội dung trên slide · người trình bày nói gì*. Dựng deck từ bảng này.
+3. **Slide** — deck dựng sẵn, mở bằng trình duyệt. Bài tập xen giữa theo cặp brief/steps.
 4. **Thực hành** — từng bước: prompt cho agent + **phép kiểm** + điều kiện đạt.
 5. **Bài tập chéo** — mentor chấm mentor. Hai định dạng luân phiên: *đổi vai* (một người làm đội,
    một người làm mentor, 15 phút như mentor duty thật) và *gài bẫy* (người dạy làm hỏng một thứ,
@@ -141,10 +152,13 @@ Odyssey chưa có cohort nào.
   vào `develop`). Giáo trình **giữ nguyên ba chỗ đó làm bài học buổi 02**, không sửa sẵn.
 - Danh mục version thư viện **có ngày hết hạn** — review lại đầu mỗi cohort trước khi dạy.
 - MT-01 là **đề tập**, không phải sản phẩm triển khai cho Trường Tài năng. Không dùng dữ liệu sinh viên thật.
-- Giáo trình hiện có **buổi 01, 02 và 03**. Buổi 03 phát hành dưới dạng **slide + sách bài tập +
-  lecture note** (`slide/buoi-03.html`, `buoi-03_ex.md`, `buoi-3_lecture_note.md`), chưa có file
-  `buoi-03.md` theo khuôn hai buổi đầu. Buổi 04–15 mới là bảng nội dung + hiện vật, chưa soạn chi
-  tiết. Nói rõ điều này với người học thay vì để họ phát hiện giữa khoá.
+- Giáo trình hiện có **buổi 01, 02 và 03**, cả ba cùng một khuôn bốn file (kế hoạch · deck ·
+  lecture note · sách bài tập). Buổi 03 chưa có `buoi-03.md`; buổi 04–15 mới là bảng nội dung +
+  hiện vật, chưa soạn chi tiết. Nói rõ điều này với người học thay vì để họ phát hiện giữa khoá.
+- **Ngôn ngữ:** deck và tài liệu buổi 01–03 viết bằng **tiếng Anh**; các file khung
+  (`00-README.md`, `00-khung-danh-gia.md`, `../de-bai.md`) và README của repo đội vẫn
+  bằng tiếng Việt. Người dạy giảng bằng tiếng Việt, slide bằng tiếng Anh — thuật ngữ Anh–Việt nằm
+  ở phụ lục cuối mỗi lecture note.
 
 ---
 

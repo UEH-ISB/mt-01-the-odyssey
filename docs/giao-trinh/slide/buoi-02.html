@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="vi">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Buổi 02 — Khởi tạo dự án</title>
+<title>Session 02 — From a template to the team's project</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400..700&amp;display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&amp;display=swap">
 <style>
@@ -21,7 +21,7 @@
   #stage > section:not(.live) { display:none !important; }
 
   /* --- mac dinh cho the trong slide --- */
-  #stage h1, #stage h2, #stage h3, #stage p, #stage ul, #stage ol, #stage table { margin:0; }
+  #stage h1, #stage h2, #stage h3, #stage p, #stage ul, #stage ol, #stage table, #stage pre { margin:0; }
   #stage h1, #stage h2, #stage h3 { text-wrap:balance; }
   #stage ul, #stage ol { padding-left:34px; }
   #stage li { margin:0 0 6px; }
@@ -42,6 +42,144 @@
   #stage x-shape[kind="arrow-down"]  { clip-path:polygon(30% 0,70% 0,70% 62%,100% 62%,50% 100%,0 62%,30% 62%); }
   #stage x-shape[kind="arrow-up"]    { clip-path:polygon(30% 100%,70% 100%,70% 38%,100% 38%,50% 0,0 38%,30% 38%); }
   #stage x-shape[kind="line"] { }
+
+  /* --- hinh SVG: icon dung chung (#defs) + so do trong slide --- */
+  #defs { position:absolute; width:0; height:0; overflow:hidden; }
+  #stage svg { display:block; flex:none; overflow:visible; fill:#16202E;
+               font-family:'Be Vietnam Pro', Arial, sans-serif; }
+  #stage svg .mono { font-family:'Courier New', monospace; }
+  #stage .ic { width:40px; height:40px; flex:none; }
+  #stage .eyebrow { font-size:24px; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:#1C6B72; }
+  #stage pre.code { font-family:'Courier New', monospace; background:#16202E; color:#E6E9EC;
+                    border-radius:12px; padding:22px 26px; white-space:pre; }
+  #stage pre.code .c { color:#8E9CAA; }
+  #stage pre.code .h { color:#E8B34A; font-weight:700; }
+  #stage pre.code .k { color:#7FC4C9; }
+  #stage code { font-family:'Courier New', monospace; }
+  /* tu dong nghia (a.k.a.) dat sau mot thuat ngu */
+  #stage .aka { font-weight:400; font-style:italic; color:#7E8A96; }
+
+  /* --- slide bai tap (exercise) --- */
+  #stage .eyebrow.ex { color:#B07A12; }
+  #stage .tag { display:inline-block; font-size:14px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+                padding:3px 10px; border-radius:999px; white-space:nowrap; }
+  #stage .tag.must { background:#A3302A; color:#FFFFFF; }
+  #stage .tag.rec  { background:#1C6B72; color:#FFFFFF; }
+  #stage .tag.opt  { background:#EDEDE7; color:#48515E; border:1px solid #C9CCC4; }
+  #stage .path { font-family:'Courier New', monospace; color:#6B4A0C; }
+  #stage kbd { font-family:'Courier New', monospace; font-size:.9em; background:#EDEDE7; border:1px solid #C9CCC4;
+               border-radius:4px; padding:1px 6px; }
+
+  /* --- exercise v2: workflow chips, Claude Code cards, role/page cards, step tables, questions, endpoint strip --- */
+  #stage .flow { flex:1; display:flex; flex-direction:column; justify-content:space-between; gap:8px; background:#FFFFFF;
+                 border:1px solid #D9DBD4; border-radius:10px; padding:10px 12px; }
+  #stage .flow b { color:#1C6B72; font-size:18px; }
+  #stage .cc { flex:1; display:flex; flex-direction:column; gap:9px; background:#FFFFFF; padding:16px 22px 18px;
+               border:1px solid #D9DBD4; border-top:6px solid; border-radius:12px; }
+  #stage .cc h3 { font-size:28px; font-weight:600; }
+  #stage .cc h3 span { display:block; font-size:17px; font-weight:400; font-style:italic; color:#7E8A96; margin-top:2px; }
+  #stage .cc p { font-size:17px; line-height:1.4; color:#48515E; }
+  #stage .cc p > b:first-child { display:inline-block; width:66px; color:#16202E; }
+  #stage .cc pre.code { font-size:15px; line-height:1.38; padding:12px 14px; margin-top:auto; }
+  #stage .role { flex:1; display:flex; flex-direction:column; gap:10px; }
+  #stage .role .who { color:#F6F6F2; font-size:18px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+                      padding:8px 16px; border-radius:10px; text-align:center; }
+  #stage .page { display:flex; flex-direction:column; gap:8px; background:#FFFFFF; border:1px solid #D9DBD4;
+                 border-radius:12px; padding:14px 16px; }
+  #stage .page.key { flex:1; border:2px solid #E8B34A; }
+  #stage .page .pt { font-size:22px; font-weight:600; }
+  #stage .page .pt span { font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; background:#E8B34A;
+                          color:#16202E; padding:3px 8px; border-radius:999px; margin-left:8px; vertical-align:middle; }
+  #stage .page ul { font-size:17px; line-height:1.38; color:#48515E; padding-left:22px; }
+  #stage .page li { margin:0 0 4px; }
+  #stage .page ul b { color:#16202E; }
+  #stage .page .pat { margin-top:auto; font-size:15px; line-height:1.4; color:#6B4A0C; background:#FBF4E4; border-radius:8px; padding:8px 10px; }
+  #stage table.steps { font-size:18px; line-height:1.34; border:1px solid #D9DBD4; border-radius:10px; }
+  #stage table.steps th { background:#16202E; color:#F6F6F2; font-weight:600; padding:10px 14px; }
+  #stage table.steps td { padding:12px 14px; color:#48515E; }
+  #stage table.steps tr:nth-child(odd) td { background:#EDEDE7; }
+  #stage table.steps td b { color:#16202E; }
+  #stage table.steps td i { color:#7E8A96; }
+  #stage table.steps td.n { font-weight:700; color:#16202E; }
+  #stage table.steps td.n .tag { display:table; margin-top:6px; }
+  #stage table.steps code { font-size:.92em; color:#6B4A0C; }
+  #stage .tag.today { background:#1C6B72; color:#FFFFFF; }
+  #stage .tag.later { background:#16202E; color:#E8B34A; }
+  #stage .q { flex:1; display:flex; gap:16px; align-items:flex-start; background:#FFFFFF; border:1px solid #D9DBD4;
+              border-left:5px solid #1C6B72; border-radius:12px; padding:12px 18px; }
+  #stage .q .qn { font-size:30px; font-weight:700; color:#1C6B72; width:24px; line-height:1.1; }
+  #stage .q .qt { font-size:21px; font-weight:600; }
+  #stage .q .qh { font-size:17px; line-height:1.4; color:#48515E; }
+  #stage .ep { flex:1; display:flex; flex-direction:column; gap:6px; background:#FFFFFF; border:1px solid #D9DBD4;
+               border-top:4px solid #1C6B72; border-radius:10px; padding:10px 12px; font-size:16px; }
+  #stage .ep .eh { font-size:16px; font-weight:700; color:#1C6B72; }
+  #stage .ep pre { font-family:'Courier New', monospace; font-size:13px; line-height:1.35; background:#16202E; color:#E6E9EC;
+                   border-radius:6px; padding:7px 9px; white-space:pre; }
+  #stage .ep .c2 { font-size:14px; line-height:1.35; color:#48515E; }
+  #stage .ep .m { font-family:'Courier New', monospace; font-weight:700; background:#E8B34A; border-radius:5px; padding:1px 6px; }
+  #stage .ep .m.ok { background:#7FC4C9; }
+  #stage .ea { align-self:center; font-size:22px; color:#7E8A96; }
+
+  /* --- exercise v3: common format — brief (task · input & tools · output), steps (main · manual · keywords) --- */
+  #stage .card { display:flex; flex-direction:column; gap:8px; background:#FFFFFF; padding:16px 22px;
+                 border:1px solid #D9DBD4; border-left:5px solid #1C6B72; border-radius:12px; }
+  #stage .lb { font-size:16px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#1C6B72; }
+  #stage .tx { font-size:19px; line-height:1.42; color:#48515E; }
+  #stage ul.tx { padding-left:24px; }
+  #stage .tx b { color:#16202E; }
+  #stage .nt { font-size:16px; line-height:1.4; color:#7E8A96; }
+  #stage .inp { display:grid; grid-template-columns:104px 1fr; gap:8px 12px; font-size:17px; line-height:1.38; color:#48515E; }
+  #stage .inp > b { color:#16202E; }
+  #stage .out { flex:1; display:flex; flex-direction:column; background:#FFFFFF; border:1px solid #D9DBD4;
+                border-radius:12px; overflow:hidden; }
+  #stage .oh { display:flex; justify-content:space-between; align-items:center; gap:16px; background:#16202E; padding:10px 20px; }
+  #stage .of { font-family:'Courier New', monospace; font-size:18px; color:#F6F6F2; }
+  #stage .ol { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#E8B34A; white-space:nowrap; }
+  #stage .ob { flex:1; display:flex; flex-direction:column; gap:10px; padding:14px 20px 16px; }
+  #stage .os { font-size:17px; font-weight:700; color:#1C6B72; }
+  #stage table.tt { font-size:16px; line-height:1.3; border:1px solid #D9DBD4; border-radius:8px; }
+  #stage table.tt th { background:#EDEDE7; font-weight:600; text-align:left; padding:6px 10px; }
+  #stage table.tt td { padding:6px 10px; color:#48515E; border-top:1px solid #E4E5DF; }
+  #stage table.tt td:first-child { font-weight:600; color:#16202E; }
+  #stage table.tt[style] td, #stage table.tt[style] th { padding:8px 12px; }
+  #stage table.tt td.te { font-weight:700; color:#1C6B72; }
+  #stage .st { display:flex; gap:14px; align-items:flex-start; background:#FFFFFF; border:1px solid #D9DBD4;
+               border-radius:10px; padding:9px 14px; }
+  #stage .st .sn { flex:none; width:30px; height:30px; border-radius:50%; background:#1C6B72; color:#FFFFFF;
+                   font-size:17px; font-weight:700; text-align:center; line-height:30px; }
+  #stage .st > div { flex:1; display:flex; flex-direction:column; gap:4px; }
+  #stage .st .stt { font-size:19px; font-weight:600; }
+  #stage .st .sd { font-size:16px; line-height:1.35; color:#48515E; }
+  #stage .pr { font-size:16px; line-height:1.38; color:#16202E; background:#E7F0F1; border-left:3px solid #1C6B72;
+               border-radius:4px; padding:4px 10px; }
+  #stage table.steps .pr { display:block; font-size:15px; margin:2px 0 3px; }
+  #stage table.cmp { font-size:16px; line-height:1.32; border:1px solid #D9DBD4; border-radius:10px; }
+  #stage table.cmp th { color:#FFFFFF; font-size:19px; font-weight:600; padding:8px 12px; text-align:left; }
+  #stage table.cmp th:first-child { background:#16202E; }
+  #stage table.cmp td { padding:6px 12px; color:#48515E; vertical-align:top; background:#FFFFFF; border-top:1px solid #E4E5DF; }
+  #stage table.cmp td:first-child { font-weight:700; color:#16202E; background:#EDEDE7; width:84px; }
+  #stage table.cmp tr.nx td { background:#FBF5E6; }
+  #stage table.cmp tr.nx td:first-child { background:#F3E3BA; }
+  #stage .low { display:flex; gap:18px; align-items:stretch; }
+  #stage .manual { flex:1.5; display:flex; flex-direction:column; gap:6px; background:#FBEDEC; border:1px solid #E7C3BF;
+                   border-left:5px solid #A3302A; border-radius:12px; padding:11px 20px; }
+  #stage .manual .lb { color:#A3302A; }
+  #stage .manual ul { display:grid; grid-template-columns:1fr 1fr; gap:3px 26px; font-size:16px; line-height:1.36;
+                      color:#48515E; padding-left:20px; }
+  #stage .manual b { color:#16202E; }
+  #stage .kw { flex:1; display:flex; flex-direction:column; gap:8px; background:#16202E; border-radius:12px; padding:11px 20px; }
+  #stage .kw .lb { color:#E8B34A; }
+  #stage .kw p { display:flex; flex-wrap:wrap; gap:6px; }
+  #stage .kw p span { font-size:15px; color:#F6F6F2; background:#2A3A50; border-radius:999px; padding:3px 11px; }
+  #stage .tag.man { background:#A3302A; color:#FFFFFF; }
+  #stage .api { display:inline-block; font-family:'Courier New', monospace; font-size:14px; background:#16202E; color:#E6E9EC;
+                border-radius:5px; padding:2px 7px; margin:0 4px 4px 0; white-space:nowrap; }
+  #stage .api b { color:#E8B34A; }
+  #stage .cmpn { font-size:15px; line-height:1.35; color:#7E8A96; }
+  #stage .cmpn b { color:#48515E; }
+  #stage table.steps.v3 td.n .tag { display:inline-block; margin:0 0 0 4px; font-size:12px; padding:2px 8px; vertical-align:1px; }
+  #stage table.steps.v3 td { padding:10px 12px; }
+  #stage table.steps.v3.roomy td { padding:13px 12px; }
 
   /* --- thanh dieu khien --- */
   #bar { position:fixed; left:0; right:0; bottom:0; height:44px; display:flex; align-items:center;
@@ -77,795 +215,1260 @@
 </style>
 </head>
 <body>
+
+
+<!-- icon + mui ten dung chung cho moi so do -->
+<svg id="defs" aria-hidden="true">
+<defs>
+  <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7E8A96"/></marker>
+  <marker id="ah-t" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1C6B72"/></marker>
+  <marker id="ah-a" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E8B34A"/></marker>
+  <marker id="ah-b" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6B4A0C"/></marker>
+  <marker id="ah-r" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#A3302A"/></marker>
+</defs>
+<symbol id="i-user" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="15" r="8"/><path d="M8 43a16 16 0 0 1 32 0"/></g></symbol>
+<symbol id="i-browser" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="40" height="32" rx="4"/><path d="M4 17h40"/><path d="M10 12.5h1M15 12.5h1M20 12.5h1"/><path d="M12 25h16M12 31h24"/></g></symbol>
+<symbol id="i-server" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="6" width="34" height="15" rx="3"/><rect x="7" y="27" width="34" height="15" rx="3"/><path d="M13 13.5h1M13 34.5h1M22 13.5h13M22 34.5h13"/></g></symbol>
+<symbol id="i-db" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="10" rx="15" ry="5"/><path d="M9 10v28c0 2.8 6.7 5 15 5s15-2.2 15-5V10"/><path d="M9 24c0 2.8 6.7 5 15 5s15-2.2 15-5"/></g></symbol>
+<symbol id="i-agent" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="9" r="5"/><circle cx="9" cy="38" r="5"/><circle cx="39" cy="38" r="5"/><circle cx="24" cy="26" r="4"/><path d="M24 14v8M21 29l-8 6M27 29l8 6M14 38h20"/></g></symbol>
+<symbol id="i-cloud" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 37h22a8 8 0 0 0 1-16 11 11 0 0 0-21-3 9 9 0 0 0-2 19z"/></g></symbol>
+<symbol id="i-gear" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="7"/><path d="M24 4v7M24 37v7M4 24h7M37 24h7M10 10l5 5M33 33l5 5M38 10l-5 5M15 33l-5 5"/></g></symbol>
+<symbol id="i-store" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18 9 7h30l4 11"/><path d="M5 18h38v3a6 6 0 0 1-9.5 0 6 6 0 0 1-9.5 0 6 6 0 0 1-9.5 0A6 6 0 0 1 5 21z"/><path d="M9 25v17h30V25"/><path d="M20 42V32h8v10"/></g></symbol>
+<symbol id="i-menu" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 11c-5-4-12-4-18-2v30c6-2 13-2 18 2 5-4 12-4 18-2V9c-6-2-13-2-18 2z"/><path d="M24 11v30M11 18h8M11 24h8M29 18h8M29 24h8"/></g></symbol>
+<symbol id="i-waiter" viewBox="0 0 48 48"><path d="M4 46V31a11 11 0 0 1 22 0v15z" fill="currentColor" opacity=".14"/><path d="M30 23a7 7 0 0 1 14 0z" fill="currentColor" opacity=".14"/><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="9" r="5.5"/><path d="M4 46V31a11 11 0 0 1 22 0v15"/><path d="M15 23l-3.5 9M15 23l3.5 9"/><path d="M26 30l6-6"/><path d="M27 23h19"/><path d="M30 23a7 7 0 0 1 14 0"/><path d="M37 14.5v1.5"/></g><path d="M11.2 18.4l3.8 2 3.8-2v4l-3.8-2-3.8 2z" fill="currentColor"/></symbol>
+<symbol id="i-pot" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h32v13a7 7 0 0 1-7 7H15a7 7 0 0 1-7-7z"/><path d="M3 25h5M40 25h5"/><path d="M7 18h34M21 14h6"/><path d="M16 3c-2 2.5 2 3.5 0 6.5M24 2c-2 2.5 2 3.5 0 6.5M32 3c-2 2.5 2 3.5 0 6.5"/><path d="M5 46h38"/></g></symbol>
+<symbol id="i-ticket" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5h26v38l-4.3-3-4.4 3-4.3-3-4.3 3-4.4-3L11 43z"/><path d="M17 14h14M17 21h14M17 28h8"/></g></symbol>
+<symbol id="i-chef" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 24a7 7 0 0 1 1.5-13.5A9 9 0 0 1 32.5 10.5 7 7 0 0 1 34 24z"/><path d="M15 24v6h18v-6"/><path d="M16 36h16M18 42h12"/></g></symbol>
+<symbol id="i-flask" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 5h12M20 5v13L9 38a3.5 3.5 0 0 0 3 5h24a3.5 3.5 0 0 0 3-5L28 18V5"/><path d="M13 31h22"/><circle cx="21" cy="36" r="1.5"/><circle cx="28" cy="35" r="1"/></g></symbol>
+<symbol id="i-fridge" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="4" width="26" height="40" rx="3"/><path d="M11 18h26M16 9v5M16 23v8"/><path d="M28 30l4 4M32 30l-4 4M30 28v8"/></g></symbol>
+<symbol id="i-license" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4h20l8 8v32H10z"/><path d="M30 4v8h8"/><path d="M16 17h12M16 23h16"/><circle cx="24" cy="33" r="5"/><path d="M21 37l-2 6 5-2 5 2-2-6"/></g></symbol>
+<symbol id="i-lock" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="21" width="28" height="22" rx="3"/><path d="M16 21v-6a8 8 0 0 1 16 0v6M24 30v5"/></g></symbol>
+<symbol id="i-chart" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6v36h36"/><path d="M12 32l9-10 7 6 12-14"/></g></symbol>
+<symbol id="i-doc" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4h20l8 8v32H10z"/><path d="M30 4v8h8M16 20h16M16 27h16M16 34h10"/></g></symbol>
+<symbol id="i-image" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="38" height="32" rx="4"/><circle cx="16" cy="18" r="4"/><path d="M5 34l11-10 9 8 6-5 12 10"/></g></symbol>
+<symbol id="i-audio" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24h3M13 16v16M19 10v28M25 18v12M31 13v22M37 20v8M42 24h1"/></g></symbol>
+</svg>
+
+
 <div id="stage">
+
+<!-- ============ 1 · COVER ============ -->
 <section id="cover" data-transition="fade" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#E8B34A">The Odyssey · Đào tạo mentor mới · Buổi 02</p>
-<div style="display:flex;flex-direction:column;gap:32px">
-<h1 style="font-family:'Lora', Georgia, serif;font-size:104px;font-weight:600;line-height:1.05;color:#F6F6F2">Khởi tạo dự án:<br>từ template thành<br>dự án của đội</h1>
-<p style="font-size:40px;font-weight:300;line-height:1.35;color:#BFD0D8;width:1320px">Dựng nền chạy được — rồi tìm ra ba chỗ tài liệu nói khác code, trên chính template của chương trình</p>
+<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#E8B34A">Session 02 · Mentor training · The Odyssey</p>
+<div style="display:flex;flex-direction:column;gap:32px;width:1300px">
+<h1 style="font-family:'Lora', Georgia, serif;font-size:104px;font-weight:600;line-height:1.05;color:#F6F6F2">From a template<br>to the team's project</h1>
+<p style="font-size:38px;font-weight:300;line-height:1.35;color:#BFD0D8">Today we write no logic. We build the floor the next thirteen sessions stand on — and find the three places where the documentation and the code already disagree.</p>
 </div>
 <div style="position:absolute;left:128px;bottom:64px;width:1664px;display:flex;justify-content:space-between;border-top:1px solid #3A4654;padding:28px 0 0">
-<p style="font-size:24px;color:#8E9CAA">Giáo trình trong repo: docs/giao-trinh/</p>
-<p style="font-size:24px;color:#8E9CAA">120 phút</p>
-<p style="font-size:24px;color:#8E9CAA">MT-01 · chuẩn hóa chất lượng đào tạo</p>
+<p style="font-size:24px;color:#8E9CAA">Course material in the repo: docs/giao-trinh/</p>
+<p style="font-size:24px;color:#8E9CAA">120 minutes</p>
+<p style="font-size:24px;color:#8E9CAA">Repo: UEH-ISB/mt-01-the-odyssey</p>
 </div>
-<aside>Mentor mới hay coi buổi setup là buổi phụ, qua nhanh cho xong. Nói ngay rằng không phải: đây là buổi quyết định tuần 4 của đội có deploy được không. Câu "trên máy em chạy được" bắt đầu từ chỗ setup làm tắt ở tuần 1.
+<aside>New mentors treat the setup session as a minor one. It is the session that decides whether the team can deploy in week 4. Every "but it works on my machine" in week 3 was born in a setup that somebody rushed.
 
-Hai việc kiểm trước khi vào slide: ai đã clone được repo đội, và ai đã cài được Python với gh. Chưa có thì ghép cặp ngay, gỡ trong năm phút đầu, đừng để đến giờ lab. Và chia cặp luôn ở đây: cặp 1, cặp 2 — lab bước 6 cần.
+Say what is different about today: in session 01 everybody did the same thing to the same file. Today each person builds their own environment on the same repo, and four machines will fail in four different ways. That is on purpose — week 2 of a real team looks exactly like this.
 
-Chốt kỳ vọng của buổi: cuối buổi repo đội chạy được trên máy của từng người, Swagger mở được, make test ra 5 passed sau khi pull bản sửa của cặp kia, và ba dòng JOURNAL.md ghi ba chỗ tài liệu lệch code mà đội tự tìm ra.</aside>
+Before the room arrives, run the install and make test yourself once. You must get two passed and three errors. If your machine produces something else, the room will too, and exercise 2.5 loses its point.</aside>
 </section>
-<section id="dung-nen" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
-<div style="display:flex;flex-direction:column;gap:20px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1">Hôm nay không viết logic. Hôm nay dựng nền.</h2>
-<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1450px">Năm thứ phải có cuối buổi. Thiếu một thứ thì tuần 4 của đội sẽ trả giá.</p>
-</div>
-<div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:24px">
-<div style="display:flex;gap:24px;align-items:center;background:#FFFFFF;padding:36px;border:1px solid #D9DBD4;border-left:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:44px;font-weight:700;color:#1C6B72;width:56px">1</p>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px">
-<h3 style="font-size:34px;font-weight:600;line-height:1.2">Môi trường chạy được</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Người khác clone về cũng chạy được, không chỉ máy bạn</p>
-</div>
-</div>
-<div style="display:flex;gap:24px;align-items:center;background:#FFFFFF;padding:36px;border:1px solid #D9DBD4;border-left:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:44px;font-weight:700;color:#1C6B72;width:56px">2</p>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px">
-<h3 style="font-size:34px;font-weight:600;line-height:1.2">.env không bị commit</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Kiểm bằng lệnh, không kiểm bằng niềm tin</p>
-</div>
-</div>
-<div style="display:flex;gap:24px;align-items:center;background:#FFFFFF;padding:36px;border:1px solid #D9DBD4;border-left:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:44px;font-weight:700;color:#1C6B72;width:56px">3</p>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px">
-<h3 style="font-size:34px;font-weight:600;line-height:1.2">Swagger UI mở được</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Công cụ duyệt API của mentor không-biết-code</p>
-</div>
-</div>
-<div style="display:flex;gap:24px;align-items:center;background:#FFFFFF;padding:36px;border:1px solid #D9DBD4;border-left:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:44px;font-weight:700;color:#1C6B72;width:56px">4</p>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px">
-<h3 style="font-size:34px;font-weight:600;line-height:1.2">PR vào develop đã merge</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Và người khác merge nó, không phải tác giả</p>
-</div>
-</div>
-<div style="grid-column:span 2;display:flex;gap:24px;align-items:center;background:#16202E;padding:36px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:44px;font-weight:700;color:#E8B34A;width:56px">5</p>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px">
-<h3 style="font-size:34px;font-weight:600;line-height:1.2;color:#F6F6F2">Bản sửa của người khác đã về máy bạn</h3>
-<p style="font-size:26px;line-height:1.4;color:#BFD0D8"><b>git pull</b> rồi <b>make test</b> ra <b>5 passed</b> — bằng chứng bốn người làm được với nhau trên một repo</p>
-</div>
-</div>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:26px;color:#A3302A;font-weight:600">Câu “trên máy em chạy được” bắt đầu từ chỗ setup làm tắt ở tuần 1.</p>
-<aside>Năm ô này cũng chính là các ô đầu trong checklist Tiêu chí đạt của buổi. Đọc qua nhanh, đừng giảng từng ô — lab sẽ làm thật cả năm.
 
-Ô 5 là ô mới và là ô khó nhất của buổi, vì nó không phụ thuộc vào một người: bản sửa pytest.ini do một cặp làm, cặp kia review và merge, rồi cả bốn người phải pull về và tự chạy make test ra 5 passed. Đó là lần đầu đội thấy một bản sửa đi từ máy người này sang máy người khác qua PR, không qua Zalo.
-
-Dòng đỏ ở chân slide là thứ đáng nhắc lại nhiều lần trong 6 tuần. Khi đội nói câu đó ở tuần 4, nguyên nhân gần như luôn nằm ở tuần 1: thiếu môi trường ảo, thiếu .env.example, hoặc có người cài tay một thư viện rồi quên ghi vào requirements.
-
-Ô số 3 đáng nói thêm một câu cho phòng yên tâm: Swagger UI là giao diện bấm được để thử API. Mentor không cần viết dòng code nào vẫn duyệt được API của đội bằng nó. Buổi 08 dùng lại.</aside>
-</section>
-<section id="khong-tu-tao-repo" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:56px">
-<div style="display:flex;flex-direction:column;gap:20px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1">Một đội, một repo</h2>
-<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1450px">Bốn người là <b>collaborator</b> trên cùng một repo. Và một lỗi mất điểm oan mà mentor chặn được trong một câu ở tuần 1.</p>
-</div>
-<div style="display:flex;gap:32px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:18px;background:#FFFFFF;padding:44px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#1C6B72">Đúng</p>
-<h3 style="font-size:40px;font-weight:600;line-height:1.2">Repo đội, dựng từ template</h3>
-<p style="font-size:28px;line-height:1.45;color:#48515E"><b>mt-01-the-odyssey</b> — dựng ở buổi 01 từ template, nằm trong org của khoá. Bốn người có quyền đẩy nhánh lên.</p>
-<p style="font-size:28px;line-height:1.45;color:#48515E">Chưa vào được? Chưa bấm <b>nhận lời mời</b> collaborator.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:18px;background:#FFFFFF;padding:44px;border:1px solid #D9DBD4;border-top:5px solid #A3302A;border-radius:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#A3302A">Sai</p>
-<h3 style="font-size:40px;font-weight:600;line-height:1.2">Đội tự tạo repo ngoài org</h3>
-<p style="font-size:28px;line-height:1.45;color:#48515E">Repo ngoài org <b>không bắn webhook</b> về hệ thống chấm, nên <b>không được tính là bài nộp</b>.</p>
-<p style="font-size:28px;line-height:1.45;color:#48515E">Đội làm cả 6 tuần vẫn có thể bị tính là không nộp.</p>
-</div>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:26px;color:#1C6B72;font-weight:600">Câu mentor hỏi ở buổi duty đầu tiên: “cho anh xem link repo của đội.” Rồi nhìn phần org trong URL.</p>
-<aside>Slide ngắn, hai việc.
-
-Việc một: nhắc lại luật buổi 01 cho cả lứa. Một đội, một repo, bốn collaborator, và không ai tự merge PR của mình. Buổi hôm nay mỗi người dựng môi trường của mình trên cùng repo đó, nên bốn người sẽ gặp bốn kiểu lỗi máy khác nhau — đó là chủ ý, tuần 2 của đội thật cũng vậy. Ai hỏi sao không mỗi người một repo: vì cái khó của GitHub không phải gõ lệnh, mà là bốn người sửa cùng một repo không đè lên nhau.
-
-Việc hai, ô bên phải, là lỗi mentor phải chặn cho đội mình sau này: hậu quả không cân xứng với độ phức tạp. Đội làm việc thật sáu tuần rồi bị tính là không nộp, chỉ vì repo nằm sai chỗ. Dòng xanh ở chân slide là cách kiểm, mất mười giây.
-
-Một chi tiết hay gây nhầm, đáng nói vì sẽ gặp ngay hôm nay: repo private mà chưa được mời thì GitHub trả 404 chứ không phải 403. Nên "không tìm thấy repo" thường nghĩa là chưa bấm nhận lời mời, không phải repo chưa tồn tại.</aside>
-</section>
-<section id="template-co-gi" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
-<div style="display:flex;flex-direction:column;gap:14px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1">Template chính thức, đã lược: 94 → 68 file</h2>
-<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1520px">Không viết lại khung. Đây <b>là</b> template thật của chương trình, chỉ xoá đúng hai mục cả 15 buổi không dùng tới.</p>
-</div>
-<div style="display:flex;gap:28px;align-items:stretch">
-<div style="flex:62;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#1C6B72">Giữ — mỗi thứ có buổi dùng</p>
-<ul style="font-size:27px;line-height:1.5;color:#16202E">
-<li><b>src/agents/</b> graph · state · nodes · tools → buổi 04</li>
-<li><b>src/api/</b> · <b>src/models/</b> → buổi 08</li>
-<li><b>tests/</b> → buổi 10</li>
-<li><b>Dockerfile</b> · <b>CI</b> · <b>ruff.toml</b> → buổi 12</li>
-<li><b>scripts/</b> + 6 cấu hình hook → buổi 02, deliverable #4</li>
-<li><b>ARCHITECTURE</b> · <b>JOURNAL</b> · <b>WORKLOG</b> → deliverable 3, 8, 9</li>
+<!-- ============ 2 · AGENDA ============ -->
+<section id="agenda" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:112px 128px 120px;display:flex;flex-direction:column;gap:40px">
+<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1">Sections:</h2>
+<div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:24px">
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:26px 26px 28px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:42px;font-weight:700;color:#1C6B72;line-height:1">1</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.2">What today is for</h3>
+<ul style="list-style:none;padding-left:0;font-size:20px;line-height:1.35;color:#48515E">
+<li>1.1 Five things by the end</li>
+<li>1.2 One team, one repo</li>
 </ul>
 </div>
-<div style="flex:38;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px;border:1px solid #D9DBD4;border-top:5px solid #A3302A;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#A3302A">Xoá</p>
-<h3 style="font-size:32px;font-weight:600;line-height:1.2">docs/guide/ — 37 file</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Một bộ tài liệu <b>song song</b> mà khoá không dạy theo. Khoá có giáo trình riêng, nằm ngay trong repo ở <b>docs/giao-trinh/</b>.</p>
-<h3 style="font-size:32px;font-weight:600;line-height:1.2">COHORT3_REPORT.md</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Không dùng trong buổi nào, có bản online.</p>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:26px 26px 28px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:42px;font-weight:700;color:#1C6B72;line-height:1">2</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.2">The official template</h3>
+<ul style="list-style:none;padding-left:0;font-size:20px;line-height:1.35;color:#48515E">
+<li>2.1 What was kept, what was cut</li>
+<li>2.2 Choosing your starting tier</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:26px 26px 28px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:42px;font-weight:700;color:#1C6B72;line-height:1">3</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.2">Environment, and reading an error</h3>
+<ul style="list-style:none;padding-left:0;font-size:20px;line-height:1.35;color:#48515E">
+<li>3.1 venv, and why it exists</li>
+<li>3.2 Three real gaps in the template</li>
+<li style="color:#B07A12;font-weight:600">▸ Ex 2.1 · meet a real error</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:26px 26px 28px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:42px;font-weight:700;color:#1C6B72;line-height:1">4</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.2">Secrets, and what git really tracks</h3>
+<ul style="list-style:none;padding-left:0;font-size:20px;line-height:1.35;color:#48515E">
+<li>4.1 Never hardcode a key</li>
+<li>4.2 A clean status is not the truth</li>
+<li style="color:#B07A12;font-weight:600">▸ Ex 2.2 · .env and ls-files</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:26px 26px 28px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:42px;font-weight:700;color:#1C6B72;line-height:1">5</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.2">The team's Git workflow</h3>
+<ul style="list-style:none;padding-left:0;font-size:20px;line-height:1.35;color:#48515E">
+<li>5.1 main · develop · feature</li>
+<li>5.2 Ask where they merge</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:26px 26px 28px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:42px;font-weight:700;color:#1C6B72;line-height:1">6</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.2">Running it for the first time</h3>
+<ul style="list-style:none;padding-left:0;font-size:20px;line-height:1.35;color:#48515E">
+<li>6.1 make run · Swagger UI</li>
+<li>6.2 MT-01 is three layers</li>
+<li style="color:#B07A12;font-weight:600">▸ Ex 2.3 · server and hook</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:26px 26px 28px;border:1px solid #D9DBD4;border-top:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:42px;font-weight:700;color:#B07A12;line-height:1">7</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.2">Working with the agent, by the repo's rules</h3>
+<ul style="list-style:none;padding-left:0;font-size:20px;line-height:1.35;color:#48515E">
+<li style="color:#B07A12;font-weight:600">▸ Ex 2.4 · cite, then run</li>
+<li style="color:#B07A12;font-weight:600">▸ Ex 2.5 · turn the tests green</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#16202E;padding:26px 26px 28px;border-top:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:42px;font-weight:700;color:#E8B34A;line-height:1">+</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.2;color:#F6F6F2">Summary, Q&amp;A, References</h3>
+<ul style="list-style:none;padding-left:0;font-size:20px;line-height:1.35;color:#BFD0D8">
+<li>Key takeaways</li>
+<li>Homework</li>
+<li>Sources in this repo</li>
+</ul>
 </div>
 </div>
-<div style="display:flex;gap:28px;align-items:center;background:#16202E;padding:30px 40px;border-radius:12px">
-<p style="font-size:26px;font-weight:600;color:#E8B34A;width:420px">Vì sao danh sách xoá chỉ có hai dòng</p>
-<p style="font-size:26px;line-height:1.45;color:#BFD0D8;flex:1">Vì hai mục đó đã là <b>3/4 dung lượng</b> template. Mọi file còn lại đều có buổi dùng tới. Script thêm vào <b>12 file</b>: giáo trình, đề bài, dữ liệu tập, quy tắc cho agent — <b>không thêm dòng code nào</b>. Bảng lược–giữ kèm lý do: <b>DA-LUOC.md</b>.</p>
-</div>
-<aside>Nói rõ ngay để không ai hiểu nhầm: đây không phải một repo tôi viết gọn lại. Đây là template thật của chương trình, giữ nguyên từng file của nó, chỉ xoá hai mục.
+<aside>Thirty minutes of slides, sixty of lab, twenty for the cross-exercise — same shape as session 01.
 
-Lý do xoá docs/guide là lý do đáng nhất của cả slide: đó là một bộ tài liệu song song mà khoá này không dạy theo. Giáo trình của khoá nằm ngay trong repo, ở docs/giao-trinh/ — nên học viên và agent đọc cùng một nguồn. Giữ hai bộ tài liệu lệch nhau trong một repo là cách nhanh nhất để agent trả lời sai mà vẫn rất tự tin: nó đọc đúng một nguồn, chỉ là nguồn không ai dạy. Lát nữa lab bước 5 cho họ kiểm xem agent có dẫn nguồn trong repo thật không.
+Flag section 3 as the one to pay attention to: it contains the three places where this template's documentation and its code disagree, and all three are real. Do not reveal them in detail here; the lab is where people meet them.
 
-Dải tối cuối slide trả lời câu phòng hay hỏi: sao lược có hai mục mà bảo là gọn. Vì hai mục đó chiếm ba phần tư dung lượng. Và tôi đã định xoá bớt scripts/ cho gọn hơn, nhưng kiểm thì thấy setup_hooks.sh hardcode log_antigravity.py vào pre-push hook, nên xoá là hook báo lỗi mỗi lần push. Giữ cả chín file rẻ hơn sửa chuỗi phụ thuộc — đó cũng là một bài học về việc kiểm trước khi dọn.</aside>
+Pair people up now rather than at the start of the lab. Exercises 2.1 to 2.4 everybody does on their own machine; 2.5 splits into pair 1 fixing and pair 2 reviewing, because one repo needs only one fix.</aside>
 </section>
-<section id="chon-tang" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+
+<!-- ============ 3 · S1 · FIVE THINGS ============ -->
+<section id="five-things" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:112px 128px 140px;display:flex;flex-direction:column;gap:44px">
 <div style="display:flex;flex-direction:column;gap:16px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">Chọn tầng khởi đầu</h2>
-<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1500px">Câu đội sẽ hỏi tuần 1: <i>“chốt đề rồi, dựng Docker với CI luôn cho chắc nhé?”</i> — trả lời phụ thuộc đội đang ở tầng nào.</p>
+<p class="eyebrow">Section 1.1</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">No logic today. Today we build the floor.</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1500px">Five things must exist on <b>your</b> machine when you leave. Each one is a command, not a feeling.</p>
 </div>
-<table style="font-family:'Be Vietnam Pro', Arial, sans-serif;font-size:26px;color:#16202E;border:1px solid #D9DBD4;border-radius:10px;padding:16px">
-<tr style="background:#16202E">
-<th style="width:16%;color:#F6F6F2;font-size:26px;font-weight:600;text-align:left"> </th>
-<th style="width:42%;color:#F6F6F2;font-size:26px;font-weight:600;text-align:left">Tầng 1 — Prototype</th>
-<th style="width:42%;color:#F6F6F2;font-size:26px;font-weight:600;text-align:left">Tầng 2 — Repo của đội</th>
-</tr>
-<tr>
-<td style="font-weight:600">Khi nào</td>
-<td style="color:#48515E">Tuần 1–2, chưa chắc user cần gì</td>
-<td style="color:#48515E">Đã có USP và ≥5 feedback khẳng định</td>
-</tr>
-<tr style="background:#EDEDE7">
-<td style="font-weight:600">Công cụ</td>
-<td style="color:#48515E">AI Studio, Firebase/Supabase free. Không server, không Docker</td>
-<td style="color:#48515E">Template này: FastAPI + LangGraph + Docker + CI</td>
-</tr>
-<tr>
-<td style="font-weight:600">Trả lời câu gì</td>
-<td style="color:#48515E">“User có dùng không?” trong 48 giờ</td>
-<td style="color:#48515E">“Sản phẩm chịu được Demo Day không?” trong 6 tuần</td>
-</tr>
-<tr style="background:#EDEDE7">
-<td style="font-weight:600">Bỏ gì</td>
-<td style="color:#48515E">DevOps, test, guardrail — chấp nhận, vì sẽ vứt đi</td>
-<td style="color:#48515E">Không bỏ được gì nữa</td>
-</tr>
-</table>
-<div style="display:flex;gap:24px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:30px;border:1px solid #D9DBD4;border-left:5px solid #A3302A;border-radius:12px">
-<h3 style="font-size:28px;font-weight:600;line-height:1.2">Chọn sai kiểu 1</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Đề chưa validate mà dựng full Docker/CI tuần 1 → mất 3 tuần đầu “set up hạ tầng”, không học được gì từ user.</p>
+<div style="flex:1;display:flex;gap:22px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:32px 28px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:22px;font-weight:700;color:#1C6B72">①</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.2">The environment runs</h3>
+<pre class="code" style="margin-top:auto;font-size:16px">pip install -r<br> requirements.txt</pre>
 </div>
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:30px;border:1px solid #D9DBD4;border-left:5px solid #A3302A;border-radius:12px">
-<h3 style="font-size:28px;font-weight:600;line-height:1.2">Chọn sai kiểu 2</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Đề đã chắc mà vẫn code prototype tay → demo ngày bị lỗi dưới tải nặng.</p>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:32px 28px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:22px;font-weight:700;color:#1C6B72">②</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.2"><code>.env</code> is not committed</h3>
+<pre class="code" style="margin-top:auto;font-size:16px">git check-ignore<br> -v .env</pre>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:32px 28px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:22px;font-weight:700;color:#1C6B72">③</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.2">Swagger UI opens</h3>
+<pre class="code" style="margin-top:auto;font-size:16px">curl -s localhost<br>:8000/health</pre>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:32px 28px;border:1px solid #D9DBD4;border-top:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:22px;font-weight:700;color:#B07A12">④</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.2">Tests go green: <b>5 passed</b></h3>
+<pre class="code" style="margin-top:auto;font-size:16px">make test</pre>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:32px 28px;border-top:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:22px;font-weight:700;color:#E8B34A">⑤</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.2;color:#F6F6F2">Somebody else's fix is on <b>your</b> machine</h3>
+<pre class="code" style="margin-top:auto;font-size:16px;background:#0E141C">git switch develop<br>git pull</pre>
 </div>
 </div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:26px;color:#1C6B72;font-weight:600">Chuyển tầng thì mang theo đúng hai thứ: câu hỏi user thật, và USP đã validate. Phần còn lại vứt đi là thắng.</p>
-<aside>Trả lời câu hỏi số hai của đội. Và nhấn rằng câu trả lời đúng không phải "có" hay "không" — mà là một câu hỏi lại: đã có USP và năm feedback người thật chưa?
+<p style="position:absolute;left:128px;bottom:52px;width:1664px;font-size:24px;color:#6E7680">Every one of the five is verified by running something. None of them is verified by saying “it's set up”.</p>
+<aside>Read the five, and point out that each card has a command at the bottom. That is the pattern of this whole course: a deliverable you can check is a deliverable.
 
-Hai ô đỏ là hai lỗi ngược nhau, cùng xuất phát từ việc không hỏi câu đó. Mentor hay chỉ nhìn thấy kiểu 1 vì nó ồn ào hơn, nhưng kiểu 2 mới là cái làm mất điểm ở Demo Day.
+Card five is the one that is easy to under-rate. The first four are about your own machine working. The fifth is about somebody else's work arriving on your machine through a pull request rather than through a chat message, and it is the first time most people in the room will experience that.
 
-Dòng xanh cuối: vứt toàn bộ tầng 1 là thắng, không phải lỗ. Mentor cần nói câu này rõ, vì đội rất tiếc công đã bỏ ra và sẽ cố giữ code prototype — rồi mang cả nợ kỹ thuật của nó vào tầng 2.
-
-Ghi chú: USP là nội dung chương 05, buổi 05. Hôm nay chỉ cần phòng biết cái cổng này tồn tại.</aside>
+Card four says five passed, and the repo right now gives two passed and three errors. Do not explain why yet.</aside>
 </section>
-<section id="moi-truong" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
-<div style="display:flex;flex-direction:column;gap:20px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1">Môi trường ảo, và cách đọc một thông báo lỗi</h2>
-<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1450px">Ba lệnh. Giải thích cho người chưa biết: đây là một hộp thư viện riêng cho dự án này — để dự án khác không phá nó, và nó không phá máy bạn.</p>
-</div>
-<div style="display:flex;gap:28px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:40px;border-radius:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Ba lệnh</p>
-<p style="font-size:28px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">python3 -m venv .venv<br>source .venv/bin/activate<br>pip install -r requirements.txt</p>
-<p style="font-size:26px;line-height:1.45;color:#BFD0D8">Windows: <span style="color:#E8B34A">.venv\Scripts\activate</span></p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:20px">
-<div style="display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:32px;border:1px solid #D9DBD4;border-left:5px solid #A3302A;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Dấu hiệu quên bật venv</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E"><b>No module named ...</b> — thư viện đã cài, nhưng cài vào chỗ khác.</p>
-</div>
-<div style="display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:32px;border:1px solid #D9DBD4;border-left:5px solid #A3302A;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Dấu hiệu cài vào Python hệ thống</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E"><b>Permission denied</b> khi pip install — chưa bật venv.</p>
-</div>
-</div>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:26px;color:#1C6B72;font-weight:600">Quy tắc đọc lỗi: tìm dòng <u>ERROR</u>, hoặc dòng cuối của khối <u>Traceback</u> — bỏ qua <b>[notice]</b> và <b>WARNING</b>.</p>
-<aside>Phần này là phần duy nhất của buổi mà người chưa từng chạy lệnh sẽ thấy lạ. Làm chậm, làm thật trên máy chiếu, và để phòng gõ theo.
 
-Hai ô bên phải là hai thông báo lỗi chiếm gần hết sự cố thực tế. Đọc to cả hai và nói rõ cách xử lý giống nhau: bật venv rồi cài lại.
-
-Dòng xanh ở chân slide là quy tắc đáng giá nhất của buổi cho một mentor không-biết-code. Đội sẽ gửi ảnh chụp một màn hình đầy chữ đỏ. Câu hỏi đúng không phải "em thử lại chưa" mà là "dòng ERROR viết gì".
-
-Nói thẳng một chỗ dễ sai, vì lab bước 2 sẽ gặp đúng nó: câu "đọc dòng cuối" chỉ đúng với Traceback của Python. Lệnh pip in hai dòng [notice] gợi ý nâng cấp pip SAU dòng ERROR — nên ai đọc đúng dòng cuối cùng thì gặp lời khuyên nâng cấp pip, không gặp lỗi. Đây là chỗ tôi phát hiện khi chạy thử thật, không phải khi viết bài; nó là lý do mentor phải tự chạy trước khi dạy.
-
-Và một quy tắc nữa cho mentor: đừng nhận ảnh chụp, yêu cầu dán chữ. Chữ thì dán được cho agent hỏi, ảnh thì không.</aside>
-</section>
-<section id="ba-cho-lech" data-transition="push" style="background:#E8B34A;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:40px">
-<div style="display:flex;flex-direction:column;gap:14px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#6B4A0C">Slide quan trọng nhất của buổi</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:72px;font-weight:600;line-height:1.1">Ba chỗ tài liệu nói khác code</h2>
-<p style="font-size:28px;font-weight:500;line-height:1.4;color:#6B4A0C;width:1520px">Cả ba có thật trong template chính thức. Không ai dựng ra để bạn tập.</p>
+<!-- ============ 4 · S1 · ONE TEAM ONE REPO ============ -->
+<section id="one-team" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:112px 128px 140px;display:flex;flex-direction:column;gap:44px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p class="eyebrow">Section 1.2</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">One team, one repo — nobody creates their own</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1560px">The team repo was created from the template in session 01, inside the course organisation. All four of you are collaborators on <b>that</b> repo.</p>
 </div>
-<div style="display:flex;flex-direction:column;gap:18px">
-<div style="display:flex;gap:28px;align-items:center;background:#F6E3BE;padding:30px;border-left:5px solid #16202E;border-radius:12px">
-<p style="font-size:40px;font-weight:700;color:#6B4A0C;width:48px">1</p>
-<div style="flex:1;display:flex;flex-direction:column;gap:6px">
-<h3 style="font-size:32px;font-weight:600;line-height:1.25">README bảo cài bằng <span style="color:#A3302A">pip install -e ".[dev]"</span> — repo không có <span style="color:#A3302A">pyproject.toml</span></h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Kiểm: <b>ls pyproject.toml</b> · Đúng là <b>pip install -r requirements.txt</b></p>
-</div>
-</div>
-<div style="display:flex;gap:28px;align-items:center;background:#F6E3BE;padding:30px;border-left:5px solid #16202E;border-radius:12px">
-<p style="font-size:40px;font-weight:700;color:#6B4A0C;width:48px">2</p>
-<div style="flex:1;display:flex;flex-direction:column;gap:6px">
-<h3 style="font-size:32px;font-weight:600;line-height:1.25"><span style="color:#A3302A">make test</span> ra 2 passed, 3 errors ngay khi vừa clone</h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">Có <b>pytest-asyncio</b> trong requirements, nhưng không file nào đặt <b>asyncio_mode</b>. Bạn tự sửa ở lab — <b>pytest.ini</b> ba dòng.</p>
-</div>
-</div>
-<div style="display:flex;gap:28px;align-items:center;background:#F6E3BE;padding:30px;border-left:5px solid #16202E;border-radius:12px">
-<p style="font-size:40px;font-weight:700;color:#6B4A0C;width:48px">3</p>
-<div style="flex:1;display:flex;flex-direction:column;gap:6px">
-<h3 style="font-size:32px;font-weight:600;line-height:1.25"><span style="color:#A3302A">ci.yml</span> khai <span style="color:#A3302A">pull_request: branches: [main]</span></h3>
-<p style="font-size:26px;line-height:1.4;color:#48515E">PR nhắm vào <b>develop</b> không kích hoạt CI. Không có tích xanh <b>không</b> đồng nghĩa với test đỏ.</p>
-</div>
-</div>
-</div>
-<div style="display:flex;gap:28px;align-items:center;background:#16202E;padding:30px 40px;border-radius:12px">
-<p style="font-family:'Lora', Georgia, serif;font-size:36px;font-weight:600;line-height:1.2;color:#E8B34A;width:560px">Việc của mentor là người đối chiếu.</p>
-<p style="font-size:26px;line-height:1.45;color:#BFD0D8;flex:1">Không phải người chê tài liệu. Tài liệu và code đi lệch nhau theo thời gian ở <b>mọi</b> dự án — kể cả template của chính chương trình.</p>
-</div>
-<aside>Nếu buổi học chỉ còn thời gian cho một slide, chọn slide này.
-
-Đừng tiết lộ ba chỗ này trước lab. Ở lab bước 2, học viên làm đúng theo README, gặp lỗi thật, rồi tự kiểm bằng ls pyproject.toml. Cảm giác "tôi làm đúng tài liệu mà vẫn lỗi" là cảm giác đội sẽ có vào tuần 1, và mentor phải từng trải qua nó.
-
-Nói rõ để không ai hiểu sai: không phải người viết template kém. Có người sửa code mà không sửa README, có người cập nhật sổ tay ở nơi khác. Việc của mentor không phải chê, mà là làm người đối chiếu.
-
-Chỗ số 2 là chỗ duy nhất học viên sửa, ở lab bước 6, với agent — một cặp sửa, cặp kia review. Ba dòng pytest.ini đổi test từ đỏ sang xanh. Điểm rút ra: CI xanh là thứ bạn làm ra, không phải thứ bạn được phát. Đội để test đỏ suốt sáu tuần thì tuần sáu không ai dám sửa gì nữa, vì không còn cách phân biệt lỗi mới với lỗi cũ.
-
-Chỗ số 3 cứu mentor khỏi một kết luận sai rất hay gặp: đội mở PR, không thấy CI chạy, báo "CI hỏng rồi anh".</aside>
-</section>
-<section id="env-key" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
-<div style="display:flex;flex-direction:column;gap:20px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1">Không bao giờ hardcode secrets</h2>
-<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1450px">Câu đội sẽ hỏi: <i>“em để key trong file config cho tiện, có sao không?”</i></p>
-</div>
-<div style="display:flex;gap:32px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FFFFFF;padding:40px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:14px">
-<h3 style="font-size:36px;font-weight:600;line-height:1.2">.env.example</h3>
-<p style="font-size:28px;line-height:1.45;color:#48515E">Commit lên. Là bản khai <b>tên</b> các biến cần có, không chứa giá trị. Người mới clone đọc nó để biết phải điền gì.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FFFFFF;padding:40px;border:1px solid #D9DBD4;border-top:5px solid #A3302A;border-radius:14px">
-<h3 style="font-size:36px;font-weight:600;line-height:1.2">.env</h3>
-<p style="font-size:28px;line-height:1.45;color:#48515E"><b>Không bao giờ</b> commit. Đã nằm trong <b>.gitignore</b> của template. Chứa giá trị thật, chỉ sống trên máy bạn.</p>
-</div>
-</div>
-<div style="display:flex;flex-direction:column;gap:14px;background:#16202E;padding:40px;border-left:5px solid #E8B34A;border-radius:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Phép kiểm, không kiểm bằng niềm tin</p>
-<p style="font-size:28px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">git check-ignore -v .env &nbsp;&nbsp;# phải in ra dòng .gitignore đang chặn<br>git status --short &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# KHÔNG được thấy .env</p>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:28px;font-weight:600;color:#A3302A">Key lỡ đẩy lên GitHub thì phải <u>thu hồi key</u> — không phải xoá commit.</p>
-<aside>Trả lời câu hỏi số ba của đội. Và nhấn dòng đỏ ở chân slide cho đến khi cả phòng nhớ.
-
-Vì sao xoá commit không cứu được: key đã nằm trong lịch sử git, đã lên server GitHub, có thể đã vào cache, đã vào bản clone của người khác, và các bot quét GitHub tìm key hoạt động theo phút. Thứ tự đúng luôn là: thu hồi key trước, dọn lịch sử sau nếu muốn.
-
-Chuyện này đã xảy ra ở Cohort-4: một đội để credential của self-hosted runner trong một nhánh phụ. Cách xử lý là thu hồi runner trong Settings → Actions → Runners trước, rồi mới xoá nhánh. Nếu làm ngược lại thì trong khoảng thời gian ở giữa, credential vẫn còn hiệu lực.
-
-Khối phép kiểm màu tối là thứ mentor dùng được ngay mà không cần đọc code: hai lệnh, mười giây, trả lời dứt khoát câu "repo đội có lộ key không".</aside>
-</section>
-<section id="swagger" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
-<div style="display:flex;flex-direction:column;gap:20px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1">Chạy server, và món quà cho mentor</h2>
-<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1450px">Swagger UI là giao diện <b>bấm được</b> để thử API — không cần viết dòng code nào.</p>
-</div>
-<div style="display:flex;gap:28px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:40px;border-radius:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Chạy</p>
-<p style="font-size:30px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">make run</p>
-<p style="font-size:26px;line-height:1.45;color:#BFD0D8">Mở <b>localhost:8000/docs</b></p>
-<hr style="border-top:1px solid #3A4654;width:100%">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Phép kiểm (tab thứ hai)</p>
-<p style="font-size:28px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">curl -s localhost:8000/health</p>
-<p style="font-size:26px;line-height:1.45;color:#BFD0D8">Đạt khi ra <b>{"status":"ok", ...}</b></p>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="flex:1.2;display:flex;flex-direction:column;gap:18px;background:#FFFFFF;padding:36px 40px;border:1px solid #D9DBD4;border-top:6px solid #1C6B72;border-radius:14px">
+<h3 style="font-size:34px;font-weight:600;line-height:1.2">What stays the same as session 01</h3>
+<ul style="font-size:24px;line-height:1.5;color:#48515E">
+<li>one repo: <code>UEH-ISB/mt-01-the-odyssey</code></li>
+<li>branch → commit → push → pull request</li>
+<li><b>nobody merges their own pull request</b></li>
+</ul>
+<h3 style="font-size:34px;font-weight:600;line-height:1.2;margin-top:12px">What is new today</h3>
+<ul style="font-size:24px;line-height:1.5;color:#48515E">
+<li>each person builds <b>their own environment</b> on that one repo</li>
+<li>so four machines will fail in <b>four different ways</b></li>
+</ul>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:18px">
-<div style="display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:32px;border:1px solid #D9DBD4;border-left:5px solid #1C6B72;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Ba nút phải biết</h3>
-<p style="font-size:26px;line-height:1.45;color:#48515E">Chọn endpoint → <b>Try it out</b> → <b>Execute</b>. Xem phần <b>Response</b>.</p>
+<div class="manual" style="flex:1;padding:30px 34px">
+<p class="lb">A repo created outside the organisation</p>
+<ul style="grid-template-columns:1fr;font-size:21px;line-height:1.5">
+<li>does <b>not</b> send its webhook to the grading system</li>
+<li>does <b>not</b> count as a submission</li>
+</ul>
+<p class="nt" style="font-size:19px">Somebody will do this by reflex. Catch it in the first ten minutes, not in week 4.</p>
 </div>
-<div style="display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:32px;border:1px solid #D9DBD4;border-left:5px solid #1C6B72;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Mentor dùng nó để làm gì</h3>
-<p style="font-size:26px;line-height:1.45;color:#48515E">Buổi 08: gọi API của đội bằng vai sai và xem server có trả <b>403</b> không. Đó là cách kiểm quyền mà không đọc code.</p>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#16202E;padding:30px 34px;border-top:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:20px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B34A">“Why not one repo each?”</p>
+<p style="font-size:23px;line-height:1.45;color:#BFD0D8">Because the hard part of GitHub was never typing the commands. It is four people changing one repo without overwriting each other.</p>
 </div>
 </div>
 </div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E7680">Swagger do FastAPI tự sinh từ code — nên nó luôn khớp với API thật, không bị cũ như tài liệu viết tay</p>
-<aside>Làm thật trên máy chiếu: make run, mở localhost:8000/docs, bấm Try it out trên /health, bấm Execute. Ba mươi giây, và phòng sẽ thở phào vì hoá ra "thử API" là việc bấm chuột.
+<aside>Repeat session 01's law out loud, because it is about to be tested on something that actually matters: nobody merges their own pull request. Last week it protected a one-line table edit. Today it protects a configuration change that makes everybody's tests pass.
 
-Nói rõ ý ở chân slide: Swagger được FastAPI sinh ra từ chính code, nên nó không bao giờ cũ. Đối lập trực tiếp với README ở slide trước — tài liệu viết tay thì cũ, tài liệu sinh từ code thì không. Đây là lý do kỹ thuật, và cũng là một tiêu chí mentor nên khuyến khích đội: cái gì sinh được từ code thì đừng viết tay.
+The new part is worth dwelling on. Four people, four machines, four different failures — a missing compiler on one, a system Python on another, a forgotten virtual environment on a third. That is not a flaw in the exercise. It is the thing teams discover in week 2 and have no process for.
 
-Ô dưới bên phải là lời hứa cho buổi 08, nhắc để phòng thấy buổi hôm nay có đích. Kiểm quyền bằng Swagger là kỹ năng mentor không-biết-code dùng được, và là phép kiểm mà đội hay trượt: họ ẩn nút trên giao diện rồi tưởng đã kiểm quyền.</aside>
+If anybody asks why they cannot just work in their own repo, give the one-sentence answer on the right. And mention the practical consequence: a repo outside the organisation is invisible to the grading system, so the work does not exist.</aside>
 </section>
-<section id="ai-logging" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:44px">
-<div style="display:flex;flex-direction:column;gap:20px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:66px;font-weight:600;line-height:1.1">“git status sạch” không có nghĩa là đã commit hết</h2>
-<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1480px">Thứ bị <b>.gitignore</b> chặn thì không xuất hiện ở đâu cả — không trong <b>git status</b>, không trong <b>git add .</b></p>
-</div>
-<div style="display:flex;gap:28px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:38px;border:1px solid #D9DBD4;border-top:5px solid #A3302A;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#A3302A">Chuyện xảy ra thật khi dựng repo này</p>
-<p style="font-size:28px;line-height:1.45;color:#16202E"><b>.gitignore</b> của template có dòng <b>data/</b> — hợp lý, dành cho dữ liệu runtime và file DB.</p>
-<p style="font-size:28px;line-height:1.45;color:#16202E">Nhưng dữ liệu <b>đề bài</b> cũng nằm trong <b>data/</b>: rubric 6 tiêu chí và đề cương mẫu.</p>
-<p style="font-size:28px;line-height:1.45;color:#A3302A"><b>Kết quả: chúng không bao giờ được commit. Và git status vẫn báo sạch.</b></p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:38px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Phép kiểm đúng</p>
-<p style="font-size:30px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">git ls-files | grep data</p>
-<p style="font-size:26px;line-height:1.45;color:#BFD0D8">Phải thấy <b>4 file</b>. <b>git ls-files</b> liệt kê thứ git đang theo dõi; <b>git status</b> chỉ liệt kê thứ <i>đã thay đổi</i>.</p>
-<hr style="border-top:1px solid #3A4654;width:100%">
-<p style="font-size:26px;line-height:1.45;color:#BFD0D8">Người dạy đã sửa khi dựng repo: <b>data/</b> → <b>data/*</b> rồi mở lại ba mục của đề bài. Chi tiết: <b>DA-LUOC.md</b></p>
-</div>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:26px;color:#1C6B72;font-weight:600">Đội sẽ mất file theo đúng cách này, rồi hỏi “sao máy em có mà máy bạn không có”.</p>
-<aside>Slide này kể một chuyện thật xảy ra trong lúc dựng repo cho khoá, không phải ví dụ dựng. Và nó dạy đúng một thứ mentor không-biết-code dùng được ngay.
 
-Nhấn khác biệt giữa hai lệnh: git status trả lời "có gì thay đổi chưa commit", git ls-files trả lời "git đang theo dõi những file nào". Đội hay dùng câu đầu để kết luận câu sau, và đó là lúc file biến mất.
-
-Câu ở chân slide là triệu chứng mentor sẽ nghe ở tuần 3: "sao máy em chạy được mà máy bạn không". Nguyên nhân thường gặp nhất không phải môi trường — mà là một file nằm trong .gitignore nên chưa bao giờ lên repo.
-
-Vì sao phải đổi data/ thành data/* mới mở lại được: git không đi vào một thư mục đã bị loại, nên viết dấu chấm than trước đường dẫn bên trong mà vẫn để data/ thì dòng mở lại đó không có tác dụng. Nếu phòng hỏi thì giải thích, nhưng đừng sa vào — ý chính là phép kiểm, không phải cú pháp gitignore.
-
-Và nói thêm một câu về AI logging, vì bước 4 của lab vừa cài hook: dùng AI không bị trừ điểm, không log mới bị. Deliverable số 4 xong trong một lệnh — nhưng hook nằm trong .git/ nên mỗi người phải tự chạy trên máy mình, không ai chạy hộ được.</aside>
-</section>
-<section id="git-workflow" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
-<div style="display:flex;flex-direction:column;gap:20px">
-<h2 style="font-family:'Lora', Georgia, serif;font-size:68px;font-weight:600;line-height:1.1">Không ai commit thẳng vào main</h2>
-<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1450px">Và mentor phải hỏi đội <b>merge vào đâu</b> trước khi đánh giá tiến độ.</p>
-</div>
-<div style="display:flex;gap:14px;align-items:center">
-<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#FFFFFF;padding:28px 22px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">nhánh<br>tính năng</h3>
-</div>
-<x-shape kind="arrow-right" style="width:40px;height:20px;background:#B3BAB2"></x-shape>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#FFFFFF;padding:28px 22px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Pull<br>Request</h3>
-</div>
-<x-shape kind="arrow-right" style="width:40px;height:20px;background:#B3BAB2"></x-shape>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#FFFFFF;padding:28px 22px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">review<br>của đội</h3>
-<p style="font-size:24px;line-height:1.3;color:#A3302A">người khác,<br>không phải tác giả</p>
-</div>
-<x-shape kind="arrow-right" style="width:40px;height:20px;background:#B3BAB2"></x-shape>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#FFFFFF;padding:28px 22px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">develop</h3>
-</div>
-<x-shape kind="arrow-right" style="width:40px;height:20px;background:#B3BAB2"></x-shape>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#16202E;padding:28px 22px;border:1px solid #16202E;border-top:5px solid #E8B34A;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2;color:#F6F6F2">main</h3>
-<p style="font-size:24px;line-height:1.3;color:#BFD0D8">được bảo vệ</p>
-</div>
-</div>
-<div style="display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:40px;border:1px solid #D9DBD4;border-left:5px solid #A3302A;border-radius:14px">
-<h3 style="font-size:34px;font-weight:600;line-height:1.2">Chuyện thật ở Cohort-4</h3>
-<p style="font-size:28px;line-height:1.45;color:#48515E">Một đội có <b>main đứng yên ba tuần</b> trong khi <b>21 nhánh</b> khác chạy và <b>39 PR</b> đã merge — họ merge vào <b>develop</b>, không vào <b>main</b>.</p>
-<p style="font-size:28px;line-height:1.45;color:#48515E">Mentor chỉ nhìn <b>main</b> sẽ kết luận đội không làm gì. Kết luận đó sai hoàn toàn.</p>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E7680">Bài học: trước khi đánh giá tiến độ, hỏi đội merge vào nhánh nào — rồi mới xem lịch sử nhánh đó</p>
-<aside>Sơ đồ bốn mũi tên thì nói nhanh, nhưng dừng một nhịp ở ô review: đó là luật đã đặt từ buổi 01 và không đổi đến hết khoá — không ai tự merge PR của mình. Người nghiệm thu không nghiệm thu bài của chính mình. Dành phần còn lại cho ô đỏ.
-
-Case này có thật ở Cohort-4 và nó là cái bẫy đánh giá điển hình nhất. Một mentor mở trang repo, thấy commit cuối trên main cách đây ba tuần, và kết luận đội đã bỏ. Thực tế đội làm nhiều nhất trong cả cohort.
-
-Hai lệnh để không bị bẫy, cho mentor không-biết-code: xem danh sách nhánh, và xem danh sách PR đã merge. Trên giao diện GitHub là tab Branches và tab Pull requests, bộ lọc Closed. Không cần dòng lệnh nào.
-
-Ngược lại cũng đúng và cũng phải nói: main đứng yên tới tuần 5 thì là vấn đề thật, vì chưa ai hợp nhất công việc của cả đội vào một nhánh chạy được. Hỏi đội khi nào họ dự định merge develop vào main — nếu câu trả lời là "cuối cùng" thì tuần 6 sẽ rất đau.</aside>
-</section>
-<section id="de-mt01-ba-tang" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+<!-- ============ 5 · S2 · THE TEMPLATE ============ -->
+<section id="template" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:96px 128px 120px;display:flex;flex-direction:column;gap:32px">
 <div style="display:flex;flex-direction:column;gap:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#1C6B72">Đề xuyên suốt · MT-01</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1">Hệ thống AI agent chuẩn hóa chất lượng đào tạo</h2>
-<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1520px">Ba tầng, không phải một. Chuẩn hóa đề cương chỉ là <b>một</b> trong ba năng lực. Case: Trường Tài năng, ĐH Kinh tế TP.HCM.</p>
+<p class="eyebrow">Section 2.1</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:62px;font-weight:600;line-height:1.1">The official template, trimmed: 94 → 104 files</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1560px">We did not rewrite the skeleton. This <b>is</b> the real template — with two things removed and the course material added.</p>
 </div>
-<div style="display:flex;gap:24px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:14px">
-<p style="font-size:26px;font-weight:700;color:#1C6B72">A · Người học</p>
-<h3 style="font-size:34px;font-weight:600;line-height:1.2">Trợ lý người học</h3>
-<p style="font-size:26px;line-height:1.45;color:#48515E">Hỏi đáp chỉ dựa trên tài liệu <b>đã duyệt</b>, có trích nguồn. Hỗ trợ ESL: thuật ngữ song ngữ, giải thích lại đoạn khó.</p>
-<p style="font-size:26px;line-height:1.45;color:#A3302A"><b>Từ chối</b> làm hộ bài tính điểm, kể cả khi hỏi vòng.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:14px">
-<p style="font-size:26px;font-weight:700;color:#1C6B72">B · Môn học</p>
-<h3 style="font-size:34px;font-weight:600;line-height:1.2">Chuẩn hóa môn học</h3>
-<p style="font-size:26px;line-height:1.45;color:#48515E">Đối chiếu <b>rubric 6 tiêu chí</b>, báo cáo có trích dẫn đúng chỗ trong đề cương, kèm đề xuất sửa.</p>
-<p style="font-size:26px;line-height:1.45;color:#A3302A"><b>Giảng viên duyệt</b> là bước bắt buộc — agent không tự công bố.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:14px">
-<p style="font-size:26px;font-weight:700;color:#1C6B72">C · Chương trình</p>
-<h3 style="font-size:34px;font-weight:600;line-height:1.2">Bức tranh chương trình</h3>
-<p style="font-size:26px;line-height:1.45;color:#48515E">Môn nào đã rà, tiêu chí nào cả chương trình đang yếu, PLO nào chưa môn nào phủ.</p>
-<p style="font-size:26px;line-height:1.45;color:#A3302A">Số tổng hợp <b>ẩn danh</b> ở cấp sinh viên.</p>
-</div>
-</div>
-<div style="display:flex;gap:24px;align-items:center;background:#16202E;padding:32px 40px;border-radius:14px">
-<p style="font-size:26px;font-weight:600;color:#E8B34A;width:300px">Phạm vi loại trừ</p>
-<p style="font-size:26px;line-height:1.5;color:#BFD0D8;flex:1">Không tích hợp LMS thật · không chấm điểm sinh viên · không multi-agent · không fine-tune · không Next.js ở bản cơ bản</p>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E7680">Đề đầy đủ: docs/de-bai.md trong repo của bạn · rubric: data/rubric.yaml</p>
-<aside>Slide này sửa một chỗ hiểu hẹp sau buổi 01: có người nghĩ đề chỉ là soạn hoặc rà đề cương. Không phải. Hệ thống gánh cả ba tầng — người học, môn học, chương trình — và chuẩn hóa đề cương là năng lực B.
-
-Đọc dòng đỏ trong từng thẻ. Ba dòng đó là ba ràng buộc khiến đề này không phải một chatbot bọc API: từ chối làm hộ bài, bắt buộc người duyệt, ẩn danh khi tổng hợp. Chúng là guardrail theo domain giáo dục, và platform không chịu trách nhiệm chỗ đó thay bạn.
-
-Tầng A và B nối nhau theo một chiều đáng nhấn: bản đã duyệt ở B mới trở thành nguồn cho A. Nên nếu giảng viên chưa duyệt, trợ lý người học không có gì để trả lời — và đó là hành vi đúng, không phải thiếu tính năng.
-
-Dải tối cuối slide là phạm vi loại trừ. Đọc to. Mentor sẽ phải nói đúng danh sách này với đội ở tuần 3.</aside>
-</section>
-<section id="hoc-cung-ai" data-transition="fade" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
-<div style="display:flex;flex-direction:column;gap:16px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#E8B34A">.agents/rules/hoc-cung-ai.md — nằm trong repo, agent tự đọc</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1;color:#F6F6F2">Học cùng AI: bốn quy tắc</h2>
-</div>
-<div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:22px">
-<div style="display:flex;gap:22px;align-items:flex-start;background:#1E2B3C;padding:34px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:40px;font-weight:700;color:#E8B34A;width:46px">1</p>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2;color:#F6F6F2">Dẫn nguồn trong repo</h3>
-<p style="font-size:26px;line-height:1.4;color:#BFD0D8">Nguồn nằm <b>trong repo</b>: docs/giao-trinh/, docs/de-bai.md. Nêu rõ file nào mục nào. Hỏi trạng thái repo thì <b>đưa lệnh</b>, đừng đoán.</p>
-</div>
-</div>
-<div style="display:flex;gap:22px;align-items:flex-start;background:#1E2B3C;padding:34px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:40px;font-weight:700;color:#E8B34A;width:46px">2</p>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2;color:#F6F6F2">Kết thúc bằng một phép kiểm</h3>
-<p style="font-size:26px;line-height:1.4;color:#BFD0D8">Lệnh cụ thể + điều kiện đạt, để <b>bạn</b> tự chạy. Agent không tự chạy rồi báo đạt.</p>
-</div>
-</div>
-<div style="display:flex;gap:22px;align-items:flex-start;background:#1E2B3C;padding:34px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:40px;font-weight:700;color:#E8B34A;width:46px">3</p>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2;color:#F6F6F2">Không quyết định thay bạn</h3>
-<p style="font-size:26px;line-height:1.4;color:#BFD0D8">Chọn người dùng, cắt phạm vi, đặt ngưỡng, chọn chỉ số — là việc của bạn.</p>
-</div>
-</div>
-<div style="display:flex;gap:22px;align-items:flex-start;background:#1E2B3C;padding:34px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:40px;font-weight:700;color:#E8B34A;width:46px">4</p>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2;color:#F6F6F2">Không làm hộ phần đang học</h3>
-<p style="font-size:26px;line-height:1.4;color:#BFD0D8">Nó sẽ hỏi lại: bạn đã thử gì, <b>dòng ERROR</b> viết gì, bạn kỳ vọng ra gì.</p>
-</div>
-</div>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:28px;font-weight:600;color:#E8B34A">Phép kiểm là phần được chấm — không phải code agent sinh ra.</p>
-<aside>Slide chốt phần trình bày, ngay trước khi vào lab. Đọc cả bốn quy tắc to, vì chúng định hình cách học viên làm việc trong mười ba buổi còn lại — và lab bước 5 sẽ kiểm xem agent có tuân quy tắc 1 không.
-
-Điểm cần nhấn: bốn quy tắc này nằm trong repo, ở .agents/rules/hoc-cung-ai.md và CLAUDE.md, nên agent tự đọc — học viên không phải nhắc lại mỗi lần mở phiên mới. Đây là lý do ta đặt chúng vào repo thay vì vào slide.
-
-Quy tắc 2 là quy tắc quan trọng nhất và dòng vàng ở chân slide nói đúng nó. Mentor nào về nhà chỉ copy prompt mà không chạy phép kiểm thì buổi đó coi như không học. Và có một mẹo thực tế đáng cho: phép kiểm tốt nhất là phép kiểm mà agent không biết bạn sẽ chạy — nếu bảo nó "làm xong rồi tự kiểm giúp anh" thì nó sẽ báo đã kiểm xong.
-
-Đóng buổi bằng bài về nhà: đọc lại docs/giao-trinh/00-khung-danh-gia.md mục 1 và mục 3, đọc hết docs/de-bai.md, và tự chấm tay đề cương mẫu theo 6 tiêu chí trong 15 phút. Buổi 03 vẽ kiến trúc cho cả ba tầng của đề này, và bản vẽ đó phải đỡ được bằng chứng của cổng G2.</aside>
-</section>
-<section id="lab-tong-quan" data-transition="push" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
-<div style="display:flex;flex-direction:column;gap:14px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#E8B34A">Lab · 60 phút · bắt đầu ngay sau slide này</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1;color:#F6F6F2">Sáu bước — và chia cặp ngay bây giờ</h2>
-</div>
-<table style="font-family:'Be Vietnam Pro', Arial, sans-serif;font-size:26px;color:#F6F6F2">
-<tr style="background:#1E2B3C">
-<th style="width:9%;color:#E8B34A;font-size:24px;font-weight:600;text-align:left">Bước</th>
-<th style="width:11%;color:#E8B34A;font-size:24px;font-weight:600;text-align:left">Phút</th>
-<th style="width:46%;color:#E8B34A;font-size:24px;font-weight:600;text-align:left">Việc</th>
-<th style="width:34%;color:#E8B34A;font-size:24px;font-weight:600;text-align:left">Xong khi</th>
-</tr>
-<tr>
-<td style="font-weight:700;color:#1C6B72">1</td><td>6′</td>
-<td>Lấy bản mới nhất của repo đội</td>
-<td style="color:#BFD0D8">Thấy commit của người khác</td>
-</tr>
-<tr style="background:#1A2434">
-<td style="font-weight:700;color:#E8B34A">2 ⭐</td><td><b>14′</b></td>
-<td>Làm theo README — và gặp lỗi thật</td>
-<td style="color:#BFD0D8">Đọc ra dòng <b>ERROR</b>, cài đúng</td>
-</tr>
-<tr>
-<td style="font-weight:700;color:#1C6B72">3</td><td>10′</td>
-<td><b>.env</b>, và <b>git status</b> sạch ≠ đã commit</td>
-<td style="color:#BFD0D8"><b>4 file</b> trong <b>data/</b></td>
-</tr>
-<tr style="background:#1A2434">
-<td style="font-weight:700;color:#1C6B72">4</td><td>10′</td>
-<td>Chạy server, mở Swagger, cài hook</td>
-<td style="color:#BFD0D8"><b>/health</b> trả <b>ok</b></td>
-</tr>
-<tr>
-<td style="font-weight:700;color:#E8B34A">5 ⭐</td><td>10′</td>
-<td>Bắt agent dẫn nguồn, và đòi lệnh</td>
-<td style="color:#BFD0D8">Một dòng <b>JOURNAL.md</b></td>
-</tr>
-<tr style="background:#1A2434">
-<td style="font-weight:700;color:#E8B34A">6 ⭐</td><td>10′</td>
-<td>Làm test xanh — <b>một cặp sửa, một cặp review</b></td>
-<td style="color:#BFD0D8"><b>5 passed</b> trên cả bốn máy</td>
-</tr>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="flex:1.4;display:flex;flex-direction:column;gap:14px">
+<p class="lb">Kept — and the session that uses it</p>
+<table class="tt" style="font-size:19px">
+<tr><th style="width:42%">What</th><th>Used in</th></tr>
+<tr><td><code>src/agents/</code></td><td>session 04 — the agent</td></tr>
+<tr><td><code>src/api/</code> · <code>src/models/</code></td><td>session 08 — the API</td></tr>
+<tr><td><code>tests/</code></td><td>session 10 — evaluation</td></tr>
+<tr><td>Docker · CI · <code>ruff.toml</code></td><td>session 12 — deployment</td></tr>
+<tr><td><code>scripts/</code> + 6 hook configs</td><td><b>today</b> — deliverable #4</td></tr>
+<tr><td><code>ARCHITECTURE.md</code> · <code>JOURNAL.md</code> · <code>WORKLOG.md</code></td><td>deliverables 3, 8, 9</td></tr>
 </table>
-<div style="display:flex;gap:28px;align-items:center;background:#1E2B3C;padding:30px 40px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:26px;font-weight:600;color:#E8B34A;width:300px">Chia cặp ngay</p>
-<p style="font-size:26px;line-height:1.45;color:#BFD0D8;flex:1"><b>Cặp 1</b> và <b>Cặp 2</b>. Bước 1–5 ai cũng làm trên máy mình. Bước 6 chia việc, vì một repo chỉ cần <b>một</b> bản sửa. Buổi sau đổi vai.</p>
-</div>
-<aside>Chiếu slide này rồi vào lab luôn, đừng giảng thêm.
-
-Việc đầu tiên và quan trọng nhất: chia cặp ngay tại đây, gọi tên rõ ai với ai. Nếu để đến bước 6 mới chia thì mất năm phút giữa lab.
-
-Nói trước hai chỗ sẽ tốn thời gian để phòng không hoảng. Bước 2 được 14 phút vì bốn máy sẽ lỗi bốn kiểu khác nhau — người dạy đi vòng, không đứng một chỗ. Bước 6 chỉ 10 phút vì bản sửa thật sự chỉ có ba dòng.
-
-Ba bước có dấu sao là ba bước được chấm. Ba bước còn lại là thủ tục, làm nhanh được thì tốt.
-
-Nhắc lại luật buổi 01 một lần nữa ở đây, vì bước 6 sẽ dùng: không ai tự merge PR của mình.</aside>
-</section>
-<section id="lab-b1" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:44px">
-<div style="display:flex;flex-direction:column;gap:16px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#1C6B72">Lab · Bước 1 · 6 phút</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">Lấy bản mới nhất của repo đội</h2>
-<p style="font-size:30px;font-weight:300;line-height:1.4;color:#48515E;width:1480px">Đã clone ở buổi 01 thì <b>không clone lại</b> — lấy phần người khác đã merge.</p>
-</div>
-<div style="display:flex;gap:28px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:38px;border-radius:14px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Đã clone rồi</p>
-<p style="font-size:28px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">cd mt-01-the-odyssey<br>git switch main &amp;&amp; git pull<br>ls docs/doi-ngu/</p>
-<hr style="border-top:1px solid #3A4654;width:100%">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Vắng buổi 01</p>
-<p style="font-size:28px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">gh repo clone &lt;ORG&gt;/mt-01-the-odyssey</p>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:18px">
-<div style="display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:32px;border:1px solid #D9DBD4;border-left:5px solid #1C6B72;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Phép kiểm</h3>
-<p style="font-size:26px;line-height:1.45;color:#48515E"><b>ls docs/doi-ngu/</b> thấy file của <b>cả bốn người</b> · <b>git log --oneline | head -5</b> thấy commit của <b>người khác</b>, không chỉ của bạn.</p>
+<div class="manual" style="flex:none;padding:24px 28px">
+<p class="lb">Removed — two things, on purpose</p>
+<ul style="grid-template-columns:1fr;font-size:20px;line-height:1.5">
+<li><code>docs/guide/</code> — 37 files</li>
+<li><code>docs/COHORT3_REPORT.md</code></li>
+</ul>
+<p class="tx" style="font-size:19px"><code>docs/guide/</code> was a <b>parallel</b> body of material this course does not teach from. Two disagreeing sets of documentation in one repo is the fastest way to make an agent confidently wrong about something that is not in the course.</p>
 </div>
-<div style="display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:32px;border:1px solid #D9DBD4;border-left:5px solid #A3302A;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Kẹt ở đây?</h3>
-<p style="font-size:26px;line-height:1.45;color:#48515E"><b>404</b> hoặc <b>Permission denied</b> = chưa bấm <b>nhận lời mời</b> collaborator. Gỡ ngay, đừng để đến bước 6.</p>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#16202E;padding:26px 30px;border-top:5px solid #7FC4C9;border-radius:12px">
+<p style="font-size:20px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#7FC4C9">Added</p>
+<p style="font-size:22px;line-height:1.45;color:#BFD0D8">The whole course — slides, lessons, framework and brief — lives in <code>docs/giao-trinh/</code> and <code>docs/de-bai.md</code>, inside your repo. The agent can read every source this course cites.</p>
+<p style="font-size:20px;line-height:1.4;color:#8E9CAA;margin-top:auto">Full kept-and-cut table: <code>DA-LUOC.md</code>, in the repo.</p>
 </div>
 </div>
 </div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:26px;color:#1C6B72;font-weight:600">Mở <b>DA-LUOC.md</b> đọc 2 phút trong lúc chờ người khác: repo này đã lược gì khỏi template và vì sao.</p>
-<aside>Bước nhanh, nhưng đừng bỏ phép kiểm thứ hai. "git log thấy commit của người khác" là cách đầu tiên học viên thấy bằng mắt rằng mình đang làm trên repo chung, không phải bản sao riêng.
+<aside>Be explicit that this is the real template, not a teaching replica. Everything that is awkward about it is awkward in the original, including the three gaps we will meet in the lab.
 
-Ô đỏ là sự cố hay gặp nhất ở bước này. Nói rõ cho mentor nhớ về sau: GitHub trả 404 chứ không phải 403 khi chưa được mời, nên "không tìm thấy repo" thường nghĩa là chưa nhận lời mời.
+The reason for cutting docs/guide is worth stating properly, because somebody will ask why we deleted documentation. It was a second, parallel curriculum. Leaving it in means the agent in this repo has two sets of instructions that disagree, and it will quote the wrong one fluently. One repo, one source.
 
-Ai xong sớm thì đọc DA-LUOC.md — dòng xanh ở chân slide. Đừng để người nhanh ngồi không trong lúc người dạy đang gỡ máy cho người khác.</aside>
+Then the counterpart: what we added. Everything this course cites is a file inside their repo. That is why, from today on, "where did you read that?" is always a question with an answer.</aside>
 </section>
-<section id="lab-b2" data-transition="push" style="background:#E8B34A;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:34px">
-<div style="display:flex;flex-direction:column;gap:14px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#6B4A0C">Lab · Bước 2 · 14 phút · bước được chấm</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">Làm theo README — và gặp lỗi thật</h2>
-<p style="font-size:28px;font-weight:500;line-height:1.4;color:#6B4A0C;width:1520px">Làm <b>đúng như README viết</b>. Lệnh sẽ lỗi. <b>Đừng sửa ngay</b> — đọc lỗi trước.</p>
-</div>
-<div style="display:flex;gap:26px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:34px;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">1 · Làm đúng như README</p>
-<p style="font-size:26px;line-height:1.55;color:#F6F6F2;font-family:'Courier New', monospace">python3 -m venv .venv<br>source .venv/bin/activate<br>pip install -e ".[dev]"</p>
-<p style="font-size:25px;line-height:1.4;color:#BFD0D8">Windows: <span style="color:#E8B34A">.venv\Scripts\activate</span></p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#F6E3BE;padding:34px;border-left:5px solid #A3302A;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#A3302A">2 · Ba việc, đúng thứ tự này</p>
-<p style="font-size:25px;line-height:1.45;color:#16202E">Tìm dòng bắt đầu bằng <b>ERROR</b> — <b>bỏ qua</b> các dòng <b>[notice]</b> ở dưới nó.</p>
-<p style="font-size:25px;line-height:1.55;color:#16202E;font-family:'Courier New', monospace">ls pyproject.toml<br>head -5 requirements.txt</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#F6E3BE;padding:34px;border-left:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#1C6B72">3 · Rồi cài cho đúng</p>
-<p style="font-size:25px;line-height:1.55;color:#16202E;font-family:'Courier New', monospace">pip install -r requirements.txt</p>
-<p style="font-size:25px;line-height:1.45;color:#16202E"><b>Phép kiểm:</b></p>
-<p style="font-size:24px;line-height:1.5;color:#16202E;font-family:'Courier New', monospace">python -c "import fastapi;<br>print(fastapi.__version__)"</p>
-</div>
-</div>
-<div style="display:flex;gap:22px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#FFFFFF;padding:26px 30px;border-left:5px solid #A3302A;border-radius:10px">
-<h3 style="font-size:28px;font-weight:600;line-height:1.2">No module named …</h3>
-<p style="font-size:25px;line-height:1.35;color:#48515E">Thư viện cài rồi, nhưng <b>quên bật venv</b>.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#FFFFFF;padding:26px 30px;border-left:5px solid #A3302A;border-radius:10px">
-<h3 style="font-size:28px;font-weight:600;line-height:1.2">Permission denied</h3>
-<p style="font-size:25px;line-height:1.35;color:#48515E">Đang cài vào Python hệ thống — cũng là <b>chưa bật venv</b>.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#16202E;padding:26px 30px;border-radius:10px">
-<h3 style="font-size:28px;font-weight:600;line-height:1.2;color:#E8B34A">Đạt khi</h3>
-<p style="font-size:25px;line-height:1.35;color:#BFD0D8"><b>JOURNAL.md</b> có ba dòng: lệnh README là gì · vì sao lỗi · lệnh đúng là gì.</p>
-</div>
-</div>
-<aside>Bước tốn thời gian nhất của buổi, và là bước người dạy phải đi vòng quanh phòng. Bốn máy sẽ lỗi bốn kiểu.
 
-Nói rõ trước khi phòng gõ: lệnh ở ô một SẼ lỗi, và đó là chủ ý của bài, không phải máy ai hỏng. Ai sửa ngay sang lệnh đúng thì mất bài học.
-
-Chỗ phải nhấn là ô hai. Dòng ERROR không phải dòng cuối cùng: pip in thêm hai dòng [notice] gợi ý nâng cấp pip SAU dòng ERROR. Ai đọc đúng "dòng cuối" thì gặp lời khuyên nâng cấp pip, không gặp lỗi. Đây là chỗ tôi phát hiện khi chạy thử thật, không phải khi viết bài.
-
-Hai ô đỏ ở dưới là hai sự cố chiếm gần hết thực tế, cả hai cùng một nguyên nhân: chưa bật venv. Cách xử lý giống nhau — bật venv rồi cài lại.
-
-Và nói câu này cho mentor mang về: đội của bạn sẽ gửi đúng câu "em làm theo README mà nó lỗi". Việc của mentor là người đối chiếu, không phải người đoán.</aside>
-</section>
-<section id="lab-b3" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:40px">
+<!-- ============ 6 · S2 · CHOOSE TIER ============ -->
+<section id="choose-tier" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:112px 128px 140px;display:flex;flex-direction:column;gap:44px">
 <div style="display:flex;flex-direction:column;gap:16px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#1C6B72">Lab · Bước 3 · 10 phút</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:62px;font-weight:600;line-height:1.1">.env an toàn — và hai phép kiểm ngược chiều nhau</h2>
+<p class="eyebrow">Section 2.2</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">Which tier does a team start at?</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1560px">This answers the team's second question: <i>“we've settled the idea — shall we set up Docker and CI now, to be safe?”</i></p>
+</div>
+<div style="flex:1;display:flex;gap:32px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FFFFFF;padding:40px 44px;border:1px solid #D9DBD4;border-top:6px solid #1C6B72;border-radius:14px">
+<p style="font-size:22px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1C6B72">Tier 1 — prototype</p>
+<h3 style="font-size:40px;font-weight:600;line-height:1.15">Weeks 1–2, when you still do not know what users need</h3>
+<ul style="font-size:23px;line-height:1.5;color:#48515E">
+<li>something <b>5 people can look at within 48 hours</b></li>
+<li>no server, no Docker, no CI</li>
+<li>thrown away without regret</li>
+</ul>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FFFFFF;padding:40px 44px;border:1px solid #D9DBD4;border-top:6px solid #1C6B72;border-radius:14px">
+<p style="font-size:22px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1C6B72">Tier 2 — the team's repo</p>
+<h3 style="font-size:40px;font-weight:600;line-height:1.15">Once there is a USP and ≥5 pieces of real feedback</h3>
+<ul style="font-size:23px;line-height:1.5;color:#48515E">
+<li>built seriously, on the template</li>
+<li>tests, CI, deployment all belong here</li>
+<li>this is where the course lives</li>
+</ul>
+</div>
+<div style="width:520px;display:flex;flex-direction:column;gap:18px">
+<div class="manual" style="flex:1;padding:28px 32px">
+<p class="lb">Both ways of getting it wrong</p>
+<p class="tx" style="font-size:21px"><b>Too early:</b> full Docker and CI in week 1, on an unvalidated idea → three weeks spent on infrastructure.</p>
+<p class="tx" style="font-size:21px"><b>Too late:</b> still hand-built prototype after the idea is settled → it breaks under load on demo day.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;background:#16202E;padding:26px 30px;border-top:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:20px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B34A">Crossing over</p>
+<p style="font-size:22px;line-height:1.45;color:#BFD0D8">Carry exactly two things from tier 1 into tier 2: the <b>real users' questions</b>, and the <b>validated USP</b>. Not the code.</p>
+</div>
+</div>
+</div>
+<aside>This is a question a mentor gets in week 1 of every cohort, and answering it with "it depends" is useless. Give the test: do you have a USP and five pieces of real feedback? No, then tier one. Yes, then tier two.
+
+Both failure modes are real and they look opposite. The infrastructure-first team feels productive for three weeks and has nothing to show a user. The prototype-forever team demos beautifully to one person and falls over at Demo Day.
+
+The crossing-over line is the part people miss. When you move up a tier, you carry the knowledge, not the code. Prototype code is meant to be thrown away, and a team that tries to "upgrade" it spends longer than a rewrite.</aside>
+</section>
+
+<!-- ============ 7 · S3 · ENVIRONMENT AND ERRORS ============ -->
+<section id="environment" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:96px 128px 120px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:14px">
+<p class="eyebrow">Section 3.1</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:62px;font-weight:600;line-height:1.1">The environment, and how to read an error message</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1560px">A virtual environment is a private library box for this project — so other projects cannot break it, and it cannot break your machine.</p>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<p class="lb">Three commands, in this order</p>
+<pre class="code" style="font-size:22px">$ <span class="h">python3 -m venv .venv</span>
+$ <span class="h">source .venv/bin/activate</span>
+  <span class="c"># Windows: .venv\Scripts\activate</span>
+$ <span class="h">pip install -r requirements.txt</span></pre>
+<div class="manual" style="flex:1;padding:24px 28px">
+<p class="lb">The two failures that cover almost everything</p>
+<ul style="grid-template-columns:1fr;font-size:20px;line-height:1.5">
+<li><code>No module named …</code> → installed, but the <b>venv is not active</b></li>
+<li><code>Permission denied</code> on install → installing into the <b>system Python</b>; also no venv</li>
+</ul>
+<p class="nt" style="font-size:19px">Same fix for both: activate the venv, install again.</p>
+</div>
+</div>
+<div style="flex:1.1;display:flex;flex-direction:column;gap:16px">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:30px 34px;border-top:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:20px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B34A">How to read an error</p>
+<p style="font-size:30px;font-weight:600;line-height:1.3;color:#F6F6F2">Find the <code>ERROR</code> line, or the last line of a <code>Traceback</code> block.</p>
+<p style="font-size:24px;line-height:1.45;color:#BFD0D8">Ignore <code>[notice]</code> and <code>WARNING</code>.</p>
+</div>
+<div class="manual" style="flex:1;padding:26px 30px">
+<p class="lb">“Just read the last line” — and where that advice breaks</p>
+<p class="tx" style="font-size:21px">That rule is only true for a Python <b>Traceback</b>. <code>pip</code> prints <code>[notice] A new release of pip is available</code> <b>after</b> the <code>ERROR</code> line — so the genuine last line is advice about upgrading pip, not the failure.</p>
+<p class="nt" style="font-size:19px">Exercise 2.1 walks straight into this. Do not warn them again.</p>
+</div>
+</div>
+</div>
+<aside>Define a virtual environment in one sentence and move on; people do not need the full story today, they need to know why the command exists.
+
+Then the error-reading rule, which is the transferable half of this slide. Find the ERROR line, or the last line of a Traceback. Ignore notice and warning lines.
+
+Be honest about the correction in the red box, because the simpler advice is what everybody repeats. "Read the last line" is true for a Python traceback and false for pip, which prints its upgrade notice after the error. A mentor who tells a team to read the last line of a failed pip install is sending them to look at an irrelevant suggestion.
+
+Say where this came from: running the install, not writing the lesson. That is the argument for every facilitator doing the setup themselves before the session.</aside>
+</section>
+
+<!-- ============ 8 · S3 · THREE GAPS ============ -->
+<section id="three-gaps" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:96px 128px 120px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:14px">
+<p class="eyebrow" style="color:#E8B34A">Section 3.2 · the most important slide today</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:62px;font-weight:600;line-height:1.1;color:#F6F6F2">Three places where this template's docs and code disagree</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#BFD0D8;width:1560px">All three are <b>real</b>, all three are in the official template, and each takes ten seconds to verify.</p>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#1C2836;padding:32px 34px;border-top:5px solid #A3302A;border-radius:12px">
+<p style="font-size:22px;font-weight:700;color:#E8B34A">① The README is wrong</p>
+<p style="font-size:23px;line-height:1.45;color:#BFD0D8">It tells you to run <code>pip install -e ".[dev]"</code> — but the repo has no <code>pyproject.toml</code>, so the command fails.</p>
+<pre class="code" style="margin-top:auto;font-size:17px;background:#0E141C">correct: <span class="h">pip install -r
+         requirements.txt</span></pre>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#1C2836;padding:32px 34px;border-top:5px solid #A3302A;border-radius:12px">
+<p style="font-size:22px;font-weight:700;color:#E8B34A">② The tests are red on arrival</p>
+<p style="font-size:23px;line-height:1.45;color:#BFD0D8"><code>make test</code> gives <b>2 passed, 3 errors</b> the moment you clone. <code>pytest-asyncio</code> is installed, but nothing sets <code>asyncio_mode</code>.</p>
+<pre class="code" style="margin-top:auto;font-size:17px;background:#0E141C">you fix this in
+<span class="h">exercise 2.5</span></pre>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#1C2836;padding:32px 34px;border-top:5px solid #A3302A;border-radius:12px">
+<p style="font-size:22px;font-weight:700;color:#E8B34A">③ CI does not run for your PR</p>
+<p style="font-size:23px;line-height:1.45;color:#BFD0D8"><code>ci.yml</code> declares <code>pull_request: branches: [main]</code> — so a pull request aimed at <code>develop</code> triggers <b>no workflow at all</b>.</p>
+<pre class="code" style="margin-top:auto;font-size:17px;background:#0E141C">no green tick
+<span class="h">≠ red tests</span></pre>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:40px;width:1664px;font-size:26px;color:#F6F6F2;background:#243245;border-left:5px solid #E8B34A;border-radius:6px;padding:16px 24px">Nobody wrote a bad template. <b>Documentation and code drift apart in every project</b> — and the mentor's job is to be the person who compares them.</p>
+<aside>This is the slide the session is built around, so give it time and then stop talking.
+
+Say clearly that none of the three was planted. They are genuine, they are in the official template, and that is precisely why they are worth meeting. A manufactured bug teaches people to spot manufactured bugs.
+
+Do not explain the details now. The lab is where people walk into them, and the walking-in is the lesson. Somebody who is told that the README command fails has learned a fact; somebody who runs it, reads the error and finds the right command has learned a method.
+
+End on the sentence at the bottom. Documentation and code drift apart everywhere, always. A team will send the message "I followed the README and it broke" in week 2 of every cohort, and the useful response is to compare, not to guess.</aside>
+</section>
+
+<!-- ============ 9 · S4 · ENV KEYS ============ -->
+<section id="env-keys" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:112px 128px 140px;display:flex;flex-direction:column;gap:44px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p class="eyebrow">Section 4.1</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">Environment variables: never hardcode a key</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1560px">This answers the team's third question: <i>“I put the key in the config file, it's easier — is that a problem?”</i></p>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:18px">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:32px 36px;border:1px solid #D9DBD4;border-top:6px solid #1C6B72;border-radius:14px">
+<h3 style="font-size:34px;font-weight:600;line-height:1.2">The three rules</h3>
+<ul style="font-size:24px;line-height:1.55;color:#48515E">
+<li><code>.env.example</code> → <b>committed</b>, with placeholder values</li>
+<li><code>.env</code> → <b>never</b>, under any circumstance</li>
+<li><code>.env</code> and every <code>.env.*</code> variant are already in <code>.gitignore</code></li>
+</ul>
+<pre class="code" style="margin-top:auto;font-size:19px">$ <span class="h">git check-ignore -v .env</span>
+.gitignore:16:.env	.env   <span class="c"># this must print something</span></pre>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:18px">
+<div class="manual" style="flex:none;padding:30px 34px">
+<p class="lb">If a key does reach GitHub</p>
+<p class="tx" style="font-size:28px;font-weight:600;color:#16202E">Revoke the key. Do not delete the commit.</p>
+<p class="tx" style="font-size:20px">Deleting the commit saves nothing: the key is already in the history, already on GitHub's servers, and already in anybody's clone.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#16202E;padding:28px 32px;border-top:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:20px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B34A">This has happened here</p>
+<p style="font-size:23px;line-height:1.5;color:#BFD0D8">A team in cohort 4 left a CI runner's credentials on a branch. The order of operations was: <b>revoke the runner first</b>, delete the branch second. Doing it the other way round leaves a live credential in every existing clone.</p>
+</div>
+</div>
+</div>
+<aside>Three rules, and the one people get wrong is the third line of the red box.
+
+The instinct when a key leaks is to delete the commit, because it makes the visible evidence disappear. Say plainly why that fails: the commit is in the history, in GitHub's servers, in forks, and in every clone anybody already made. The only action that actually ends the exposure is revoking the key.
+
+The cohort-4 example is worth telling because the ordering is counter-intuitive and the room will remember it. Revoke first, clean up second. If you delete the branch first you have destroyed your own evidence and the credential is still live.
+
+Note also that a key in a repository is not only a security problem — it is a deliverable problem, because the team then cannot rotate it without breaking everybody's environment at once.</aside>
+</section>
+
+<!-- ============ 10 · S4 · GIT STATUS LIE ============ -->
+<section id="git-status-lie" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:112px 128px 140px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p class="eyebrow">Section 4.2</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">A clean <code>git status</code> does not mean everything is committed</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1560px">What <code>.gitignore</code> blocks appears <b>nowhere</b> — not in <code>git status</code>, not in <code>git add .</code>, not in your pull request.</p>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<div class="manual" style="flex:1;padding:30px 34px">
+<p class="lb">What the template did</p>
+<p class="tx" style="font-size:22px">Its <code>.gitignore</code> ignored <b>all of <code>data/</code></b>. Sensible for runtime data — a database, a cache.</p>
+<p class="tx" style="font-size:22px">But the <b>project's own data</b> lives there too. So <code>rubric.yaml</code> and the sample syllabi would <b>never be committed</b>, and <code>git status</code> would stay clean the whole time.</p>
+<p class="nt" style="font-size:19px">The facilitator fixed this when building the repo — <code>data/</code> → <code>data/*</code> plus three exceptions. See <code>DA-LUOC.md</code>. The lesson stays.</p>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:32px 36px;border-top:6px solid #7FC4C9;border-radius:14px">
+<p style="font-size:20px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#7FC4C9">The right check</p>
+<pre class="code" style="font-size:22px;background:#0E141C">$ <span class="h">git ls-files | grep data</span>
+<span class="k">data/rubric.yaml
+data/plo.md
+data/de-cuong/…</span></pre>
+<p style="font-size:24px;line-height:1.45;color:#BFD0D8"><code>git status</code> tells you about changes it is <b>watching</b>. <code>git ls-files</code> tells you what git actually <b>has</b>.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;background:#FBEDEC;padding:26px 30px;border:1px solid #E7C3BF;border-left:5px solid #A3302A;border-radius:12px">
+<p style="font-size:20px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#A3302A">How a team meets this</p>
+<p style="font-size:23px;line-height:1.45;color:#48515E">“Why do I have that file and you don't?” — in week 3, with nobody able to explain it.</p>
+</div>
+</div>
+</div>
+<aside>This slide is about a gap in a mental model, not about a command. People believe that a clean status means a clean repo, and for ignored files that is simply false.
+
+Walk the example: ignoring all of data slash is a reasonable decision for runtime data, and it silently excludes the project's own fixtures. Nothing warns you. The file is on your disk, your program reads it, your status is clean, and your teammate does not have it.
+
+Give them the distinction to remember: status reports on what git is watching; ls-files reports on what git has. When a team asks why a file is missing on one machine, ls-files is the first command, not status.
+
+The facilitator already fixed this in the team repo, and say so, because otherwise somebody will run the check in the lab and be confused that it passes.</aside>
+</section>
+
+<!-- ============ 11 · S5 · GIT WORKFLOW ============ -->
+<section id="git-workflow" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:112px 128px 140px;display:flex;flex-direction:column;gap:44px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p class="eyebrow">Section 5</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">The team's Git workflow: <code>main</code> · <code>develop</code> · feature branches</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1560px">Session 01's law is unchanged: <b>nobody merges their own pull request.</b></p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:24px">
+<div style="display:flex;gap:16px;align-items:center">
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:26px 28px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:22px;font-weight:600;color:#1C6B72">feature branch</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.15">your own work</h3>
+</div>
+<x-shape kind="arrow-right" style="width:44px;height:22px;background:#B3BAB2"></x-shape>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:26px 28px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p style="font-size:22px;font-weight:600;color:#1C6B72">pull request</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.15">→ into <code>develop</code></h3>
+</div>
+<x-shape kind="arrow-right" style="width:44px;height:22px;background:#B3BAB2"></x-shape>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:26px 28px;border:1px solid #D9DBD4;border-top:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:22px;font-weight:600;color:#B07A12">review + merge</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.15">by <b>somebody else</b></h3>
+</div>
+<x-shape kind="arrow-right" style="width:44px;height:22px;background:#B3BAB2"></x-shape>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#16202E;padding:26px 28px;border-top:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:22px;font-weight:600;color:#E8B34A">everyone</p>
+<h3 style="font-size:28px;font-weight:600;line-height:1.15;color:#F6F6F2"><code>git pull</code></h3>
+</div>
 </div>
 <div style="display:flex;gap:28px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:36px;border-left:5px solid #A3302A;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Kiểm xuôi — <i>.env</i> phải bị chặn</p>
-<p style="font-size:27px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">cp .env.example .env<br>git check-ignore -v .env<br>git status --short</p>
-<p style="font-size:25px;line-height:1.45;color:#BFD0D8">Lệnh hai phải <b>in ra</b> dòng đang chặn. Lệnh ba <b>không được</b> thấy <b>.env</b>.</p>
-<p style="font-size:25px;line-height:1.45;color:#E8B34A">Thấy <b>.env</b> thì dừng, gọi người dạy.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:36px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Kiểm ngược — dữ liệu đề bài phải được theo dõi</p>
-<p style="font-size:27px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">git ls-files | grep data</p>
-<p style="font-size:25px;line-height:1.45;color:#BFD0D8">Phải thấy <b>4 file</b>. <b>git ls-files</b> = git đang theo dõi gì · <b>git status</b> = cái gì vừa đổi.</p>
-<p style="font-size:25px;line-height:1.45;color:#BFD0D8">Cái quan trọng hơn là cái này — nó bắt được thứ <b>vắng mặt</b>.</p>
-</div>
-</div>
-<div style="display:flex;gap:28px;align-items:center;background:#FFFFFF;padding:30px 36px;border:1px solid #D9DBD4;border-left:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:26px;font-weight:600;color:#1C6B72;width:330px">Đọc luôn <b>.env.example</b></p>
-<p style="font-size:26px;line-height:1.45;color:#48515E;flex:1">Dòng <b>AI_LOG_SERVER</b> đang <b>để trống</b> kèm cảnh báo: template gốc trỏ về máy chủ chấm điểm của chương trình tiền nhiệm. Người dạy phải điền endpoint riêng, nếu không thì <b>deliverable #4 không có chỗ nộp</b>.</p>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:26px;color:#A3302A;font-weight:600">Key lỡ đẩy lên GitHub thì <u>thu hồi key</u> — không phải xoá commit.</p>
-<aside>Hai ô trên là hai phép kiểm ngược chiều nhau, và mentor cần cả hai. Ô trái hỏi "thứ không được lên repo có đang bị chặn không". Ô phải hỏi "thứ phải lên repo có thật sự lên chưa".
-
-Ô phải là ô ít người nghĩ tới và là ô cứu đội ở tuần 3. git status sạch không có nghĩa là đã commit hết — thứ bị .gitignore chặn thì không xuất hiện ở đâu cả.
-
-Dải trắng ở giữa là việc của người dạy, không phải của học viên, nhưng để họ đọc để biết loại chỗ nào mentor phải kiểm trước khi phát repo cho đội.
-
-Dòng đỏ ở chân slide nhắc lại slide env-key. Đọc to lần nữa, vì nó là thứ mentor sẽ phải nói trong một tình huống thật, gấp, và không có thời gian tra lại.</aside>
-</section>
-<section id="lab-b4" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:40px">
-<div style="display:flex;flex-direction:column;gap:16px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#1C6B72">Lab · Bước 4 · 10 phút</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">Chạy server, mở Swagger, cài hook</h2>
-</div>
-<div style="display:flex;gap:26px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:34px;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Tab 1 — chạy server</p>
-<p style="font-size:28px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">make run</p>
-<p style="font-size:25px;line-height:1.45;color:#BFD0D8">Mở <b>localhost:8000/docs</b> — Swagger UI. <b>Giữ tab này chạy.</b></p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:34px;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Tab 2 — phép kiểm</p>
-<p style="font-size:28px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">curl -s localhost:8000/health</p>
-<p style="font-size:25px;line-height:1.45;color:#BFD0D8">Phải trả <b>{"status":"ok", …}</b></p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:34px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Hook — deliverable #4</p>
-<p style="font-size:28px;line-height:1.6;color:#F6F6F2;font-family:'Courier New', monospace">bash scripts/setup_hooks.sh<br>ls -a .git/hooks/ | grep pre-push</p>
-<p style="font-size:25px;line-height:1.45;color:#BFD0D8">Xong một deliverable trong một lệnh.</p>
-</div>
-</div>
-<div style="display:flex;gap:26px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:30px 34px;border:1px solid #D9DBD4;border-left:5px solid #A3302A;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Hook là việc của <u>từng máy</u></h3>
-<p style="font-size:26px;line-height:1.45;color:#48515E">Hook nằm trong <b>.git/</b>, mà <b>.git/</b> không được commit. Người khác chạy rồi <b>không giúp được bạn</b> — đội hay tưởng "cài một lần là xong cho cả đội".</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:30px 34px;border:1px solid #D9DBD4;border-left:5px solid #1C6B72;border-radius:12px">
-<h3 style="font-size:30px;font-weight:600;line-height:1.2">Swagger: bấm thử một endpoint</h3>
-<p style="font-size:26px;line-height:1.45;color:#48515E"><b>Try it out</b> → <b>Execute</b>. Đây là công cụ mentor duyệt API của đội suốt 6 tuần <b>mà không cần viết code</b>. Buổi 08 dùng lại để thử vai sai và xem server có trả <b>403</b>.</p>
-</div>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:26px;color:#A3302A;font-weight:600">Hook báo lỗi thì <u>đừng</u> bypass bằng <b>--no-verify</b>: push được nhưng log không được nộp, một tuần sau mới biết thì đã mất cả tuần.</p>
-<aside>Ba ô trên làm thật trên máy chiếu, chậm, để phòng gõ theo. Nhắc giữ tab server chạy — người mới hay Ctrl+C rồi thắc mắc sao curl không ra gì.
-
-Ô trắng bên trái là điểm dạy thật của bước này, không phải lệnh. Hook sống trong .git/, mà .git/ không bao giờ được commit — nên đây là loại việc mỗi người phải tự làm trên máy mình. Đội sẽ gặp đúng chuyện này với mọi thứ nằm trong .git/.
-
-Ô trắng bên phải bán Swagger cho phòng: mentor không-biết-code vẫn duyệt được API bằng chuột. Nếu còn thời gian thì bấm Execute một lần trên máy chiếu cho họ thấy.
-
-Dòng đỏ chân slide là quy tắc kỷ luật, nói một lần cho rõ: --no-verify cho cảm giác đã push xong trong khi log chưa nộp.</aside>
-</section>
-<section id="lab-b5" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:34px">
-<div style="display:flex;flex-direction:column;gap:14px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#1C6B72">Lab · Bước 5 · 10 phút · bước được chấm</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:62px;font-weight:600;line-height:1.1">Bắt agent dẫn nguồn — rồi đòi lệnh</h2>
-<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1520px">Hai câu hỏi, mỗi câu một lượt riêng. Câu một agent <b>đọc được</b>. Câu hai thì <b>không file nào ghi sẵn</b>.</p>
-</div>
-<div style="display:flex;gap:26px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#16202E;padding:32px;border-left:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Câu 1 — có nguồn trong repo</p>
-<p style="font-size:25px;line-height:1.45;color:#F6F6F2;font-family:'Courier New', monospace">Bằng chứng tối thiểu của gate G4 là gì? Nêu rõ file nào mục nào trong repo này bạn đọc được điều đó.</p>
-<p style="font-size:25px;line-height:1.4;color:#BFD0D8">Tự mở file đó kiểm lại: <b>docs/giao-trinh/00-khung-danh-gia.md §1</b></p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#16202E;padding:32px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Câu 2 — không có nguồn, phải chạy</p>
-<p style="font-size:25px;line-height:1.45;color:#F6F6F2;font-family:'Courier New', monospace">Repo này có bao nhiêu file đang được git theo dõi?</p>
-<p style="font-size:25px;line-height:1.5;color:#E8B34A;font-family:'Courier New', monospace">git ls-files | wc -l</p>
-<p style="font-size:25px;line-height:1.4;color:#BFD0D8">Nhiều agent vẫn trả lời bằng một con số nghe rất hợp lý.</p>
-</div>
-</div>
-<table style="font-family:'Be Vietnam Pro', Arial, sans-serif;font-size:26px;color:#16202E;border:1px solid #D9DBD4;border-radius:10px;padding:14px">
-<tr style="background:#16202E">
-<th style="width:50%;color:#F6F6F2;font-size:25px;font-weight:600;text-align:left">Agent làm gì</th>
-<th style="width:50%;color:#F6F6F2;font-size:25px;font-weight:600;text-align:left">Mentor xử lý thế nào</th>
-</tr>
-<tr>
-<td>Dẫn nguồn một file có thật, trích đúng</td>
-<td style="color:#48515E">Mở file đó đọc lại. Đây là cách làm việc đúng.</td>
-</tr>
-<tr style="background:#EDEDE7">
-<td>Dẫn nguồn file có thật nhưng trích sai mục</td>
-<td style="color:#48515E">Chỉ vào đúng mục. Lỗi đọc, sửa bằng nguồn.</td>
-</tr>
-<tr>
-<td style="font-weight:600">Trả lời con số mà không chạy lệnh nào</td>
-<td style="color:#A3302A;font-weight:600">Đòi lệnh. Không có lệnh thì không có câu trả lời.</td>
-</tr>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:28px 32px;border:1px solid #D9DBD4;border-radius:12px">
+<p class="lb">What each branch means</p>
+<table class="tt" style="font-size:20px">
+<tr><td style="width:24%"><code>main</code></td><td>the approved version</td></tr>
+<tr><td><code>develop</code></td><td>the team's integration branch</td></tr>
+<tr><td>feature</td><td>one person, one change</td></tr>
 </table>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:26px;color:#1C6B72;font-weight:600">Đạt khi <b>JOURNAL.md</b> có một dòng: agent trả lời gì · số thật bao nhiêu · kiểm bằng lệnh nào.</p>
-<aside>Bước này là buổi 01 lặp lại ở mức khó hơn, nên đừng giảng lại lý thuyết — cho họ làm.
+</div>
+<div class="manual" style="flex:1.2;padding:28px 32px">
+<p class="lb">A cohort-4 team, and the question that would have caught it</p>
+<p class="tx" style="font-size:22px">Their <code>main</code> had not moved in three weeks while <b>21 other branches</b> were busy. A mentor looking only at <code>main</code> would have concluded the team had stopped working.</p>
+<p class="tx" style="font-size:22px"><b>Ask where they merge</b> before judging progress.</p>
+</div>
+</div>
+</div>
+<aside>Three branch names and one flow. Keep it short — the room will use it in the lab in twenty minutes.
 
-Điểm mới so với buổi 01: lần này có hai câu đặt cạnh nhau để thấy rõ sự khác nhau. Câu một có nguồn thật trong repo, agent dẫn được và học viên mở ra kiểm được. Câu hai không có file nào ghi sẵn câu trả lời, nên cách duy nhất đúng là chạy lệnh.
+The cohort-4 story is the content of this slide. A mentor who checks main and sees no commits for three weeks draws exactly the wrong conclusion, and then has a demoralising conversation with a team that has been working hard into develop.
 
-Bảng ba dòng là thứ mentor mang về dùng thật. Ba hành vi, ba cách xử lý khác nhau. Dòng cuối là dòng đắt nhất: trả lời con số mà không chạy lệnh thì đòi lệnh, đừng tranh luận về con số.
+So the habit is: before you judge progress from the commit history, ask which branch the team integrates into. It is a ten-second question that prevents a bad meeting.
 
-CLAUDE.md trong repo đã viết sẵn quy tắc này, nên agent tự đọc từ phiên đầu. Hôm nay là lần họ kiểm xem nó có tuân không — và nếu agent của ai đó tuân đủ, hãy cho cả phòng xem màn hình đó.</aside>
+Note the last box of the flow, everybody pulls. Merging changed the server. It does not change anyone's laptop until they ask.</aside>
 </section>
-<section id="lab-b6" data-transition="push" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:30px">
+
+<!-- ============ 12 · S6 · FIRST RUN ============ -->
+<section id="first-run" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:112px 128px 140px;display:flex;flex-direction:column;gap:44px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p class="eyebrow">Section 6.1</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">Running the server, and the gift called Swagger UI</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1560px">A clickable interface for trying an API — <b>without writing a line of code</b>. The single most useful tool for a mentor who does not code.</p>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<pre class="code" style="font-size:22px">$ <span class="h">make run</span>
+<span class="c"># then open</span>
+<span class="k">http://localhost:8000/docs</span>
+
+<span class="c"># second terminal, server still running:</span>
+$ <span class="h">curl -s localhost:8000/health</span>
+<span class="k">{"status":"ok", …}</span></pre>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:28px 32px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p class="lb">What to do with it</p>
+<p class="tx" style="font-size:22px">Pick an endpoint → <b>Try it out</b> → <b>Execute</b>. You have just called an API without writing code.</p>
+<p class="tx" style="font-size:22px">Session 08 uses this to call an endpoint <b>as the wrong role</b> and check that the server answers <b>403</b>.</p>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#16202E;padding:30px 34px;border-top:6px solid #E8B34A;border-radius:14px">
+<p style="font-size:20px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B34A">And the AI logging hook — deliverable #4</p>
+<pre class="code" style="font-size:19px;background:#0E141C">$ <span class="h">bash scripts/setup_hooks.sh</span>
+$ <span class="h">ls -a .git/hooks/ | grep pre-push</span></pre>
+<p style="font-size:22px;line-height:1.45;color:#BFD0D8">Hooks live in <code>.git/</code>, and <code>.git/</code> is <b>never committed</b> — so <b>every person runs this on their own machine</b>. Somebody else running it does not help you.</p>
+</div>
+<div class="manual" style="flex:none;padding:26px 30px">
+<p class="lb">Two rules about the hook</p>
+<ul style="grid-template-columns:1fr;font-size:20px;line-height:1.5">
+<li>never call <code>scripts/log_*</code> by hand — it fabricates log entries</li>
+<li>never bypass a failing hook with <code>--no-verify</code> — the push succeeds, the log does not, and you find out a week later</li>
+</ul>
+</div>
+</div>
+</div>
+<aside>Do this live on the projector. Start the server, open the docs page, click Try it out on an endpoint, and let people see a request go out and a response come back.
+
+Then say why it matters to this room specifically: Swagger is a clickable interface to an API. A mentor who cannot read the code can still exercise every endpoint a team has built, which means they can check behaviour rather than take somebody's word for it. We come back to this in session 08 for permissions.
+
+The hook has one trap and it is organisational, not technical. Hooks live in the dot-git folder, which is never committed, so each person installs their own. Teams reliably assume someone installing it once covers everybody, and then four weeks of AI logs are missing from three machines.
+
+The no-verify warning deserves a sentence of its own. Bypassing the hook makes the error go away and silently stops the logging, and a missing deliverable is discovered far too late.</aside>
+</section>
+
+<!-- ============ 13 · S6 · MT-01 RECAP ============ -->
+<section id="mt-01-layers" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:112px 128px 140px;display:flex;flex-direction:column;gap:44px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p class="eyebrow">Section 6.2 · recap</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">MT-01 is three layers — not just syllabus review</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#48515E;width:1560px">Saying it again because session 01 left some people with the narrow version. Session 03 draws the architecture for <b>all three</b>.</p>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px 38px;border:1px solid #D9DBD4;border-top:6px solid #1C6B72;border-radius:14px">
+<svg class="ic" style="width:48px;height:48px;color:#1C6B72"><use href="#i-user"/></svg>
+<p style="font-size:22px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1C6B72">A · the learner</p>
+<h3 style="font-size:34px;font-weight:600;line-height:1.15">Grounded Q&amp;A, plus ESL support</h3>
+<p style="font-size:23px;line-height:1.45;color:#48515E">Answers come from approved material, with a citation. Nothing else.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px 38px;border:2px solid #E8B34A;border-top:6px solid #E8B34A;border-radius:14px">
+<svg class="ic" style="width:48px;height:48px;color:#6B4A0C"><use href="#i-license"/></svg>
+<p style="font-size:22px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#6B4A0C">B · the course</p>
+<h3 style="font-size:34px;font-weight:600;line-height:1.15">Rubric of 6 criteria, lecturer approves</h3>
+<p style="font-size:23px;line-height:1.45;color:#48515E">This is the layer people mistake for the whole project.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px 38px;border:1px solid #D9DBD4;border-top:6px solid #1C6B72;border-radius:14px">
+<svg class="ic" style="width:48px;height:48px;color:#1C6B72"><use href="#i-chart"/></svg>
+<p style="font-size:22px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1C6B72">C · the programme</p>
+<h3 style="font-size:34px;font-weight:600;line-height:1.15">Anonymised aggregate numbers</h3>
+<p style="font-size:23px;line-height:1.45;color:#48515E">Fed by approved reviews from layer B. Never a named lecturer.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:52px;width:1664px;font-size:24px;color:#6E7680">Source: <code>docs/de-bai.md</code> — read it in full before session 03</p>
+<aside>Thirty seconds, no more. This is a correction, not new material.
+
+The reason it is on the slide at all is that in session 01 a portion of every room walks away believing MT-01 is a syllabus checker. They then design an architecture in session 03 that has no learner-facing layer and no programme view, and have to redo it.
+
+Point at the chain once more: approved material in B is what layer A is allowed to cite, and completed reviews in B are what layer C counts. The approval step is the hinge for both.</aside>
+</section>
+
+<!-- ============ 14 · S7 · LEARNING WITH AI ============ -->
+<section id="learning-with-ai" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:112px 128px 140px;display:flex;flex-direction:column;gap:44px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p class="eyebrow" style="color:#E8B34A">Section 7</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1;color:#F6F6F2">Working with the agent — the rules are in the repo</h2>
+<p style="font-size:28px;font-weight:300;line-height:1.4;color:#BFD0D8;width:1560px">These four lines live in <code>CLAUDE.md</code>, so the agent reads them itself. You do not have to repeat them every session.</p>
+</div>
+<div style="flex:1;display:grid;grid-template-columns:repeat(2, 1fr);grid-template-rows:1fr 1fr;gap:24px">
+<div style="display:flex;flex-direction:column;gap:12px;background:#1C2836;padding:32px 36px;border-left:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:22px;font-weight:700;color:#E8B34A">① Cite the source</p>
+<p style="font-size:24px;line-height:1.45;color:#BFD0D8">Which file, which section. “I read it somewhere in the repo” is not a citation.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#1C2836;padding:32px 36px;border-left:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:22px;font-weight:700;color:#E8B34A">② End with a check <b>you</b> run</p>
+<p style="font-size:24px;line-height:1.45;color:#BFD0D8">The check is the part that is graded — not the code the agent produced. And do not let it run the check and report the result.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#1C2836;padding:32px 36px;border-left:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:22px;font-weight:700;color:#E8B34A">③ Do not decide for me</p>
+<p style="font-size:24px;line-height:1.45;color:#BFD0D8">Scope, framework, thresholds, what to keep — those are yours. The agent proposes options.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#1C2836;padding:32px 36px;border-left:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:22px;font-weight:700;color:#E8B34A">④ Do not do the part that is the lesson</p>
+<p style="font-size:24px;line-height:1.45;color:#BFD0D8">If today's exercise is reading an error message, the agent does not read it for you.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:52px;width:1664px;font-size:24px;color:#8E9CAA">If the agent in this repo replies “which would you prefer?”, that is rule ③ working — not the agent being unhelpful.</p>
+<aside>Read all four aloud. They take a minute and they set the terms for the next thirteen sessions.
+
+Rule two is the one to press on. The check is the graded artefact, not the generated code, and the most common way people lose the value of a check is by letting the agent run it and summarise the result. That is the session 01 failure mode wearing a different hat.
+
+Rule four explains something people find irritating at first. When an exercise is about reading an error, an agent that reads it for you has removed the exercise. The repo's rules say so, so the agent will push back, and the line at the bottom tells people that is working as intended.</aside>
+</section>
+
+<!-- ============ 15 · LAB OVERVIEW ============ -->
+<section id="lab-overview" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:84px 128px 104px;display:flex;flex-direction:column;gap:28px">
 <div style="display:flex;flex-direction:column;gap:12px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#E8B34A">Lab · Bước 6 · 10 phút · bước được chấm</p>
-<h2 style="font-family:'Lora', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1;color:#F6F6F2">Làm test xanh: một cặp sửa, một cặp review</h2>
-<p style="font-size:27px;font-weight:300;line-height:1.4;color:#BFD0D8;width:1540px">Cả bốn người chạy <b style="font-family:'Courier New', monospace">make test</b> trước — phải ra <b>2 passed, 3 errors</b>. Ai ra khác thì môi trường chưa đúng, gỡ ngay.</p>
+<p class="eyebrow ex">Lab · 60 minutes · five exercises</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1">Build the foundation on your own machine, in the team's repo</h2>
+<p style="font-size:27px;font-weight:300;line-height:1.4;color:#48515E;width:1560px">Four people, four machines, four different failures. That is the point, not an accident.</p>
 </div>
-<div style="display:flex;gap:26px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#1E2B3C;padding:32px;border-left:5px solid #1C6B72;border-radius:12px">
-<p style="font-size:24px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#1C6B72">Cặp 1 — sửa</p>
-<p style="font-size:25px;line-height:1.4;color:#BFD0D8">Hỏi agent nguyên nhân, <b>chưa cho sửa</b>. Nó phải chỉ ra: có <b>pytest-asyncio</b> trong requirements nhưng <b>không file nào đặt</b> <b>asyncio_mode</b>.</p>
-<p style="font-size:24px;line-height:1.5;color:#F6F6F2;font-family:'Courier New', monospace">[pytest]<br>asyncio_mode = auto<br>testpaths = tests</p>
-<p style="font-size:24px;line-height:1.5;color:#F6F6F2;font-family:'Courier New', monospace">git switch -c chore/setup-buoi-02<br>gh pr create --fill --base develop</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#1E2B3C;padding:32px;border-left:5px solid #E8B34A;border-radius:12px">
-<p style="font-size:24px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#E8B34A">Cặp 2 — review</p>
-<p style="font-size:25px;line-height:1.4;color:#BFD0D8"><b>Không xem lời giải trước.</b> Tự đọc requirements, tự tìm xem repo có file cấu hình pytest nào chưa. Rồi mới mở PR ra.</p>
-<p style="font-size:24px;line-height:1.5;color:#F6F6F2;font-family:'Courier New', monospace">gh pr checkout &lt;số&gt;<br>make test &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 5 passed<br>ruff check src/ tests/<br>gh pr review &lt;số&gt; --approve<br>gh pr merge &lt;số&gt; --squash</p>
-<p style="font-size:24px;line-height:1.4;color:#E8B34A">Approve bằng mắt = ký khống.</p>
-</div>
-</div>
-<div style="display:flex;gap:26px;align-items:stretch">
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#1E2B3C;padding:28px 32px;border-left:5px solid #A3302A;border-radius:12px">
-<h3 style="font-size:28px;font-weight:600;line-height:1.2;color:#F6F6F2">Cái bẫy: PR này <u>không</u> kích hoạt CI</h3>
-<p style="font-size:25px;line-height:1.4;color:#BFD0D8"><b>ci.yml</b> khai <b>pull_request: branches: [main]</b> — PR nhắm <b>develop</b> không chạy workflow nào. <b>Không có tích xanh ≠ test đỏ.</b> Nên cặp 2 phải <b>tự chạy</b>, không chờ CI.</p>
-</div>
-<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#1E2B3C;padding:28px 32px;border-left:5px solid #E8B34A;border-radius:12px">
-<h3 style="font-size:28px;font-weight:600;line-height:1.2;color:#F6F6F2">Cuối cùng: <u>cả bốn người</u></h3>
-<p style="font-size:25px;line-height:1.5;color:#F6F6F2;font-family:'Courier New', monospace">git switch develop &amp;&amp; git pull<br>make test&nbsp;&nbsp;# 5 passed</p>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="flex:1.2;display:flex;flex-direction:column;gap:14px">
+<div class="out" style="flex:none">
+<div class="oh"><p class="of">The five exercises</p><p class="ol">60 min</p></div>
+<div class="ob" style="gap:8px">
+<table class="tt" style="font-size:19px">
+<tr><td style="width:12%">2.1</td><td>Pull the repo, follow the README, meet a real error</td><td style="width:12%" class="te">20′</td></tr>
+<tr><td>2.2</td><td><code>.env</code>, and what <code>git status</code> will not tell you</td><td class="te">10′</td></tr>
+<tr><td>2.3</td><td>Run the server, open Swagger, install the hook</td><td class="te">10′</td></tr>
+<tr><td>2.4</td><td>Make the agent cite its source — then demand a command</td><td class="te">10′</td></tr>
+<tr><td>2.5</td><td>Turn the tests green: pair 1 fixes, pair 2 reviews</td><td class="te">10′</td></tr>
+</table>
 </div>
 </div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:27px;font-weight:600;color:#E8B34A">Lần đầu đội thấy một bản sửa đi từ máy người này sang máy người khác — <u>qua PR, không qua Zalo</u>.</p>
-<aside>Bước cuối và là bước duy nhất cả đội làm chung một thứ. Chia việc rõ ràng ngay: cặp 1 sửa, cặp 2 review, và buổi sau đổi vai.
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:24px 28px;border:1px solid #D9DBD4;border-top:5px solid #1C6B72;border-radius:12px">
+<p class="lb">What you have when the lab ends</p>
+<p class="tx" style="font-size:21px">The team repo running on <b>your</b> machine · <code>.env</code> safe · Swagger open · AI logging installed · <code>make test</code> at <b>5 passed</b> after pulling somebody else's fix · and <b>three</b> journal lines recording the three gaps the team found.</p>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<div class="manual" style="flex:none;padding:26px 30px">
+<p class="lb">Split into pairs now</p>
+<p class="tx" style="font-size:21px">Exercises <b>2.1 – 2.4</b>: everybody, on their own machine.</p>
+<p class="tx" style="font-size:21px">Exercise <b>2.5</b>: <b>pair 1 fixes, pair 2 reviews</b> — one repo needs only one fix. Swap roles next session.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#16202E;padding:28px 32px;border-top:5px solid #E8B34A;border-radius:12px">
+<p style="font-size:20px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B34A">Still the same law</p>
+<p style="font-size:30px;font-weight:600;line-height:1.3;color:#F6F6F2">Nobody merges their own pull request.</p>
+<p style="font-size:21px;line-height:1.45;color:#BFD0D8">Last week it guarded a one-line table edit. Today it guards the change that makes everybody's tests pass.</p>
+</div>
+</div>
+</div>
+<aside>Set expectations before releasing the room: exercise 2.1 will take the longest and will look like chaos, because four machines fail four ways. Walk the room during it. Do not stand at the front.
 
-Nhấn một chỗ dễ bị làm tắt: cặp 2 KHÔNG được xem lời giải trước. Giá trị của bước này nằm ở chỗ họ tự đi tìm nguyên nhân rồi mới đọc PR — review mà đã biết đáp án thì không phải review.
+Make the pairs explicit now and write them on the board. Exercises one to four are individual. Exercise 2.5 is split because a repo only needs one pytest configuration, and the review half is the half with the real teaching in it.
 
-Câu "approve bằng mắt là ký khống" đáng nói to. gh pr checkout rồi make test mất ba mươi giây, và đó là khác biệt giữa một mentor nghiệm thu thật với một mentor bấm nút.
-
-Ô đỏ là cái bẫy CI, và nó phục vụ đúng một bài học: không có tích xanh không đồng nghĩa với test đỏ. Đội sẽ mở PR, không thấy CI chạy, rồi báo "CI hỏng rồi anh".
-
-Dòng vàng ở chân slide là câu chốt của cả buổi. Ba dòng pytest.ini đổi test từ đỏ sang xanh, nhưng thứ họ vừa học không phải ba dòng đó — là đường đi của một bản sửa trong một đội bốn người. Và điểm cuối: CI xanh là thứ bạn làm ra, không phải thứ bạn được phát.</aside>
+Read the outcome box aloud so people know what "finished" means. Five concrete things, plus three journal lines. The journal lines are the part most likely to be skipped and the part the pass checklist cares most about.</aside>
 </section>
+
+<!-- ============ 16 · EX 2.1 BRIEF ============ -->
+<section id="ex1-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 2.1 · after slides 7–8 · 20 minutes · the long one</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Follow the README exactly — and meet a real error</h2>
 </div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="width:620px;display:flex;flex-direction:column;gap:16px">
+<div class="card">
+<p class="lb">① Task</p>
+<p class="tx">Bring the team repo up to date, then do <b>exactly what the README says</b> — including the command that fails.</p>
+<ul class="tx">
+<li>do <b>not</b> fix it immediately</li>
+<li>find the <code>ERROR</code> line, not the last line</li>
+<li>work out where the repo really declares its dependencies</li>
+</ul>
+<p class="nt">Already cloned in session 01? Do not clone again — pull.</p>
+</div>
+<div class="card" style="flex:1;border-left-color:#E8B34A">
+<p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
+<div class="inp" style="font-size:19px;gap:12px">
+<b>Knowledge</b><span>venv · reading an error (slide 7) · docs vs code drift (slide 8)</span>
+<b>Tools</b><span><code>git</code> · <code>python3</code> · <code>pip</code></span>
+<b>Files</b><span><code class="path">README.md</code> · <code class="path">requirements.txt</code> · <code class="path">DA-LUOC.md</code></span>
+<b>Output</b><span><code class="path">JOURNAL.md</code> — three lines</span>
+</div>
+</div>
+</div>
+<div class="out">
+<div class="oh"><p class="of">a working environment + the first journal entry</p><p class="ol">③ Expected output</p></div>
+<div class="ob">
+<p class="os">The command the README gives you — and what it does</p>
+<pre class="code" style="font-size:18px">$ <span class="h">pip install -e ".[dev]"</span>
+<span class="c">ERROR: ... does not appear to be a Python project:
+neither 'setup.py' nor 'pyproject.toml' found.</span>
+<span class="c">[notice] A new release of pip is available  ← NOT the error</span></pre>
+<p class="os">Three questions, in this order</p>
+<table class="tt" style="font-size:18px">
+<tr><td style="width:8%">1</td><td>Which line starts with <code>ERROR</code>?</td><td style="width:30%" class="te">not the last one</td></tr>
+<tr><td>2</td><td>Does the file it needs exist? <code>ls pyproject.toml</code></td><td class="te">no</td></tr>
+<tr><td>3</td><td>Where are dependencies really declared? <code>head -5 requirements.txt</code></td><td class="te">here</td></tr>
+</table>
+<p class="os">Then install correctly, and check</p>
+<pre class="code" style="font-size:18px">$ <span class="h">pip install -r requirements.txt</span>
+$ <span class="h">python -c "import fastapi; print(fastapi.__version__)"</span>   <span class="c"># a number</span></pre>
+<p class="nt">Journal, three lines: <b>what the README says</b> · <b>why it fails</b> · <b>the correct command</b>.</p>
+</div>
+</div>
+</div>
+<aside>Twenty minutes, and most of it is walking the room. Four machines, four failures.
+
+The instruction that matters is "do not fix it immediately". The reflex when a command fails is to search for a working command, and that reflex is exactly what stops people learning to read an error. Three questions, in order, then the fix.
+
+Watch for the pip notice trap in real time. Somebody will read the last line, announce that the problem is an outdated pip, upgrade pip, and run the broken command again. That is the best possible thing that can happen in this exercise — let it play out, then ask the room which line actually said ERROR.
+
+Two machine failures cover almost everything you will see: no module named something means the virtual environment is not active, and permission denied on install means the same thing. Say both out loud at the start so people can unblock each other.</aside>
+</section>
+
+<!-- ============ 17 · EX 2.1 STEPS ============ -->
+<section id="ex1-steps" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 2.1 · steps</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Pull, build the venv, fail, read, fix</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<table class="steps v3" style="flex:1.35;font-size:20px">
+<tr><th style="width:6%">#</th><th style="width:28%">Step</th><th>What you run</th></tr>
+<tr><td class="n">1</td><td>Take the team's latest</td><td><code>cd mt-01-the-odyssey</code> → <code>git switch main &amp;&amp; git pull</code><p class="pr">Check: <code>git log --oneline | head -5</code> shows commits by <b>other people</b>, not only yours.</p></td></tr>
+<tr><td class="n">2</td><td>Read what was trimmed</td><td><code>DA-LUOC.md</code> — two minutes. What was cut from the template, and why.</td></tr>
+<tr><td class="n">3</td><td>Create and activate the venv</td><td><code>python3 -m venv .venv</code> → <code>source .venv/bin/activate</code><p class="pr">Windows: <code>.venv\Scripts\activate</code></p></td></tr>
+<tr><td class="n">4</td><td>Do what the README says <span class="tag must">it will fail</span></td><td><code>pip install -e ".[dev]"</code> — and <b>stop</b>. Do not fix it yet.</td></tr>
+<tr><td class="n">5</td><td>Read the failure properly</td><td>find the <code>ERROR</code> line · <code>ls pyproject.toml</code> · <code>head -5 requirements.txt</code></td></tr>
+<tr><td class="n">6</td><td>Install correctly</td><td><code>pip install -r requirements.txt</code><p class="pr">Check: <code>python -c "import fastapi; print(fastapi.__version__)"</code> prints a version.</p></td></tr>
+<tr><td class="n">7</td><td>Write the first journal lines</td><td>three lines in <code class="path">JOURNAL.md</code>: README command · why it fails · correct command</td></tr>
+</table>
+<div style="width:420px;display:flex;flex-direction:column;gap:16px">
+<div class="manual" style="flex:none">
+<p class="lb">Manual — no AI</p>
+<ul style="grid-template-columns:1fr">
+<li><b>Reading the error</b> — that is today's lesson; do not paste it to the agent yet</li>
+<li><b>Finding <code>requirements.txt</code></b> yourself</li>
+<li><b>Writing the three journal lines</b> in your own words</li>
+</ul>
+</div>
+<div class="kw" style="flex:1">
+<p class="lb">Keywords</p>
+<p><span>virtual environment</span><span>editable install -e</span><span>extras [dev]</span><span>pyproject.toml</span><span>requirements.txt</span><span>pip notice vs error</span><span>traceback</span><span>exit code</span></p>
+</div>
+<p class="pr" style="font-size:20px">Done when: <code>import fastapi</code> prints a version, and <code>JOURNAL.md</code> has the three lines.</p>
+</div>
+</div>
+<aside>Step one catches the people who were absent from session 01 — they have no clone, and they need an invitation, not a workaround. Deal with that before the session, not during it.
+
+Step two looks like filler and is not: two minutes in the trimmed-files document is what stops someone asking in week 3 why the guide folder they read about online is not in their repo.
+
+Step four is the whole exercise, and the word "stop" is doing the work. Let the failure sit on screen for a moment before anybody touches the keyboard.
+
+By step seven, people are tired of the exercise and want to move on. Hold them there. The journal lines are what the pass checklist actually tests, and writing them while the error is still on screen takes one minute; reconstructing them at home takes ten and they will be wrong.</aside>
+</section>
+
+<!-- ============ 18 · EX 2.2 BRIEF ============ -->
+<section id="ex2-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 2.2 · after slides 9–10 · 10 minutes</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1"><code>.env</code>, and the question <code>git status</code> cannot answer</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="width:620px;display:flex;flex-direction:column;gap:16px">
+<div class="card">
+<p class="lb">① Task</p>
+<p class="tx">Two checks that run in opposite directions:</p>
+<ul class="tx">
+<li>prove <code>.env</code> <b>cannot</b> be committed</li>
+<li>prove the project's data <b>is</b> committed — which <code>git status</code> will never tell you</li>
+</ul>
+<p class="tx">Then read the <code>AI_LOG_SERVER</code> section of <code class="path">.env.example</code> and understand why it is empty.</p>
+</div>
+<div class="card" style="flex:1;border-left-color:#E8B34A">
+<p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
+<div class="inp" style="font-size:19px;gap:12px">
+<b>Knowledge</b><span>gitignore · tracked vs ignored · why revoking beats deleting</span>
+<b>Tools</b><span><code>git check-ignore</code> · <code>git status</code> · <code>git ls-files</code></span>
+<b>Files</b><span><code class="path">.env.example</code> · <code class="path">.gitignore</code> · <code class="path">DA-LUOC.md</code></span>
+<b>Slides</b><span>9 secrets · 10 the clean-status lie</span>
+</div>
+</div>
+</div>
+<div class="out">
+<div class="oh"><p class="of">two checks, in opposite directions</p><p class="ol">③ Expected output</p></div>
+<div class="ob">
+<p class="os">① <code>.env</code> exists on disk and is invisible to git</p>
+<pre class="code" style="font-size:19px">$ <span class="h">cp .env.example .env</span>
+$ <span class="h">git check-ignore -v .env</span>
+<span class="k">.gitignore:16:.env	.env</span>      <span class="c"># must print a line</span>
+$ <span class="h">git status --short</span>
+                            <span class="c"># .env must NOT appear</span></pre>
+<p class="os">② The project's data <b>is</b> tracked — the check status cannot do</p>
+<pre class="code" style="font-size:19px">$ <span class="h">git ls-files | grep data</span>
+<span class="k">data/rubric.yaml
+data/plo.md
+data/de-cuong/…</span>          <span class="c"># 4 files</span></pre>
+<p class="nt">See <code>.env</code> in <code>git status</code>? <b>Stop and call the facilitator.</b> Committing it once means revoking the key, not deleting the commit.</p>
+</div>
+</div>
+</div>
+<aside>Ten minutes, two commands, one idea: git has two different questions and people only ever ask one of them.
+
+The first check is the safety one and it is quick. The second is the interesting one — it proves something is there that status would never mention either way.
+
+Make people say out loud why the second check exists. If they can only say "because the facilitator told us to run it", they have not got it. The answer is that ignored files are invisible everywhere, so the absence of a warning means nothing.
+
+The env-example reading is a mentor-level point rather than a student one. The log endpoint is deliberately blank, with a warning, because the original template pointed at the predecessor programme's grading server. Somebody has to read a file like that before handing a repo to a team, and that somebody is the mentor.</aside>
+</section>
+
+<!-- ============ 19 · EX 2.2 STEPS ============ -->
+<section id="ex2-steps" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 2.2 · steps</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Prove it both ways</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<table class="steps v3 roomy" style="flex:1.3;font-size:20px">
+<tr><th style="width:6%">#</th><th style="width:30%">Step</th><th>What you run, and what must happen</th></tr>
+<tr><td class="n">1</td><td>Make your own <code>.env</code></td><td><code>cp .env.example .env</code> — on your disk, never in the repo</td></tr>
+<tr><td class="n">2</td><td>Prove git is blocking it <span class="tag must">safety</span></td><td><code>git check-ignore -v .env</code> must print a line · <code>git status --short</code> must <b>not</b> show <code>.env</code></td></tr>
+<tr><td class="n">3</td><td>Read the <code>AI_LOG_SERVER</code> block</td><td>It is <b>blank on purpose</b>, with a warning. The original template pointed at the predecessor programme's grading server.</td></tr>
+<tr><td class="n">4</td><td>Prove the data is tracked</td><td><code>git ls-files | grep data</code> → <b>4 files</b><p class="pr">Explain to the person next to you why <code>git status</code> could never have told you this.</p></td></tr>
+</table>
+<div style="width:420px;display:flex;flex-direction:column;gap:16px">
+<div class="manual" style="flex:none">
+<p class="lb">Manual — no AI</p>
+<ul style="grid-template-columns:1fr">
+<li><b>Never</b> paste a real key into a chat with an agent</li>
+<li>Reading <code>.env.example</code> yourself — it carries a warning meant for a human</li>
+<li>Explaining the <code>ls-files</code> result in your own words</li>
+</ul>
+</div>
+<div class="kw" style="flex:1">
+<p class="lb">Keywords</p>
+<p><span>.gitignore</span><span>negation pattern !</span><span>tracked file</span><span>git ls-files</span><span>git check-ignore</span><span>secret rotation</span><span>key revocation</span><span>12-factor config</span></p>
+</div>
+<p class="pr" style="font-size:20px">Done when: <code>check-ignore</code> prints a line, <code>status</code> is silent about <code>.env</code>, and <code>ls-files</code> shows the four data files.</p>
+</div>
+</div>
+<aside>Four short steps. The one people rush is step four's second half — explaining it to a neighbour. Insist on it; saying it out loud is what reveals whether the idea landed.
+
+Step three is where you can say the thing a mentor needs to hear: somebody has to read the configuration file before a repo reaches a team. In this case the default pointed at another programme's server, which would have shipped these mentors' prompts somewhere they do not belong.
+
+Add the rule in the red box explicitly, because the room now has an agent open and a file full of key names in front of them: never paste a real key into a chat. Placeholders only.</aside>
+</section>
+
+<!-- ============ 20 · EX 2.3 BRIEF ============ -->
+<section id="ex3-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 2.3 · after slide 12 · 10 minutes</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Run the server, open Swagger, install your own hook</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="width:620px;display:flex;flex-direction:column;gap:16px">
+<div class="card">
+<p class="lb">① Task</p>
+<p class="tx">Three things, each with its own check:</p>
+<ul class="tx">
+<li>start the server and confirm it answers</li>
+<li>call an endpoint from <b>Swagger UI</b> — no code</li>
+<li>install the AI logging hook <b>on your machine</b></li>
+</ul>
+<p class="nt">Deliverable #4 is one command. It is also the deliverable teams most often have on one machine out of four.</p>
+</div>
+<div class="card" style="flex:1;border-left-color:#E8B34A">
+<p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
+<div class="inp" style="font-size:19px;gap:12px">
+<b>Knowledge</b><span>localhost and ports · what Swagger UI is · why hooks are not committed</span>
+<b>Tools</b><span><code>make run</code> · a browser · <code>curl</code> · a second terminal</span>
+<b>Files</b><span><code class="path">Makefile</code> · <code class="path">scripts/setup_hooks.sh</code> · <code class="path">.agents/rules/ai-log-hook.md</code></span>
+<b>Slides</b><span>12 the server and the hook</span>
+</div>
+</div>
+</div>
+<div class="out">
+<div class="oh"><p class="of">a running server · a called endpoint · an installed hook</p><p class="ol">③ Expected output</p></div>
+<div class="ob">
+<p class="os">Server up, and answering</p>
+<pre class="code" style="font-size:19px">$ <span class="h">make run</span>              <span class="c"># leave this terminal running</span>
+<span class="c"># browser:</span> <span class="k">http://localhost:8000/docs</span>
+
+<span class="c"># second terminal:</span>
+$ <span class="h">curl -s localhost:8000/health</span>
+<span class="k">{"status":"ok", …}</span></pre>
+<p class="os">In Swagger UI</p>
+<table class="tt" style="font-size:19px">
+<tr><td style="width:36%">pick any endpoint</td><td><b>Try it out</b> → <b>Execute</b></td></tr>
+<tr><td>what you just did</td><td>called an API without writing code</td></tr>
+<tr><td>session 08 reuses it</td><td>to call as the wrong role and expect <b>403</b></td></tr>
+</table>
+<p class="os">Your own hook — nobody can run this for you</p>
+<pre class="code" style="font-size:19px">$ <span class="h">bash scripts/setup_hooks.sh</span>
+$ <span class="h">ls -a .git/hooks/ | grep pre-push</span>   <span class="c"># must list it</span></pre>
+<p class="nt">Never call <code>scripts/log_*</code> by hand, and never push with <code>--no-verify</code>: the push works, the log does not, and you discover it a week later.</p>
+</div>
+</div>
+</div>
+<aside>Ten minutes, and the pleasant one of the five — things start and respond.
+
+Make sure everybody actually clicks Execute in Swagger rather than just looking at the page. For most of this room it is the first time they have called an API, and the realisation that they can test a team's endpoints without reading any code is the point of the session for them.
+
+The hook is the part to police. It is one command, it is deliverable number four, and it must run on each of the four machines. Ask for the grep output from each person rather than taking a nod.
+
+The two prohibitions are worth repeating because both produce silent failure: hand-calling the log script fabricates entries, and no-verify pushes succeed while the logging quietly does not happen.</aside>
+</section>
+
+<!-- ============ 21 · EX 2.3 STEPS ============ -->
+<section id="ex3-steps" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 2.3 · steps</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Start it, click it, hook it</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<table class="steps v3 roomy" style="flex:1.3;font-size:20px">
+<tr><th style="width:6%">#</th><th style="width:28%">Step</th><th>What you run</th></tr>
+<tr><td class="n">1</td><td>Start the server</td><td><code>make run</code> — and leave the terminal alone</td></tr>
+<tr><td class="n">2</td><td>Check it from outside</td><td>second terminal: <code>curl -s localhost:8000/health</code> → <code>{"status":"ok"}</code></td></tr>
+<tr><td class="n">3</td><td>Open Swagger UI</td><td><code>http://localhost:8000/docs</code> → pick an endpoint → <b>Try it out</b> → <b>Execute</b></td></tr>
+<tr><td class="n">4</td><td>Install your hook <span class="tag must">each person</span></td><td><code>bash scripts/setup_hooks.sh</code><p class="pr">Check: <code>ls -a .git/hooks/ | grep pre-push</code> lists it.</p></td></tr>
+<tr><td class="n">5</td><td>Stop the server</td><td><code>Ctrl+C</code> in the first terminal</td></tr>
+</table>
+<div style="width:420px;display:flex;flex-direction:column;gap:16px">
+<div class="manual" style="flex:none">
+<p class="lb">Manual — no AI</p>
+<ul style="grid-template-columns:1fr">
+<li><b>Clicking Execute yourself</b> — reading about Swagger is not using it</li>
+<li><b>Running the hook script on your own machine</b></li>
+<li>Never <code>--no-verify</code>; never call <code>scripts/log_*</code> by hand</li>
+</ul>
+</div>
+<div class="kw" style="flex:1">
+<p class="lb">Keywords</p>
+<p><span>uvicorn</span><span>localhost · port</span><span>OpenAPI / Swagger</span><span>health endpoint</span><span>git hooks</span><span>pre-push</span><span>curl</span><span>HTTP status code</span></p>
+</div>
+<p class="pr" style="font-size:20px">Done when: <code>/health</code> returns ok, you executed one endpoint in Swagger, and <code>pre-push</code> is listed on <b>your</b> machine.</p>
+</div>
+</div>
+<aside>A short one. The only thing that goes wrong is people running curl in the terminal that is busy running the server, so say "second terminal" before they start.
+
+Step three is the one worth watching for real. Stand behind somebody and make sure they get a response body back, not just the page loading.
+
+Step four is a roll call. Four people, four confirmations. This is the deliverable that quietly goes missing, and it goes missing exactly here, in the ten seconds where everyone assumes somebody else did it.</aside>
+</section>
+
+<!-- ============ 22 · EX 2.4 BRIEF ============ -->
+<section id="ex4-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 2.4 · after slide 14 · 10 minutes</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Make the agent cite its source — then ask the question no file answers</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="width:620px;display:flex;flex-direction:column;gap:16px">
+<div class="card">
+<p class="lb">① Task</p>
+<p class="tx">Two questions. They look alike and they are <b>completely different</b>.</p>
+<pre class="code" style="font-size:17px">1. What is the minimum evidence for
+   gate G4? Answer briefly, and say
+   which file and section of this repo
+   you read it in.
+
+2. How many files does this repo
+   currently track in git?</pre>
+<p class="nt">Question 1 is <b>readable</b>. Question 2 is not written down anywhere — it can only be run.</p>
+</div>
+<div class="card" style="flex:1;border-left-color:#E8B34A">
+<p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
+<div class="inp" style="font-size:19px;gap:12px">
+<b>Knowledge</b><span>the four rules in <code>CLAUDE.md</code> (slide 14)</span>
+<b>Tools</b><span>your coding agent · <code>git ls-files</code></span>
+<b>Files</b><span><code class="path">docs/giao-trinh/00-khung-danh-gia.md</code> §1 · <code class="path">CLAUDE.md</code></span>
+<b>Output</b><span><code class="path">JOURNAL.md</code> — one line</span>
+</div>
+</div>
+</div>
+<div class="out">
+<div class="oh"><p class="of">a verified citation · a demanded command</p><p class="ol">③ Expected output</p></div>
+<div class="ob">
+<p class="os">Three things the agent might do — and what you do back</p>
+<table class="tt" style="font-size:19px">
+<tr><th style="width:46%">The agent…</th><th>You…</th></tr>
+<tr><td>cites a real file and quotes it correctly</td><td>open the file and read it. This is the behaviour you want.</td></tr>
+<tr><td>cites a real file but the wrong section</td><td>point at the right section. A reading error, fixed with the source.</td></tr>
+<tr><td class="te">gives a number without running anything</td><td><b>demand the command.</b> No command, no answer.</td></tr>
+</table>
+<p class="os">Verify both yourself</p>
+<pre class="code" style="font-size:19px">$ <span class="h">git ls-files | wc -l</span>
+<span class="k">104</span>
+<span class="c"># and open 00-khung-danh-gia.md §1 — is the G4 row what it claimed?</span></pre>
+<p class="nt">Journal line: what the agent answered · the real number · the command that settled it.</p>
+</div>
+</div>
+</div>
+<aside>This is session 01's lesson, one level up. Last week the point was that the agent guesses. This week the point is that there are two kinds of question and they need two different responses.
+
+Question one has an answer written in a file in the repo, so the agent can genuinely read it and the right move is to check the citation. Question two has no answer anywhere — the count exists only when something counts it — and the only correct behaviour is to produce a command.
+
+The three-row table is the transferable part. Cited correctly, cited wrongly, and answered from nowhere are three different failures with three different responses, and mentors who cannot tell them apart end up saying "check it again", which helps nobody.
+
+Note that the repo's own rules already require this behaviour. Today is the day people find out whether the rules are actually followed.</aside>
+</section>
+
+<!-- ============ 23 · EX 2.4 STEPS ============ -->
+<section id="ex4-steps" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 2.4 · steps</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Ask, open the file, ask again, demand the command</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<table class="steps v3 roomy" style="flex:1.3;font-size:20px">
+<tr><th style="width:6%">#</th><th style="width:30%">Step</th><th>What you do</th></tr>
+<tr><td class="n">1</td><td>Ask question 1, with the citation requirement</td><td>“…and say which file and section of this repo you read it in.”</td></tr>
+<tr><td class="n">2</td><td>Open that file yourself <span class="tag must">the check</span></td><td><code>docs/giao-trinh/00-khung-danh-gia.md</code> §1 — is the G4 row really what it quoted?</td></tr>
+<tr><td class="n">3</td><td>Ask question 2</td><td>“How many files does this repo currently track in git?”</td></tr>
+<tr><td class="n">4</td><td>Classify what came back</td><td>cited correctly · cited wrongly · answered from nowhere — use the table on the previous slide</td></tr>
+<tr><td class="n">5</td><td>Run it yourself</td><td><code>git ls-files | wc -l</code></td></tr>
+<tr><td class="n">6</td><td>One journal line</td><td>answer · real number · the command</td></tr>
+</table>
+<div style="width:420px;display:flex;flex-direction:column;gap:16px">
+<div class="manual" style="flex:none">
+<p class="lb">Manual — no AI</p>
+<ul style="grid-template-columns:1fr">
+<li><b>Opening the cited file</b> — this is the entire exercise</li>
+<li>Running <code>git ls-files</code> yourself</li>
+<li>Not letting the agent run the check and report back</li>
+</ul>
+</div>
+<div class="kw" style="flex:1">
+<p class="lb">Keywords</p>
+<p><span>grounding</span><span>citation</span><span>CLAUDE.md</span><span>agent rules</span><span>tool use</span><span>hallucination</span><span>verifiable claim</span><span>state vs document</span></p>
+</div>
+<p class="pr" style="font-size:20px">Done when: you opened the cited file and confirmed it, and <code>JOURNAL.md</code> has the line.</p>
+</div>
+</div>
+<aside>Step two is the exercise. Everything else is setup. If somebody accepts the citation without opening the file, they have done nothing today except read an agent's output, which is what we are training them out of.
+
+Step four is where the room learns the vocabulary. Make them name which of the three happened, out loud. "It was wrong" is not a classification and does not lead to a next action.
+
+If an agent in the room behaves perfectly on both questions — cites correctly and offers a command for the count — that is a good outcome and the exercise still works. Ask that person to show the room what a well-behaved answer looks like, because most of them have never seen one.</aside>
+</section>
+
+<!-- ============ 24 · EX 2.5 BRIEF ============ -->
+<section id="ex5-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 2.5 · 10 minutes · pair 1 fixes · pair 2 reviews</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Turn the tests green — and discover that CI never ran</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="width:620px;display:flex;flex-direction:column;gap:16px">
+<div class="card">
+<p class="lb">① Task · everybody first</p>
+<pre class="code" style="font-size:19px">$ <span class="h">make test</span>
+<span class="k">2 passed, 3 errors</span></pre>
+<p class="tx">A different result means <b>your</b> environment is wrong. Fix that before going on.</p>
+<p class="tx">Then split, because one repo needs only one fix.</p>
+</div>
+<div class="card" style="flex:1;border-left-color:#E8B34A">
+<p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
+<div class="inp" style="font-size:19px;gap:12px">
+<b>Knowledge</b><span>pytest · async fixtures · what a workflow trigger is</span>
+<b>Tools</b><span><code>make test</code> · <code>ruff</code> · <code>gh pr</code> · the agent, by <code>.agents/rules/hoc-cung-ai.md</code></span>
+<b>Files</b><span><code class="path">requirements.txt</code> · <code class="path">.github/workflows/ci.yml</code> · a new <code class="path">pytest.ini</code></span>
+<b>Output</b><span>a PR into <code>develop</code> · a journal line about the CI trap</span>
+</div>
+</div>
+</div>
+<div class="out">
+<div class="oh"><p class="of">5 passed on all four machines</p><p class="ol">③ Expected output</p></div>
+<div class="ob">
+<p class="os">Pair 1 — the diagnosis, which the agent must explain before it edits</p>
+<p class="tx" style="font-size:19px"><code>pytest-asyncio</code> <b>is</b> in <code>requirements.txt</code> — but the repo has no <code>pytest.ini</code>, <code>setup.cfg</code> or <code>pyproject.toml</code> to set <code>asyncio_mode</code>.</p>
+<pre class="code" style="font-size:18px"><span class="c"># pytest.ini — three lines</span>
+<span class="h">[pytest]</span>
+asyncio_mode = auto
+testpaths = tests</pre>
+<p class="os">Pair 2 — the trap, found <b>before</b> reading pair 1's fix</p>
+<pre class="code" style="font-size:18px">$ <span class="h">grep -A5 "^on:" .github/workflows/ci.yml</span>
+pull_request:
+  branches: [<span class="k">main</span>]     <span class="c"># a PR into develop triggers NOTHING</span></pre>
+<table class="tt" style="font-size:18px">
+<tr><td style="width:44%">no green tick</td><td class="te">does <b>not</b> mean the tests are red</td></tr>
+<tr><td>so pair 2 runs it</td><td><code>gh pr checkout &lt;n&gt;</code> → <code>make test</code> → <code>ruff check src/ tests/</code></td></tr>
+</table>
+<p class="nt">Three lines of configuration move the tests from red to green — and it reaches the other machines through a <b>pull request</b>, not a chat message.</p>
+</div>
+</div>
+</div>
+<aside>The closing exercise, and the one that ties the session together.
+
+Everybody runs the tests first, because a different result is a diagnosis of that person's environment, not of the repo. Catch those people here rather than letting them leave with a broken setup.
+
+Pair one works with the agent under the repo's rules: explain the cause in two sentences, propose the smallest fix, name the file, and stop for approval before editing. That sequence is the thing being practised, more than the pytest configuration itself.
+
+Pair two must not look at the fix first. Their job is to find the CI trap independently: open the Actions tab, see nothing, and work out why. The sentence to extract from them is that an absent green tick is not evidence of anything. Then they check it the only way available — check out the branch and run it.
+
+The closing line is the one to say slowly: a green CI is something you make, not something you are given. A team that accepts a template with red tests and leaves them red for six weeks ends up in week six unable to distinguish a new failure from an old one, and so nobody dares change anything.</aside>
+</section>
+
+<!-- ============ 25 · EX 2.5 STEPS ============ -->
+<section id="ex5-steps" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow ex">Exercise 2.5 · steps</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">One pair fixes, one pair verifies, everybody pulls</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<table class="steps v3" style="flex:1.4;font-size:19px">
+<tr><th style="width:5%">#</th><th style="width:13%">Who</th><th style="width:26%">Step</th><th>What they run</th></tr>
+<tr><td class="n">1</td><td>everybody</td><td>Establish the baseline</td><td><code>make test</code> → <b>2 passed, 3 errors</b></td></tr>
+<tr><td class="n">2</td><td>one person</td><td>Create <code>develop</code>, once</td><td><code>git switch main &amp;&amp; git pull</code> → <code>git switch -c develop</code> → <code>git push -u origin develop</code></td></tr>
+<tr><td class="n">3</td><td class="te">pair 1</td><td>Diagnose with the agent <span class="tag man">no editing yet</span></td><td>“explain the cause in 2 sentences, propose the <b>smallest</b> fix, tell me which file — then stop and wait”</td></tr>
+<tr><td class="n">4</td><td class="te">pair 1</td><td>Apply, commit, open the PR</td><td><code>git switch -c chore/setup-buoi-02</code> → <code>git add JOURNAL.md pytest.ini</code> → <code>gh pr create --fill --base develop</code></td></tr>
+<tr><td class="n">5</td><td class="te">pair 2</td><td>Find the CI trap <b>first</b></td><td>Actions tab is empty → <code>grep -A5 "^on:" .github/workflows/ci.yml</code></td></tr>
+<tr><td class="n">6</td><td class="te">pair 2</td><td>Verify by running, not by looking</td><td><code>gh pr checkout &lt;n&gt;</code> → <code>make test</code> (<b>5 passed</b>) → <code>ruff check src/ tests/</code></td></tr>
+<tr><td class="n">7</td><td class="te">pair 2</td><td>Review, approve, merge</td><td><code>gh pr review &lt;n&gt; --comment -b "checked out and ran: 5 passed, ruff clean"</code> → <code>--approve</code> → <code>gh pr merge &lt;n&gt; --squash --delete-branch</code></td></tr>
+<tr><td class="n">8</td><td>everybody</td><td>Pull, and confirm on your own machine</td><td><code>git switch develop &amp;&amp; git pull</code> → <code>make test</code> → <b>5 passed</b> · <code>gh run list --limit 3</code> — CI runs <b>now</b>, on push</td></tr>
+</table>
+<div style="width:380px;display:flex;flex-direction:column;gap:16px">
+<div class="manual" style="flex:none">
+<p class="lb">Manual — no AI</p>
+<ul style="grid-template-columns:1fr">
+<li>Pair 2 does <b>not</b> read the fix before finding the trap</li>
+<li>Running the tests before approving — never approve by eye</li>
+<li>The author does not merge their own PR</li>
+</ul>
+</div>
+<div class="kw" style="flex:1">
+<p class="lb">Keywords</p>
+<p><span>pytest.ini</span><span>asyncio_mode</span><span>async fixture</span><span>workflow trigger</span><span>on: pull_request</span><span>branch filter</span><span>gh pr checkout</span><span>ruff</span><span>squash merge</span></p>
+</div>
+<p class="pr" style="font-size:19px">Done when: <code>gh run list</code> shows a successful run after the merge, and <b>all four machines</b> print <code>5 passed</code>.</p>
+</div>
+</div>
+<aside>Eight steps and two roles, so put the pairs on the board and keep the timing tight.
+
+Step three is where the repo's AI rules get exercised for real: propose, name the file, stop. If the agent edits anything before approval, that is worth showing the room — it is the behaviour the rules exist to prevent.
+
+Step five is the heart of it and it only works if pair two has not seen the fix. Protect that. Their discovery — the Actions tab is empty, and here is the line in the workflow that explains it — is the part people remember.
+
+Step eight closes the loop that started in session 01. Somebody else's change arrives on your machine because you pulled it, and the CI that never ran for the pull request runs now, on the push to develop. Write the journal line about the trap while it is fresh; teams conclude "CI is broken" from exactly this evidence.</aside>
+</section>
+
+<!-- ============ 26 · SUMMARY + REFERENCES ============ -->
+<section id="summary" style="background:#16202E;color:#F6F6F2;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:84px 128px 104px;display:flex;flex-direction:column;gap:30px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p class="eyebrow" style="color:#E8B34A">Summary · Q&amp;A · References</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:58px;font-weight:600;line-height:1.1;color:#F6F6F2">Six things to take away</h2>
+</div>
+<div style="flex:1;display:flex;gap:28px;align-items:stretch">
+<div style="flex:1.25;display:grid;grid-template-columns:1fr 1fr;gap:18px">
+<div style="display:flex;flex-direction:column;gap:8px;background:#1C2836;padding:22px 26px;border-left:4px solid #E8B34A;border-radius:10px">
+<p style="font-size:21px;font-weight:700;color:#E8B34A">1 · Setup is not a minor session</p>
+<p style="font-size:20px;line-height:1.4;color:#BFD0D8">It decides whether week 4 deploys. “It works on my machine” starts here.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1C2836;padding:22px 26px;border-left:4px solid #E8B34A;border-radius:10px">
+<p style="font-size:21px;font-weight:700;color:#E8B34A">2 · Read the <code>ERROR</code> line</p>
+<p style="font-size:20px;line-height:1.4;color:#BFD0D8">Not the last line. <code>pip</code> prints its notice <b>after</b> the error.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1C2836;padding:22px 26px;border-left:4px solid #E8B34A;border-radius:10px">
+<p style="font-size:21px;font-weight:700;color:#E8B34A">3 · Docs and code drift</p>
+<p style="font-size:20px;line-height:1.4;color:#BFD0D8">In every project. The mentor is the person who compares them.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1C2836;padding:22px 26px;border-left:4px solid #E8B34A;border-radius:10px">
+<p style="font-size:21px;font-weight:700;color:#E8B34A">4 · Leaked key → revoke it</p>
+<p style="font-size:20px;line-height:1.4;color:#BFD0D8">Deleting the commit saves nothing. Revoke first, clean up second.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#1C2836;padding:22px 26px;border-left:4px solid #E8B34A;border-radius:10px">
+<p style="font-size:21px;font-weight:700;color:#E8B34A">5 · Clean status ≠ committed</p>
+<p style="font-size:20px;line-height:1.4;color:#BFD0D8"><code>git ls-files</code> says what git <b>has</b>. <code>git status</code> only says what it is watching.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;background:#243245;padding:22px 26px;border-left:4px solid #7FC4C9;border-radius:10px">
+<p style="font-size:21px;font-weight:700;color:#7FC4C9">6 · Green CI is made, not given</p>
+<p style="font-size:20px;line-height:1.4;color:#F6F6F2">And <b>no green tick is not the same as red tests</b> — check which branches the workflow watches.</p>
+</div>
+</div>
+<div style="width:620px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;flex-direction:column;gap:10px;background:#1C2836;padding:24px 28px;border-top:4px solid #E8B34A;border-radius:10px">
+<p style="font-size:18px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B34A">Homework</p>
+<ol style="font-size:19px;line-height:1.4;color:#BFD0D8;padding-left:26px">
+<li>Re-read the framework file, §1 and §3 — session 03's architecture must support G2's evidence.</li>
+<li>Read <code>docs/de-bai.md</code> <b>in full</b>. Session 03 draws all three layers.</li>
+<li><b>Grade a syllabus by hand</b>: <code>data/de-cuong/BUS2051…md</code> against <code>data/rubric.yaml</code>, 15 minutes on a timer. How many of the six planted faults did you find? A criterion you cannot judge by hand is <b>a threshold the agent will not manage either</b>.</li>
+<li>Submit by PR into <code>develop</code>, branch <code>journal/&lt;name&gt;</code>, <code>git add JOURNAL.md</code> only. Somebody else merges.</li>
+</ol>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;background:#1C2836;padding:24px 28px;border-top:4px solid #7FC4C9;border-radius:10px">
+<p style="font-size:18px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#7FC4C9">Sources — all inside your repo</p>
+<ul style="list-style:none;padding-left:0;font-size:19px;line-height:1.5;color:#BFD0D8">
+<li><code>docs/giao-trinh/00-khung-danh-gia.md</code> — gates, deliverables, rubric</li>
+<li><code>docs/de-bai.md</code> — the MT-01 brief</li>
+<li><code>docs/giao-trinh/slide/buoi-02_ex.md</code> — the exercise book for this lab</li>
+<li><code>docs/giao-trinh/slide/buoi-02_lecture_note.md</code> — this session, slide by slide</li>
+<li><code>DA-LUOC.md</code> · <code>CLAUDE.md</code> · <code>.agents/rules/</code></li>
+</ul>
+</div>
+<p class="pr" style="font-size:20px;background:#243245;color:#F6F6F2;border-left:4px solid #A3302A">Pass check: the <b>three journal lines</b> box is the one that teaches what cannot be lectured — docs say one thing, code does another, and only the person who compares them sees it.</p>
+</div>
+</div>
+<aside>Close on the six cards and then take questions; the room will have accumulated several during the lab.
+
+Card six carries two ideas and both matter. A green CI is something a team builds, and the absence of a green tick is not evidence of failure. Teams reason wrongly from both halves.
+
+Homework item three is the one with real weight, and it is worth explaining rather than reading. Grading a syllabus by hand against the rubric, on a timer, tells each mentor which criteria are actually operable. If a human cannot reach a verdict on a criterion in fifteen minutes, an agent will not either, and session 03 onwards is about building something that can.
+
+Item four will produce the first merge conflict of the course, because several people edit the same journal file. Say so now: do not resolve it by deleting somebody else's lines. Bring it to session 03.</aside>
+</section>
+
+</div>
+
 <div id="bar">
-  <b>Buổi 02 — Khởi tạo dự án</b>
+  <b>Session 02 — From a template to the team's project</b>
   <span>·</span>
   <span id="counter">1 / 1</span>
   <span id="secname"></span>
   <span class="sp"></span>
   <button id="prev">←</button>
   <button id="next">→</button>
-  <button id="togglenotes">Ghi chú (N)</button>
-  <span><kbd>←</kbd> <kbd>→</kbd> chuyển slide · <kbd>F</kbd> toàn màn hình · <kbd>Ctrl/Cmd+P</kbd> in ra PDF</span>
+  <button id="togglenotes">Notes (N)</button>
+  <span><kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>F</kbd> fullscreen · <kbd>Ctrl/Cmd+P</kbd> print to PDF</span>
 </div>
-<div id="notes"><h4>Người trình bày nói gì</h4><div id="notesbody"></div></div>
+<div id="notes"><h4>Speaker notes</h4><div id="notesbody"></div></div>
 <script>
 (function () {
-  var SECTIONS = {"cover": "Nhận repo từ template, và chọn tầng khởi đầu đúng.", "moi-truong": "Môi trường chạy được, và ba chỗ tài liệu lệch code trong template thật.", "swagger": "Server, AI logging và git workflow.", "de-mt01-ba-tang": "Đề MT-01 ba tầng, và quy tắc học cùng agent.", "lab-tong-quan": "Lab 60 phút: sáu bước, chia cặp, và bản sửa đi qua PR."};
+  var SECTIONS = {"cover": "Session 02 — From a template to the team's project", "agenda": "Opening — Agenda", "five-things": "Section 1 — What today is for", "template": "Section 2 — The official template", "environment": "Section 3 — Environment, and reading an error", "env-keys": "Section 4 — Secrets, and what git really tracks", "git-workflow": "Section 5 — The team's Git workflow", "first-run": "Section 6 — Running it for the first time", "learning-with-ai": "Section 7 — Working with the agent", "lab-overview": "Lab — Build the foundation on your own machine", "ex1-brief": "Exercise 2.1 — Follow the README, meet a real error", "ex2-brief": "Exercise 2.2 — .env, and the clean-status lie", "ex3-brief": "Exercise 2.3 — Server, Swagger, hook", "ex4-brief": "Exercise 2.4 — Make the agent cite, then demand a command", "ex5-brief": "Exercise 2.5 — Turn the tests green", "summary": "Summary · Q&A · References"};
   var stage = document.getElementById('stage');
   var slides = Array.prototype.slice.call(stage.querySelectorAll(':scope > section'));
   var notesBody = document.getElementById('notesbody');
@@ -893,7 +1496,7 @@ Dòng vàng ở chân slide là câu chốt của cả buổi. Ba dòng pytest.i
     if (!aside || !aside.textContent.trim()) {
       var e = document.createElement('p');
       e.className = 'none';
-      e.textContent = 'Slide này không có ghi chú.';
+      e.textContent = 'No notes for this slide.';
       notesBody.appendChild(e);
       return;
     }
@@ -905,11 +1508,17 @@ Dòng vàng ở chân slide là câu chốt của cả buổi. Ba dòng pytest.i
     });
   }
 
+  // ten section cua slide hien tai = section gan nhat phia truoc
+  function sectionOf(n) {
+    for (var k = n; k >= 0; k--) { if (SECTIONS[slides[k].id]) return SECTIONS[slides[k].id]; }
+    return '';
+  }
+
   function show(n) {
     i = Math.max(0, Math.min(slides.length - 1, n));
     slides.forEach(function (s, k) { s.classList.toggle('live', k === i); });
     counter.textContent = (i + 1) + ' / ' + slides.length;
-    secname.textContent = SECTIONS[slides[i].id] ? '· ' + SECTIONS[slides[i].id] : '';
+    secname.textContent = sectionOf(i) ? '· ' + sectionOf(i) : '';
     renderNotes(slides[i]);
     try { location.hash = slides[i].id; } catch (e) {}
   }
@@ -931,6 +1540,10 @@ Dòng vàng ở chân slide là câu chốt của cả buổi. Ba dòng pytest.i
   });
 
   window.addEventListener('resize', fit);
+  window.addEventListener('hashchange', function () {
+    var n = slides.findIndex(function (s) { return '#' + s.id === location.hash; });
+    if (n >= 0 && n !== i) show(n);
+  });
   fit();
   var start = slides.findIndex(function (s) { return '#' + s.id === location.hash; });
   show(start > 0 ? start : 0);
