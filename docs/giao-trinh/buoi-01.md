@@ -9,7 +9,7 @@
 >
 > | File | What it carries |
 > |---|---|
-> | [`slide/buoi-01.html`](slide/buoi-01.html) | the 27 slides, with speaker notes (`N`) |
+> | [`slide/buoi-01.html`](slide/buoi-01.html) | the 26 slides, with speaker notes (`N`) |
 > | [`slide/buoi-01_lecture_note.md`](slide/buoi-01_lecture_note.md) | one section per slide: key points, explanation, key terms, self-check |
 > | [`slide/buoi-01_ex.md`](slide/buoi-01_ex.md) | the exercise book — the full version of the 60-minute lab |
 
@@ -43,12 +43,12 @@ Without it, exercise 1.2 cannot run.
 | Opening | 5′ | 1 – 2 | cover · agenda |
 | §1 What a mentor is for | 5′ | 3 – 4 | two jobs · the four-step loop |
 | §2 Six weeks, six gates | 8′ | 5 – 7 | G1–G6 · minimum evidence · at-risk triggers |
-| §3 "Running" is not "done" | 8′ | 8 – 11 | ten deliverables · **100 / 82 / 64** · six criteria · six mistakes |
-| §4 MT-01 | 8′ | 12 – 16 | three layers · the five-step flow · three roles · across the gates · scope guard |
-| §5 **The agent guesses** | 6′ | 17 | the most important slide of the day |
-| **Lab** | **60′** | 18 – 26 | four exercises → [`buoi-01_ex.md`](slide/buoi-01_ex.md) |
+| §3 "Running" is not "done" | 7′ | 8 – 10 | ten deliverables (incl. **100 / 82 / 64**) · six criteria · six mistakes |
+| §4 MT-01 | 8′ | 11 – 15 | three layers · the five-step flow · three roles · across the gates · scope guard |
+| §5 **The agent guesses** | 6′ | 16 | the most important slide of the day |
+| **Lab** | **60′** | 17 – 25 | four exercises → [`buoi-01_ex.md`](slide/buoi-01_ex.md) |
 | Cross-exercise | 20′ | — | swap roles, below |
-| Summary + Q&A | 10′ | 27 | takeaways · homework |
+| Summary + Q&A | 10′ | 26 | takeaways · homework |
 
 Slide-by-slide notes, including what the presenter says, are in
 [`buoi-01_lecture_note.md`](slide/buoi-01_lecture_note.md) and in each slide's speaker notes
@@ -99,7 +99,7 @@ them on the board. That is what keeps four pull requests conflict-free.
 **On the day, before the session:**
 
 ```bash
-git ls-files | wc -l     # today's number for slide 17 — it grows as the course grows
+git ls-files | wc -l     # today's number for slide 16 — it grows as the course grows
 make test                # must print 2 passed, 3 errors
 ```
 

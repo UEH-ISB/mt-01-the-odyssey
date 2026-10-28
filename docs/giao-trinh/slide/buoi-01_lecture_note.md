@@ -22,11 +22,11 @@ Nothing in this course cites a source outside the repository. That is deliberate
 |---|---------|--------|
 | 1 | [What a mentor is for](#section-1--what-a-mentor-is-for) | 3 – 4 |
 | 2 | [Six weeks, six gates](#section-2--six-weeks-six-gates) | 5 – 7 |
-| 3 | ["Running" is not "done"](#section-3--running-is-not-done) | 8 – 11 |
-| 4 | [MT-01, the project behind every session](#section-4--mt-01-the-project-behind-every-session) | 12 – 16 |
-| 5 | [Why the agent sounds certain and is wrong](#section-5--why-the-agent-sounds-certain-and-is-wrong) | 17 |
-| L | [The lab](#the-lab--four-people-one-team-one-repo) | 18 – 26 |
-| + | [Summary, Q&A, references](#summary-qa-references) | 27 |
+| 3 | ["Running" is not "done"](#section-3--running-is-not-done) | 8 – 10 |
+| 4 | [MT-01, the project behind every session](#section-4--mt-01-the-project-behind-every-session) | 11 – 15 |
+| 5 | [Why the agent sounds certain and is wrong](#section-5--why-the-agent-sounds-certain-and-is-wrong) | 16 |
+| L | [The lab](#the-lab--four-people-one-team-one-repo) | 17 – 25 |
+| + | [Summary, Q&A, references](#summary-qa-references) | 26 |
 | A | [Appendix A — the facilitator's preparation](#appendix-a--the-facilitators-preparation) | — |
 | B | [Appendix B — glossary (English — Vietnamese)](#appendix-b--glossary-english--vietnamese) | — |
 
@@ -208,33 +208,15 @@ git log --since="3 days ago" --oneline | wc -l    # 0 → trigger
 
 Read the *why it goes missing* column in the framework file. None of the reasons is "too difficult". They are scheduling and ownership failures — which is to say, **mentoring failures**.
 
+**The three numbers to know by heart: 100% / 82% / 64%** — video demo, evaluation evidence, pitch deck. They are the three red rows above, they are the strongest coaching tool a mentor has, and **all three cost no extra coding skill**. Use them as numbers, not as advice: when a team says *"we'll skip the eval and add two more features"*, the useful answer is *"eighty-two percent of the previous cohort skipped it, and that is where the marks were lost."* A number ends the argument; advice invites negotiation. A team that delivers all three is almost certainly ahead of most of the field.
+
 When you quote these numbers to a team, say where they come from: *"the previous cohort of the predecessor programme"*. Do not inflate it, and do not present it as this cohort's data.
 
 **Key terms** — deliverable *(hiện vật phải nộp)* · evaluation evidence *(bằng chứng đánh giá)* · worklog *(nhật ký công việc)*
 
 **Self-check.** Open any repo you have and tick the ten rows. How many could you produce today?
 
-### Slide 9 — Three numbers to know by heart · [`#three-numbers`](buoi-01.html#three-numbers)
-
-**Key points**
-
-| Number | Deliverable | What it actually takes |
-|---|---|---|
-| **100%** | video demo | a screen recording with a voice-over — one afternoon |
-| **82%** | evaluation evidence | a golden dataset and a number, not an opinion |
-| **64%** | pitch deck | six weeks of work, judged in eight minutes of talking |
-
-**Explanation.** These are the strongest coaching tool a mentor has, and all three cost **no extra coding skill**.
-
-Here is how to use them. When a team says *"we'll skip the eval and add two more features"*, the useful answer is not general advice about quality. It is: **eighty-two percent of the previous cohort skipped it, and that is where the marks were lost.** A number ends the argument; advice invites negotiation.
-
-A team that delivers all three is almost certainly ahead of most of the field — without writing one line of better code.
-
-**Key terms** — demo video *(video trình diễn)* · pitch *(bài thuyết trình gọi vốn / giới thiệu)* · golden dataset *(bộ dữ liệu chuẩn)*
-
-**Self-check.** Say the three numbers out loud, with the deliverable each belongs to, without looking. They are on the session's pass checklist.
-
-### Slide 10 — Six criteria × five levels · [`#six-criteria`](buoi-01.html#six-criteria)
+### Slide 9 — Six criteria × five levels · [`#six-criteria`](buoi-01.html#six-criteria)
 
 **Key points**
 
@@ -259,7 +241,7 @@ Criterion 2 is where teams misjudge themselves most. Calling an LLM API and gett
 
 **Self-check.** For each of the six criteria, name one thing you could open in a repo to form an opinion. If you cannot for a criterion, that is the criterion you will be vague about in week 5.
 
-### Slide 11 — Six engineering mistakes you can catch by opening the repo · [`#six-mistakes`](buoi-01.html#six-mistakes)
+### Slide 10 — Six engineering mistakes you can catch by opening the repo · [`#six-mistakes`](buoi-01.html#six-mistakes)
 
 **Key points**
 
@@ -290,7 +272,7 @@ ls .github/workflows/ ; ls eval/ ; ls tests/ ; make test
 
 ## Section 4 — MT-01, the project behind every session
 
-### Slide 12 — Three layers · [`#mt-01`](buoi-01.html#mt-01)
+### Slide 11 — Three layers · [`#mt-01`](buoi-01.html#mt-01)
 
 **Key points**
 
@@ -310,7 +292,7 @@ We build it for real, deploy it for real, evaluate it for real. By the end of th
 
 **Self-check.** Say the three layers and the direction of the arrows between them, with `docs/de-bai.md` closed.
 
-### Slide 13 — The five-step flow of layer B · [`#mt-01-flow`](buoi-01.html#mt-01-flow)
+### Slide 12 — The five-step flow of layer B · [`#mt-01-flow`](buoi-01.html#mt-01-flow)
 
 **Key points**
 
@@ -328,7 +310,7 @@ Keep step 2's sentence for session 07: **a finding without a citation is a hallu
 
 **Self-check.** Which step would break if the agent were allowed to publish its own reports? Name every consequence for layers A and C.
 
-### Slide 14 — Three roles, one boundary · [`#mt-01-roles`](buoi-01.html#mt-01-roles)
+### Slide 13 — Three roles, one boundary · [`#mt-01-roles`](buoi-01.html#mt-01-roles)
 
 **Key points**
 
@@ -348,7 +330,7 @@ The manager's restriction is the subtle one. Aggregated and anonymised means the
 
 **Self-check.** From session 03 onward: call the approve endpoint as the wrong role and confirm the server answers **403**. Hiding the button in the UI is not a permission system.
 
-### Slide 15 — MT-01 across the six gates · [`#mt-01-gates`](buoi-01.html#mt-01-gates)
+### Slide 14 — MT-01 across the six gates · [`#mt-01-gates`](buoi-01.html#mt-01-gates)
 
 **Key points.** The same project seen from each gate, and the check a mentor runs at each one.
 
@@ -371,7 +353,7 @@ G3's check is the one mentors enjoy once they try it: ask the system something i
 
 **Self-check.** Pick any public AI demo and run G3's check on it. Most fail.
 
-### Slide 16 — Scope guard · [`#scope-guard`](buoi-01.html#scope-guard)
+### Slide 15 — Scope guard · [`#scope-guard`](buoi-01.html#scope-guard)
 
 **Key points.** MT-01 deliberately does **not** do:
 
@@ -395,7 +377,7 @@ Then the real point. **Scope creep in week 3 is the single most common way a tea
 
 ## Section 5 — Why the agent sounds certain and is wrong
 
-### Slide 17 — The agent is most confident about what it never checked · [`#agent-guesses`](buoi-01.html#agent-guesses)
+### Slide 16 — The agent is most confident about what it never checked · [`#agent-guesses`](buoi-01.html#agent-guesses)
 
 **The most important slide of the session.**
 
@@ -439,7 +421,7 @@ Write both outputs down **before** you ask the agent anything.
 
 ## The lab — four people, one team, one repo
 
-### Slide 18 — Lab overview · [`#lab-overview`](buoi-01.html#lab-overview)
+### Slide 17 — Lab overview · [`#lab-overview`](buoi-01.html#lab-overview)
 
 **Key points.** Four exercises in 60 minutes, and the six Git moves that are all the GitHub you need for fifteen sessions.
 
@@ -464,7 +446,7 @@ Before releasing the room: anyone whose collaborator invitation is still in thei
 
 **Full lab instructions:** [`buoi-01_ex.md`](buoi-01_ex.md).
 
-### Slides 19 – 20 — Exercise 1.1 · Join the team repo · [`#ex1-brief`](buoi-01.html#ex1-brief)
+### Slides 18 – 19 — Exercise 1.1 · Join the team repo · [`#ex1-brief`](buoi-01.html#ex1-brief)
 
 18 minutes. Clone, **prove the push right**, read the brief, answer three questions with the files closed.
 
@@ -474,13 +456,13 @@ The only step that reliably goes wrong is the permission check, and it fails **s
 gh api repos/UEH-ISB/mt-01-the-odyssey --jq '.permissions.push'   # must be true
 ```
 
-### Slides 21 – 22 — Exercise 1.2 · Your first pull request · [`#ex2-brief`](buoi-01.html#ex2-brief)
+### Slides 20 – 21 — Exercise 1.2 · Your first pull request · [`#ex2-brief`](buoi-01.html#ex2-brief)
 
 22 minutes, and the core exercise of the session. Each person fills in **their own assigned row** of the README team table, so four pull requests merge cleanly and nobody meets a conflict on their first day.
 
 The transferable skill is the output check: **one `+` line and one `−` line**. A diff bigger than the change somebody described is the single most useful warning sign a reviewer has.
 
-### Slides 23 – 24 — Exercise 1.3 · Review, then merge · [`#ex3-brief`](buoi-01.html#ex3-brief)
+### Slides 22 – 23 — Exercise 1.3 · Review, then merge · [`#ex3-brief`](buoi-01.html#ex3-brief)
 
 12 minutes, and the law is the content. The three checks — scope, real username, real question — are a code review shrunk to fit a one-line change. They are the same three questions you ask in week 4 about a guardrail change you cannot read.
 
@@ -489,7 +471,7 @@ Two things the room gets wrong, both worth naming:
 - **merged but never pulled** — merging changed GitHub; your laptop finds out when you ask it to;
 - **approved without opening `Files changed`** — signing a blank page, and contagious, because a team copies what a mentor does rather than what a mentor says.
 
-### Slides 25 – 26 — Exercise 1.4 · Demand the command · [`#ex4-brief`](buoi-01.html#ex4-brief)
+### Slides 24 – 25 — Exercise 1.4 · Demand the command · [`#ex4-brief`](buoi-01.html#ex4-brief)
 
 8 minutes, and it carries the session's one transferable idea. Two questions, one per turn, then run both commands and write a four-part journal line: **claim · truth · cause · command**.
 
@@ -501,7 +483,7 @@ If the agent is careful and runs the command first — newer ones often do — t
 
 ## Summary, Q&A, references
 
-### Slide 27 — Six things to take away · [`#summary`](buoi-01.html#summary)
+### Slide 26 — Six things to take away · [`#summary`](buoi-01.html#summary)
 
 1. **Two jobs** — set the requirement, accept the work. Never write it for them.
 2. **A gate is a gate** — three days late at G2 means G3 cannot be on time.
@@ -582,7 +564,7 @@ gh api -X PUT "repos/UEH-ISB/mt-01-the-odyssey/collaborators/<github-username>" 
 **On the day, before the session:**
 
 ```bash
-git ls-files | wc -l     # today's number for slide 17 — it grows as the course grows
+git ls-files | wc -l     # today's number for slide 16 — it grows as the course grows
 make test                # must be 2 passed, 3 errors
 ```
 
