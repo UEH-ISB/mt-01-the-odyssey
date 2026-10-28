@@ -10,7 +10,7 @@ repo dự án. Mentor không phải mở tài liệu nào bên ngoài.
 |---|---|
 | **Đề xuyên suốt** | [MT-01 — Hệ thống AI agent chuẩn hóa chất lượng đào tạo đại học](../de-bai.md) · case TTN–UEH |
 | **Khung đánh giá** | [Gates G1–G6 · 10 deliverables · rubric 6×5](00-khung-danh-gia.md) — nguồn duy nhất, mọi buổi trỏ về đây |
-| **Repo mẫu** | [`repo-mau/`](repo-mau/) — template chính thức, đã lược + giáo trình và slide copy vào repo: **94 file → 70 file** |
+| **Repo mẫu** | [`repo-mau/`](repo-mau/) — template chính thức, đã lược + giáo trình, slide và hướng dẫn cài đặt copy vào repo: **94 file → 100 file** |
 | **Giáo trình vận hành** (song song) | [../../02_Quy_trinh_mentor/Giao_trinh_mentor_moi/](../../02_Quy_trinh_mentor/Giao_trinh_mentor_moi/index.html) — 12 buổi coaching, mentor duty, cách chấm Gate |
 
 ## Bốn nguyên tắc
@@ -32,9 +32,10 @@ Không viết lại khung. `repo-mau/dung-repo.sh` clone
 hai mục** cả 15 buổi không dùng tới — `docs/guide/` (37 file tài liệu song song) và
 `docs/COHORT3_REPORT.md`. Hai mục đó là 3/4 dung lượng template. Mọi file còn lại đều có buổi dùng
 tới; bảng lược-giữ kèm lý do ở `repo-mau/overlay/DA-LUOC.md`. Script thêm vào đó quy tắc cho agent,
-dữ liệu tập, đề bài, **giáo trình** (`docs/giao-trinh/`) và **slide đã dựng sẵn**
-(`docs/giao-trinh/slide/*.html`, mở bằng trình duyệt là chạy) — **không thêm dòng code nào**; code
-là bài của học viên. **94 file → 70 file**, và số này tăng khi soạn xong buổi 03–15.
+dữ liệu tập, đề bài, **giáo trình** (`docs/giao-trinh/`), **slide đã dựng sẵn**
+(`docs/giao-trinh/slide/*.html`, mở bằng trình duyệt là chạy) và **hướng dẫn cài đặt môi trường**
+(`docs/installations.md` + 25 ảnh chụp màn hình) — **không thêm dòng code nào**; code là bài của
+học viên. **94 file → 100 file**, và số này tăng khi soạn xong các buổi còn lại.
 
 **4. Mỗi buổi để lại hiện vật.**
 Không đảo thứ tự buổi. Mỗi buổi kết thúc bằng một thứ kiểm được trong repo, không kết thúc bằng
@@ -140,8 +141,10 @@ Odyssey chưa có cohort nào.
   vào `develop`). Giáo trình **giữ nguyên ba chỗ đó làm bài học buổi 02**, không sửa sẵn.
 - Danh mục version thư viện **có ngày hết hạn** — review lại đầu mỗi cohort trước khi dạy.
 - MT-01 là **đề tập**, không phải sản phẩm triển khai cho Trường Tài năng. Không dùng dữ liệu sinh viên thật.
-- Giáo trình hiện có **buổi 01 và 02**. Buổi 03–15 là bảng nội dung + hiện vật, chưa soạn chi tiết.
-  Nói rõ điều này với người học thay vì để họ phát hiện ở buổi 03.
+- Giáo trình hiện có **buổi 01, 02 và 03**. Buổi 03 phát hành dưới dạng **slide + sách bài tập +
+  lecture note** (`slide/buoi-03.html`, `buoi-03_ex.md`, `buoi-3_lecture_note.md`), chưa có file
+  `buoi-03.md` theo khuôn hai buổi đầu. Buổi 04–15 mới là bảng nội dung + hiện vật, chưa soạn chi
+  tiết. Nói rõ điều này với người học thay vì để họ phát hiện giữa khoá.
 
 ---
 

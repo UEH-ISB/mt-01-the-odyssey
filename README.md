@@ -9,9 +9,10 @@ Bạn **không cần biết code**. Bạn cần chạy được vài lệnh và 
 |---|---|
 | **Giáo trình 15 buổi** | [`docs/giao-trinh/`](docs/giao-trinh/) — bài học, khung đánh giá (Gates, deliverables, rubric). Nguồn duy nhất, nằm ngay trong repo |
 | **Slide bài giảng** | [`docs/giao-trinh/slide/`](docs/giao-trinh/slide/) — file HTML độc lập, tải về mở bằng trình duyệt. `←/→` chuyển slide · `N` hiện ghi chú người trình bày · `Ctrl/Cmd+P` in ra PDF |
+| **Cài đặt môi trường** | [`docs/installations.md`](docs/installations.md) — từng bước, kèm 25 ảnh chụp màn hình. Làm trước buổi 02 |
 | **Đề bài** | [`docs/de-bai.md`](docs/de-bai.md) — MT-01, hệ thống AI agent chuẩn hóa chất lượng đào tạo |
 | **Quy tắc cho agent** | [`CLAUDE.md`](CLAUDE.md) · [`.agents/rules/hoc-cung-ai.md`](.agents/rules/hoc-cung-ai.md) |
-| **Repo này đã lược gì** | [`DA-LUOC.md`](DA-LUOC.md) — template 94 file → repo này 70 file, kèm lý do từng mục |
+| **Repo này đã lược gì** | [`DA-LUOC.md`](DA-LUOC.md) — template 94 file → repo này 100 file, kèm lý do từng mục |
 
 ---
 
