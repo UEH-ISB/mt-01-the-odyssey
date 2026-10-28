@@ -435,6 +435,13 @@ Ask the room to hold questions for the Q&amp;A at the end, except questions abou
   </g>
   <text x="842" y="321" font-size="17" fill="#48515E">read / write</text>
   <text x="1242" y="321" font-size="17" fill="#48515E">retrieve context</text>
+  <!-- cache + queue (supporting, not covered in depth) -->
+  <rect x="30" y="362" width="380" height="132" rx="12" fill="#FFFFFF" stroke="#6B4A0C" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="62" y="396" font-size="20" font-weight="700" fill="#6B4A0C">+ Cache &amp; queue</text>
+  <text x="62" y="426" font-size="17" fill="#16202E"><tspan font-weight="600">Cache</tspan> · Redis — fast, short-lived reads</text>
+  <text x="62" y="452" font-size="17" fill="#16202E"><tspan font-weight="600">Queue</tspan> · SQS — long jobs for a worker</text>
+  <text x="62" y="478" font-size="15" font-style="italic" fill="#48515E">stores in block 4 · used by the Back-End</text>
+  <line x1="414" y1="428" x2="676" y2="428" stroke="#6B4A0C" stroke-width="2" stroke-dasharray="6 5"/>
   <!-- devops -->
   <g stroke="#B08A3E" stroke-width="2" stroke-dasharray="5 6" fill="none">
     <line x1="425" y1="286" x2="425" y2="566"/>
@@ -451,7 +458,9 @@ Read the arrows as conversations, not one-way pipes. Each link has a request goi
 
 The agent's model does not have to be a large hosted LLM. A tiny AI model — a small language model with roughly a few hundred million to a few billion parameters, such as the small Phi, Gemma, Qwen or Llama variants — can run locally for narrow tasks like classification, routing or extraction. LangGraph and LangChain orchestrate either kind of model in the same way.
 
-The LLM provider has a dashed border because it is not ours. It is an external service, paid per call, and it can be swapped — or replaced by a local tiny model where quality allows.</aside>
+The LLM provider has a dashed border because it is not ours. It is an external service, paid per call, and it can be swapped — or replaced by a local tiny model where quality allows.
+
+The dashed box on the left adds two components real systems often need. A cache, such as Redis, keeps short-lived data close for fast reads. A queue, such as AWS SQS, holds long jobs — for example a syllabus review — so the Back-End can answer at once and a worker runs the job later. Both are stores, so they sit with block 4; the code that uses them lives in the Back-End. This chapter only names them — add them only when the project needs them, with the reason in an ADR.</aside>
 </section>
 
 <!-- ============ 4 · RESTAURANT ============ -->
@@ -729,7 +738,7 @@ Connect scalability to the next sections: because the LLM call is slow, the back
   </g>
   <g font-size="13" fill="#48515E" text-anchor="middle"><text x="414" y="76">JSON</text><text x="658" y="76">task</text></g>
   <rect x="446" y="166" width="424" height="30" rx="8" fill="#F3ECE2" stroke="#6B4A0C" stroke-width="1.5"/>
-  <text x="658" y="187" text-anchor="middle" font-size="16" font-weight="600">Database · <tspan fill="#6B4A0C" font-weight="700">PostgreSQL</tspan></text>
+  <text x="658" y="187" text-anchor="middle" font-size="16" font-weight="600">Database · <tspan fill="#6B4A0C" font-weight="700">PostgreSQL</tspan> <tspan fill="#48515E" font-weight="400">(+ cache · queue, if needed)</tspan></text>
   <rect x="0" y="206" width="1030" height="30" rx="8" fill="#E8B34A"/>
   <text x="515" y="227" text-anchor="middle" font-size="16" font-weight="600">DevOps · <tspan font-weight="700">AWS</tspan> — build, test, deploy, monitor every block</text>
 </svg>
@@ -739,7 +748,7 @@ Connect scalability to the next sections: because the LLM call is slow, the back
 <tr><td>Front-End</td><td>pages per role: chat, report, dashboard</td><td class="te">React</td><td>3-role login; scalable and production-ready (slide 10)</td></tr>
 <tr><td>Back-End</td><td>checks the role, applies rules, calls the agent</td><td class="te">FastAPI</td><td>friendly language (Python, like the agent); <code>async</code>/<code>await</code> serves many requests at once; refuses “approve” from other roles (403)</td></tr>
 <tr><td>AI Agent</td><td>answers and reviews from approved material</td><td class="te">LangGraph</td><td>several steps: find, cite, refuse; pause until the lecturer approves</td></tr>
-<tr><td>Database</td><td>users, syllabi, reports, approved material</td><td class="te">PostgreSQL</td><td>free; linked records + <code>PENDING</code> status; no paid vector DB</td></tr>
+<tr><td>Database</td><td>users, syllabi, reports, approved material; optional cache + job queue</td><td class="te">PostgreSQL</td><td>free; linked records + <code>PENDING</code> status; no paid vector DB</td></tr>
 <tr><td>DevOps</td><td>build, test, deploy, monitor</td><td class="te">AWS</td><td>professional and reliable cloud for “Web app deploy công khai”</td></tr>
 </table>
 <p class="nt">Open decision for the team: de-bai.md says “Streamlit trước” for the basic version — React now, or later?</p>
@@ -752,7 +761,7 @@ The task has three parts: a general function for each of the five blocks, what f
 
 The input is one file, de-bai.md, plus the knowledge from slides 3 to 6 and Claude Code as the tool. The output is one file with a block diagram and a table. The technologies shown — React, FastAPI, LangGraph, PostgreSQL, AWS — are the potential stack this course uses, and each reason must point to a line in de-bai.md or to a property the team needs: React for a three-role login that scales to production; FastAPI because Python is a friendly language shared with the agent, async and await let one server handle many requests at once, and the server must return 403; a multi-step agent with lecturer approval; no paid vector database; AWS because a public deployment needs a professional, reliable cloud.
 
-One conflict is left open on purpose: de-bai.md says Streamlit first for the basic version. The team decides and writes the reason down; the mentor does not decide for them.</aside>
+The Database row also allows an optional cache and job queue — the team adds them only if MT-01 needs them, for example if syllabus reviews run long. One conflict is left open on purpose: de-bai.md says Streamlit first for the basic version. The team decides and writes the reason down; the mentor does not decide for them.</aside>
 </section>
 
 <!-- ============ 6b · EXERCISE 1: STEPS WITH CLAUDE CODE ============ -->
