@@ -64,3 +64,7 @@ out/
 !data/rubric.yaml
 !data/plo.md
 !data/de-cuong/
+
+# The Odyssey: chan moi bien the .env, tru file mau.
+.env.*
+!.env.example
