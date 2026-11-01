@@ -293,10 +293,11 @@ Goal for the end of the session: everyone can draw the five blocks, explain each
 <p style="font-size:44px;font-weight:700;color:#1C6B72;line-height:1">2</p>
 <h3 style="font-size:30px;font-weight:600;line-height:1.2">Front-End</h3>
 <ul style="list-style:none;padding-left:0;font-size:21px;line-height:1.35;color:#48515E">
-<li>2.1 Interface patterns</li>
-<li>2.2 React and Next.js</li>
-<li>2.3 Chat interface anatomy</li>
-<li>2.4 Evaluation metrics</li>
+<li>2.1 HTML, CSS, JavaScript</li>
+<li>2.2 Interface patterns</li>
+<li>2.3 React and Next.js</li>
+<li>2.4 Chat interface anatomy</li>
+<li>2.5 Evaluation metrics</li>
 <li style="color:#B07A12;font-weight:600">▸ Exercise 1.2 · FE skeleton</li>
 </ul>
 </div>
@@ -745,7 +746,7 @@ Connect scalability to the next sections: because the LLM call is slow, the back
 <p class="os">Blocks · function · potential technology · reason from de-bai.md</p>
 <table class="tt" style="font-size:17px">
 <tr><th style="width:13%">Block</th><th style="width:31%">General function</th><th style="width:14%">Technology</th><th>Reason (de-bai.md)</th></tr>
-<tr><td>Front-End</td><td>pages per role: chat, report, dashboard</td><td class="te">React</td><td>3-role login; scalable and production-ready (slide 10)</td></tr>
+<tr><td>Front-End</td><td>pages per role: chat, report, dashboard</td><td class="te">React</td><td>3-role login; scalable and production-ready (slide 11)</td></tr>
 <tr><td>Back-End</td><td>checks the role, applies rules, calls the agent</td><td class="te">FastAPI</td><td>friendly language (Python, like the agent); <code>async</code>/<code>await</code> serves many requests at once; refuses “approve” from other roles (403)</td></tr>
 <tr><td>AI Agent</td><td>answers and reviews from approved material</td><td class="te">LangGraph</td><td>several steps: find, cite, refuse; pause until the lecturer approves</td></tr>
 <tr><td>Database</td><td>users, syllabi, reports, approved material; optional cache + job queue</td><td class="te">PostgreSQL</td><td>free; linked records + <code>PENDING</code> status; no paid vector DB</td></tr>
@@ -829,8 +830,86 @@ The right column compares the three files that change how Claude works, from sof
 The red box lists what stays manual: secrets, reviewing CLAUDE.md, the technology decision, and reading hook commands. The keywords are search terms for self-study.</aside>
 </section>
 
+<!-- ============ 7a · FE: HTML / CSS / JS ============ -->
+<section id="fe-basics" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:96px 128px 96px;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:14px">
+<p class="eyebrow">Section 2 · Front-End</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:52px;font-weight:600;line-height:1.1">Every web page is built from three blocks: HTML, CSS, JavaScript</h2>
+</div>
+<div style="display:flex;gap:26px;align-items:stretch">
+<!-- HTML -->
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:22px 26px;border:1px solid #D9DBD4;border-top:6px solid #1C6B72;border-radius:14px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><h3 style="font-size:40px;font-weight:700;color:#1C6B72">HTML</h3><p style="font-size:20px;font-weight:600;color:#16202E">Structure · the skeleton</p></div>
+<p style="font-size:16px" class="aka">HyperText Markup Language</p>
+<p style="font-size:19px;line-height:1.42;color:#48515E"><b style="color:#16202E">Restaurant:</b> walls, rooms, tables and the list of dishes on the menu. It says <b style="color:#16202E">what is there</b>, not how it looks.</p>
+<svg width="484" height="96" viewBox="0 0 484 96">
+  <rect x="0" y="0" width="484" height="96" rx="8" fill="#FFFFFF" stroke="#D9DBD4" stroke-width="1.5"/>
+  <text x="16" y="30" font-size="15" font-family="Georgia, serif" fill="#000000">Ask a question</text>
+  <rect x="16" y="44" width="300" height="30" fill="#FFFFFF" stroke="#16202E" stroke-width="1"/>
+  <rect x="326" y="44" width="62" height="30" fill="#E4E4E4" stroke="#7E8A96" stroke-width="1"/>
+  <text x="357" y="64" text-anchor="middle" font-size="14" font-family="Arial, sans-serif" fill="#000000">Send</text>
+  <text x="470" y="88" text-anchor="end" font-size="12" font-style="italic" fill="#7E8A96">HTML only</text>
+</svg>
+<pre class="code" style="font-size:16px;line-height:1.4;padding:12px 16px"><span class="k">&lt;form</span> id="chat"<span class="k">&gt;</span>
+  <span class="k">&lt;input</span> name="q"<span class="k">&gt;</span>
+  <span class="k">&lt;button&gt;</span>Send<span class="k">&lt;/button&gt;</span>
+<span class="k">&lt;/form&gt;</span></pre>
+<p style="font-size:17px;line-height:1.4;color:#7E8A96;margin-top:auto"><b style="color:#A3302A">Without it:</b> there is no page at all — nothing to style, nothing to click.</p>
+</div>
+<!-- CSS -->
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:22px 26px;border:1px solid #D9DBD4;border-top:6px solid #E8B34A;border-radius:14px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><h3 style="font-size:40px;font-weight:700;color:#B07A12">CSS</h3><p style="font-size:20px;font-weight:600;color:#16202E">Presentation · the décor</p></div>
+<p style="font-size:16px" class="aka">Cascading Style Sheets</p>
+<p style="font-size:19px;line-height:1.42;color:#48515E"><b style="color:#16202E">Restaurant:</b> paint, lighting, table layout, the menu's fonts and colours. Same room, a <b style="color:#16202E">different look and feel</b>.</p>
+<svg width="484" height="96" viewBox="0 0 484 96">
+  <rect x="0" y="0" width="484" height="96" rx="8" fill="#F6F6F2" stroke="#D9DBD4" stroke-width="1.5"/>
+  <text x="16" y="30" font-size="15" font-weight="600" fill="#16202E">Ask a question</text>
+  <rect x="16" y="42" width="360" height="36" rx="18" fill="#FFFFFF" stroke="#7E8A96" stroke-width="1.5"/>
+  <text x="34" y="65" font-size="13" fill="#7E8A96">Ask anything…</text>
+  <circle cx="404" cy="60" r="19" fill="#1C6B72"/><path d="M396 60h15M405 54l6 6-6 6" stroke="#FFFFFF" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="470" y="88" text-anchor="end" font-size="12" font-style="italic" fill="#7E8A96">+ CSS</text>
+</svg>
+<pre class="code" style="font-size:16px;line-height:1.4;padding:12px 16px"><span class="k">#chat button</span> {
+  background: #1C6B72;
+  border-radius: 50%;
+}</pre>
+<p style="font-size:17px;line-height:1.4;color:#7E8A96;margin-top:auto"><b style="color:#A3302A">Without it:</b> the page still works, but looks like plain black text on white.</p>
+</div>
+<!-- JS -->
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:22px 26px;border:1px solid #D9DBD4;border-top:6px solid #16202E;border-radius:14px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><h3 style="font-size:40px;font-weight:700;color:#16202E">JavaScript</h3><p style="font-size:20px;font-weight:600;color:#16202E">Behaviour · the function</p></div>
+<p style="font-size:16px" class="aka">JS · the programming language of the browser</p>
+<p style="font-size:19px;line-height:1.42;color:#48515E"><b style="color:#16202E">Restaurant:</b> the front-of-house staff: notice the guest's wave, write the ticket, <b style="color:#16202E">send it to the kitchen</b> (API call), serve the dish.</p>
+<svg width="484" height="96" viewBox="0 0 484 96">
+  <rect x="0" y="0" width="484" height="96" rx="8" fill="#F6F6F2" stroke="#D9DBD4" stroke-width="1.5"/>
+  <rect x="250" y="10" width="170" height="24" rx="12" fill="#1C6B72"/><text x="264" y="27" font-size="12" fill="#FFFFFF">Reset my password?</text>
+  <rect x="16" y="38" width="270" height="24" rx="12" fill="#EDEDE7"/><text x="30" y="55" font-size="12" fill="#16202E">1. Open Settings → Security …</text>
+  <rect x="16" y="68" width="360" height="22" rx="11" fill="#FFFFFF" stroke="#7E8A96" stroke-width="1.2"/>
+  <circle cx="404" cy="79" r="12" fill="#1C6B72"/><path d="M398 79h10M404 75l4 4-4 4" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="470" y="27" text-anchor="end" font-size="12" font-style="italic" fill="#7E8A96">+ JS</text>
+</svg>
+<pre class="code" style="font-size:16px;line-height:1.4;padding:12px 16px">chat.onsubmit = <span class="k">async</span> (e) =&gt; {
+  <span class="h">const</span> res = <span class="k">await fetch</span>(<span class="h">"/api/chat"</span>, …);
+  showAnswer(<span class="k">await</span> res.json());
+};</pre>
+<p style="font-size:17px;line-height:1.4;color:#7E8A96;margin-top:auto"><b style="color:#A3302A">Without it:</b> a static poster — the Send button does nothing, no order reaches the kitchen.</p>
+</div>
+</div>
+<div style="display:flex;gap:22px;align-items:center;background:#16202E;padding:18px 32px;border-radius:12px">
+<svg class="ic" style="width:44px;height:44px;color:#7FC4C9"><use href="#i-browser"/></svg>
+<p style="font-size:21px;line-height:1.42;color:#BFD0D8">The <b style="color:#F6F6F2">browser</b> puts them together: it reads HTML, applies CSS, runs JS — and JS talks to the <b style="color:#E8B34A">Back-End</b> over HTTP + JSON. <b style="color:#F6F6F2">React</b> and <b style="color:#F6F6F2">Next.js</b> do not replace the three — they <b style="color:#E8B34A">generate</b> HTML, CSS and JS for you, organised as components.</p>
+</div>
+<aside>Before talking about chat interfaces and frameworks, give non-developers the three words every front-end discussion uses. Any web page, however modern, reaches the browser as HTML, CSS and JavaScript.
+
+Use the restaurant from section 1. HTML is the building's skeleton and the list of dishes: it says what exists — a form, an input box, a button — but not how it looks. CSS is the décor: colours, fonts, spacing, layout; change the CSS and the same room feels like a different restaurant. JavaScript is the front-of-house staff: it reacts to what the guest does, writes the order, sends it through the waiter to the kitchen (the fetch call to the back-end API) and puts the answer on the table.
+
+Walk the three mock-ups from left to right: the same chat box with HTML only (plain, browser defaults), after CSS (styled), and after JavaScript (it actually sends the question and shows the answer). The "Without it" line under each card is the quickest way to remember the role: no HTML, no page; no CSS, an ugly but working page; no JS, a page that cannot do anything.
+
+The dark strip links to the next slides. Mentors do not need to write these languages. They need to know that React and Next.js are tools that produce HTML, CSS and JS, and that the only place the front-end touches the back-end is the JavaScript call to the API — the waiter in our restaurant.</aside>
+</section>
+
 <!-- ============ 7 · FE: CHAT + DASHBOARD ============ -->
-<section id="fe-patterns" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:100px 128px 100px;display:flex;flex-direction:column;gap:22px">
+<section id="fe-patterns" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:100px 128px 100px;display:flex;flex-direction:column;gap:22px">
 <div style="display:flex;flex-direction:column;gap:14px">
 <p class="eyebrow">Section 2 · Front-End</p>
 <h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Common and widely used interface patterns for AI-aided projects: chat, dashboard</h2>
@@ -1066,7 +1145,7 @@ The last column is the most useful for mentors: every row can be checked without
 <!-- ============ 10a · EXERCISE 2: BRIEF ============ -->
 <section id="ex2-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:84px 128px 88px;display:flex;flex-direction:column;gap:18px">
 <div style="display:flex;flex-direction:column;gap:10px">
-<p class="eyebrow ex">Exercise 1.2 · Front-End · after slides 9–12</p>
+<p class="eyebrow ex">Exercise 1.2 · Front-End · after slides 10–13</p>
 <h2 style="font-family:'Lora', Georgia, serif;font-size:48px;font-weight:600;line-height:1.1">Design the MT-01 front-end: roles → pages → APIs</h2>
 </div>
 <div style="flex:1;display:flex;gap:24px;align-items:stretch">
@@ -1078,7 +1157,7 @@ The last column is the most useful for mentors: every row can be checked without
 <div class="card" style="border-left-color:#E8B34A">
 <p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
 <div class="inp" style="font-size:16px">
-<b>Knowledge</b><span>React basics — components, props, state, routing (self-learn with Claude) · chat and dashboard patterns (slide 9)</span>
+<b>Knowledge</b><span>React basics — components, props, state, routing (self-learn with Claude) · chat and dashboard patterns (slide 10)</span>
 <b>Tools</b><span>Claude Code · React + Vite + TypeScript · optional <code>frontend-design</code> / Figma</span>
 <b>Files</b><span><code class="path">docs/de-bai.md</code> · <code class="path">ARCHITECTURE_5BLOCK.md</code> (Ex 1.1)</span>
 </div>
@@ -1183,13 +1262,13 @@ The last column is the most useful for mentors: every row can be checked without
 </div>
 </div>
 </div>
-<aside>Exercise 1.2 applies slides 9 to 12 to MT-01. Same format as exercise 1.1: task, input and tools, expected output.
+<aside>Exercise 1.2 applies slides 10 to 13 to MT-01. Same format as exercise 1.1: task, input and tools, expected output.
 
 The task starts from two files: de-bai.md and the team's 5-block map from exercise 1.1. From them the team proposes the pages and components each role needs, writes the UI-UX documents, and lists the APIs the pages will call. No running app is required yet; this is a design draft.
 
 The input includes React basics. Learners who have never used React learn components, props, state and routing with Claude as a tutor — ask for a short explanation with one small example, then check it in the official docs.
 
-Read the figure as roles, then pages, then components, then APIs. The two key pages are the two patterns from slide 9: the student Chat, the asking pattern, and the manager Dashboard, the watching pattern with totals only. The lecturer pages are capability B: upload, read the report criterion by criterion, approve. The dark chips under each page are the API calls that page needs — this list is exactly the input for exercise 1.3. The left column shows where it is written: SPEC.md holds roles, pages and APIs; UX.md flows and states; the src folders are the code structure the plan will fill.</aside>
+Read the figure as roles, then pages, then components, then APIs. The two key pages are the two patterns from slide 10: the student Chat, the asking pattern, and the manager Dashboard, the watching pattern with totals only. The lecturer pages are capability B: upload, read the report criterion by criterion, approve. The dark chips under each page are the API calls that page needs — this list is exactly the input for exercise 1.3. The left column shows where it is written: SPEC.md holds roles, pages and APIs; UX.md flows and states; the src folders are the code structure the plan will fill.</aside>
 </section>
 
 <!-- ============ 10b · EXERCISE 2: STEPS ============ -->
@@ -1538,7 +1617,7 @@ The strip at the bottom is the general pattern every endpoint follows, whatever 
 <!-- ============ 14a · EXERCISE 3: BRIEF ============ -->
 <section id="ex3-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:84px 128px 88px;display:flex;flex-direction:column;gap:18px">
 <div style="display:flex;flex-direction:column;gap:10px">
-<p class="eyebrow ex">Exercise 1.3 · Back-End · after slides 15–18</p>
+<p class="eyebrow ex">Exercise 1.3 · Back-End · after slides 16–19</p>
 <h2 style="font-family:'Lora', Georgia, serif;font-size:48px;font-weight:600;line-height:1.1">Design the FastAPI back-end behind the MT-01 pages</h2>
 </div>
 <div style="flex:1;display:flex;gap:24px;align-items:stretch">
@@ -1557,7 +1636,7 @@ The strip at the bottom is the general pattern every endpoint follows, whatever 
 <div class="card" style="border-left-color:#E8B34A">
 <p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
 <div class="inp" style="font-size:16px">
-<b>Knowledge</b><span>Python, HTTP / REST, FastAPI basics (self-learn with Claude) · the endpoint pattern (slide 18)</span>
+<b>Knowledge</b><span>Python, HTTP / REST, FastAPI basics (self-learn with Claude) · the endpoint pattern (slide 19)</span>
 <b>Tools</b><span>Claude Code · FastAPI · Pydantic · Uvicorn · Swagger <code>/docs</code></span>
 <b>Files</b><span><code class="path">de-bai.md</code> · <code class="path">ARCHITECTURE_5BLOCK.md</code> · <code class="path">SPEC.md</code> API list (Ex 1.2)</span>
 </div>
@@ -1652,9 +1731,9 @@ The strip at the bottom is the general pattern every endpoint follows, whatever 
 </table>
 </div>
 </div>
-<aside>Exercise 1.3 applies slides 15 to 18. The input is everything produced so far: de-bai.md, the 5-block map, and the page and API list from exercise 1.2. From these the team proposes the back-end components: the endpoints with their HTTP methods, the contract of each one, the authentication that tells the server who is calling, the layers, and how the back-end connects to the front-end and the agent.
+<aside>Exercise 1.3 applies slides 16 to 19. The input is everything produced so far: de-bai.md, the 5-block map, and the page and API list from exercise 1.2. From these the team proposes the back-end components: the endpoints with their HTTP methods, the contract of each one, the authentication that tells the server who is calling, the layers, and how the back-end connects to the front-end and the agent.
 
-Learners new to Python web servers learn FastAPI with Claude as a tutor, starting from the five-part endpoint pattern on slide 18.
+Learners new to Python web servers learn FastAPI with Claude as a tutor, starting from the five-part endpoint pattern on slide 19.
 
 The figure is the expected picture, read left to right. Pages from exercise 1.2; each page function becomes one call in api.ts and one endpoint, with the role allowed to call it. The approve endpoint is marked "lecturer only" in red because it is the permission that de-bai.md tests. Every request passes through the same layers: routers check the JSON shape and the caller — 422, 401, 403 — services apply the MT-01 rules, and below them the data store and the agent from exercise 1.4.
 
@@ -2147,7 +2226,7 @@ Then walk the two runs on the right. A greeting skips the tool entirely. A weath
 <!-- ============ 20a · EXERCISE 4: BRIEF ============ -->
 <section id="ex4-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:80px 128px 84px;display:flex;flex-direction:column;gap:16px">
 <div style="display:flex;flex-direction:column;gap:10px">
-<p class="eyebrow ex">Exercise 1.4 · AI Agent · after slides 24–26</p>
+<p class="eyebrow ex">Exercise 1.4 · AI Agent · after slides 25–27</p>
 <h2 style="font-family:'Lora', Georgia, serif;font-size:46px;font-weight:600;line-height:1.1">Decide the agent before you build it: five questions</h2>
 </div>
 <div style="flex:1;display:flex;gap:24px;align-items:stretch">
@@ -2161,7 +2240,7 @@ Then walk the two runs on the right. A greeting skips the tool entirely. A weath
 <div class="card" style="border-left-color:#E8B34A;margin-top:6px;padding:12px 20px">
 <p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
 <div class="inp" style="font-size:16px;gap:6px 12px">
-<b>Knowledge</b><span>ML / DL / LLM basics · what an AI agent is: tools, memory, loop · LangGraph (slides 24–26) — self-learn with Claude</span>
+<b>Knowledge</b><span>ML / DL / LLM basics · what an AI agent is: tools, memory, loop · LangGraph (slides 25–27) — self-learn with Claude</span>
 <b>Tools</b><span>Claude Code · LangGraph · an LLM API</span>
 <b>Files</b><span><code class="path">de-bai.md</code> · Ex 1.1 map · <code class="path">SPEC.md</code> (Ex 1.2) · <code class="path">API.md</code> (Ex 1.3) · <code class="path">data/rubric.yaml</code></span>
 </div>
@@ -2184,7 +2263,7 @@ Then walk the two runs on the right. A greeting skips the tool entirely. A weath
 <tr><td><span class="tag opt">limit</span></td><td>no source → refuse · max N steps per request</td></tr>
 <tr><td><span class="tag must">banned</span></td><td>graded homework · personal student data · multi-agent · paid vector DB</td></tr>
 </table>
-<p class="os">③ Flow — a flowchart the program follows (slide 25)</p>
+<p class="os">③ Flow — a flowchart the program follows (slide 26)</p>
 <svg width="1020" height="176" viewBox="0 0 1020 176">
   <g font-size="14" font-weight="700" fill="#7E8A96"><text x="0" y="34">A · assistant</text><text x="0" y="151">B · reviewer</text></g>
   <!-- row A -->
@@ -2231,18 +2310,18 @@ Then walk the two runs on the right. A greeting skips the tool entirely. A weath
 <div class="oh"><p class="of">docs/systems/LANGGRAPH_NOTES.md</p><p class="ol" style="color:#7FC4C9">If LangGraph · general notes</p></div>
 <ul style="font-size:16px;line-height:1.4;color:#48515E;padding:10px 20px 12px 40px;display:grid;grid-template-columns:1fr 1fr;gap:2px 28px">
 <li><b style="color:#16202E">Version</b> installed + pinned · official doc links</li>
-<li><b style="color:#16202E">Graph</b> = state + nodes + edges (slide 25)</li>
+<li><b style="color:#16202E">Graph</b> = state + nodes + edges (slide 26)</li>
 <li><b style="color:#16202E">Checkpointer</b> = saved state between steps</li>
 <li><b style="color:#16202E">Interrupt</b> = pause for a human · details next chapter</li>
 </ul>
 </div>
 </div>
 </div>
-<aside>Exercise 1.4 applies slides 24 to 26. The task is unchanged: before drawing a single node, the team answers five plain questions — what agent, why an agent at all, where it is applied, what it may and may not do, and whether LangGraph is worth it.
+<aside>Exercise 1.4 applies slides 25 to 27. The task is unchanged: before drawing a single node, the team answers five plain questions — what agent, why an agent at all, where it is applied, what it may and may not do, and whether LangGraph is worth it.
 
-The input is everything from exercises 1.1 to 1.3 plus de-bai.md and the rubric file. Learners who are new to machine learning, LLMs and agents learn the basics with Claude as a tutor: ask for a short explanation and one small example, then check it against slides 24 to 26 and the official docs.
+The input is everything from exercises 1.1 to 1.3 plus de-bai.md and the rubric file. Learners who are new to machine learning, LLMs and agents learn the basics with Claude as a tutor: ask for a short explanation and one small example, then check it against slides 25 to 27 and the official docs.
 
-The expected output is AGENT.md with three parts. The Job table says what the agent does per capability and how we know it is done. The Rules table sorts every behaviour into allowed, needs approval, limited and banned — each traceable to de-bai.md. New is part three, the flow: the high-level directed graph from slide 25, one row per capability. Capability A checks the request, looks for approved material, and either answers with a citation or refuses with a reason. Capability B reads the syllabus, checks the six criteria, drafts a report in PENDING and then pauses: the dashed box is the human-in-the-loop interrupt, where the lecturer approves. Only boxes and arrows — state, nodes and code come in the next chapter.
+The expected output is AGENT.md with three parts. The Job table says what the agent does per capability and how we know it is done. The Rules table sorts every behaviour into allowed, needs approval, limited and banned — each traceable to de-bai.md. New is part three, the flow: the high-level directed graph from slide 26, one row per capability. Capability A checks the request, looks for approved material, and either answers with a citation or refuses with a reason. Capability B reads the syllabus, checks the six criteria, drafts a report in PENDING and then pauses: the dashed box is the human-in-the-loop interrupt, where the lecturer approves. Only boxes and arrows — state, nodes and code come in the next chapter.
 
 If the team chooses LangGraph, LANGGRAPH_NOTES.md holds short general notes with the installed version and the official links.</aside>
 </section>
@@ -2255,7 +2334,7 @@ If the team chooses LangGraph, LANGGRAPH_NOTES.md holds short general notes with
 </div>
 <table class="steps v3 roomy" style="font-size:17px">
 <tr><th style="width:21%">Step</th><th style="width:21%">What</th><th style="width:31%">AI-aided — Claude Code <span style="font-weight:400;color:#8E9CAA">(· manual)</span></th><th style="width:27%">Output → main content</th></tr>
-<tr><td class="n">1 · Job, rules, flow <span class="tag today">today</span> <span class="tag man">manual</span></td><td>Answer the five questions; sketch the flow</td><td><span class="pr">“From de-bai, SPEC.md and API.md list candidate jobs and rules with their source line; draw the flow per capability as boxes and arrows. Then interview me.”</span><i>· manual: <b>the team fills and signs off the Rules table</b></i></td><td><b>AGENT.md</b> → Job table, Rules table, Flow (slide 25)</td></tr>
+<tr><td class="n">1 · Job, rules, flow <span class="tag today">today</span> <span class="tag man">manual</span></td><td>Answer the five questions; sketch the flow</td><td><span class="pr">“From de-bai, SPEC.md and API.md list candidate jobs and rules with their source line; draw the flow per capability as boxes and arrows. Then interview me.”</span><i>· manual: <b>the team fills and signs off the Rules table</b></i></td><td><b>AGENT.md</b> → Job table, Rules table, Flow (slide 26)</td></tr>
 <tr><td class="n">2 · Install + docs <span class="tag today">today</span></td><td>LangGraph + current official docs</td><td><span class="pr">“Check my installed version, fetch the official docs, summarise with URLs.”</span><i>· manual: <code>pip install langgraph</code>, read the quickstart</i></td><td><b>requirements.txt</b> → pinned version<br><b>LANGGRAPH_NOTES.md</b> · <b>src/agent/CLAUDE.md</b></td></tr>
 <tr><td class="n">3 · Design the graph <span class="tag later">next</span></td><td>Flow → state, nodes, edges, tools</td><td><kbd>Shift+Tab</kbd> plan mode, starting from the AGENT.md flow</td><td><b>AGENT_GRAPH.md</b> → state schema, Mermaid graph</td></tr>
 <tr><td class="n">4 · Tools + nodes <span class="tag later">next</span></td><td>One tool or node at a time</td><td>Skill <code>add-node</code> · one per prompt</td><td><b>src/agent/tools/ · nodes/</b> + unit tests</td></tr>
@@ -2586,7 +2665,7 @@ Use this as a reference, not a template to copy. A small project may have no cac
 <div style="display:flex;gap:40px;align-items:flex-start">
 <div style="flex:52;display:flex;flex-direction:column;gap:12px">
 <div style="display:flex;gap:18px;align-items:baseline;background:#1E2B3C;padding:10px 22px;border-left:4px solid #E8B34A;border-radius:10px"><p style="font-size:24px;font-weight:700;color:#E8B34A;width:26px">1</p><p style="font-size:20px;line-height:1.4;color:#BFD0D8;flex:1"><b style="color:#F6F6F2">Five blocks</b>, each with one responsibility, connected by API contracts — the agent never faces users directly.</p></div>
-<div style="display:flex;gap:18px;align-items:baseline;background:#1E2B3C;padding:10px 22px;border-left:4px solid #E8B34A;border-radius:10px"><p style="font-size:24px;font-weight:700;color:#E8B34A;width:26px">2</p><p style="font-size:20px;line-height:1.4;color:#BFD0D8;flex:1"><b style="color:#F6F6F2">Front-end</b>: chat for asking, dashboards for watching; judge it by correctness, speed, usability, accessibility.</p></div>
+<div style="display:flex;gap:18px;align-items:baseline;background:#1E2B3C;padding:10px 22px;border-left:4px solid #E8B34A;border-radius:10px"><p style="font-size:24px;font-weight:700;color:#E8B34A;width:26px">2</p><p style="font-size:20px;line-height:1.4;color:#BFD0D8;flex:1"><b style="color:#F6F6F2">Front-end</b>: HTML, CSS, JS are the three base blocks; chat for asking, dashboards for watching; judge it by correctness, speed, usability, accessibility.</p></div>
 <div style="display:flex;gap:18px;align-items:baseline;background:#1E2B3C;padding:10px 22px;border-left:4px solid #E8B34A;border-radius:10px"><p style="font-size:24px;font-weight:700;color:#E8B34A;width:26px">3</p><p style="font-size:20px;line-height:1.4;color:#BFD0D8;flex:1"><b style="color:#F6F6F2">Back-end</b>: validate → authenticate → authorise → run logic → respond; async so the LLM never blocks the server.</p></div>
 <div style="display:flex;gap:18px;align-items:baseline;background:#1E2B3C;padding:10px 22px;border-left:4px solid #E8B34A;border-radius:10px"><p style="font-size:24px;font-weight:700;color:#E8B34A;width:26px">4</p><p style="font-size:20px;line-height:1.4;color:#BFD0D8;flex:1"><b style="color:#F6F6F2">Database</b>: SQL for records (design with an ERD), vector stores for meaning; add only what you need.</p></div>
 <div style="display:flex;gap:18px;align-items:baseline;background:#1E2B3C;padding:10px 22px;border-left:4px solid #E8B34A;border-radius:10px"><p style="font-size:24px;font-weight:700;color:#E8B34A;width:26px">5</p><p style="font-size:20px;line-height:1.4;color:#BFD0D8;flex:1"><b style="color:#F6F6F2">Agent</b>: a stateful directed graph — nodes, edges, state — that can branch and loop, unlike a chain.</p></div>
@@ -2638,7 +2717,7 @@ The reference list is in the order the ideas appeared in the lecture. The first 
 <div id="notes"><h4>Speaker notes</h4><div id="notesbody"></div></div>
 <script>
 (function () {
-  var SECTIONS = {"cover": "Chapter 3 — System Design", "overview": "Section 1 — 5-Block Architecture", "ex1-brief": "Exercise 1.1 — 5-block map and stack", "fe-patterns": "Section 2 — Front-End", "ex2-brief": "Exercise 1.2 — Front-end pages and APIs", "be-overview": "Section 3 — Back-End", "ex3-brief": "Exercise 1.3 — Back-end components and APIs", "db-data": "Section 4 — Database", "ag-foundations": "Section 5 — AI Agent", "ex4-brief": "Exercise 1.4 — Agent job, rules and flow", "devops": "Section 6 — DevOps", "diag-concepts": "Section 7 — Architecture Diagram", "summary": "Summary · Q&A · References"};
+  var SECTIONS = {"cover": "Chapter 3 — System Design", "overview": "Section 1 — 5-Block Architecture", "ex1-brief": "Exercise 1.1 — 5-block map and stack", "fe-basics": "Section 2 — Front-End", "ex2-brief": "Exercise 1.2 — Front-end pages and APIs", "be-overview": "Section 3 — Back-End", "ex3-brief": "Exercise 1.3 — Back-end components and APIs", "db-data": "Section 4 — Database", "ag-foundations": "Section 5 — AI Agent", "ex4-brief": "Exercise 1.4 — Agent job, rules and flow", "devops": "Section 6 — DevOps", "diag-concepts": "Section 7 — Architecture Diagram", "summary": "Summary · Q&A · References"};
   var stage = document.getElementById('stage');
   var slides = Array.prototype.slice.call(stage.querySelectorAll(':scope > section'));
   var notesBody = document.getElementById('notesbody');
