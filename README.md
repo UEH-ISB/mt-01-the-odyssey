@@ -24,7 +24,7 @@ mình**, bằng một Pull Request — không ai sửa thẳng vào `main`.
 | # | Tên | GitHub | Vai mình nhận trong đội | Câu mình chưa rõ về MT-01 |
 |---|---|---|---|---|
 | 1 | LE VAN THE | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |
-| 2 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |
+| 2 | _VU QUANG NGUYEN_ | _https://github.com/vuquangnguyen-gun_ | _No vai_ | _can't remember things_ |
 | 3 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |
 | 4 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |
 | 5 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |
