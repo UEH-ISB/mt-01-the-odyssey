@@ -181,6 +181,62 @@
   #stage table.steps.v3 td { padding:10px 12px; }
   #stage table.steps.v3.roomy td { padding:13px 12px; }
 
+  /* --- data-flow slide: 6 step cards joined by one-way arrows --- */
+  #stage .fl { display:flex; align-items:stretch; }
+  #stage .fc { flex:none; width:216px; display:flex; flex-direction:column; gap:9px; background:#FFFFFF; border:1px solid #D9DBD4;
+               border-top:6px solid #1C6B72; border-radius:12px; padding:12px 14px 14px; }
+  #stage .fc.w1 { width:254px; }
+  #stage .fc.bro { border-top-color:#6B4A0C; }
+  #stage .fc.be { background:#16202E; border-color:#16202E; border-top-color:#E8B34A; }
+  #stage .fc .fh { display:flex; align-items:center; gap:9px; }
+  #stage .fc .fn { flex:none; width:32px; height:32px; border-radius:50%; background:#E8B34A; color:#16202E; font-size:18px;
+                   font-weight:700; text-align:center; line-height:32px; }
+  #stage .fc .fb { flex:1; font-size:13px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#1C6B72; }
+  #stage .fc.bro .fb { color:#6B4A0C; }
+  #stage .fc.be .fb { color:#E8B34A; }
+  #stage .fc .fi { flex:none; width:32px; height:32px; color:#1C6B72; }
+  #stage .fc.bro .fi { color:#6B4A0C; }
+  #stage .fc.be .fi { color:#E8B34A; }
+  #stage .fc .ft { font-size:23px; font-weight:600; line-height:1.18; }
+  #stage .fc.be .ft { color:#F6F6F2; }
+  #stage .fc .rs { background:#F3ECE2; border-radius:8px; padding:7px 10px 8px; font-size:17.5px; line-height:1.36; color:#48515E; }
+  #stage .fc.be .rs { background:#1E2B3C; color:#BFD0D8; }
+  #stage .fc .sy { font-size:17.5px; line-height:1.38; color:#16202E; }
+  #stage .fc.be .sy { color:#F6F6F2; }
+  #stage .fc .tg { display:block; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:2px; }
+  #stage .fc .rs .tg { color:#6B4A0C; }
+  #stage .fc.be .rs .tg { color:#E8B34A; }
+  #stage .fc .sy .tg { color:#1C6B72; }
+  #stage .fc.be .sy .tg { color:#7FC4C9; }
+  #stage .fc .chip { margin-top:auto; align-self:flex-start; display:flex; align-items:center; gap:6px; font-family:'Courier New', monospace;
+                     font-size:13px; font-weight:700; background:#16202E; color:#E8B34A; border-radius:6px; padding:4px 9px; }
+  #stage .fc.be .chip { background:#E8B34A; color:#16202E; }
+  #stage .fc .chip svg { width:16px; height:16px; color:inherit; }
+  #stage .fa { flex:none; width:66px; align-self:center; display:flex; flex-direction:column; align-items:center; gap:3px;
+               font-size:14px; font-weight:600; line-height:1.15; text-align:center; color:#48515E; }
+
+  /* --- SDLC slide: six life-cycle blocks, this chapter = steps 1-3 --- */
+  #stage .sdr { display:flex; align-items:stretch; }
+  #stage .sd { flex:1; display:flex; flex-direction:column; gap:12px; border-radius:14px; padding:18px 18px 18px; }
+  #stage .sd.on { background:#FFFFFF; border:2px solid #E8B34A; border-top:8px solid #E8B34A; }
+  #stage .sd.off { background:#EDEDE7; border:1.5px dashed #A9B1B9; border-top:8px solid #C9CCC4; }
+  #stage .sd .sh { display:flex; align-items:center; gap:12px; }
+  #stage .sd .sn { flex:none; width:40px; height:40px; border-radius:50%; font-size:22px; font-weight:700; text-align:center; line-height:40px; }
+  #stage .sd.on .sn { background:#E8B34A; color:#16202E; }
+  #stage .sd.off .sn { background:#C9CCC4; color:#48515E; }
+  #stage .sd .sb { font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#B07A12; }
+  #stage .sd.off .sb { color:#7E8A96; }
+  #stage .sd .st2 { font-size:27px; font-weight:600; line-height:1.15; }
+  #stage .sd.off .st2 { color:#48515E; }
+  #stage .sd .sw { font-size:21px; font-weight:700; line-height:1.3; color:#1C6B72; }
+  #stage .sd.off .sw { color:#6B7580; }
+  #stage .sd .sx { font-size:20px; line-height:1.42; color:#48515E; }
+  #stage .sd.off .sx { color:#6B7580; }
+  #stage .sd .sc { margin-top:auto; align-self:flex-start; font-family:'Courier New', monospace; font-size:14px; font-weight:700;
+                   border-radius:6px; padding:4px 10px; background:#16202E; color:#E8B34A; white-space:nowrap; }
+  #stage .sd.off .sc { background:#D9DBD4; color:#48515E; }
+  #stage .sda { flex:none; width:44px; align-self:center; }
+
   /* --- thanh dieu khien --- */
   #bar { position:fixed; left:0; right:0; bottom:0; height:44px; display:flex; align-items:center;
           gap:18px; padding:0 18px; background:rgba(14,20,28,.92); font-size:13px; color:var(--ui);
@@ -284,8 +340,10 @@ Goal for the end of the session: everyone can draw the five blocks, explain each
 <ul style="list-style:none;padding-left:0;font-size:21px;line-height:1.35;color:#48515E">
 <li>1.1 Overview of the five blocks</li>
 <li>1.2 Restaurant analogy</li>
-<li>1.3 Technical definitions</li>
-<li>1.4 Architectural properties</li>
+<li>1.3 Data flow of one order</li>
+<li>1.4 Technical definitions</li>
+<li>1.5 Architectural properties</li>
+<li>1.6 Software life cycle (SDLC)</li>
 <li style="color:#B07A12;font-weight:600">▸ Exercise 1.1 · 5-block map</li>
 </ul>
 </div>
@@ -577,6 +635,146 @@ Two points deserve a pause. First, the R&amp;D lab is not the kitchen: fixed pro
 The guest never walks into the kitchen, and the R&amp;D lab never serves tables: every order passes through the waiter.</aside>
 </section>
 
+<!-- ============ 5 · DATA FLOW ============ -->
+<section id="dataflow" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:68px 128px 56px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<p class="eyebrow">Section 1 · 5-Block Architecture</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:52px;font-weight:600;line-height:1.1">How one order flows through the system</h2>
+</div>
+<svg width="1664" height="250" viewBox="0 0 1664 250">
+  <!-- users -->
+  <rect x="27" y="10" width="140" height="90" rx="12" fill="#EDEDE7"/>
+  <use href="#i-user" x="77" y="18" width="40" height="40" style="color:#48515E"/>
+  <text x="97" y="84" text-anchor="middle" font-size="20" font-weight="600">Users</text>
+  <!-- front-end -->
+  <rect x="237" y="10" width="300" height="90" rx="12" fill="#FFFFFF" stroke="#D9DBD4" stroke-width="1.5"/>
+  <rect x="237" y="10" width="300" height="6" rx="3" fill="#1C6B72"/>
+  <use href="#i-browser" x="255" y="34" width="40" height="40" style="color:#1C6B72"/>
+  <text x="310" y="58" font-size="25" font-weight="600">Front-End</text>
+  <text x="310" y="82" font-size="16" fill="#48515E">Interface</text>
+  <!-- back-end -->
+  <rect x="787" y="10" width="300" height="90" rx="12" fill="#16202E"/>
+  <rect x="787" y="10" width="300" height="6" rx="3" fill="#E8B34A"/>
+  <use href="#i-server" x="805" y="34" width="40" height="40" style="color:#E8B34A"/>
+  <text x="860" y="58" font-size="25" font-weight="600" fill="#F6F6F2">Back-End</text>
+  <text x="860" y="82" font-size="16" fill="#BFD0D8">Rules &amp; logic</text>
+  <!-- agent -->
+  <rect x="1337" y="10" width="300" height="90" rx="12" fill="#FFFFFF" stroke="#D9DBD4" stroke-width="1.5"/>
+  <rect x="1337" y="10" width="300" height="6" rx="3" fill="#1C6B72"/>
+  <use href="#i-agent" x="1355" y="34" width="40" height="40" style="color:#1C6B72"/>
+  <text x="1410" y="58" font-size="25" font-weight="600">AI Agent</text>
+  <text x="1410" y="82" font-size="16" fill="#48515E">Reasoning + tools</text>
+  <!-- database -->
+  <rect x="787" y="140" width="850" height="54" rx="12" fill="#FFFFFF" stroke="#D9DBD4" stroke-width="1.5"/>
+  <rect x="787" y="140" width="7" height="54" rx="3" fill="#6B4A0C"/>
+  <use href="#i-db" x="808" y="148" width="38" height="38" style="color:#6B4A0C"/>
+  <text x="862" y="175" font-size="25" font-weight="600">Database</text>
+  <text x="1010" y="174" font-size="17" fill="#48515E">Records (SQL) and embeddings (vectors)</text>
+  <!-- devops -->
+  <rect x="27" y="210" width="1610" height="36" rx="10" fill="#E8B34A"/>
+  <use href="#i-gear" x="38" y="214" width="28" height="28" style="color:#16202E"/>
+  <text x="80" y="234" font-size="17" font-weight="700" letter-spacing="3">DEVOPS</text>
+  <text x="190" y="234" font-size="18">builds, tests, deploys and monitors every block</text>
+  <!-- one-way arrows: request lane (teal) and a separate response lane (brown) -->
+  <g stroke="#1C6B72" stroke-width="4" fill="none">
+    <line x1="171" y1="32" x2="233" y2="32" marker-end="url(#ah-t)"/>
+    <line x1="541" y1="32" x2="783" y2="32" marker-end="url(#ah-t)"/>
+    <line x1="1091" y1="32" x2="1333" y2="32" marker-end="url(#ah-t)"/>
+    <line x1="870" y1="104" x2="870" y2="136" marker-end="url(#ah-t)"/>
+    <line x1="1420" y1="104" x2="1420" y2="136" marker-end="url(#ah-t)"/>
+  </g>
+  <g stroke="#6B4A0C" stroke-width="4" fill="none">
+    <line x1="233" y1="80" x2="171" y2="80" marker-end="url(#ah-b)"/>
+    <line x1="783" y1="80" x2="541" y2="80" marker-end="url(#ah-b)"/>
+    <line x1="1333" y1="80" x2="1091" y2="80" marker-end="url(#ah-b)"/>
+    <line x1="910" y1="136" x2="910" y2="104" marker-end="url(#ah-b)"/>
+    <line x1="1460" y1="136" x2="1460" y2="104" marker-end="url(#ah-b)"/>
+  </g>
+  <!-- API pill between front-end and back-end -->
+  <rect x="632" y="44" width="60" height="24" rx="12" fill="#F3ECE2" stroke="#6B4A0C" stroke-width="1.5"/>
+  <text x="662" y="61" text-anchor="middle" font-size="15" font-weight="700" fill="#6B4A0C">API</text>
+  <!-- lane labels -->
+  <g font-size="15" fill="#48515E" text-anchor="middle">
+    <text x="662" y="23">request</text><text x="662" y="100">response</text>
+    <text x="1212" y="23">task</text><text x="1212" y="100">result</text>
+  </g>
+  <g font-size="15" fill="#48515E">
+    <text x="858" y="124" text-anchor="end">write</text><text x="922" y="124">read</text>
+    <text x="1408" y="124" text-anchor="end">query</text><text x="1472" y="124">context</text>
+  </g>
+  <!-- step badges (match the cards below) -->
+  <g font-size="15" font-weight="700" text-anchor="middle">
+    <circle cx="237" cy="10" r="13" fill="#E8B34A"/><text x="237" y="15">1</text>
+    <circle cx="700" cy="56" r="13" fill="#E8B34A"/><text x="700" y="61">2</text>
+    <circle cx="787" cy="10" r="13" fill="#E8B34A"/><text x="787" y="15">3</text>
+    <circle cx="1337" cy="10" r="13" fill="#E8B34A"/><text x="1337" y="15">4</text>
+    <circle cx="787" cy="140" r="13" fill="#E8B34A"/><text x="787" y="145">5</text>
+    <circle cx="590" cy="80" r="13" fill="#E8B34A"/><text x="590" y="85">6</text>
+  </g>
+  <!-- legend -->
+  <g font-size="17" fill="#16202E">
+    <line x1="27" y1="152" x2="77" y2="152" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/>
+    <text x="92" y="158">request: one-way arrow</text>
+    <line x1="77" y1="184" x2="27" y2="184" stroke="#6B4A0C" stroke-width="4" marker-end="url(#ah-b)"/>
+    <text x="92" y="190">response: its own, separate arrow</text>
+    <circle cx="470" cy="152" r="13" fill="#E8B34A"/>
+    <text x="470" y="157" text-anchor="middle" font-size="15" font-weight="700">n</text>
+    <text x="492" y="158">= step number in the flow below</text>
+  </g>
+</svg>
+<div class="fl">
+<div class="fc w1">
+<div class="fh"><span class="fn">1</span><span class="fb">Front-End</span><svg class="fi"><use href="#i-browser"/></svg></div>
+<p class="ft">Guest orders</p>
+<p class="rs"><span class="tg">Restaurant</span>The guest picks a dish from the menu.</p>
+<p class="sy"><span class="tg">In the system</span>The user clicks in the FE, which builds the order ticket as a JSON packet:</p>
+<pre class="code" style="font-size:13px;line-height:1.42;padding:8px 10px;margin-top:auto">{
+ <span class="k">"table_id"</span>: 1,
+ <span class="k">"name"</span>: "A",
+ <span class="k">"dish"</span>: "Duck noodles",
+ <span class="k">"note"</span>: "no spice"
+}</pre>
+</div><div class="fa"><span>JSON</span><svg width="62" height="18" viewBox="0 0 62 18"><line x1="2" y1="9" x2="58" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="fc bro">
+<div class="fh"><span class="fn">2</span><span class="fb">API</span><svg class="fi"><use href="#i-waiter"/></svg></div>
+<p class="ft">Waiter carries it</p>
+<p class="rs"><span class="tg">Restaurant</span>The waiter takes the order slip into the kitchen.</p>
+<p class="sy"><span class="tg">In the system</span>The API takes the JSON packet from the FE and hands it to the BE.</p>
+<span class="chip"><svg><use href="#i-ticket"/></svg>JSON ticket</span>
+</div><div class="fa"><span>JSON</span><svg width="62" height="18" viewBox="0 0 62 18"><line x1="2" y1="9" x2="58" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="fc be">
+<div class="fh"><span class="fn">3</span><span class="fb">Back-End</span><svg class="fi"><use href="#i-chef"/></svg></div>
+<p class="ft">Kitchen cooks</p>
+<p class="rs"><span class="tg">Restaurant</span>The chef cooks the dish from the order slip.</p>
+<p class="sy"><span class="tg">In the system</span>The BE processes the task using the JSON packet it received from the API.</p>
+<span class="chip"><svg><use href="#i-ticket"/></svg>JSON ticket</span>
+</div><div class="fa"><span>task</span><svg width="62" height="18" viewBox="0 0 62 18"><line x1="2" y1="9" x2="58" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="fc ">
+<div class="fh"><span class="fn">4</span><span class="fb">AI Agent</span><svg class="fi"><use href="#i-flask"/></svg></div>
+<p class="ft">Culinary R&amp;D lab</p>
+<p class="rs"><span class="tg">Restaurant</span>A complex dish needs a process: testing, tasting, measuring, many tools. E.g. dough kneaded and mixed by hand becomes an automated system.</p>
+<p class="sy"><span class="tg">In the system</span>The AI agent takes the request from the BE, calls the matching tools and returns the result (the dough) to the BE.</p>
+</div><div class="fa"><span>query</span><svg width="62" height="18" viewBox="0 0 62 18"><line x1="2" y1="9" x2="58" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="fc bro">
+<div class="fh"><span class="fn">5</span><span class="fb">Database</span><svg class="fi"><use href="#i-fridge"/></svg></div>
+<p class="ft">Ingredient store</p>
+<p class="rs"><span class="tg">Restaurant</span>Ingredients wait on labelled shelves.</p>
+<p class="sy"><span class="tg">In the system</span>The BE and the AI agent read the data they need to make the dish.</p>
+</div><div class="fa"><span>data</span><svg width="62" height="18" viewBox="0 0 62 18"><line x1="2" y1="9" x2="58" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="fc be">
+<div class="fh"><span class="fn">6</span><span class="fb">Back-End → API</span><svg class="fi"><use href="#i-ticket"/></svg></div>
+<p class="ft">Dish is served</p>
+<p class="rs"><span class="tg">Restaurant</span>The kitchen finishes the dish and the waiter brings it out to the guest.</p>
+<p class="sy"><span class="tg">In the system</span>The BE finishes and gives the result to the API, which sends it back to the guest's FE.</p>
+<span class="chip"><svg><use href="#i-ticket"/></svg>JSON response</span>
+</div>
+</div>
+<svg width="1664" height="50" viewBox="0 0 1664 50">
+  <path d="M1556 2 V30 H127 V6" fill="none" stroke="#6B4A0C" stroke-width="4" marker-end="url(#ah-b)"/>
+  <text x="842" y="37" text-anchor="middle" font-size="18" font-weight="600" fill="#6B4A0C" stroke="#F6F6F2" stroke-width="10" paint-order="stroke">Step 6 returns the result to the guest — one more one-way arrow, never merged with the request</text>
+</svg>
+<aside>One order, followed from the guest's click to the dish on the table. The small picture at the top is slide 3 again, simplified and shrunk to make room: the numbered badges on it match the six cards below, so the room can see where each step lives.
+
+Read the cards left to right. (1) The guest orders: in software terms a user clicks in the front-end, and the front-end packs the order into a JSON packet, the ticket. (2) The waiter is the API: it carries the ticket from the front-end to the back-end and does not cook anything. (3) The kitchen is the back-end: it processes the task using the packet it received. (4) Only a complex dish goes to the R&amp;D lab, the AI agent: it receives the request from the back-end, calls the right tools and returns the result — the dough in the example — to the back-end, not straight to the guest. (5) The ingredient store is the database: the back-end and the agent both read from it. (6) The back-end finishes the dish and gives it to the API, which sends it out to the guest.
+
+Point at the arrows. Every arrow goes one way. A reply is a separate arrow, drawn in its own colour, never one double-headed line: in the small picture the teal arrows are requests and the brown ones are responses, and the long brown arrow under the cards is the last response going back to the guest. In a real system steps 3 to 5 can repeat — the agent may call several tools and query the database more than once — but the order of responsibility stays the same.</aside>
+</section>
+
 <!-- ============ 5 · DEFINITIONS ============ -->
 <section id="definitions" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:120px 128px 140px;display:flex;flex-direction:column;gap:32px">
 <div style="display:flex;flex-direction:column;gap:14px">
@@ -676,10 +874,74 @@ Separation of concerns comes from Dijkstra's 1974 note "On the role of scientifi
 Connect scalability to the next sections: because the LLM call is slow, the back-end must not block while waiting. That is the reason for async/await in the FastAPI section.</aside>
 </section>
 
+<!-- ============ 6c · SDLC ============ -->
+<section id="sdlc" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:80px 128px 60px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow">Section 1 · 5-Block Architecture</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:54px;font-weight:600;line-height:1.1">Software Development Life Cycle (SDLC)</h2>
+<p style="font-size:24px;line-height:1.4;color:#48515E">Every software project walks the same six steps — MT-01 included. Where does this chapter sit?</p>
+</div>
+<svg width="1664" height="54" viewBox="0 0 1664 54">
+  <path d="M1543.7 52 V24 H120.3 V50" fill="none" stroke="#6B4A0C" stroke-width="4" marker-end="url(#ah-b)"/>
+  <text x="832" y="31" text-anchor="middle" font-size="19" font-weight="600" fill="#6B4A0C" stroke="#F6F6F2" stroke-width="12" paint-order="stroke">Bugs and new requirements send the project back to step 1 — the cycle repeats</text>
+</svg>
+<div class="sdr" style="flex:1">
+<div class="sd on">
+<div class="sh"><span class="sn">1</span><span class="sb">this chapter</span></div>
+<p class="st2">Planning / Requirement</p>
+<p class="sw">Write down the business</p>
+<p class="sx">This is the <b>Business Flow</b> file the mentor keeps mentioning. You need this file before you can tell the AI what you want.</p>
+<span class="sc">Business Flow</span>
+</div><div class="sda"><svg width="44" height="18" viewBox="0 0 44 18"><line x1="2" y1="9" x2="40" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="sd on">
+<div class="sh"><span class="sn">2</span><span class="sb">this chapter</span></div>
+<p class="st2">Design</p>
+<p class="sw">Draw the interface + dummy data</p>
+<p class="sx">To see what the project will look like in the future, before any code exists.</p>
+<span class="sc">mock-ups · dummy data</span>
+</div><div class="sda"><svg width="44" height="18" viewBox="0 0 44 18"><line x1="2" y1="9" x2="40" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="sd on">
+<div class="sh"><span class="sn">3</span><span class="sb">this chapter</span></div>
+<p class="st2">Code</p>
+<p class="sw">Build it with the AI</p>
+<p class="sx">Choose the tech stack, set up the skills, and put <b>CLAUDE.md</b> in.</p>
+<span class="sc">stack · CLAUDE.md</span>
+</div><div class="sda"><svg width="44" height="18" viewBox="0 0 44 18"><line x1="2" y1="9" x2="40" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="sd off">
+<div class="sh"><span class="sn">4</span><span class="sb">later</span></div>
+<p class="st2">Testing</p>
+<p class="sw">Test everything</p>
+<p class="sx">All the code, security and performance. Without this step, the project does not go to production.</p>
+<span class="sc">test · security</span>
+</div><div class="sda"><svg width="44" height="18" viewBox="0 0 44 18"><line x1="2" y1="9" x2="40" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="sd off">
+<div class="sh"><span class="sn">5</span><span class="sb">later</span></div>
+<p class="st2">Deploy</p>
+<p class="sw">Go to the real environment</p>
+<p class="sx">Usually buy a <b>VPS</b> to deploy a real project. Serverless is only for a small landing page or a personal project.</p>
+<span class="sc">VPS</span>
+</div><div class="sda"><svg width="44" height="18" viewBox="0 0 44 18"><line x1="2" y1="9" x2="40" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="sd off">
+<div class="sh"><span class="sn">6</span><span class="sb">later</span></div>
+<p class="st2">Maintain</p>
+<p class="sw">Watch and fix</p>
+<p class="sx">Monitor and observe the running application, and fix bugs.</p>
+<span class="sc">monitor · fix bugs</span>
+</div>
+</div>
+<svg width="1664" height="92" viewBox="0 0 1664 92">
+  <path d="M2 4 V24 H808.0 V4" fill="none" stroke="#B07A12" stroke-width="5"/>
+  <text x="405.0" y="58" text-anchor="middle" font-size="26" font-weight="700" fill="#6B4A0C">THIS CHAPTER: every exercise is about steps 1 · 2 · 3</text>
+  <text x="405.0" y="86" text-anchor="middle" font-size="19" fill="#48515E">Exercises 1.1 – 1.4 plan, design and set up — they do not yet test or deploy</text>
+  <path d="M856.0 4 V24 H1662 V4" fill="none" stroke="#A9B1B9" stroke-width="4" stroke-dasharray="8 6"/>
+  <text x="1259.0" y="58" text-anchor="middle" font-size="22" font-weight="600" fill="#7E8A96">Later chapters</text>
+</svg>
+<aside>Before the first exercise, show where today's work sits in a whole project. This is the software development life cycle: six steps, each feeding the next, and a return arrow because a running application keeps producing bugs and new requirements.
+
+Step 1, Planning or Requirement: write down the business. This is the Business Flow file the mentor keeps mentioning. Without it you cannot tell the AI what you want, so every prompt in the exercises starts from a written source, here docs/de-bai.md. Step 2, Design: draw the interface with dummy data, to see what the project will look like before any code exists. Step 3, Code: choose the tech stack, set up the skills, and put CLAUDE.md in. Step 4, Testing: test all the code, security and performance — without this step the project does not go to production. Step 5, Deploy: move to the real environment. Teams usually buy a VPS for a real project; serverless is only for a small landing page or a personal project. Step 6, Maintain: monitor the running application and fix bugs.
+
+Emphasise the amber bracket: every exercise in this chapter is about steps 1, 2 and 3. Nobody tests or deploys today. If a team starts writing deployment scripts in exercise 1.1, bring them back to the five-block map.</aside>
+</section>
+
 <!-- ============ 6a · EXERCISE 1: BRIEF ============ -->
 <section id="ex1-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
 <div style="display:flex;flex-direction:column;gap:10px">
-<p class="eyebrow ex">Exercise 1.1 · 5-Block Architecture · after slides 3–6</p>
+<p class="eyebrow ex">Exercise 1.1 · 5-Block Architecture · after slides 3–8</p>
 <h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Map MT-01 onto five blocks — with a technology for each</h2>
 </div>
 <div style="flex:1;display:flex;gap:28px;align-items:stretch">
@@ -697,10 +959,10 @@ Connect scalability to the next sections: because the LLM call is slow, the back
 <div class="card" style="flex:1;border-left-color:#E8B34A">
 <p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
 <div class="inp" style="font-size:19px;gap:14px 12px">
-<b>Knowledge</b><span>5-block architecture (slides 3–6) · client–server · roles and permissions</span>
+<b>Knowledge</b><span>5-block architecture (slides 3–8) · client–server · roles and permissions</span>
 <b>Tools</b><span>Claude Code — plan mode, CLAUDE.md, skills, hooks · Mermaid for the diagram</span>
 <b>Files</b><span><code class="path">docs/de-bai.md</code> — “Ba năng lực”, “Ba vai”, “Yêu cầu đầu ra”, “Phạm vi cố tình loại”</span>
-<b>Slides</b><span>3 the five blocks · 4 the restaurant · 5 definitions · 6 properties</span>
+<b>Slides</b><span>3 the five blocks · 4 the restaurant · 5 data flow · 6 definitions · 7 properties · 8 SDLC</span>
 </div>
 </div>
 </div>
@@ -746,7 +1008,7 @@ Connect scalability to the next sections: because the LLM call is slow, the back
 <p class="os">Blocks · function · potential technology · reason from de-bai.md</p>
 <table class="tt" style="font-size:17px">
 <tr><th style="width:13%">Block</th><th style="width:31%">General function</th><th style="width:14%">Technology</th><th>Reason (de-bai.md)</th></tr>
-<tr><td>Front-End</td><td>pages per role: chat, report, dashboard</td><td class="te">React</td><td>3-role login; scalable and production-ready (slide 11)</td></tr>
+<tr><td>Front-End</td><td>pages per role: chat, report, dashboard</td><td class="te">React</td><td>3-role login; scalable and production-ready (slide 13)</td></tr>
 <tr><td>Back-End</td><td>checks the role, applies rules, calls the agent</td><td class="te">FastAPI</td><td>friendly language (Python, like the agent); <code>async</code>/<code>await</code> serves many requests at once; refuses “approve” from other roles (403)</td></tr>
 <tr><td>AI Agent</td><td>answers and reviews from approved material</td><td class="te">LangGraph</td><td>several steps: find, cite, refuse; pause until the lecturer approves</td></tr>
 <tr><td>Database</td><td>users, syllabi, reports, approved material; optional cache + job queue</td><td class="te">PostgreSQL</td><td>free; linked records + <code>PENDING</code> status; no paid vector DB</td></tr>
@@ -756,11 +1018,11 @@ Connect scalability to the next sections: because the LLM call is slow, the back
 </div>
 </div>
 </div>
-<aside>Exercise 1.1 turns slides 3 to 6 into the team's own picture of MT-01. Every exercise today has the same two slides: the first says the task, the input and tools, and the expected output; the second gives the steps, the steps you must do by hand, and keywords for self-study.
+<aside>Exercise 1.1 turns slides 3 to 8 into the team's own picture of MT-01. Every exercise today has the same two slides: the first says the task, the input and tools, and the expected output; the second gives the steps, the steps you must do by hand, and keywords for self-study.
 
 The task has three parts: a general function for each of the five blocks, what flows between them and where the three roles enter, and a technology for each block. Keep it at overview level — if someone starts writing endpoints or table columns, stop them; that is exercises 1.2 and 1.3.
 
-The input is one file, de-bai.md, plus the knowledge from slides 3 to 6 and Claude Code as the tool. The output is one file with a block diagram and a table. The technologies shown — React, FastAPI, LangGraph, PostgreSQL, AWS — are the potential stack this course uses, and each reason must point to a line in de-bai.md or to a property the team needs: React for a three-role login that scales to production; FastAPI because Python is a friendly language shared with the agent, async and await let one server handle many requests at once, and the server must return 403; a multi-step agent with lecturer approval; no paid vector database; AWS because a public deployment needs a professional, reliable cloud.
+The input is one file, de-bai.md, plus the knowledge from slides 3 to 8 and Claude Code as the tool. The output is one file with a block diagram and a table. The technologies shown — React, FastAPI, LangGraph, PostgreSQL, AWS — are the potential stack this course uses, and each reason must point to a line in de-bai.md or to a property the team needs: React for a three-role login that scales to production; FastAPI because Python is a friendly language shared with the agent, async and await let one server handle many requests at once, and the server must return 403; a multi-step agent with lecturer approval; no paid vector database; AWS because a public deployment needs a professional, reliable cloud.
 
 The Database row also allows an optional cache and job queue — the team adds them only if MT-01 needs them, for example if syllabus reviews run long. One conflict is left open on purpose: de-bai.md says Streamlit first for the basic version. The team decides and writes the reason down; the mentor does not decide for them.</aside>
 </section>
@@ -1145,7 +1407,7 @@ The last column is the most useful for mentors: every row can be checked without
 <!-- ============ 10a · EXERCISE 2: BRIEF ============ -->
 <section id="ex2-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:84px 128px 88px;display:flex;flex-direction:column;gap:18px">
 <div style="display:flex;flex-direction:column;gap:10px">
-<p class="eyebrow ex">Exercise 1.2 · Front-End · after slides 10–13</p>
+<p class="eyebrow ex">Exercise 1.2 · Front-End · after slides 12–15</p>
 <h2 style="font-family:'Lora', Georgia, serif;font-size:48px;font-weight:600;line-height:1.1">Design the MT-01 front-end: roles → pages → APIs</h2>
 </div>
 <div style="flex:1;display:flex;gap:24px;align-items:stretch">
@@ -1157,7 +1419,7 @@ The last column is the most useful for mentors: every row can be checked without
 <div class="card" style="border-left-color:#E8B34A">
 <p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
 <div class="inp" style="font-size:16px">
-<b>Knowledge</b><span>React basics — components, props, state, routing (self-learn with Claude) · chat and dashboard patterns (slide 10)</span>
+<b>Knowledge</b><span>React basics — components, props, state, routing (self-learn with Claude) · chat and dashboard patterns (slide 12)</span>
 <b>Tools</b><span>Claude Code · React + Vite + TypeScript · optional <code>frontend-design</code> / Figma</span>
 <b>Files</b><span><code class="path">docs/de-bai.md</code> · <code class="path">ARCHITECTURE_5BLOCK.md</code> (Ex 1.1)</span>
 </div>
@@ -1262,13 +1524,13 @@ The last column is the most useful for mentors: every row can be checked without
 </div>
 </div>
 </div>
-<aside>Exercise 1.2 applies slides 10 to 13 to MT-01. Same format as exercise 1.1: task, input and tools, expected output.
+<aside>Exercise 1.2 applies slides 12 to 15 to MT-01. Same format as exercise 1.1: task, input and tools, expected output.
 
 The task starts from two files: de-bai.md and the team's 5-block map from exercise 1.1. From them the team proposes the pages and components each role needs, writes the UI-UX documents, and lists the APIs the pages will call. No running app is required yet; this is a design draft.
 
 The input includes React basics. Learners who have never used React learn components, props, state and routing with Claude as a tutor — ask for a short explanation with one small example, then check it in the official docs.
 
-Read the figure as roles, then pages, then components, then APIs. The two key pages are the two patterns from slide 10: the student Chat, the asking pattern, and the manager Dashboard, the watching pattern with totals only. The lecturer pages are capability B: upload, read the report criterion by criterion, approve. The dark chips under each page are the API calls that page needs — this list is exactly the input for exercise 1.3. The left column shows where it is written: SPEC.md holds roles, pages and APIs; UX.md flows and states; the src folders are the code structure the plan will fill.</aside>
+Read the figure as roles, then pages, then components, then APIs. The two key pages are the two patterns from slide 12: the student Chat, the asking pattern, and the manager Dashboard, the watching pattern with totals only. The lecturer pages are capability B: upload, read the report criterion by criterion, approve. The dark chips under each page are the API calls that page needs — this list is exactly the input for exercise 1.3. The left column shows where it is written: SPEC.md holds roles, pages and APIs; UX.md flows and states; the src folders are the code structure the plan will fill.</aside>
 </section>
 
 <!-- ============ 10b · EXERCISE 2: STEPS ============ -->
@@ -1617,7 +1879,7 @@ The strip at the bottom is the general pattern every endpoint follows, whatever 
 <!-- ============ 14a · EXERCISE 3: BRIEF ============ -->
 <section id="ex3-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:84px 128px 88px;display:flex;flex-direction:column;gap:18px">
 <div style="display:flex;flex-direction:column;gap:10px">
-<p class="eyebrow ex">Exercise 1.3 · Back-End · after slides 16–19</p>
+<p class="eyebrow ex">Exercise 1.3 · Back-End · after slides 18–21</p>
 <h2 style="font-family:'Lora', Georgia, serif;font-size:48px;font-weight:600;line-height:1.1">Design the FastAPI back-end behind the MT-01 pages</h2>
 </div>
 <div style="flex:1;display:flex;gap:24px;align-items:stretch">
@@ -1636,7 +1898,7 @@ The strip at the bottom is the general pattern every endpoint follows, whatever 
 <div class="card" style="border-left-color:#E8B34A">
 <p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
 <div class="inp" style="font-size:16px">
-<b>Knowledge</b><span>Python, HTTP / REST, FastAPI basics (self-learn with Claude) · the endpoint pattern (slide 19)</span>
+<b>Knowledge</b><span>Python, HTTP / REST, FastAPI basics (self-learn with Claude) · the endpoint pattern (slide 21)</span>
 <b>Tools</b><span>Claude Code · FastAPI · Pydantic · Uvicorn · Swagger <code>/docs</code></span>
 <b>Files</b><span><code class="path">de-bai.md</code> · <code class="path">ARCHITECTURE_5BLOCK.md</code> · <code class="path">SPEC.md</code> API list (Ex 1.2)</span>
 </div>
@@ -1731,9 +1993,9 @@ The strip at the bottom is the general pattern every endpoint follows, whatever 
 </table>
 </div>
 </div>
-<aside>Exercise 1.3 applies slides 16 to 19. The input is everything produced so far: de-bai.md, the 5-block map, and the page and API list from exercise 1.2. From these the team proposes the back-end components: the endpoints with their HTTP methods, the contract of each one, the authentication that tells the server who is calling, the layers, and how the back-end connects to the front-end and the agent.
+<aside>Exercise 1.3 applies slides 18 to 21. The input is everything produced so far: de-bai.md, the 5-block map, and the page and API list from exercise 1.2. From these the team proposes the back-end components: the endpoints with their HTTP methods, the contract of each one, the authentication that tells the server who is calling, the layers, and how the back-end connects to the front-end and the agent.
 
-Learners new to Python web servers learn FastAPI with Claude as a tutor, starting from the five-part endpoint pattern on slide 19.
+Learners new to Python web servers learn FastAPI with Claude as a tutor, starting from the five-part endpoint pattern on slide 21.
 
 The figure is the expected picture, read left to right. Pages from exercise 1.2; each page function becomes one call in api.ts and one endpoint, with the role allowed to call it. The approve endpoint is marked "lecturer only" in red because it is the permission that de-bai.md tests. Every request passes through the same layers: routers check the JSON shape and the caller — 422, 401, 403 — services apply the MT-01 rules, and below them the data store and the agent from exercise 1.4.
 
@@ -2226,7 +2488,7 @@ Then walk the two runs on the right. A greeting skips the tool entirely. A weath
 <!-- ============ 20a · EXERCISE 4: BRIEF ============ -->
 <section id="ex4-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:80px 128px 84px;display:flex;flex-direction:column;gap:16px">
 <div style="display:flex;flex-direction:column;gap:10px">
-<p class="eyebrow ex">Exercise 1.4 · AI Agent · after slides 25–27</p>
+<p class="eyebrow ex">Exercise 1.4 · AI Agent · after slides 27–29</p>
 <h2 style="font-family:'Lora', Georgia, serif;font-size:46px;font-weight:600;line-height:1.1">Decide the agent before you build it: five questions</h2>
 </div>
 <div style="flex:1;display:flex;gap:24px;align-items:stretch">
@@ -2240,7 +2502,7 @@ Then walk the two runs on the right. A greeting skips the tool entirely. A weath
 <div class="card" style="border-left-color:#E8B34A;margin-top:6px;padding:12px 20px">
 <p class="lb" style="color:#6B4A0C">② Input &amp; tools</p>
 <div class="inp" style="font-size:16px;gap:6px 12px">
-<b>Knowledge</b><span>ML / DL / LLM basics · what an AI agent is: tools, memory, loop · LangGraph (slides 25–27) — self-learn with Claude</span>
+<b>Knowledge</b><span>ML / DL / LLM basics · what an AI agent is: tools, memory, loop · LangGraph (slides 27–29) — self-learn with Claude</span>
 <b>Tools</b><span>Claude Code · LangGraph · an LLM API</span>
 <b>Files</b><span><code class="path">de-bai.md</code> · Ex 1.1 map · <code class="path">SPEC.md</code> (Ex 1.2) · <code class="path">API.md</code> (Ex 1.3) · <code class="path">data/rubric.yaml</code></span>
 </div>
@@ -2263,7 +2525,7 @@ Then walk the two runs on the right. A greeting skips the tool entirely. A weath
 <tr><td><span class="tag opt">limit</span></td><td>no source → refuse · max N steps per request</td></tr>
 <tr><td><span class="tag must">banned</span></td><td>graded homework · personal student data · multi-agent · paid vector DB</td></tr>
 </table>
-<p class="os">③ Flow — a flowchart the program follows (slide 26)</p>
+<p class="os">③ Flow — a flowchart the program follows (slide 28)</p>
 <svg width="1020" height="176" viewBox="0 0 1020 176">
   <g font-size="14" font-weight="700" fill="#7E8A96"><text x="0" y="34">A · assistant</text><text x="0" y="151">B · reviewer</text></g>
   <!-- row A -->
@@ -2310,18 +2572,18 @@ Then walk the two runs on the right. A greeting skips the tool entirely. A weath
 <div class="oh"><p class="of">docs/systems/LANGGRAPH_NOTES.md</p><p class="ol" style="color:#7FC4C9">If LangGraph · general notes</p></div>
 <ul style="font-size:16px;line-height:1.4;color:#48515E;padding:10px 20px 12px 40px;display:grid;grid-template-columns:1fr 1fr;gap:2px 28px">
 <li><b style="color:#16202E">Version</b> installed + pinned · official doc links</li>
-<li><b style="color:#16202E">Graph</b> = state + nodes + edges (slide 26)</li>
+<li><b style="color:#16202E">Graph</b> = state + nodes + edges (slide 28)</li>
 <li><b style="color:#16202E">Checkpointer</b> = saved state between steps</li>
 <li><b style="color:#16202E">Interrupt</b> = pause for a human · details next chapter</li>
 </ul>
 </div>
 </div>
 </div>
-<aside>Exercise 1.4 applies slides 25 to 27. The task is unchanged: before drawing a single node, the team answers five plain questions — what agent, why an agent at all, where it is applied, what it may and may not do, and whether LangGraph is worth it.
+<aside>Exercise 1.4 applies slides 27 to 29. The task is unchanged: before drawing a single node, the team answers five plain questions — what agent, why an agent at all, where it is applied, what it may and may not do, and whether LangGraph is worth it.
 
-The input is everything from exercises 1.1 to 1.3 plus de-bai.md and the rubric file. Learners who are new to machine learning, LLMs and agents learn the basics with Claude as a tutor: ask for a short explanation and one small example, then check it against slides 25 to 27 and the official docs.
+The input is everything from exercises 1.1 to 1.3 plus de-bai.md and the rubric file. Learners who are new to machine learning, LLMs and agents learn the basics with Claude as a tutor: ask for a short explanation and one small example, then check it against slides 27 to 29 and the official docs.
 
-The expected output is AGENT.md with three parts. The Job table says what the agent does per capability and how we know it is done. The Rules table sorts every behaviour into allowed, needs approval, limited and banned — each traceable to de-bai.md. New is part three, the flow: the high-level directed graph from slide 26, one row per capability. Capability A checks the request, looks for approved material, and either answers with a citation or refuses with a reason. Capability B reads the syllabus, checks the six criteria, drafts a report in PENDING and then pauses: the dashed box is the human-in-the-loop interrupt, where the lecturer approves. Only boxes and arrows — state, nodes and code come in the next chapter.
+The expected output is AGENT.md with three parts. The Job table says what the agent does per capability and how we know it is done. The Rules table sorts every behaviour into allowed, needs approval, limited and banned — each traceable to de-bai.md. New is part three, the flow: the high-level directed graph from slide 28, one row per capability. Capability A checks the request, looks for approved material, and either answers with a citation or refuses with a reason. Capability B reads the syllabus, checks the six criteria, drafts a report in PENDING and then pauses: the dashed box is the human-in-the-loop interrupt, where the lecturer approves. Only boxes and arrows — state, nodes and code come in the next chapter.
 
 If the team chooses LangGraph, LANGGRAPH_NOTES.md holds short general notes with the installed version and the official links.</aside>
 </section>
@@ -2334,7 +2596,7 @@ If the team chooses LangGraph, LANGGRAPH_NOTES.md holds short general notes with
 </div>
 <table class="steps v3 roomy" style="font-size:17px">
 <tr><th style="width:21%">Step</th><th style="width:21%">What</th><th style="width:31%">AI-aided — Claude Code <span style="font-weight:400;color:#8E9CAA">(· manual)</span></th><th style="width:27%">Output → main content</th></tr>
-<tr><td class="n">1 · Job, rules, flow <span class="tag today">today</span> <span class="tag man">manual</span></td><td>Answer the five questions; sketch the flow</td><td><span class="pr">“From de-bai, SPEC.md and API.md list candidate jobs and rules with their source line; draw the flow per capability as boxes and arrows. Then interview me.”</span><i>· manual: <b>the team fills and signs off the Rules table</b></i></td><td><b>AGENT.md</b> → Job table, Rules table, Flow (slide 26)</td></tr>
+<tr><td class="n">1 · Job, rules, flow <span class="tag today">today</span> <span class="tag man">manual</span></td><td>Answer the five questions; sketch the flow</td><td><span class="pr">“From de-bai, SPEC.md and API.md list candidate jobs and rules with their source line; draw the flow per capability as boxes and arrows. Then interview me.”</span><i>· manual: <b>the team fills and signs off the Rules table</b></i></td><td><b>AGENT.md</b> → Job table, Rules table, Flow (slide 28)</td></tr>
 <tr><td class="n">2 · Install + docs <span class="tag today">today</span></td><td>LangGraph + current official docs</td><td><span class="pr">“Check my installed version, fetch the official docs, summarise with URLs.”</span><i>· manual: <code>pip install langgraph</code>, read the quickstart</i></td><td><b>requirements.txt</b> → pinned version<br><b>LANGGRAPH_NOTES.md</b> · <b>src/agent/CLAUDE.md</b></td></tr>
 <tr><td class="n">3 · Design the graph <span class="tag later">next</span></td><td>Flow → state, nodes, edges, tools</td><td><kbd>Shift+Tab</kbd> plan mode, starting from the AGENT.md flow</td><td><b>AGENT_GRAPH.md</b> → state schema, Mermaid graph</td></tr>
 <tr><td class="n">4 · Tools + nodes <span class="tag later">next</span></td><td>One tool or node at a time</td><td>Skill <code>add-node</code> · one per prompt</td><td><b>src/agent/tools/ · nodes/</b> + unit tests</td></tr>

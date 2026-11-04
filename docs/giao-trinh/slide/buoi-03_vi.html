@@ -181,6 +181,62 @@
   #stage table.steps.v3 td { padding:10px 12px; }
   #stage table.steps.v3.roomy td { padding:13px 12px; }
 
+  /* --- data-flow slide: 6 step cards joined by one-way arrows --- */
+  #stage .fl { display:flex; align-items:stretch; }
+  #stage .fc { flex:none; width:216px; display:flex; flex-direction:column; gap:9px; background:#FFFFFF; border:1px solid #D9DBD4;
+               border-top:6px solid #1C6B72; border-radius:12px; padding:12px 14px 14px; }
+  #stage .fc.w1 { width:254px; }
+  #stage .fc.bro { border-top-color:#6B4A0C; }
+  #stage .fc.be { background:#16202E; border-color:#16202E; border-top-color:#E8B34A; }
+  #stage .fc .fh { display:flex; align-items:center; gap:9px; }
+  #stage .fc .fn { flex:none; width:32px; height:32px; border-radius:50%; background:#E8B34A; color:#16202E; font-size:18px;
+                   font-weight:700; text-align:center; line-height:32px; }
+  #stage .fc .fb { flex:1; font-size:13px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#1C6B72; }
+  #stage .fc.bro .fb { color:#6B4A0C; }
+  #stage .fc.be .fb { color:#E8B34A; }
+  #stage .fc .fi { flex:none; width:32px; height:32px; color:#1C6B72; }
+  #stage .fc.bro .fi { color:#6B4A0C; }
+  #stage .fc.be .fi { color:#E8B34A; }
+  #stage .fc .ft { font-size:23px; font-weight:600; line-height:1.18; }
+  #stage .fc.be .ft { color:#F6F6F2; }
+  #stage .fc .rs { background:#F3ECE2; border-radius:8px; padding:7px 10px 8px; font-size:17.5px; line-height:1.36; color:#48515E; }
+  #stage .fc.be .rs { background:#1E2B3C; color:#BFD0D8; }
+  #stage .fc .sy { font-size:17.5px; line-height:1.38; color:#16202E; }
+  #stage .fc.be .sy { color:#F6F6F2; }
+  #stage .fc .tg { display:block; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:2px; }
+  #stage .fc .rs .tg { color:#6B4A0C; }
+  #stage .fc.be .rs .tg { color:#E8B34A; }
+  #stage .fc .sy .tg { color:#1C6B72; }
+  #stage .fc.be .sy .tg { color:#7FC4C9; }
+  #stage .fc .chip { margin-top:auto; align-self:flex-start; display:flex; align-items:center; gap:6px; font-family:'Courier New', monospace;
+                     font-size:13px; font-weight:700; background:#16202E; color:#E8B34A; border-radius:6px; padding:4px 9px; }
+  #stage .fc.be .chip { background:#E8B34A; color:#16202E; }
+  #stage .fc .chip svg { width:16px; height:16px; color:inherit; }
+  #stage .fa { flex:none; width:66px; align-self:center; display:flex; flex-direction:column; align-items:center; gap:3px;
+               font-size:14px; font-weight:600; line-height:1.15; text-align:center; color:#48515E; }
+
+  /* --- SDLC slide: six life-cycle blocks, this chapter = steps 1-3 --- */
+  #stage .sdr { display:flex; align-items:stretch; }
+  #stage .sd { flex:1; display:flex; flex-direction:column; gap:12px; border-radius:14px; padding:18px 18px 18px; }
+  #stage .sd.on { background:#FFFFFF; border:2px solid #E8B34A; border-top:8px solid #E8B34A; }
+  #stage .sd.off { background:#EDEDE7; border:1.5px dashed #A9B1B9; border-top:8px solid #C9CCC4; }
+  #stage .sd .sh { display:flex; align-items:center; gap:12px; }
+  #stage .sd .sn { flex:none; width:40px; height:40px; border-radius:50%; font-size:22px; font-weight:700; text-align:center; line-height:40px; }
+  #stage .sd.on .sn { background:#E8B34A; color:#16202E; }
+  #stage .sd.off .sn { background:#C9CCC4; color:#48515E; }
+  #stage .sd .sb { font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#B07A12; }
+  #stage .sd.off .sb { color:#7E8A96; }
+  #stage .sd .st2 { font-size:27px; font-weight:600; line-height:1.15; }
+  #stage .sd.off .st2 { color:#48515E; }
+  #stage .sd .sw { font-size:21px; font-weight:700; line-height:1.3; color:#1C6B72; }
+  #stage .sd.off .sw { color:#6B7580; }
+  #stage .sd .sx { font-size:20px; line-height:1.42; color:#48515E; }
+  #stage .sd.off .sx { color:#6B7580; }
+  #stage .sd .sc { margin-top:auto; align-self:flex-start; font-family:'Courier New', monospace; font-size:14px; font-weight:700;
+                   border-radius:6px; padding:4px 10px; background:#16202E; color:#E8B34A; white-space:nowrap; }
+  #stage .sd.off .sc { background:#D9DBD4; color:#48515E; }
+  #stage .sda { flex:none; width:44px; align-self:center; }
+
   /* --- thanh dieu khien --- */
   #bar { position:fixed; left:0; right:0; bottom:0; height:44px; display:flex; align-items:center;
           gap:18px; padding:0 18px; background:rgba(14,20,28,.92); font-size:13px; color:var(--ui);
@@ -284,8 +340,10 @@ Mục tiêu cuối buổi: ai cũng vẽ được năm khối, giải thích tr�
 <ul style="list-style:none;padding-left:0;font-size:21px;line-height:1.35;color:#48515E">
 <li>1.1 Tổng quan năm khối</li>
 <li>1.2 Ví dụ nhà hàng</li>
-<li>1.3 Định nghĩa kỹ thuật</li>
-<li>1.4 Thuộc tính kiến trúc</li>
+<li>1.3 Luồng dữ liệu của một order</li>
+<li>1.4 Định nghĩa kỹ thuật</li>
+<li>1.5 Thuộc tính kiến trúc</li>
+<li>1.6 Vòng đời phát triển phần mềm (SDLC)</li>
 <li style="color:#B07A12;font-weight:600">▸ Bài tập 1.1 · bản đồ 5 khối</li>
 </ul>
 </div>
@@ -577,6 +635,146 @@ Có hai điểm nên dừng lại. Thứ nhất, phòng R&amp;D không phải l�
 Khách không bao giờ bước vào bếp, và phòng R&amp;D không bao giờ phục vụ bàn: mọi order đều đi qua bồi bàn.</aside>
 </section>
 
+<!-- ============ 5 · DATA FLOW ============ -->
+<section id="dataflow" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:68px 128px 56px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<p class="eyebrow">Phần 1 · Kiến trúc 5 khối</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:52px;font-weight:600;line-height:1.1">Hành trình của một order trong hệ thống</h2>
+</div>
+<svg width="1664" height="250" viewBox="0 0 1664 250">
+  <!-- users -->
+  <rect x="27" y="10" width="140" height="90" rx="12" fill="#EDEDE7"/>
+  <use href="#i-user" x="77" y="18" width="40" height="40" style="color:#48515E"/>
+  <text x="97" y="84" text-anchor="middle" font-size="20" font-weight="600">Người dùng</text>
+  <!-- front-end -->
+  <rect x="237" y="10" width="300" height="90" rx="12" fill="#FFFFFF" stroke="#D9DBD4" stroke-width="1.5"/>
+  <rect x="237" y="10" width="300" height="6" rx="3" fill="#1C6B72"/>
+  <use href="#i-browser" x="255" y="34" width="40" height="40" style="color:#1C6B72"/>
+  <text x="310" y="58" font-size="25" font-weight="600">Front-End</text>
+  <text x="310" y="82" font-size="16" fill="#48515E">Giao diện</text>
+  <!-- back-end -->
+  <rect x="787" y="10" width="300" height="90" rx="12" fill="#16202E"/>
+  <rect x="787" y="10" width="300" height="6" rx="3" fill="#E8B34A"/>
+  <use href="#i-server" x="805" y="34" width="40" height="40" style="color:#E8B34A"/>
+  <text x="860" y="58" font-size="25" font-weight="600" fill="#F6F6F2">Back-End</text>
+  <text x="860" y="82" font-size="16" fill="#BFD0D8">Quy tắc &amp; logic</text>
+  <!-- agent -->
+  <rect x="1337" y="10" width="300" height="90" rx="12" fill="#FFFFFF" stroke="#D9DBD4" stroke-width="1.5"/>
+  <rect x="1337" y="10" width="300" height="6" rx="3" fill="#1C6B72"/>
+  <use href="#i-agent" x="1355" y="34" width="40" height="40" style="color:#1C6B72"/>
+  <text x="1410" y="58" font-size="25" font-weight="600">AI Agent</text>
+  <text x="1410" y="82" font-size="16" fill="#48515E">Suy luận + công cụ</text>
+  <!-- database -->
+  <rect x="787" y="140" width="850" height="54" rx="12" fill="#FFFFFF" stroke="#D9DBD4" stroke-width="1.5"/>
+  <rect x="787" y="140" width="7" height="54" rx="3" fill="#6B4A0C"/>
+  <use href="#i-db" x="808" y="148" width="38" height="38" style="color:#6B4A0C"/>
+  <text x="862" y="175" font-size="25" font-weight="600">Database</text>
+  <text x="1010" y="174" font-size="17" fill="#48515E">Bản ghi (SQL) và embedding (vector)</text>
+  <!-- devops -->
+  <rect x="27" y="210" width="1610" height="36" rx="10" fill="#E8B34A"/>
+  <use href="#i-gear" x="38" y="214" width="28" height="28" style="color:#16202E"/>
+  <text x="80" y="234" font-size="17" font-weight="700" letter-spacing="3">DEVOPS</text>
+  <text x="190" y="234" font-size="18">build, test, deploy và giám sát mọi khối</text>
+  <!-- one-way arrows: request lane (teal) and a separate response lane (brown) -->
+  <g stroke="#1C6B72" stroke-width="4" fill="none">
+    <line x1="171" y1="32" x2="233" y2="32" marker-end="url(#ah-t)"/>
+    <line x1="541" y1="32" x2="783" y2="32" marker-end="url(#ah-t)"/>
+    <line x1="1091" y1="32" x2="1333" y2="32" marker-end="url(#ah-t)"/>
+    <line x1="870" y1="104" x2="870" y2="136" marker-end="url(#ah-t)"/>
+    <line x1="1420" y1="104" x2="1420" y2="136" marker-end="url(#ah-t)"/>
+  </g>
+  <g stroke="#6B4A0C" stroke-width="4" fill="none">
+    <line x1="233" y1="80" x2="171" y2="80" marker-end="url(#ah-b)"/>
+    <line x1="783" y1="80" x2="541" y2="80" marker-end="url(#ah-b)"/>
+    <line x1="1333" y1="80" x2="1091" y2="80" marker-end="url(#ah-b)"/>
+    <line x1="910" y1="136" x2="910" y2="104" marker-end="url(#ah-b)"/>
+    <line x1="1460" y1="136" x2="1460" y2="104" marker-end="url(#ah-b)"/>
+  </g>
+  <!-- API pill between front-end and back-end -->
+  <rect x="632" y="44" width="60" height="24" rx="12" fill="#F3ECE2" stroke="#6B4A0C" stroke-width="1.5"/>
+  <text x="662" y="61" text-anchor="middle" font-size="15" font-weight="700" fill="#6B4A0C">API</text>
+  <!-- lane labels -->
+  <g font-size="15" fill="#48515E" text-anchor="middle">
+    <text x="662" y="23">request</text><text x="662" y="100">response</text>
+    <text x="1212" y="23">giao việc</text><text x="1212" y="100">kết quả</text>
+  </g>
+  <g font-size="15" fill="#48515E">
+    <text x="858" y="124" text-anchor="end">ghi</text><text x="922" y="124">đọc</text>
+    <text x="1408" y="124" text-anchor="end">truy vấn</text><text x="1472" y="124">ngữ cảnh</text>
+  </g>
+  <!-- step badges (match the cards below) -->
+  <g font-size="15" font-weight="700" text-anchor="middle">
+    <circle cx="237" cy="10" r="13" fill="#E8B34A"/><text x="237" y="15">1</text>
+    <circle cx="700" cy="56" r="13" fill="#E8B34A"/><text x="700" y="61">2</text>
+    <circle cx="787" cy="10" r="13" fill="#E8B34A"/><text x="787" y="15">3</text>
+    <circle cx="1337" cy="10" r="13" fill="#E8B34A"/><text x="1337" y="15">4</text>
+    <circle cx="787" cy="140" r="13" fill="#E8B34A"/><text x="787" y="145">5</text>
+    <circle cx="590" cy="80" r="13" fill="#E8B34A"/><text x="590" y="85">6</text>
+  </g>
+  <!-- legend -->
+  <g font-size="17" fill="#16202E">
+    <line x1="27" y1="152" x2="77" y2="152" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/>
+    <text x="92" y="158">request: mũi tên một chiều</text>
+    <line x1="77" y1="184" x2="27" y2="184" stroke="#6B4A0C" stroke-width="4" marker-end="url(#ah-b)"/>
+    <text x="92" y="190">response: mũi tên riêng, tách biệt</text>
+    <circle cx="470" cy="152" r="13" fill="#E8B34A"/>
+    <text x="470" y="157" text-anchor="middle" font-size="15" font-weight="700">n</text>
+    <text x="492" y="158">= số bước ở luồng bên dưới</text>
+  </g>
+</svg>
+<div class="fl">
+<div class="fc w1">
+<div class="fh"><span class="fn">1</span><span class="fb">Front-End</span><svg class="fi"><use href="#i-browser"/></svg></div>
+<p class="ft">Khách gọi món</p>
+<p class="rs"><span class="tg">Nhà hàng</span>Khách chọn món trong thực đơn.</p>
+<p class="sy"><span class="tg">Trong hệ thống</span>Người dùng nhấn chuột ở FE; FE tạo tờ order dưới dạng JSON packet:</p>
+<pre class="code" style="font-size:13px;line-height:1.42;padding:8px 10px;margin-top:auto">{
+ <span class="k">"ID bàn"</span>: 1,
+ <span class="k">"Tên"</span>: "A",
+ <span class="k">"Món"</span>: "Mỳ Vịt Tiềm",
+ <span class="k">"Ghi chú"</span>: "không cay"
+}</pre>
+</div><div class="fa"><span>JSON</span><svg width="62" height="18" viewBox="0 0 62 18"><line x1="2" y1="9" x2="58" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="fc bro">
+<div class="fh"><span class="fn">2</span><span class="fb">API</span><svg class="fi"><use href="#i-waiter"/></svg></div>
+<p class="ft">Bồi bàn chuyển order</p>
+<p class="rs"><span class="tg">Nhà hàng</span>Bồi bàn lấy tờ order chuyển vào bếp.</p>
+<p class="sy"><span class="tg">Trong hệ thống</span>API lấy JSON packet từ FE và gửi cho BE.</p>
+<span class="chip"><svg><use href="#i-ticket"/></svg>JSON packet</span>
+</div><div class="fa"><span>JSON</span><svg width="62" height="18" viewBox="0 0 62 18"><line x1="2" y1="9" x2="58" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="fc be">
+<div class="fh"><span class="fn">3</span><span class="fb">Back-End</span><svg class="fi"><use href="#i-chef"/></svg></div>
+<p class="ft">Bếp nấu món</p>
+<p class="rs"><span class="tg">Nhà hàng</span>Đầu bếp nấu món dựa vào tờ order.</p>
+<p class="sy"><span class="tg">Trong hệ thống</span>BE xử lý tác vụ dựa vào JSON packet nhận từ API.</p>
+<span class="chip"><svg><use href="#i-ticket"/></svg>JSON packet</span>
+</div><div class="fa"><span>yêu cầu</span><svg width="62" height="18" viewBox="0 0 62 18"><line x1="2" y1="9" x2="58" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="fc ">
+<div class="fh"><span class="fn">4</span><span class="fb">AI Agent</span><svg class="fi"><use href="#i-flask"/></svg></div>
+<p class="ft">Phòng R&amp;D ẩm thực</p>
+<p class="rs"><span class="tg">Nhà hàng</span>Món phức tạp cần quy trình, kiểm định, nếm thử, đo lường và nhiều công cụ. VD: bột nhào nặng, pha chế bằng tay → hệ thống tự động.</p>
+<p class="sy"><span class="tg">Trong hệ thống</span>AI agent nhận yêu cầu từ BE, gọi các tool tương ứng và trả kết quả (cục bột) về cho BE.</p>
+</div><div class="fa"><span>truy vấn</span><svg width="62" height="18" viewBox="0 0 62 18"><line x1="2" y1="9" x2="58" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="fc bro">
+<div class="fh"><span class="fn">5</span><span class="fb">Database</span><svg class="fi"><use href="#i-fridge"/></svg></div>
+<p class="ft">Kho nguyên liệu</p>
+<p class="rs"><span class="tg">Nhà hàng</span>Nguyên liệu nằm sẵn trên kệ có nhãn.</p>
+<p class="sy"><span class="tg">Trong hệ thống</span>BE và AI agent lấy dữ liệu (nguyên liệu) cần để làm món.</p>
+</div><div class="fa"><span>dữ liệu</span><svg width="62" height="18" viewBox="0 0 62 18"><line x1="2" y1="9" x2="58" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="fc be">
+<div class="fh"><span class="fn">6</span><span class="fb">Back-End → API</span><svg class="fi"><use href="#i-ticket"/></svg></div>
+<p class="ft">Mang món ra</p>
+<p class="rs"><span class="tg">Nhà hàng</span>Bếp làm xong món, bồi bàn mang ra cho khách.</p>
+<p class="sy"><span class="tg">Trong hệ thống</span>BE làm xong, đưa kết quả cho API gửi ra FE của khách.</p>
+<span class="chip"><svg><use href="#i-ticket"/></svg>JSON response</span>
+</div>
+</div>
+<svg width="1664" height="50" viewBox="0 0 1664 50">
+  <path d="M1556 2 V30 H127 V6" fill="none" stroke="#6B4A0C" stroke-width="4" marker-end="url(#ah-b)"/>
+  <text x="842" y="37" text-anchor="middle" font-size="18" font-weight="600" fill="#6B4A0C" stroke="#F6F6F2" stroke-width="10" paint-order="stroke">Bước 6 trả kết quả về cho khách — thêm một mũi tên một chiều, không gộp chung với request</text>
+</svg>
+<aside>Một order được theo dõi từ cú nhấn chuột của khách đến lúc món ra bàn. Hình nhỏ ở trên cùng chính là slide 3, được đơn giản hoá và thu nhỏ để nhường chỗ: các số đánh dấu trên hình khớp với sáu thẻ bên dưới, để cả lớp thấy mỗi bước nằm ở khối nào.
+
+Đọc các thẻ từ trái sang phải. (1) Khách gọi món: về phần mềm là người dùng nhấn chuột ở front-end, và front-end gói order thành một JSON packet — tờ order. (2) Bồi bàn là API: chuyển tờ order từ front-end sang back-end, không nấu gì cả. (3) Bếp là back-end: xử lý tác vụ dựa vào packet nhận được. (4) Chỉ món phức tạp mới sang phòng R&amp;D, tức AI agent: nhận yêu cầu từ back-end, gọi đúng các tool và trả kết quả — cục bột trong ví dụ — về cho back-end, chứ không trả thẳng cho khách. (5) Kho nguyên liệu là database: back-end và agent đều đọc từ đây. (6) Back-end làm xong món và đưa cho API gửi ra cho khách.
+
+Chỉ vào các mũi tên. Mỗi mũi tên chỉ đi một chiều. Phần trả lời là một mũi tên riêng, khác màu, không bao giờ là một đường hai đầu: ở hình nhỏ, mũi tên xanh là request, mũi tên nâu là response, và mũi tên nâu dài dưới các thẻ là response cuối cùng quay về khách. Trong hệ thống thật, bước 3 đến 5 có thể lặp — agent có thể gọi nhiều tool và truy vấn database nhiều lần — nhưng thứ tự trách nhiệm vẫn giữ nguyên.</aside>
+</section>
+
 <!-- ============ 5 · DEFINITIONS ============ -->
 <section id="definitions" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:120px 128px 140px;display:flex;flex-direction:column;gap:32px">
 <div style="display:flex;flex-direction:column;gap:14px">
@@ -676,10 +874,74 @@ Separation of concerns bắt nguồn từ ghi chép năm 1974 của Dijkstra, "O
 Nối scalability với các phần sau: vì lời gọi LLM chậm, back-end không được block trong lúc chờ. Đó là lý do có async/await trong phần FastAPI.</aside>
 </section>
 
+<!-- ============ 6c · SDLC ============ -->
+<section id="sdlc" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:80px 128px 60px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<p class="eyebrow">Phần 1 · Kiến trúc 5 khối</p>
+<h2 style="font-family:'Lora', Georgia, serif;font-size:54px;font-weight:600;line-height:1.1">Vòng đời phát triển phần mềm (SDLC)</h2>
+<p style="font-size:24px;line-height:1.4;color:#48515E">Mọi dự án phần mềm đều đi qua sáu bước này — MT-01 cũng vậy. Chương này nằm ở đâu?</p>
+</div>
+<svg width="1664" height="54" viewBox="0 0 1664 54">
+  <path d="M1543.7 52 V24 H120.3 V50" fill="none" stroke="#6B4A0C" stroke-width="4" marker-end="url(#ah-b)"/>
+  <text x="832" y="31" text-anchor="middle" font-size="19" font-weight="600" fill="#6B4A0C" stroke="#F6F6F2" stroke-width="12" paint-order="stroke">Lỗi và yêu cầu mới đưa dự án quay lại bước 1 — vòng đời lặp lại</text>
+</svg>
+<div class="sdr" style="flex:1">
+<div class="sd on">
+<div class="sh"><span class="sn">1</span><span class="sb">chương này</span></div>
+<p class="st2">Planning / Requirement</p>
+<p class="sw">Lên nghiệp vụ</p>
+<p class="sx">Đây chính là file <b>Business Flow</b>. Phải có file này thì mới nói cho AI hiểu bạn muốn gì.</p>
+<span class="sc">Business Flow</span>
+</div><div class="sda"><svg width="44" height="18" viewBox="0 0 44 18"><line x1="2" y1="9" x2="40" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="sd on">
+<div class="sh"><span class="sn">2</span><span class="sb">chương này</span></div>
+<p class="st2">Design</p>
+<p class="sw">Vẽ giao diện + data dummy</p>
+<p class="sx">Để nhìn được tương lai dự án sẽ như thế nào, trước khi có dòng code nào.</p>
+<span class="sc">mockup · data dummy</span>
+</div><div class="sda"><svg width="44" height="18" viewBox="0 0 44 18"><line x1="2" y1="9" x2="40" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="sd on">
+<div class="sh"><span class="sn">3</span><span class="sb">chương này</span></div>
+<p class="st2">Code</p>
+<p class="sw">Code cùng AI</p>
+<p class="sx">Chọn tech stack, setup skill, đưa <b>CLAUDE.md</b> vào.</p>
+<span class="sc">stack · CLAUDE.md</span>
+</div><div class="sda"><svg width="44" height="18" viewBox="0 0 44 18"><line x1="2" y1="9" x2="40" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="sd off">
+<div class="sh"><span class="sn">4</span><span class="sb">sau</span></div>
+<p class="st2">Testing</p>
+<p class="sw">Test toàn bộ</p>
+<p class="sx">Test toàn bộ code, bảo mật, performance. Không có bước này thì đừng mơ ra prod.</p>
+<span class="sc">test · bảo mật</span>
+</div><div class="sda"><svg width="44" height="18" viewBox="0 0 44 18"><line x1="2" y1="9" x2="40" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="sd off">
+<div class="sh"><span class="sn">5</span><span class="sb">sau</span></div>
+<p class="st2">Deploy</p>
+<p class="sw">Đưa lên môi trường thật</p>
+<p class="sx">Thường anh em sẽ mua <b>VPS</b> để deploy dự án thật. Serverless chỉ nên dùng cho landing page nhỏ, dự án cá nhân.</p>
+<span class="sc">VPS</span>
+</div><div class="sda"><svg width="44" height="18" viewBox="0 0 44 18"><line x1="2" y1="9" x2="40" y2="9" stroke="#1C6B72" stroke-width="4" marker-end="url(#ah-t)"/></svg></div><div class="sd off">
+<div class="sh"><span class="sn">6</span><span class="sb">sau</span></div>
+<p class="st2">Maintain</p>
+<p class="sw">Giám sát và fix lỗi</p>
+<p class="sx">Giám sát, quan sát ứng dụng đang chạy, fix lỗi.</p>
+<span class="sc">giám sát · fix lỗi</span>
+</div>
+</div>
+<svg width="1664" height="92" viewBox="0 0 1664 92">
+  <path d="M2 4 V24 H808.0 V4" fill="none" stroke="#B07A12" stroke-width="5"/>
+  <text x="405.0" y="58" text-anchor="middle" font-size="26" font-weight="700" fill="#6B4A0C">CHƯƠNG NÀY: mọi bài tập tập trung vào B1 · B2 · B3</text>
+  <text x="405.0" y="86" text-anchor="middle" font-size="19" fill="#48515E">Bài tập 1.1 – 1.4 lên nghiệp vụ, thiết kế và dựng nền — chưa test, chưa deploy</text>
+  <path d="M856.0 4 V24 H1662 V4" fill="none" stroke="#A9B1B9" stroke-width="4" stroke-dasharray="8 6"/>
+  <text x="1259.0" y="58" text-anchor="middle" font-size="22" font-weight="600" fill="#7E8A96">Các chương sau</text>
+</svg>
+<aside>Trước bài tập đầu tiên, cho cả lớp thấy công việc hôm nay nằm ở đâu trong một dự án trọn vẹn. Đây là vòng đời phát triển phần mềm: sáu bước, bước trước nuôi bước sau, và có mũi tên quay lại vì một ứng dụng đang chạy luôn sinh ra lỗi và yêu cầu mới.
+
+B1, Planning hay Requirement: lên nghiệp vụ. Đây chính là file Business Flow mà thầy hay nói. Phải có file này thì mới nói cho AI hiểu bạn muốn gì, nên mọi prompt trong bài tập đều xuất phát từ một nguồn đã viết ra, ở đây là docs/de-bai.md. B2, Design: vẽ giao diện + data dummy để nhìn được tương lai dự án sẽ như thế nào trước khi có code. B3, Code: chọn tech stack, setup skill, đưa CLAUDE.md vào. B4, Testing: test toàn bộ code, bảo mật, performance — không có bước này thì đừng mơ ra prod. B5, Deploy: đưa lên môi trường thật; thường anh em mua VPS để deploy dự án thật, còn serverless chỉ nên dùng cho landing page nhỏ, dự án cá nhân. B6, Maintain: giám sát, quan sát ứng dụng chạy, fix lỗi.
+
+Nhấn mạnh dấu ngoặc màu hổ phách: mọi bài tập của chương này tập trung vào B1, B2, B3. Hôm nay không ai test hay deploy. Nếu nhóm nào bắt đầu viết script deploy ở bài tập 1.1, kéo họ về bản đồ 5 khối.</aside>
+</section>
+
 <!-- ============ 6a · EXERCISE 1: BRIEF ============ -->
 <section id="ex1-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 128px 92px;display:flex;flex-direction:column;gap:22px">
 <div style="display:flex;flex-direction:column;gap:10px">
-<p class="eyebrow ex">Bài tập 1.1 · Kiến trúc 5 khối · sau slide 3–6</p>
+<p class="eyebrow ex">Bài tập 1.1 · Kiến trúc 5 khối · sau slide 3–8</p>
 <h2 style="font-family:'Lora', Georgia, serif;font-size:50px;font-weight:600;line-height:1.1">Đặt MT-01 vào năm khối — mỗi khối một công nghệ</h2>
 </div>
 <div style="flex:1;display:flex;gap:28px;align-items:stretch">
@@ -697,10 +959,10 @@ Nối scalability với các phần sau: vì lời gọi LLM chậm, back-end kh
 <div class="card" style="flex:1;border-left-color:#E8B34A">
 <p class="lb" style="color:#6B4A0C">② Input &amp; công cụ</p>
 <div class="inp" style="font-size:19px;gap:14px 12px">
-<b>Kiến thức</b><span>Kiến trúc 5 khối (slide 3–6) · client–server · vai trò và quyền hạn</span>
+<b>Kiến thức</b><span>Kiến trúc 5 khối (slide 3–8) · client–server · vai trò và quyền hạn</span>
 <b>Công cụ</b><span>Claude Code — plan mode, CLAUDE.md, skills, hooks · Mermaid cho diagram</span>
 <b>File</b><span><code class="path">docs/de-bai.md</code> — “Ba năng lực”, “Ba vai”, “Yêu cầu đầu ra”, “Phạm vi cố tình loại”</span>
-<b>Slide</b><span>3 năm khối · 4 nhà hàng · 5 định nghĩa · 6 thuộc tính</span>
+<b>Slide</b><span>3 năm khối · 4 nhà hàng · 5 luồng dữ liệu · 6 định nghĩa · 7 thuộc tính · 8 SDLC</span>
 </div>
 </div>
 </div>
@@ -746,7 +1008,7 @@ Nối scalability với các phần sau: vì lời gọi LLM chậm, back-end kh
 <p class="os">Khối · chức năng · công nghệ tiềm năng · lý do từ de-bai.md</p>
 <table class="tt" style="font-size:17px">
 <tr><th style="width:13%">Khối</th><th style="width:31%">Chức năng chung</th><th style="width:14%">Công nghệ</th><th>Lý do (de-bai.md)</th></tr>
-<tr><td>Front-End</td><td>trang theo vai: chat, report, dashboard</td><td class="te">React</td><td>đăng nhập 3 vai; scalable và sẵn sàng cho production (slide 11)</td></tr>
+<tr><td>Front-End</td><td>trang theo vai: chat, report, dashboard</td><td class="te">React</td><td>đăng nhập 3 vai; scalable và sẵn sàng cho production (slide 13)</td></tr>
 <tr><td>Back-End</td><td>kiểm tra vai, áp dụng rule, gọi agent</td><td class="te">FastAPI</td><td>ngôn ngữ thân thiện (Python, giống agent); <code>async</code>/<code>await</code> phục vụ nhiều request cùng lúc; từ chối “approve” từ vai khác (403)</td></tr>
 <tr><td>AI Agent</td><td>trả lời và review dựa trên tài liệu đã duyệt</td><td class="te">LangGraph</td><td>nhiều bước: tìm, trích dẫn, từ chối; tạm dừng đến khi giảng viên duyệt</td></tr>
 <tr><td>Database</td><td>users, đề cương, report, tài liệu đã duyệt; tuỳ chọn cache + job queue</td><td class="te">PostgreSQL</td><td>miễn phí; record liên kết + trạng thái <code>PENDING</code>; không dùng vector DB trả phí</td></tr>
@@ -756,11 +1018,11 @@ Nối scalability với các phần sau: vì lời gọi LLM chậm, back-end kh
 </div>
 </div>
 </div>
-<aside>Bài tập 1.1 biến slide 3 đến 6 thành bức tranh MT-01 của chính nhóm. Mọi bài tập hôm nay đều có cùng hai slide: slide đầu nêu nhiệm vụ, input và công cụ, và output mong đợi; slide thứ hai đưa ra các bước, các bước phải làm tay, và từ khoá để tự học.
+<aside>Bài tập 1.1 biến slide 3 đến 8 thành bức tranh MT-01 của chính nhóm. Mọi bài tập hôm nay đều có cùng hai slide: slide đầu nêu nhiệm vụ, input và công cụ, và output mong đợi; slide thứ hai đưa ra các bước, các bước phải làm tay, và từ khoá để tự học.
 
 Nhiệm vụ có ba phần: chức năng chung của từng khối trong năm khối, cái gì đi qua giữa chúng và ba vai đi vào ở đâu, và một công nghệ cho mỗi khối. Giữ ở mức tổng quan — nếu có ai bắt đầu viết endpoint hay cột của bảng, hãy dừng họ lại; đó là bài tập 1.2 và 1.3.
 
-Input là một file, de-bai.md, cộng kiến thức từ slide 3 đến 6 và Claude Code làm công cụ. Output là một file gồm block diagram và một bảng. Các công nghệ trên hình — React, FastAPI, LangGraph, PostgreSQL, AWS — là stack tiềm năng khoá học dùng, và mỗi lý do phải trỏ tới một dòng trong de-bai.md hoặc một thuộc tính nhóm cần: React cho đăng nhập ba vai và scale được lên production; FastAPI vì Python là ngôn ngữ thân thiện dùng chung với agent, async và await cho một server xử lý nhiều request cùng lúc, và server phải trả về 403; agent nhiều bước có giảng viên duyệt; không dùng vector database trả phí; AWS vì deploy công khai cần một cloud chuyên nghiệp, tin cậy.
+Input là một file, de-bai.md, cộng kiến thức từ slide 3 đến 8 và Claude Code làm công cụ. Output là một file gồm block diagram và một bảng. Các công nghệ trên hình — React, FastAPI, LangGraph, PostgreSQL, AWS — là stack tiềm năng khoá học dùng, và mỗi lý do phải trỏ tới một dòng trong de-bai.md hoặc một thuộc tính nhóm cần: React cho đăng nhập ba vai và scale được lên production; FastAPI vì Python là ngôn ngữ thân thiện dùng chung với agent, async và await cho một server xử lý nhiều request cùng lúc, và server phải trả về 403; agent nhiều bước có giảng viên duyệt; không dùng vector database trả phí; AWS vì deploy công khai cần một cloud chuyên nghiệp, tin cậy.
 
 Hàng Database cũng cho phép tuỳ chọn cache và job queue — nhóm chỉ thêm khi MT-01 cần, ví dụ khi review đề cương chạy lâu. Có một mâu thuẫn được cố ý để ngỏ: de-bai.md ghi Streamlit trước cho bản cơ bản. Nhóm tự quyết định và ghi lại lý do; mentor không quyết định thay.</aside>
 </section>
@@ -1145,7 +1407,7 @@ Cột cuối hữu ích nhất cho mentor: mọi hàng đều kiểm tra đượ
 <!-- ============ 10a · EXERCISE 2: BRIEF ============ -->
 <section id="ex2-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:84px 128px 88px;display:flex;flex-direction:column;gap:18px">
 <div style="display:flex;flex-direction:column;gap:10px">
-<p class="eyebrow ex">Bài tập 1.2 · Front-End · sau slide 10–13</p>
+<p class="eyebrow ex">Bài tập 1.2 · Front-End · sau slide 12–15</p>
 <h2 style="font-family:'Lora', Georgia, serif;font-size:48px;font-weight:600;line-height:1.1">Thiết kế front-end MT-01: vai → trang → API</h2>
 </div>
 <div style="flex:1;display:flex;gap:24px;align-items:stretch">
@@ -1157,7 +1419,7 @@ Cột cuối hữu ích nhất cho mentor: mọi hàng đều kiểm tra đượ
 <div class="card" style="border-left-color:#E8B34A">
 <p class="lb" style="color:#6B4A0C">② Input &amp; công cụ</p>
 <div class="inp" style="font-size:16px">
-<b>Kiến thức</b><span>React cơ bản — components, props, state, routing (tự học cùng Claude) · pattern chat và dashboard (slide 10)</span>
+<b>Kiến thức</b><span>React cơ bản — components, props, state, routing (tự học cùng Claude) · pattern chat và dashboard (slide 12)</span>
 <b>Công cụ</b><span>Claude Code · React + Vite + TypeScript · tuỳ chọn <code>frontend-design</code> / Figma</span>
 <b>File</b><span><code class="path">docs/de-bai.md</code> · <code class="path">ARCHITECTURE_5BLOCK.md</code> (BT 1.1)</span>
 </div>
@@ -1262,13 +1524,13 @@ Cột cuối hữu ích nhất cho mentor: mọi hàng đều kiểm tra đượ
 </div>
 </div>
 </div>
-<aside>Bài tập 1.2 áp dụng slide 10 đến 13 vào MT-01. Cùng định dạng với bài tập 1.1: nhiệm vụ, input và công cụ, output mong đợi.
+<aside>Bài tập 1.2 áp dụng slide 12 đến 15 vào MT-01. Cùng định dạng với bài tập 1.1: nhiệm vụ, input và công cụ, output mong đợi.
 
 Nhiệm vụ bắt đầu từ hai file: de-bai.md và bản đồ 5 khối của nhóm từ bài tập 1.1. Từ đó nhóm đề xuất các trang và component mỗi vai cần, viết tài liệu UI-UX, và liệt kê các API mà các trang sẽ gọi. Chưa cần ứng dụng chạy được; đây là bản nháp thiết kế.
 
 Input gồm React cơ bản. Người học chưa từng dùng React học components, props, state và routing với Claude làm gia sư — yêu cầu một giải thích ngắn kèm một ví dụ nhỏ, rồi đối chiếu với tài liệu chính thức.
 
-Đọc hình theo thứ tự vai, rồi trang, rồi component, rồi API. Hai trang chính là hai pattern ở slide 10: Chat của sinh viên, pattern để hỏi, và Dashboard của quản lý, pattern để theo dõi, chỉ có số tổng. Các trang của giảng viên là năng lực B: upload, đọc report theo từng tiêu chí, duyệt. Các chip tối màu dưới mỗi trang là các lời gọi API trang đó cần — danh sách này chính là input cho bài tập 1.3. Cột trái cho biết viết ở đâu: SPEC.md chứa vai, trang và API; UX.md chứa flow và trạng thái; các thư mục src là cấu trúc code mà kế hoạch sẽ lấp đầy.</aside>
+Đọc hình theo thứ tự vai, rồi trang, rồi component, rồi API. Hai trang chính là hai pattern ở slide 12: Chat của sinh viên, pattern để hỏi, và Dashboard của quản lý, pattern để theo dõi, chỉ có số tổng. Các trang của giảng viên là năng lực B: upload, đọc report theo từng tiêu chí, duyệt. Các chip tối màu dưới mỗi trang là các lời gọi API trang đó cần — danh sách này chính là input cho bài tập 1.3. Cột trái cho biết viết ở đâu: SPEC.md chứa vai, trang và API; UX.md chứa flow và trạng thái; các thư mục src là cấu trúc code mà kế hoạch sẽ lấp đầy.</aside>
 </section>
 
 <!-- ============ 10b · EXERCISE 2: STEPS ============ -->
@@ -1617,7 +1879,7 @@ Dải ở dưới là pattern chung mà mọi endpoint tuân theo, dù là dự 
 <!-- ============ 14a · EXERCISE 3: BRIEF ============ -->
 <section id="ex3-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:84px 128px 88px;display:flex;flex-direction:column;gap:18px">
 <div style="display:flex;flex-direction:column;gap:10px">
-<p class="eyebrow ex">Bài tập 1.3 · Back-End · sau slide 16–19</p>
+<p class="eyebrow ex">Bài tập 1.3 · Back-End · sau slide 18–21</p>
 <h2 style="font-family:'Lora', Georgia, serif;font-size:48px;font-weight:600;line-height:1.1">Thiết kế back-end FastAPI phía sau các trang MT-01</h2>
 </div>
 <div style="flex:1;display:flex;gap:24px;align-items:stretch">
@@ -1636,7 +1898,7 @@ Dải ở dưới là pattern chung mà mọi endpoint tuân theo, dù là dự 
 <div class="card" style="border-left-color:#E8B34A">
 <p class="lb" style="color:#6B4A0C">② Input &amp; công cụ</p>
 <div class="inp" style="font-size:16px">
-<b>Kiến thức</b><span>Python, HTTP / REST, FastAPI cơ bản (tự học cùng Claude) · pattern endpoint (slide 19)</span>
+<b>Kiến thức</b><span>Python, HTTP / REST, FastAPI cơ bản (tự học cùng Claude) · pattern endpoint (slide 21)</span>
 <b>Công cụ</b><span>Claude Code · FastAPI · Pydantic · Uvicorn · Swagger <code>/docs</code></span>
 <b>File</b><span><code class="path">de-bai.md</code> · <code class="path">ARCHITECTURE_5BLOCK.md</code> · danh sách API trong <code class="path">SPEC.md</code> (BT 1.2)</span>
 </div>
@@ -1731,9 +1993,9 @@ Dải ở dưới là pattern chung mà mọi endpoint tuân theo, dù là dự 
 </table>
 </div>
 </div>
-<aside>Bài tập 1.3 áp dụng slide 16 đến 19. Input là mọi thứ đã làm ra đến giờ: de-bai.md, bản đồ 5 khối, và danh sách trang cùng API từ bài tập 1.2. Từ đó nhóm đề xuất các thành phần back-end: các endpoint với HTTP method, contract của từng endpoint, authentication cho server biết ai đang gọi, các layer, và cách back-end kết nối với front-end và agent.
+<aside>Bài tập 1.3 áp dụng slide 18 đến 21. Input là mọi thứ đã làm ra đến giờ: de-bai.md, bản đồ 5 khối, và danh sách trang cùng API từ bài tập 1.2. Từ đó nhóm đề xuất các thành phần back-end: các endpoint với HTTP method, contract của từng endpoint, authentication cho server biết ai đang gọi, các layer, và cách back-end kết nối với front-end và agent.
 
-Người học mới làm quen với Python web server học FastAPI với Claude làm gia sư, bắt đầu từ pattern endpoint năm phần ở slide 19.
+Người học mới làm quen với Python web server học FastAPI với Claude làm gia sư, bắt đầu từ pattern endpoint năm phần ở slide 21.
 
 Hình là bức tranh mong đợi, đọc từ trái sang phải. Các trang từ bài tập 1.2; mỗi chức năng của trang trở thành một lời gọi trong api.ts và một endpoint, kèm vai được phép gọi. Endpoint approve được đánh dấu đỏ "chỉ giảng viên" vì đây là quyền mà de-bai.md kiểm tra. Mọi request đi qua cùng các layer: routers kiểm tra hình dạng JSON và người gọi — 422, 401, 403 — services áp dụng quy tắc MT-01, và bên dưới là kho dữ liệu cùng agent từ bài tập 1.4.
 
@@ -2226,7 +2488,7 @@ Sau đó đi qua hai lần chạy bên phải. Một lời chào bỏ qua tool h
 <!-- ============ 20a · EXERCISE 4: BRIEF ============ -->
 <section id="ex4-brief" data-transition="push" style="background:#F6F6F2;color:#16202E;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:80px 128px 84px;display:flex;flex-direction:column;gap:16px">
 <div style="display:flex;flex-direction:column;gap:10px">
-<p class="eyebrow ex">Bài tập 1.4 · AI Agent · sau slide 25–27</p>
+<p class="eyebrow ex">Bài tập 1.4 · AI Agent · sau slide 27–29</p>
 <h2 style="font-family:'Lora', Georgia, serif;font-size:46px;font-weight:600;line-height:1.1">Quyết định agent trước khi xây: năm câu hỏi</h2>
 </div>
 <div style="flex:1;display:flex;gap:24px;align-items:stretch">
@@ -2240,7 +2502,7 @@ Sau đó đi qua hai lần chạy bên phải. Một lời chào bỏ qua tool h
 <div class="card" style="border-left-color:#E8B34A;margin-top:6px;padding:12px 20px">
 <p class="lb" style="color:#6B4A0C">② Input &amp; công cụ</p>
 <div class="inp" style="font-size:16px;gap:6px 12px">
-<b>Kiến thức</b><span>ML / DL / LLM cơ bản · AI agent là gì: tool, memory, vòng lặp · LangGraph (slide 25–27) — tự học cùng Claude</span>
+<b>Kiến thức</b><span>ML / DL / LLM cơ bản · AI agent là gì: tool, memory, vòng lặp · LangGraph (slide 27–29) — tự học cùng Claude</span>
 <b>Công cụ</b><span>Claude Code · LangGraph · một LLM API</span>
 <b>File</b><span><code class="path">de-bai.md</code> · bản đồ BT 1.1 · <code class="path">SPEC.md</code> (BT 1.2) · <code class="path">API.md</code> (BT 1.3) · <code class="path">data/rubric.yaml</code></span>
 </div>
@@ -2263,7 +2525,7 @@ Sau đó đi qua hai lần chạy bên phải. Một lời chào bỏ qua tool h
 <tr><td><span class="tag opt">giới hạn</span></td><td>không có nguồn → từ chối · tối đa N bước mỗi request</td></tr>
 <tr><td><span class="tag must">cấm</span></td><td>làm bài tập có chấm điểm · dữ liệu cá nhân sinh viên · multi-agent · vector DB trả phí</td></tr>
 </table>
-<p class="os">③ Flow — flowchart mà chương trình đi theo (slide 26)</p>
+<p class="os">③ Flow — flowchart mà chương trình đi theo (slide 28)</p>
 <svg width="1020" height="176" viewBox="0 0 1020 176">
   <g font-size="14" font-weight="700" fill="#7E8A96"><text x="0" y="34">A · trợ lý</text><text x="0" y="151">B · reviewer</text></g>
   <!-- row A -->
@@ -2310,18 +2572,18 @@ Sau đó đi qua hai lần chạy bên phải. Một lời chào bỏ qua tool h
 <div class="oh"><p class="of">docs/systems/LANGGRAPH_NOTES.md</p><p class="ol" style="color:#7FC4C9">Nếu dùng LangGraph · ghi chú chung</p></div>
 <ul style="font-size:16px;line-height:1.4;color:#48515E;padding:10px 20px 12px 40px;display:grid;grid-template-columns:1fr 1fr;gap:2px 28px">
 <li><b style="color:#16202E">Version</b> đã cài + được pin · link tài liệu chính thức</li>
-<li><b style="color:#16202E">Graph</b> = state + nodes + edges (slide 26)</li>
+<li><b style="color:#16202E">Graph</b> = state + nodes + edges (slide 28)</li>
 <li><b style="color:#16202E">Checkpointer</b> = state được lưu giữa các bước</li>
 <li><b style="color:#16202E">Interrupt</b> = tạm dừng chờ con người · chi tiết ở chương sau</li>
 </ul>
 </div>
 </div>
 </div>
-<aside>Bài tập 1.4 áp dụng slide 25 đến 27. Nhiệm vụ không đổi: trước khi vẽ một node nào, nhóm trả lời năm câu hỏi đơn giản — agent gì, vì sao lại cần agent, áp dụng ở đâu, được và không được làm gì, và LangGraph có đáng dùng không.
+<aside>Bài tập 1.4 áp dụng slide 27 đến 29. Nhiệm vụ không đổi: trước khi vẽ một node nào, nhóm trả lời năm câu hỏi đơn giản — agent gì, vì sao lại cần agent, áp dụng ở đâu, được và không được làm gì, và LangGraph có đáng dùng không.
 
-Input là mọi thứ từ bài tập 1.1 đến 1.3 cộng de-bai.md và file rubric. Người học mới làm quen với machine learning, LLM và agent học cơ bản với Claude làm gia sư: yêu cầu một giải thích ngắn kèm một ví dụ nhỏ, rồi đối chiếu với slide 25 đến 27 và tài liệu chính thức.
+Input là mọi thứ từ bài tập 1.1 đến 1.3 cộng de-bai.md và file rubric. Người học mới làm quen với machine learning, LLM và agent học cơ bản với Claude làm gia sư: yêu cầu một giải thích ngắn kèm một ví dụ nhỏ, rồi đối chiếu với slide 27 đến 29 và tài liệu chính thức.
 
-Output mong đợi là AGENT.md gồm ba phần. Bảng Job nói agent làm gì theo từng năng lực và làm sao biết là xong. Bảng Rules phân loại mọi hành vi thành được phép, cần duyệt, giới hạn và cấm — mỗi mục truy được về de-bai.md. Phần mới là phần ba, flow: directed graph mức khái quát từ slide 26, mỗi năng lực một hàng. Năng lực A kiểm tra request, tìm tài liệu đã duyệt, rồi hoặc trả lời kèm trích dẫn hoặc từ chối kèm lý do. Năng lực B đọc đề cương, kiểm tra sáu tiêu chí, viết nháp report ở trạng thái PENDING rồi tạm dừng: ô nét đứt là interrupt human-in-the-loop, nơi giảng viên duyệt. Chỉ có ô và mũi tên — state, node và code để sang chương sau.
+Output mong đợi là AGENT.md gồm ba phần. Bảng Job nói agent làm gì theo từng năng lực và làm sao biết là xong. Bảng Rules phân loại mọi hành vi thành được phép, cần duyệt, giới hạn và cấm — mỗi mục truy được về de-bai.md. Phần mới là phần ba, flow: directed graph mức khái quát từ slide 28, mỗi năng lực một hàng. Năng lực A kiểm tra request, tìm tài liệu đã duyệt, rồi hoặc trả lời kèm trích dẫn hoặc từ chối kèm lý do. Năng lực B đọc đề cương, kiểm tra sáu tiêu chí, viết nháp report ở trạng thái PENDING rồi tạm dừng: ô nét đứt là interrupt human-in-the-loop, nơi giảng viên duyệt. Chỉ có ô và mũi tên — state, node và code để sang chương sau.
 
 Nếu nhóm chọn LangGraph, LANGGRAPH_NOTES.md chứa ghi chú chung ngắn gọn kèm version đã cài và các link chính thức.</aside>
 </section>
@@ -2334,7 +2596,7 @@ Nếu nhóm chọn LangGraph, LANGGRAPH_NOTES.md chứa ghi chú chung ngắn g�
 </div>
 <table class="steps v3 roomy" style="font-size:17px">
 <tr><th style="width:21%">Bước</th><th style="width:21%">Làm gì</th><th style="width:31%">AI hỗ trợ — Claude Code <span style="font-weight:400;color:#8E9CAA">(· làm tay)</span></th><th style="width:27%">Output → nội dung chính</th></tr>
-<tr><td class="n">1 · Job, rules, flow <span class="tag today">hôm nay</span> <span class="tag man">làm tay</span></td><td>Trả lời năm câu hỏi; phác flow</td><td><span class="pr">“Từ de-bai, SPEC.md và API.md liệt kê các job và rule ứng viên kèm dòng nguồn; vẽ flow cho từng năng lực bằng ô và mũi tên. Sau đó phỏng vấn tôi.”</span><i>· làm tay: <b>nhóm điền và chốt bảng Rules</b></i></td><td><b>AGENT.md</b> → bảng Job, bảng Rules, Flow (slide 26)</td></tr>
+<tr><td class="n">1 · Job, rules, flow <span class="tag today">hôm nay</span> <span class="tag man">làm tay</span></td><td>Trả lời năm câu hỏi; phác flow</td><td><span class="pr">“Từ de-bai, SPEC.md và API.md liệt kê các job và rule ứng viên kèm dòng nguồn; vẽ flow cho từng năng lực bằng ô và mũi tên. Sau đó phỏng vấn tôi.”</span><i>· làm tay: <b>nhóm điền và chốt bảng Rules</b></i></td><td><b>AGENT.md</b> → bảng Job, bảng Rules, Flow (slide 28)</td></tr>
 <tr><td class="n">2 · Cài đặt + tài liệu <span class="tag today">hôm nay</span></td><td>LangGraph + tài liệu chính thức hiện hành</td><td><span class="pr">“Kiểm tra version tôi đã cài, lấy tài liệu chính thức, tóm tắt kèm URL.”</span><i>· làm tay: <code>pip install langgraph</code>, đọc quickstart</i></td><td><b>requirements.txt</b> → version đã pin<br><b>LANGGRAPH_NOTES.md</b> · <b>src/agent/CLAUDE.md</b></td></tr>
 <tr><td class="n">3 · Thiết kế graph <span class="tag later">chương sau</span></td><td>Flow → state, node, edge, tool</td><td><kbd>Shift+Tab</kbd> plan mode, bắt đầu từ flow trong AGENT.md</td><td><b>AGENT_GRAPH.md</b> → state schema, Mermaid graph</td></tr>
 <tr><td class="n">4 · Tool + node <span class="tag later">chương sau</span></td><td>Mỗi lần một tool hoặc node</td><td>Skill <code>add-node</code> · mỗi prompt một cái</td><td><b>src/agent/tools/ · nodes/</b> + unit tests</td></tr>

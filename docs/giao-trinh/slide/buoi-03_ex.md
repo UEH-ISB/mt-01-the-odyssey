@@ -21,13 +21,13 @@
 | # | Exercise | After slides | Today | Continues in |
 |---|----------|--------------|-------|--------------|
 | 0 | [Before you start — the rules of the game](#0--before-you-start--the-rules-of-the-game) | — | read | — |
-| 1.1 | [5-block map and stack](#exercise-11--5-block-map-and-stack) | 3 – 6 | steps 1 – 6 | every later exercise |
-| 1.2 | [Front-end pages and APIs](#exercise-12--front-end-pages-and-apis) | 9 – 12 | steps 1 – 3 | buổi 4: steps 4 – 8 |
-| 1.3 | [Back-end components and APIs](#exercise-13--back-end-components-and-apis) | 15 – 18 | steps 1 – 3 | buổi 4: steps 4 – 7 · DevOps: step 8 |
-| 1.4 | [Agent job, rules and flow](#exercise-14--agent-job-rules-and-flow) | 24 – 26 | steps 1 – 2 | next chapter: steps 3 – 8 |
+| 1.1 | [5-block map and stack](#exercise-11--5-block-map-and-stack) | 3 – 8 | steps 1 – 6 | every later exercise |
+| 1.2 | [Front-end pages and APIs](#exercise-12--front-end-pages-and-apis) | 12 – 15 | steps 1 – 3 | buổi 4: steps 4 – 8 |
+| 1.3 | [Back-end components and APIs](#exercise-13--back-end-components-and-apis) | 18 – 21 | steps 1 – 3 | buổi 4: steps 4 – 7 · DevOps: step 8 |
+| 1.4 | [Agent job, rules and flow](#exercise-14--agent-job-rules-and-flow) | 27 – 29 | steps 1 – 2 | next chapter: steps 3 – 8 |
 | A | [Appendix — self-learning prompts](#appendix--self-learning-prompts-with-claude-code) | — | any time | — |
 
-Exercise slides in the deck: Ex 1.1 = slides 7 – 8 · Ex 1.2 = 13 – 14 · Ex 1.3 = 19 – 20 · Ex 1.4 = 27 – 28.
+Exercise slides in the deck: Ex 1.1 = slides 9 – 10 · Ex 1.2 = 16 – 17 · Ex 1.3 = 22 – 23 · Ex 1.4 = 30 – 31.
 
 ---
 
@@ -76,11 +76,26 @@ Rule of thumb: *if it is a preference, put it in CLAUDE.md; if it is know-how fo
 
 > **This repo already has hooks.** `.claude/settings.json` runs `scripts/log_hook.py` on `UserPromptSubmit`, `PostToolUse` and `Stop` to log AI usage, and a separate **Git** pre-push hook ships the log. Do **not** call `scripts/log_*` by hand ([`.agents/rules/ai-log-hook.md`](../../../.agents/rules/ai-log-hook.md)). When you add a hook, **add** to the `hooks` object — never replace it.
 
+### 0.4 Where the exercises sit — the software development life cycle (SDLC)
+
+Slide 8 of the deck shows the six steps every software project walks through. **All exercises in this chapter (1.1 – 1.4) are about steps 1, 2 and 3** — nobody tests or deploys today.
+
+| # | SDLC step | What happens | In this chapter |
+|---|---|---|---|
+| 1 | **Planning / Requirement** | Write down the business — the **Business Flow** file. You need it before you can tell the AI what you want. | `docs/de-bai.md`, the 5-block map, the agent's job and rules (Ex 1.1, 1.4) |
+| 2 | **Design** | Draw the interface + dummy data, to see what the project will look like. | pages, UX and the API list (Ex 1.2, 1.3) |
+| 3 | **Code** | Choose the tech stack, set up skills, put `CLAUDE.md` in. | step 1 of each exercise: project memory, skills, hooks, skeletons |
+| 4 | Testing | Test all the code, security and performance — no testing, no production. | later chapters |
+| 5 | Deploy | Move to the real environment. Usually buy a **VPS**; serverless only for a small landing page or a personal project. | later chapters (DevOps) |
+| 6 | Maintain | Monitor the running application and fix bugs. | later chapters |
+
+Each document you write in `docs/systems/` is a step 1 – 3 artifact; steps 4 – 6 need a running system, which comes after these skeletons exist.
+
 ---
 
 ## Exercise 1.1 · 5-block map and stack
 
-**Slides:** `#ex1-brief`, `#ex1-claude` (7 – 8) · **Theory:** slides 3 – 6 · **Time:** 40 – 60 min
+**Slides:** `#ex1-brief`, `#ex1-claude` (9 – 10) · **Theory:** slides 3 – 8 · **Time:** 40 – 60 min
 
 ### Task
 
@@ -94,7 +109,7 @@ Read [`docs/de-bai.md`](../../de-bai.md) and design MT-01 as the five blocks of 
 
 | | |
 |---|---|
-| **Knowledge** | 5-block architecture (slides 3 – 6) · client–server · roles and permissions |
+| **Knowledge** | 5-block architecture (slides 3 – 8) · client–server · roles and permissions |
 | **Tools** | Claude Code — plan mode, CLAUDE.md, skills, hooks · Mermaid for the diagram |
 | **Files** | `docs/de-bai.md` — *Ba năng lực*, *Ba vai và ranh giới quyền*, *Yêu cầu đầu ra*, *Phạm vi cố tình loại khỏi đề* · `docs/architecture_diagram.md` (template picture) |
 
@@ -104,7 +119,7 @@ Two parts: a **block diagram** and a **table** — block · general function · 
 
 | Block | General function | Potential technology | Reason (from `de-bai.md`) |
 |---|---|---|---|
-| Front-End | pages per role: chat, report, dashboard | **React** | 3-role login (*Ba vai…*); scalable and production-ready (slide 10) |
+| Front-End | pages per role: chat, report, dashboard | **React** | 3-role login (*Ba vai…*); scalable and production-ready (slide 13) |
 | Back-End | checks the role, applies the rules, calls the agent | **FastAPI** | friendly language — Python, like the agent; `async` / `await` serves many requests at once; the server must refuse "approve" from other roles → 403 (*Ba vai…*) |
 | AI Agent | answers and reviews from approved material | **LangGraph** | several steps — find, cite, refuse — and a pause until the lecturer approves (*B · Chuẩn hóa môn học*) |
 | Database | users, syllabi, reports, approved material; optional cache + job queue (Redis / SQS) — only if needed | **PostgreSQL** | free; linked records and a `PENDING` status; no paid vector DB (*Phạm vi*) |
@@ -116,7 +131,7 @@ Two parts: a **block diagram** and a **table** — block · general function · 
 
 ````markdown
 # MT-01 — 5-block architecture (overview)
-Based on: docs/de-bai.md · slides 3–6 of buoi-03.html
+Based on: docs/de-bai.md · slides 3–8 of buoi-03.html
 
 ## Block diagram
 ```mermaid
@@ -154,12 +169,12 @@ The repo, the team and `git clone` were set up in buổi 01 — run `git pull` a
 | 2 | **Read the brief** | prompt b | read `de-bai.md` with a pen: underline every role, every must / must not, every status (`PENDING`), every number (403, 360 px, 45 cases) |
 | 3 | **Draw the diagram** — plan mode `Shift+Tab` | prompt c | draw the five boxes on paper, one sentence inside each, label every arrow |
 | 4 | **Propose technologies** — the **interview** skill | prompt d — Claude compares and interviews you, **you** choose | list 2 options per block, tick the one each `de-bai.md` line supports |
-| 5 | **Check against `de-bai.md`** | the `de-bai-guard` skill (part b below): `/de-bai-guard docs/systems/ARCHITECTURE_5BLOCK.md` | tick each rule of `de-bai.md` against the file |
+| 5 | **Check against `de-bai.md`** | the `de-bai-guard` skill (section B above): `/de-bai-guard docs/systems/ARCHITECTURE_5BLOCK.md` | tick each rule of `de-bai.md` against the file |
 | 6 | **Keep context small** | `/compact` in a long chat · `/clear` between tasks · `/context` to see what fills it | — |
 
 `/init` **writes or updates CLAUDE.md** by scanning the repo — it does *not* explain the repo to you. This repo already has a CLAUDE.md with the course rules: `/init` will propose changes; keep the rules, review, then share it with the team. To *understand* the repo, ask Claude: `I am new to this repository. Without editing anything, list the top-level folders with one line each, and quote the files that describe the course and the brief.`
 
-**Prompt a — CLAUDE.md, the project's main information** (more in part a below)
+**Prompt a — CLAUDE.md, the project's main information** (more in section A below)
 
 ```text
 Analyze docs/de-bai.md and record the main information for the project — main tasks, input,
@@ -167,40 +182,11 @@ output — in an "MT-01" section of CLAUDE.md. Cite the de-bai.md section for ea
 Keep every existing line unchanged. Show me the diff before saving.
 ```
 
-Then set up the skills and hooks the team will reuse (recommended: **deep research**, **documentation**, **visualization**, …) — how to create a skill and a hook is in parts b and c below.
-
-**Prompt b — read the brief**
-
-```text
-Read docs/de-bai.md. List the 3 roles and the capabilities of role A, B, C —
-each with the section it comes from. Do not edit anything.
-```
-
-**Prompt c — draw the diagram (plan mode)**
-
-```text
-Read docs/de-bai.md and slides 3–6 of docs/giao-trinh/slide/buoi-03.html (#overview to #properties).
-Plan docs/systems/ARCHITECTURE_5BLOCK.md at OVERVIEW level only:
-a Mermaid flowchart with the five blocks (Front-End, Back-End, AI Agent, Database, DevOps),
-the three roles and the external LLM provider; a one-line general function per block;
-each arrow labelled with what flows. No endpoints, no table schemas, no code.
-```
-
-**Prompt d — propose technologies with the interview skill**
-
-An *interview* skill (`.claude/skills/interview/SKILL.md`, created like part b) makes Claude ask **you** questions one at a time instead of deciding.
-
-```text
-/interview Choose a technology for each of the five blocks. For each block, compare 2 options
-(e.g. React vs Streamlit for the Front-End) against docs/de-bai.md: the "Yêu cầu đầu ra" requirements
-and the "Phạm vi cố tình loại khỏi đề" limits, one-line reason each, citing the section.
-Then ask me one question at a time. Do not choose for me. When all five are answered,
-add the "Blocks" table (block · general function · technology · reason) to ARCHITECTURE_5BLOCK.md.
-```
+Then set up the skills and hooks the team will reuse — sections A, B and C below.
 
 ### CLAUDE.md, skills and hooks — create, use, when
 
-Slide 8 puts these three side by side, from softest to hardest. **Every next exercise uses all three**, so learn them now:
+Slide 10 puts these three side by side, from softest to hardest. **Every next exercise uses all three**, so learn them now. Set them up in this order: **A · CLAUDE.md** (the facts) → **B · skills** (the procedures) → **C · hooks** (the rules that must never break). Recommended starter skills: `interview`, `documentation`, `de-bai-guard`; recommended starter hooks: protect `data/`, protect secrets, format + lint after each edit.
 
 | | **CLAUDE.md** — advice | **Skill** — know-how | **Hook** — enforcement |
 |---|---|---|---|
@@ -214,7 +200,51 @@ Slide 8 puts these three side by side, from softest to hardest. **Every next exe
 
 Rule of thumb: **preference → CLAUDE.md · repeated procedure → skill · must never break → hook.** The Git pre-push hook that logs AI use is a different mechanism — leave it alone.
 
-#### (a) CLAUDE.md — add the MT-01 rules
+#### A · CLAUDE.md — what to write by hand
+
+`/init` scans the repo and drafts the **what** (stack, commands, folders). It cannot know the **why**, the team's agreements, or what must never happen. Those you write yourself. The test for every line: *"if this line were deleted, would Claude probably make a mistake?"* If not, delete it.
+
+| # | Put in CLAUDE.md | Why Claude cannot infer it | MT-01 example |
+|---|---|---|---|
+| 1 | **Project in 3 – 5 lines**: what it is, who uses it, what is *out* of scope | code shows what exists, not what was ruled out | “Course-support app for 3 roles. No multi-agent, no fine-tuning, no paid vector DB.” (*Phạm vi cố tình loại khỏi đề*) |
+| 2 | **Stack and versions** | several valid choices; versions move | Python 3.x · FastAPI · React + Vite · PostgreSQL · `langgraph==X.Y.Z` |
+| 3 | **Exact commands**: run, test, lint, build, run one test | a wrong guess wastes a turn | `uvicorn src.main:app --reload` · `pytest -q` · `ruff check .` · `npm run build` |
+| 4 | **Folder layout** — where each kind of file goes | Claude would invent its own | `src/api` routers · `src/server/services` rules · `docs/systems` design docs · `data/` read-only |
+| 5 | **Team conventions and decisions, with the reason** | agreements live in heads, not code | “Error format `{detail, code}`” · “All HTTP calls go through `src/lib/api.ts`” |
+| 6 | **Hard rules — never / always** (security, data, secrets) | Claude optimises for “works”, not “allowed” | “Never edit `data/`” · “Never print or commit `.env` values” · “Role checks live on the server” |
+| 7 | **Workflow rules** | how *you* want to work | “Plan first (`Shift+Tab`) when a change touches > 3 files” · “Run the tests before saying done” · “Ask before adding a library” · “Cite the `de-bai.md` section” |
+| 8 | **Domain words and invariants** | not in any single file | roles student / lecturer / manager · status `PENDING` until the lecturer approves |
+| 9 | **Pointers to documents**, not copies | copies go stale and fill the context | “Brief: `docs/de-bai.md` · Design: `docs/systems/`” (`@path` imports a file into every session — only for short files) |
+| 10 | **Gotchas** | learned the hard way | “Shell is Git Bash on Windows” · “port 8000 already used → `--port 8001`” |
+
+**Do not put in:** secrets or API keys · whole documents (link them) · what a linter or formatter already enforces · things that change daily (use `tasks.json` or issues) · vague advice (“write clean code”). Keep it short — a long CLAUDE.md is read less carefully.
+
+*Skeleton to fill in (add under the course rules already in this repo's CLAUDE.md):*
+
+````markdown
+## MT-01
+<3–5 lines: what it is, who uses it, what is out of scope — cite de-bai.md>
+
+### Stack
+Back-end: … · Front-end: … · Agent: … · Database: …
+
+### Commands
+- run: `…`   - test: `…`   - lint/format: `…`   - build: `…`
+
+### Layout
+- `src/api/` … · `src/server/services/` … · `docs/systems/` … · `data/` read-only
+
+### Rules
+- Never edit `data/`. Never print or commit `.env` values.
+- Role checks live on the server, not in the UI.
+- Plan first when a change touches more than 3 files. Ask before adding a library.
+- Every requirement cites its `de-bai.md` section.
+
+### Read first
+- `docs/de-bai.md` · `docs/systems/ARCHITECTURE_5BLOCK.md`
+````
+
+**Prompt A1 — add the MT-01 rules**
 
 ```text
 Open CLAUDE.md. Propose (do not save yet) a short "MT-01 rules" section with 3–5 lines taken
@@ -222,11 +252,107 @@ from docs/de-bai.md — e.g. read de-bai.md before any design, role checks live 
 never edit data/. Cite the de-bai.md section for each line. Keep every existing line unchanged.
 ```
 
-Review the diff, then commit. Teammates get it with `git pull`.
+Review the diff, then **add by hand** what only the team knows (rows 5, 7 and 10 above), and commit. Teammates get it with `git pull`.
 
-#### (b) A project skill: `de-bai-guard`
+#### B · Skills — a general prompt, then three examples
 
-**What a skill is:** a folder `.claude/skills/<name>/` containing `SKILL.md`. The YAML header has a `name` and a `description`; the **description is what Claude matches** to decide when to load the skill, so write it as "Use when …". The body is the procedure. There is no `/skill` command to create one — you create the file (by hand, or ask Claude to). Once it exists you can call it explicitly as `/de-bai-guard`.
+**What a skill is:** a folder `.claude/skills/<name>/` containing `SKILL.md` (plus, if you want, templates or scripts next to it). The YAML header has a `name` and a `description`; the **description is what Claude matches** to decide when to load the skill, so write it as “Use when …” with the words a user would really say. The body is the procedure. There is no `/skill` command to create one — you create the file (by hand, or ask Claude to). Once it exists you can call it explicitly as `/<name>`; to check, type `/` and look for the name in the list.
+
+*General shape of a `SKILL.md`:*
+
+````markdown
+---
+name: <kebab-case-name>
+description: Use when <situation and trigger words>. <What it produces, in one sentence>.
+---
+# <Title>
+Goal: <one sentence — the output>
+1. <step — a verb first: read / list / ask / write / check>
+2. …                                   (3–7 steps)
+Output: <file path or table shape>
+Rules: <never … · always ask before … · cite the source · mark "(assumed)">
+Done when: <a check the user can run or read>
+````
+
+*General format of the prompt that creates a skill — fill the `<…>` and delete nothing else:*
+
+```text
+Create a project skill at .claude/skills/<name>/SKILL.md.
+Purpose: <the one task it does again and again>.
+Trigger: the description starts with "Use when" and names <situations / words a user would say>.
+Inputs: <what I give it — a file, a topic, an argument>.
+Steps: 1) <…> 2) <…> 3) <…>   (3–7 steps, one verb each)
+Output: <file path, or the shape of the table>.
+Rules: <never … / always ask before … / cite the source / mark "(assumed)">.
+Done when: <a check I can run or read>.
+Keep SKILL.md under 60 lines; long templates go in a separate file in the same folder.
+Do not touch other skills. Show me the file before saving.
+```
+
+**Example 1 — `interview`** (used by prompt d, step 4): Claude asks, **you** decide.
+
+```text
+Create a project skill at .claude/skills/interview/SKILL.md.
+Purpose: when I must choose between options, or a spec is incomplete, interview me instead of deciding for me.
+Trigger: the description starts with "Use when" and names: choose between options, incomplete spec,
+"interview me", "help me choose", "open decisions".
+Inputs: the files or the topic I name in my request.
+Steps: 1) read the files and list the open decisions (max 10);
+2) for each, prepare 2–3 options, each with a one-line benefit, a one-line cost and the source line it relies on;
+3) ask ONE question at a time with AskUserQuestion, then wait for my answer;
+4) never choose for me — if I say "you choose", restate the trade-off and ask once more;
+5) write my answers into the target file under "Decisions", and what is left under "Open decisions".
+Output: a "Decisions" table — decision · choice · why · source.
+Rules: no source → mark "(suggestion)"; never batch questions; edit no file except the target.
+Done when: every decision is answered or listed under "Open decisions".
+Keep SKILL.md under 40 lines. Show me the file before saving.
+```
+
+Result to expect (about this):
+
+```markdown
+---
+name: interview
+description: Use when the user must choose between options or a spec is incomplete — interview the user one question at a time instead of deciding. Words: "interview me", "help me choose", "open decisions".
+---
+# Interview
+Goal: turn open decisions into recorded decisions made by the user.
+1. Read the named files; list the open decisions (max 10).
+2. For each: 2–3 options, each with one-line benefit, one-line cost, source line (file + section).
+3. Ask ONE question with AskUserQuestion; wait. Never batch.
+4. Never choose for the user. If told "you choose", restate the trade-off and ask once more.
+5. Write answers to the target file: "Decisions" (decision · choice · why · source) and "Open decisions".
+Rules: no source → "(suggestion)". Edit only the target file.
+Done when: every decision is answered or listed under "Open decisions".
+```
+
+**Example 2 — `documentation`**: every document looks the same and says where it came from.
+
+```text
+Create a project skill at .claude/skills/documentation/SKILL.md.
+Purpose: write or update a project document under docs/ (spec, architecture, ADR, API list, README)
+so that every document has the same header, structure and sources.
+Trigger: the description starts with "Use when" and names: write / update / draft a document, spec, ADR,
+README, architecture note, API list.
+Inputs: the document type and the source files I name.
+Steps: 1) find out the type (SPEC · ARCHITECTURE · ADR · API · README) and look in docs/ for an existing file
+of that type — update it, do not create a duplicate;
+2) first lines: "# <title>" then "Based on: <the files this document is based on>";
+3) use the template for the type — ADR: Context · Options · Decision · Why · Cost (5 short lines);
+SPEC / ARCHITECTURE: Purpose · Mermaid diagram · tables · Open decisions;
+4) every requirement or claim cites its source (file + section); no source → "(assumed)";
+5) prefer tables to paragraphs; add a Mermaid diagram when 3 or more parts connect;
+6) end with "## Open decisions" — what the team still has to decide;
+7) show the diff before saving; never delete existing text without asking.
+Output: one Markdown file under docs/ (docs/systems/ for design documents).
+Done when: the file has a "Based on:" line, at least one source per section, and an "Open decisions" section.
+Keep SKILL.md under 50 lines; put the ADR template in a separate adr-template.md next to it.
+Show me the files before saving.
+```
+
+Use it: `/documentation Write docs/systems/ADR-001-frontend.md from docs/de-bai.md and ARCHITECTURE_5BLOCK.md — React now or Streamlit first.`
+
+**Example 3 — `de-bai-guard`**: a *checking* skill. Same general format; the steps are “read the rules → output a table → never fix silently”.
 
 `.claude/skills/de-bai-guard/SKILL.md`:
 
@@ -255,9 +381,36 @@ de-bai sections, output a rule/section/where/status table, never fix silently.
 Show me the file before saving.
 ```
 
-#### (c) A hook: block edits to `data/`
+Other skills the next exercises add the same way: `ui-component` (Ex 1.2) · `add-endpoint` (Ex 1.3) · `add-node` (Ex 1.4); optional `deep-research` (find sources, 5 bullets + URL each) and `visualization` (Mermaid diagrams in one house style).
 
-`data/` holds the course's training data (syllabus with deliberate errors, PLO, rubric). Nobody — including Claude — should edit it during these exercises. CLAUDE.md can *ask*; a hook *enforces*.
+#### C · Hooks — they run on events, not on your prompts
+
+**Do hooks run for every prompt without me calling them? Yes — with one precision.** You never call a hook, and a prompt cannot switch it off: once it is in `.claude/settings.json`, Claude Code runs it **every time its event happens** in a session of this project (start a new session after editing the file, and check with `/hooks`). But a hook is tied to an **event**, not to “every prompt”:
+
+| Event | Fires | Exit code 2 does | Typical use |
+|---|---|---|---|
+| `SessionStart` | a session starts or resumes | — (its output is added as context) | print branch, open tasks, reminders |
+| `UserPromptSubmit` | **every** prompt you send | blocks the prompt | log usage (this repo), reject a prompt that pastes a secret |
+| `PreToolUse` | **before** each tool call that matches the `matcher` (`Edit\|Write`, `Bash`, `Read`, …) | **blocks** the call; stderr goes to Claude | protect files, block secrets and dangerous commands |
+| `PostToolUse` | **after** each matching tool call succeeds | cannot undo; stderr goes to Claude, which fixes it | format, lint, type-check, run the quick test |
+| `Stop` | Claude finishes its answer | makes Claude **keep working** | run the tests before “done” |
+
+So `protect_data.py` (matcher `Edit|Write`) does **not** run on a prompt that only asks a question — it runs on every file edit, whatever the prompt said. Three limits to remember: hooks guard **Claude's tool calls**, not what you type in your own terminal or editor; a hook runs with **your** permissions, so read it first; project hooks live in `.claude/settings.json` (shared through git) — personal ones go in `.claude/settings.local.json` or `~/.claude/settings.json`.
+
+*General format of the prompt that creates a hook:*
+
+```text
+Add a <Event> hook to .claude/settings.json.
+Event and matcher: <PreToolUse | PostToolUse | Stop | UserPromptSubmit | SessionStart> · matcher "<Edit|Write | Bash | Read>".
+Rule: <what must always (or never) happen — one sentence>.
+Action: <block with exit 2 and a clear message | run a command and send its errors back to Claude | add context>.
+Script: .claude/hooks/<name>.py — reads the JSON event from stdin; exit 0 = allow, exit 2 = block,
+message on stderr; run it with "bash scripts/_pyrun.sh", like the existing hooks.
+Keep every existing hook in settings.json unchanged. Show me the diff before saving.
+Then give me two commands to test it by hand: one that must be blocked (exit=2), one that must pass (exit=0).
+```
+
+**Example 1 — block edits to `data/`** (`PreToolUse`). `data/` holds the course's training data (syllabus with deliberate errors, PLO, rubric). Nobody — including Claude — should edit it during these exercises. CLAUDE.md can *ask*; a hook *enforces*.
 
 `.claude/hooks/protect_data.py`:
 
@@ -296,6 +449,123 @@ Add **one new key** to the existing `hooks` object in `.claude/settings.json` (k
 
 **Prompt (AI-aided):** `Add a PreToolUse hook that blocks Edit and Write on files under data/. Keep every existing hook in .claude/settings.json unchanged. Show me the diff of settings.json before saving.`
 
+**More fundamental hooks for a software project**
+
+| # | Hook | Event · matcher | Action | Needed from |
+|---|---|---|---|---|
+| 1 | **Protect files** — `data/`, lock files, applied migrations | `PreToolUse` · `Edit\|Write` | exit 2 | Ex 1.1 |
+| 2 | **Protect secrets** — never read, write or `cat` `.env` | `PreToolUse` · `Read\|Edit\|Write\|Bash` | exit 2 | Ex 1.1 |
+| 3 | **Block dangerous commands** — `rm -rf`, `git push --force`, `git reset --hard`, `DROP TABLE` | `PreToolUse` · `Bash` | exit 2 | Ex 1.3 |
+| 4 | **Format after edit** — `ruff format`, `prettier` | `PostToolUse` · `Edit\|Write` | run the formatter | Ex 1.2 – 1.3 |
+| 5 | **Lint / type-check after edit** — `ruff check`, `npx tsc --noEmit` | `PostToolUse` · `Edit\|Write` | exit 2 with the errors → Claude fixes them | Ex 1.2 – 1.3 |
+| 6 | **Tests before “done”** — `pytest -q` | `Stop` | exit 2 with the failures → Claude keeps working | buổi 4 |
+| 7 | **Scan for secrets before a commit** — `gitleaks` or a `grep` for keys | `PreToolUse` · `Bash` (command contains `git commit`) | exit 2 | buổi 4 |
+| 8 | **Log AI usage** — already in this repo (`log_hook.py`) | `UserPromptSubmit` · `PostToolUse` · `Stop` | log only — **do not touch** | already there |
+| 9 | **Start-of-session context** — current branch, open tasks | `SessionStart` | print text, exit 0 | optional |
+
+The `.claude/hooks/` scripts for 2, 5 and 6 (3 and 7 follow the same shape as 2):
+
+```python
+# .claude/hooks/block_secrets.py — PreToolUse, matcher "Read|Edit|Write|Bash"
+import json, re, sys
+event = json.load(sys.stdin)
+tool, inp = event.get("tool_name", ""), event.get("tool_input") or {}
+text = inp.get("command", "") if tool == "Bash" else inp.get("file_path", "")
+if re.search(r"(^|[\\/\s])\.env(\.|\s|$)", text) and ".env.example" not in text:
+    print("Blocked: .env holds secrets. Ask the user to edit it by hand.", file=sys.stderr)
+    sys.exit(2)
+sys.exit(0)
+```
+
+```python
+# .claude/hooks/lint_after_edit.py — PostToolUse, matcher "Edit|Write"
+import json, subprocess, sys
+event = json.load(sys.stdin)
+path = (event.get("tool_input") or {}).get("file_path", "")
+if not path.endswith(".py"):
+    sys.exit(0)
+subprocess.run(["ruff", "format", path], check=False)            # fix the style silently
+r = subprocess.run(["ruff", "check", path], capture_output=True, text=True)
+if r.returncode != 0:                                            # real problems → tell Claude
+    print(r.stdout + r.stderr, file=sys.stderr)
+    sys.exit(2)                                                  # the edit already happened; Claude sees the errors and fixes them
+sys.exit(0)
+```
+
+```python
+# .claude/hooks/tests_before_done.py — Stop (use from buổi 4, when tests exist)
+import json, subprocess, sys
+event = json.load(sys.stdin)
+if event.get("stop_hook_active"):        # Claude already continued once because of this hook → do not loop
+    sys.exit(0)
+r = subprocess.run([sys.executable, "-m", "pytest", "-q", "-x"], capture_output=True, text=True)
+if r.returncode not in (0, 5):           # 5 = no tests collected
+    print(r.stdout[-1500:], file=sys.stderr)
+    sys.exit(2)                          # Claude must keep working until the tests pass
+sys.exit(0)
+```
+
+How they sit in `.claude/settings.json` — **add** entries to the arrays that already exist (`PostToolUse` and `Stop` already carry the logging hook), never replace them:
+
+```json
+"PreToolUse": [
+  { "matcher": "Edit|Write",
+    "hooks": [{ "type": "command", "command": "bash scripts/_pyrun.sh .claude/hooks/protect_data.py", "shell": "bash" }] },
+  { "matcher": "Read|Edit|Write|Bash",
+    "hooks": [{ "type": "command", "command": "bash scripts/_pyrun.sh .claude/hooks/block_secrets.py", "shell": "bash" }] }
+],
+"PostToolUse": [
+  { "matcher": "Edit|Write",
+    "hooks": [{ "type": "command", "command": "bash scripts/_pyrun.sh .claude/hooks/lint_after_edit.py", "shell": "bash" }] }
+]
+```
+
+**Prompt (AI-aided)** — the general format, filled in:
+
+```text
+Add a PostToolUse hook to .claude/settings.json.
+Event and matcher: PostToolUse · matcher "Edit|Write".
+Rule: every edited .py file is formatted and linted.
+Action: run "ruff format" on the file, then "ruff check"; if it fails, exit 2 with the errors on stderr.
+Script: .claude/hooks/lint_after_edit.py — reads the JSON event from stdin; ignores non-.py files;
+run it with "bash scripts/_pyrun.sh", like the existing hooks.
+Keep every existing hook in settings.json unchanged. Show me the diff before saving.
+Then give me two commands to test it by hand: one that must exit 2 (a .py file with a lint error), one that must exit 0 (a .md file).
+```
+
+Test a hook **by hand** before you trust it: feed it a fake event, as in *Done when* below.
+
+### Main steps (continued) — prompts b, c, d
+
+**Prompt b — read the brief**
+
+```text
+Read @docs/de-bai.md. List the 3 roles and the capabilities of role A, B, C —
+each with the section it comes from. Do not edit anything.
+```
+
+**Prompt c — draw the diagram (plan mode)**
+
+```text
+Read @docs/de-bai.md and slides 3–8 of docs/giao-trinh/slide/buoi-03.html (#overview to #sdlc).
+Plan docs/systems/ARCHITECTURE_5BLOCK.md at OVERVIEW level only:
+a Mermaid flowchart with the five blocks (Front-End, Back-End, AI Agent, Database, DevOps),
+the three roles and the external LLM provider; a one-line general function per block;
+each arrow labelled with what flows. No endpoints, no table schemas, no code.
+```
+
+**Prompt d — propose technologies with the interview skill**
+
+An *interview* skill (`.claude/skills/interview/SKILL.md`, created like section B) makes Claude ask **you** questions one at a time instead of deciding.
+
+```text
+/interview Choose a technology for each of the five blocks. For each block, compare 2 options
+(e.g. React vs Streamlit for the Front-End) against docs/de-bai.md: the "Yêu cầu đầu ra" requirements
+and the "Phạm vi cố tình loại khỏi đề" limits, one-line reason each, citing the section.
+Then ask me one question at a time. Do not choose for me. When all five are answered,
+add the "Blocks" table (block · general function · technology · reason) to ARCHITECTURE_5BLOCK.md.
+```
+
 ### Keep context small
 
 | Command | Does | Does **not** |
@@ -308,13 +578,14 @@ Add **one new key** to the existing `hooks` object in `.claude/settings.json` (k
 ### Manual — do these yourself, no AI
 
 - Put API keys in `.env` yourself — **never paste a key** into the chat.
-- Read and edit CLAUDE.md after `/init` — Claude follows it every session.
+- Read and edit CLAUDE.md after `/init` — Claude follows it every session. The team's decisions, "never" rules and gotchas (section A) are written **by hand**.
 - Choose the technologies **as a team** — Claude compares, you decide.
-- Read a hook command before enabling it — it runs with **your** permissions.
+- Read a hook command before enabling it — it runs with **your** permissions. Test it with a fake event before trusting it.
+- Read every skill Claude writes before saving it — a skill is instructions Claude will follow later.
 
 ### Keywords — self-study
 
-5-tier / layered architecture · C4 model · Mermaid flowchart · tech-stack trade-offs · Architecture Decision Record (ADR) · Claude Code memory (CLAUDE.md) · Agent Skills (SKILL.md) · Claude Code hooks (PreToolUse) · plan mode
+5-tier / layered architecture · C4 model · Mermaid flowchart · tech-stack trade-offs · Architecture Decision Record (ADR) · Claude Code memory (CLAUDE.md) · Agent Skills (SKILL.md) · Claude Code hooks (PreToolUse, PostToolUse, Stop, exit code 2, matcher) · plan mode
 
 ### Done when — run it yourself
 
@@ -330,6 +601,11 @@ python -c "import json; json.load(open('.claude/settings.json'))"   # no error =
 grep -c 'log_hook' .claude/settings.json                        # 3 — logging hooks still there
 echo '{"tool_input":{"file_path":"data/plo.md"},"cwd":"."}' | python .claude/hooks/protect_data.py; echo "exit=$?"   # exit=2
 echo '{"tool_input":{"file_path":"docs/x.md"},"cwd":"."}'   | python .claude/hooks/protect_data.py; echo "exit=$?"   # exit=0
+# skills and the secrets hook
+ls .claude/skills/{interview,documentation,de-bai-guard}/SKILL.md   # 3 files, no "No such file"
+grep -c '^description: Use when' .claude/skills/*/SKILL.md          # 1 per file
+echo '{"tool_name":"Read","tool_input":{"file_path":".env"}}'        | python .claude/hooks/block_secrets.py; echo "exit=$?"   # exit=2
+echo '{"tool_name":"Read","tool_input":{"file_path":"README.md"}}'   | python .claude/hooks/block_secrets.py; echo "exit=$?"   # exit=0
 ```
 
 ### Common mistakes (mentor watch-list)
@@ -340,12 +616,16 @@ echo '{"tool_input":{"file_path":"docs/x.md"},"cwd":"."}'   | python .claude/hoo
 - Drawing a vector DB with a paid service. → de-bai.md excludes paid vector DBs.
 - Writing endpoints or table columns. → That is Exercise 1.3 / buổi 4. Overview only.
 - Replacing `.claude/settings.json` instead of adding to it. → `grep -c log_hook` drops below 3.
+- A skill `description` that says what the skill *is* instead of *when to use it*. → Rewrite it as "Use when …" with the words a user would say.
+- A CLAUDE.md that is a copy of `de-bai.md`, or full of vague advice. → Keep only lines that prevent a mistake; link the documents.
+- A `Stop` hook that runs the tests with no `stop_hook_active` check. → Claude can loop forever on a failing test.
+- Expecting a hook to stop *you*. → Hooks only guard Claude's tool calls; your own terminal and editor are not covered.
 
 ---
 
 ## Exercise 1.2 · Front-end pages and APIs
 
-**Slides:** `#ex2-brief`, `#ex2-steps` (13 – 14) · **Theory:** slides 9 – 12 · **Today:** steps 1 – 3 · **Buổi 4:** steps 4 – 8
+**Slides:** `#ex2-brief`, `#ex2-steps` (16 – 17) · **Theory:** slides 12 – 15 · **Today:** steps 1 – 3 · **Buổi 4:** steps 4 – 8
 
 ### Task
 
@@ -355,7 +635,7 @@ From [`docs/de-bai.md`](../../de-bai.md) + the 5-block map of Exercise 1.1, prop
 
 | | |
 |---|---|
-| **Knowledge** | React basics — components, props, state, routing (self-learn with Claude, see the Appendix) · the chat and dashboard patterns (slide 9) |
+| **Knowledge** | React basics — components, props, state, routing (self-learn with Claude, see the Appendix) · the chat and dashboard patterns (slide 12) |
 | **Tools** | Claude Code · React + Vite + TypeScript · React Router · optional `frontend-design` plugin / Figma |
 | **Files** | `docs/de-bai.md` · `docs/systems/ARCHITECTURE_5BLOCK.md` (Ex 1.1) |
 
@@ -363,7 +643,7 @@ From [`docs/de-bai.md`](../../de-bai.md) + the 5-block map of Exercise 1.1, prop
 
 ### Expected output
 
-**① Draft pages, components and the APIs they call** (the figure on slide 13):
+**① Draft pages, components and the APIs they call** (the figure on slide 16):
 
 | Role | Page | Functions (what the user can do) | Components (draft) | APIs |
 |---|---|---|---|---|
@@ -373,7 +653,7 @@ From [`docs/de-bai.md`](../../de-bai.md) + the 5-block map of Exercise 1.1, prop
 | Lecturer | **Review report** | findings for TC1 – TC6 · click a finding → the quoted line · `PENDING` → **Approve** | StatusBadge · FindingList · ApproveButton | `GET /reports/{id}` · `POST /reports/{id}/approve` |
 | Manager | **Dashboard** ★ key page | courses reviewed / total · weakest criteria · PLOs no course covers · **totals only**, no student data | StatTile · BarChart · Filter | `GET /dashboard` |
 
-The two key pages are the two interface patterns of slide 9 — **Chat = asking** (history, message list, streamed answer, sources, input box; anatomy on slide 11) and **Dashboard = watching** (KPI tiles, charts, filters; aggregated numbers only). The API column is the **input of Exercise 1.3**. Hiding the Approve button from students is UX; the **server** still has to refuse (Ex 1.3).
+The two key pages are the two interface patterns of slide 12 — **Chat = asking** (history, message list, streamed answer, sources, input box; anatomy on slide 14) and **Dashboard = watching** (KPI tiles, charts, filters; aggregated numbers only). The API column is the **input of Exercise 1.3**. Hiding the Approve button from students is UX; the **server** still has to refuse (Ex 1.3).
 
 **② Docs and code structure**
 
@@ -393,7 +673,7 @@ The two key pages are the two interface patterns of slide 9 — **Chat = asking*
 | **4 Guardrails** · buổi 4 | Make rules automatic before the big build | `/hooks`: format + type-check after every edit; permissions | `.claude/settings.json` → `PostToolUse` hooks |
 | **5 Design system** · buổi 4 | Base components from the tokens | Skill `ui-component`: how we build one component | `src/components/ui/` · `.claude/skills/ui-component/SKILL.md` |
 | **6 Features** · buổi 4 | Fill the pages: Chat, Dashboard, Report… | One page per prompt, with its acceptance check in the prompt | `src/app/` pages working on mock data |
-| **7 Browser check** · buổi 4 | See it as users do | Claude in Chrome / Playwright: 360 px, keyboard only, back-end stopped (slide 12) | `docs/systems/FE_CHECK.md` → checklist, screenshots |
+| **7 Browser check** · buổi 4 | See it as users do | Claude in Chrome / Playwright: 360 px, keyboard only, back-end stopped (slide 15) | `docs/systems/FE_CHECK.md` → checklist, screenshots |
 | **8 Review + ship** · buổi 4 · **manual** | Harden and deploy | `/code-review` · `/security-review` · `npm run build` · *manual:* deploy settings, domain | review notes · deployed URL |
 
 ### Step 1 · Scaffold the app and write the rules
@@ -519,7 +799,7 @@ Starting points to reuse next session:
 - **4 Guardrails** — `Add PostToolUse hooks that run the formatter and "npx tsc --noEmit" after every edit to a .ts/.tsx file. Keep every existing hook. Show me the settings.json diff.`
 - **5 Design system** — `Create a skill .claude/skills/ui-component/SKILL.md: how we build one component in this repo (tokens only, props typed, one story/example, keyboard accessible).`
 - **6 Features** — one page per prompt: `Build the Chat page per SPEC.md and UX.md using api.ts stubs. Done when: messages render, sources show under answers, a refusal shows its reason, works at 360 px.`
-- **7 Browser check** — open every page at 360 px; keyboard-only pass; stop the back-end and watch the errors (slide 12). Record results in `FE_CHECK.md`.
+- **7 Browser check** — open every page at 360 px; keyboard-only pass; stop the back-end and watch the errors (slide 15). Record results in `FE_CHECK.md`.
 - **8 Review + ship** — `/code-review`, `/security-review`, check no secrets in the bundle, deploy with the DevOps section.
 
 ### Manual — do these yourself, no AI
@@ -555,7 +835,7 @@ npm run dev                                                    # open each page 
 
 ## Exercise 1.3 · Back-end components and APIs
 
-**Slides:** `#ex3-brief`, `#ex3-steps` (19 – 20) · **Theory:** slides 15 – 18 · **Today:** steps 1 – 3 · **Buổi 4:** steps 4 – 7 · **DevOps:** step 8
+**Slides:** `#ex3-brief`, `#ex3-steps` (22 – 23) · **Theory:** slides 18 – 21 · **Today:** steps 1 – 3 · **Buổi 4:** steps 4 – 7 · **DevOps:** step 8
 
 ### Task
 
@@ -571,11 +851,11 @@ From [`docs/de-bai.md`](../../de-bai.md) + the 5-block map (Ex 1.1) + the pages 
 
 | | |
 |---|---|
-| **Knowledge** | Python, HTTP / REST, FastAPI basics (self-learn with Claude, see the Appendix) · the endpoint pattern (slide 18) |
+| **Knowledge** | Python, HTTP / REST, FastAPI basics (self-learn with Claude, see the Appendix) · the endpoint pattern (slide 21) |
 | **Tools** | Claude Code · FastAPI · Pydantic · Uvicorn · Swagger UI at `/docs` |
 | **Files** | `docs/de-bai.md` · `docs/systems/ARCHITECTURE_5BLOCK.md` (Ex 1.1) · `docs/systems/SPEC.md` — API list (Ex 1.2) |
 
-### Every endpoint in five parts (slide 18)
+### Every endpoint in five parts (slide 21)
 
 | Part | Example (`POST /api/v1/chat`) |
 |---|---|
@@ -589,7 +869,7 @@ From [`docs/de-bai.md`](../../de-bai.md) + the 5-block map (Ex 1.1) + the pages 
 
 ### Expected output
 
-**① BE block diagram + main APIs** (the figure on slide 19)
+**① BE block diagram + main APIs** (the figure on slide 22)
 
 ```
 FE page (Ex 1.2)        API endpoint (API.md)            who may call        Back-end layers
@@ -680,7 +960,7 @@ Check yourself (all must be "no" in the role matrix): Can a student read a `PEND
 
 ### Step 3 · Plan in plan mode → `BACKEND_PLAN.md` + `tasks.json`
 
-*Manual:* draw the layers (router → service → data / agent, slide 19), the data model (e.g. User, Course, Syllabus, Report, Finding — names are yours), and the full path of one request ("lecturer approves report 7").
+*Manual:* draw the layers (router → service → data / agent, slide 22), the data model (e.g. User, Course, Syllabus, Report, Finding — names are yours), and the full path of one request ("lecturer approves report 7").
 
 *AI-aided (plan mode):*
 
@@ -752,7 +1032,7 @@ python -c "import json; t=json.load(open('docs/systems/tasks.json')); print(len(
 
 ## Exercise 1.4 · Agent job, rules and flow
 
-**Slides:** `#ex4-brief`, `#ex4-steps` (27 – 28) · **Theory:** slides 24 – 26 · **Today:** steps 1 – 2 · **Next chapter:** steps 3 – 8
+**Slides:** `#ex4-brief`, `#ex4-steps` (30 – 31) · **Theory:** slides 27 – 29 · **Today:** steps 1 – 2 · **Next chapter:** steps 3 – 8
 
 ### Task — decide the agent before you build it
 
@@ -770,7 +1050,7 @@ Answer five plain questions for MT-01. They work for any AI project.
 
 | | |
 |---|---|
-| **Knowledge** | ML / DL / LLM basics · what an AI agent is: tools, memory, loop · LangGraph as a graph (slides 24 – 26) — self-learn with Claude (see the Appendix) |
+| **Knowledge** | ML / DL / LLM basics · what an AI agent is: tools, memory, loop · LangGraph as a graph (slides 27 – 29) — self-learn with Claude (see the Appendix) |
 | **Tools** | Claude Code · LangGraph · an LLM API |
 | **Files** | `docs/de-bai.md` · `ARCHITECTURE_5BLOCK.md` (Ex 1.1) · `SPEC.md` (Ex 1.2) · `API.md` (Ex 1.3) · `data/rubric.yaml` |
 
@@ -778,7 +1058,7 @@ Answer five plain questions for MT-01. They work for any AI project.
 
 | File | Main content |
 |---|---|
-| `docs/systems/AGENT.md` | ① **Job** table · ② **Rules** table (allowed / needs approval / limit / banned) · ③ **Flow** — a high-level directed graph per capability (slide 25: *a flowchart the program follows*) · open decisions — every row cites its source in `de-bai.md`, `SPEC.md` or `API.md` |
+| `docs/systems/AGENT.md` | ① **Job** table · ② **Rules** table (allowed / needs approval / limit / banned) · ③ **Flow** — a high-level directed graph per capability (slide 28: *a flowchart the program follows*) · open decisions — every row cites its source in `de-bai.md`, `SPEC.md` or `API.md` |
 | `docs/systems/LANGGRAPH_NOTES.md` | *only if LangGraph is chosen* — installed version, official links, a few general notes. Graph details come next chapter. |
 | `src/agent/CLAUDE.md` | agent rules for Claude, copied from the Rules table |
 | `requirements.txt` | `langgraph` pinned to the installed version |
@@ -831,7 +1111,7 @@ The dashed "pause" in the flow is LangGraph's **interrupt** (human-in-the-loop):
 # LangGraph — notes for MT-01
 Installed: langgraph==X.Y.Z (pip show langgraph, <date>)
 
-- Graph = state + nodes + edges (slide 25). Nodes are functions that return only what changed.
+- Graph = state + nodes + edges (slide 28). Nodes are functions that return only what changed.
 - Checkpointer = saves the state between steps/requests → conversations can resume.
 - Interrupt = pause the graph and wait for a human → our "lecturer approves" point.
 - Details (state schema, nodes, tools) → next chapter.
@@ -939,7 +1219,7 @@ Use these any time a term or tool is new. They work in this repo because the rul
 | **Compare two things** | `Compare <A> and <B> in a table: what it is, when to use it, cost, one example from MT-01. Cite an official source for each row.` |
 | **Find + summarise docs** | `Find the official documentation for <topic>. Give the URL, the version/date shown on the page, and a 5-bullet summary. If you cannot fetch it, say so — do not answer from memory.` |
 | **Check your understanding** | `I think <my explanation>. Is it correct? Point out what is wrong or missing, citing the docs or a repo file.` |
-| **Read code** | `Explain <file> in the order imports → classes → functions (like slide 18 of buoi-03.html). Do not change it.` |
+| **Read code** | `Explain <file> in the order imports → classes → functions (like slide 21 of buoi-03.html). Do not change it.` |
 | **Before asking for help** | `I ran <command>. The ERROR line is: <paste>. What does it mean, and what should I check first?` — copy the `ERROR` line (or the last line of the `Traceback`), not the whole log. |
 
 Terms worth looking up during this session: *separation of concerns, API contract, ADR, React component, props and state, design tokens, WCAG, Pydantic schema, dependency injection (FastAPI `Depends`), 401 vs 403, idempotent, StateGraph, reducer, checkpointer, interrupt, human-in-the-loop.*
