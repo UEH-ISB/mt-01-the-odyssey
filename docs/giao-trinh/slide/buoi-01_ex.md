@@ -21,14 +21,14 @@
 | # | Exercise | After slides | Time | Continues in |
 |---|----------|--------------|------|--------------|
 | 0 | [Before you start — the rules of the game](#0--before-you-start--the-rules-of-the-game) | — | read | — |
-| 1.1 | [Join the team repo](#exercise-11--join-the-team-repo) | 3 – 16 | 18′ | every later session |
-| 1.2 | [Your first pull request](#exercise-12--your-first-pull-request) | 18 | 22′ | session 02, ex 2.5 |
-| 1.3 | [Review, then merge someone else's](#exercise-13--review-then-merge-someone-elses) | 18 | 12′ | session 02, ex 2.5 |
-| 1.4 | [Demand the command](#exercise-14--demand-the-command) | 17 | 8′ | session 02, ex 2.4 |
+| 1.1 | [Join the team repo](#exercise-11--join-the-team-repo) | 3 – 15 | 18′ | every later session |
+| 1.2 | [Your first pull request](#exercise-12--your-first-pull-request) | 17 | 22′ | session 02, ex 2.5 |
+| 1.3 | [Review, then merge someone else's](#exercise-13--review-then-merge-someone-elses) | 17 | 12′ | session 02, ex 2.5 |
+| 1.4 | [Demand the command](#exercise-14--demand-the-command) | 16 | 8′ | session 02, ex 2.4 |
 | X | [Cross-exercise — swap roles](#cross-exercise--swap-roles-20-minutes) | — | 20′ | every session |
 | A | [Appendix — if something goes wrong](#appendix--if-something-goes-wrong) | — | any time | — |
 
-Exercise slides in the deck: Ex 1.1 = slides 19 – 20 · Ex 1.2 = 21 – 22 · Ex 1.3 = 23 – 24 · Ex 1.4 = 25 – 26.
+Exercise slides in the deck: Ex 1.1 = slides 18 – 19 · Ex 1.2 = 20 – 21 · Ex 1.3 = 22 – 23 · Ex 1.4 = 24 – 25.
 
 ---
 
@@ -101,7 +101,7 @@ Nothing is installed today beyond this. Building the Python environment is sessi
 
 ## Exercise 1.1 · Join the team repo
 
-**Slides:** `#ex1-brief`, `#ex1-steps` (19 – 20) · **Theory:** slides 3 – 16 · **Time:** 18 minutes
+**Slides:** `#ex1-brief`, `#ex1-steps` (18 – 19) · **Theory:** slides 3 – 15 · **Time:** 18 minutes
 
 ### Task
 
@@ -119,7 +119,7 @@ You do **not** create a repo. The team repo already exists and you are a **colla
 | **Knowledge** | clone vs fork · collaborator vs owner · what a remote is |
 | **Tools** | `git` · `gh` (logged in) |
 | **Files** | `docs/de-bai.md` · `docs/giao-trinh/00-khung-danh-gia.md` |
-| **Slides** | 5–7 the gates · 12–16 MT-01 · 18 the lab |
+| **Slides** | 5–7 the gates · 11–15 MT-01 · 17 the lab |
 
 ### Expected output
 
@@ -227,7 +227,7 @@ ls docs/giao-trinh/ docs/de-bai.md                                 # both exist
 
 ## Exercise 1.2 · Your first pull request
 
-**Slides:** `#ex2-brief`, `#ex2-steps` (21 – 22) · **Theory:** slide 18 · **Time:** 22 minutes
+**Slides:** `#ex2-brief`, `#ex2-steps` (20 – 21) · **Theory:** slide 17 · **Time:** 22 minutes
 **The core exercise of the session.**
 
 ### Task
@@ -250,7 +250,7 @@ Then branch, commit, push and open a pull request — and **stop before merging 
 
 | | |
 |---|---|
-| **Knowledge** | branch · commit · push · pull request — the six moves of slide 18 |
+| **Knowledge** | branch · commit · push · pull request — the six moves of slide 17 |
 | **Tools** | `git` · `gh` · a text editor |
 | **Files** | `README.md`, the **Đội ngũ** table only |
 | **Given** | your row number, written on the board by the facilitator |
@@ -369,7 +369,7 @@ gh pr diff        # one + line, one − line
 
 ## Exercise 1.3 · Review, then merge someone else's
 
-**Slides:** `#ex3-brief`, `#ex3-steps` (23 – 24) · **Theory:** slide 18 · **Time:** 12 minutes
+**Slides:** `#ex3-brief`, `#ex3-steps` (22 – 23) · **Theory:** slide 17 · **Time:** 12 minutes
 
 ### Task
 
@@ -455,7 +455,7 @@ grep -n "^| [0-9] |" README.md    # ≥2 filled rows on your machine
 
 ## Exercise 1.4 · Demand the command
 
-**Slides:** `#ex4-brief`, `#ex4-steps` (25 – 26) · **Theory:** slide 17 · **Time:** 8 minutes
+**Slides:** `#ex4-brief`, `#ex4-steps` (24 – 25) · **Theory:** slide 16 · **Time:** 8 minutes
 
 ### Task
 
@@ -476,7 +476,7 @@ Then run both commands yourself and write down the gap.
 
 | | |
 |---|---|
-| **Knowledge** | slide 17 — guessing instead of running |
+| **Knowledge** | slide 16 — guessing instead of running |
 | **Tools** | your coding agent · `git ls-files` · `make` |
 | **Files** | `JOURNAL.md` — one line, in the repo |
 

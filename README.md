@@ -23,7 +23,7 @@ mình**, bằng một Pull Request — không ai sửa thẳng vào `main`.
 
 | # | Tên | GitHub | Vai mình nhận trong đội | Câu mình chưa rõ về MT-01 |
 |---|---|---|---|---|
-| 1 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |
+| 1 | LE VAN THE | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |
 | 2 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |
 | 3 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |
 | 4 | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ | _(chưa điền)_ |

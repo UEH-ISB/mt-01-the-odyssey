@@ -1,0 +1,1427 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sổ tay Buổi 01</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400..700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&amp;display=swap">
+<style>
+  :root{
+    --paper:#F6F6F2; --card:#FFFFFF; --ink:#16202E; --body:#48515E; --rule:#D9DBD4;
+    --teal:#1C6B72; --amber:#E8B34A; --brick:#A3302A;
+    --code-bg:#16202E; --code-fg:#E6E9EC; --code-dim:#8E9CAA; --code-key:#7FC4C9;
+    --soft:#EFEFE9; --shade:#FBFBF8;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E141C; --card:#1C2836; --ink:#F2F3EF; --body:#B6BFC9; --rule:#2C3A4A;
+      --teal:#7FC4C9; --amber:#E8B34A; --brick:#E0817B;
+      --code-bg:#0A1016; --code-fg:#E6E9EC; --code-dim:#7A8796; --code-key:#7FC4C9;
+      --soft:#243245; --shade:#17222E;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E141C; --card:#1C2836; --ink:#F2F3EF; --body:#B6BFC9; --rule:#2C3A4A;
+    --teal:#7FC4C9; --amber:#E8B34A; --brick:#E0817B;
+    --code-bg:#0A1016; --code-fg:#E6E9EC; --code-dim:#7A8796; --code-key:#7FC4C9;
+    --soft:#243245; --shade:#17222E;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--paper); color:var(--body);
+    font-family:'Be Vietnam Pro', system-ui, Arial, sans-serif;
+    font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  code, pre, .mono{ font-family:'Courier New', ui-monospace, monospace; }
+
+  /* ---------- khung trang ---------- */
+  .wrap{ max-width:1200px; margin:0 auto; padding:0 24px; display:grid; gap:48px;
+         grid-template-columns:232px minmax(0,1fr); align-items:start; }
+  @media (max-width:980px){ .wrap{ grid-template-columns:1fr; gap:0; } }
+
+  /* ---------- bia ---------- */
+  header.cover{ border-bottom:1px solid var(--rule); background:var(--card); }
+  .cover-in{ max-width:1200px; margin:0 auto; padding:56px 24px 44px; }
+  .eyebrow{ font-size:12px; font-weight:600; letter-spacing:3px; text-transform:uppercase;
+            color:var(--teal); margin:0 0 14px; }
+  h1{ font-family:'Lora', Georgia, serif; font-weight:600; color:var(--ink);
+      font-size:clamp(30px,4.4vw,46px); line-height:1.14; margin:0 0 16px; text-wrap:balance;
+      max-width:21ch; }
+  .lede{ font-size:18px; max-width:62ch; margin:0 0 26px; }
+  .meta{ display:flex; flex-wrap:wrap; gap:10px 28px; font-size:13px; color:var(--body);
+         border-top:1px solid var(--rule); padding-top:18px; }
+  .meta b{ color:var(--ink); font-weight:600; }
+
+  /* ---------- muc luc ---------- */
+  nav.toc{ position:sticky; top:0; padding:36px 0; font-size:13.5px; }
+  @media (max-width:980px){
+    nav.toc{ position:static; padding:28px 0 0; border-bottom:1px solid var(--rule); }
+  }
+  nav.toc .t{ font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase;
+              color:var(--teal); margin:0 0 12px; }
+  nav.toc ol{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+  nav.toc a{ display:flex; gap:10px; padding:5px 0; color:var(--body); text-decoration:none;
+             border-left:2px solid transparent; padding-left:12px; margin-left:-14px; }
+  nav.toc a:hover{ color:var(--ink); }
+  nav.toc a.on{ color:var(--ink); font-weight:600; border-left-color:var(--teal); }
+  nav.toc a .n{ color:var(--teal); font-variant-numeric:tabular-nums; flex:none; }
+
+  /* ---------- noi dung ---------- */
+  main{ padding:36px 0 96px; min-width:0; }
+  section.sec{ scroll-margin-top:24px; padding:0 0 12px; }
+  section.sec + section.sec{ margin-top:52px; padding-top:44px; border-top:1px solid var(--rule); }
+  h2{ font-family:'Lora', Georgia, serif; font-weight:600; color:var(--ink);
+      font-size:clamp(23px,2.6vw,31px); line-height:1.2; margin:0 0 6px; text-wrap:balance; }
+  h2 .hn{ display:block; font-family:'Be Vietnam Pro', sans-serif; font-size:11px; font-weight:600;
+          letter-spacing:3px; text-transform:uppercase; color:var(--teal); margin-bottom:10px; }
+  h3{ font-family:'Lora', Georgia, serif; font-weight:600; color:var(--ink);
+      font-size:20px; line-height:1.3; margin:36px 0 10px; }
+  h4{ font-size:14px; font-weight:600; color:var(--ink); margin:26px 0 8px;
+      letter-spacing:.3px; }
+  p{ margin:0 0 14px; max-width:68ch; }
+  .sub{ font-size:16.5px; color:var(--body); max-width:66ch; margin:0 0 22px; }
+  ul, ol{ margin:0 0 16px; padding-left:22px; max-width:66ch; }
+  li{ margin:0 0 7px; }
+  li > ul, li > ol{ margin:7px 0 0; }
+  strong{ color:var(--ink); font-weight:600; }
+  a{ color:var(--teal); }
+  hr{ border:none; border-top:1px solid var(--rule); margin:28px 0; }
+
+  code:not(pre code){
+    background:var(--soft); color:var(--ink); border-radius:4px;
+    padding:1.5px 5px; font-size:14px; white-space:nowrap;
+  }
+
+  /* ---------- khoi terminal ---------- */
+  .term{ background:var(--code-bg); border-radius:10px; margin:0 0 18px; overflow:hidden; }
+  .term .cap{ font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase;
+              color:var(--code-dim); padding:12px 20px 0; }
+  .term pre{ margin:0; padding:16px 20px 18px; overflow-x:auto; color:var(--code-fg);
+             font-size:14px; line-height:1.75; white-space:pre; }
+  .term pre b{ color:var(--amber); font-weight:700; }          /* lenh */
+  .term pre i{ color:var(--code-dim); font-style:normal; }     /* chu thich / ket qua */
+  .term pre u{ color:var(--code-key); text-decoration:none; }  /* phan can nhin */
+  .term pre s{ color:#E0817B; text-decoration:none; }          /* loi */
+
+  /* ---------- bang ---------- */
+  .tw{ overflow-x:auto; margin:0 0 20px; border:1px solid var(--rule); border-radius:10px;
+       background:var(--card); }
+  table{ border-collapse:collapse; width:100%; font-size:14.5px; min-width:520px; }
+  th, td{ text-align:left; vertical-align:top; padding:11px 16px; border-bottom:1px solid var(--rule); }
+  thead th{ background:var(--shade); color:var(--ink); font-weight:600; font-size:12px;
+            letter-spacing:.6px; text-transform:uppercase; white-space:nowrap; }
+  tbody tr:last-child td{ border-bottom:none; }
+  td code{ white-space:nowrap; }
+  table.cmd td:first-child{ white-space:nowrap; }
+  .num{ font-variant-numeric:tabular-nums; }
+
+  /* ---------- the ghi chu ---------- */
+  .note{ border-left:3px solid var(--teal); background:var(--card); border-radius:0 8px 8px 0;
+         padding:14px 18px; margin:0 0 18px; font-size:15px; }
+  .note.warn{ border-left-color:var(--amber); }
+  .note.stop{ border-left-color:var(--brick); }
+  .note .lb{ display:block; font-size:11px; font-weight:600; letter-spacing:2px;
+             text-transform:uppercase; color:var(--teal); margin-bottom:5px; }
+  .note.warn .lb{ color:var(--amber); }
+  .note.stop .lb{ color:var(--brick); }
+  .note p:last-child{ margin-bottom:0; }
+  .note p{ max-width:none; }
+
+  /* ---------- the bai tap ---------- */
+  .ex{ background:var(--card); border:1px solid var(--rule); border-radius:12px;
+       padding:22px 24px; margin:26px 0 0; }
+  .ex .lb{ font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase;
+           color:var(--brick); margin:0 0 6px; }
+  .ex h4{ font-family:'Lora', Georgia, serif; font-size:19px; font-weight:600;
+          color:var(--ink); margin:0 0 12px; letter-spacing:0; }
+  .ex ol{ margin-bottom:0; }
+  .ex .done{ margin:14px 0 0; padding-top:12px; border-top:1px solid var(--rule);
+             font-size:14px; }
+  .ex .done b{ color:var(--teal); }
+
+  /* ---------- vong lap / cac buoc ---------- */
+  .loop{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:0 0 20px; }
+  .loop span{ background:var(--card); border:1px solid var(--rule); border-radius:999px;
+              padding:6px 14px; font-size:13.5px; color:var(--ink); font-weight:500; }
+  .loop span.mono{ font-size:13px; }
+  .loop i{ color:var(--teal); font-style:normal; font-weight:700; }
+
+  .kv{ display:grid; grid-template-columns:140px minmax(0,1fr); gap:4px 18px; font-size:15px;
+       margin:0 0 18px; max-width:66ch; }
+  .kv dt{ color:var(--teal); font-weight:600; font-size:13px; padding-top:2px; }
+  .kv dd{ margin:0; }
+
+  /* ---------- anh chup man hinh ---------- */
+  figure{ margin:0 0 22px; max-width:900px; }
+  figure img{ display:block; width:100%; height:auto; border:1px solid var(--rule);
+              border-radius:10px; }
+  figure svg{ display:block; width:100%; height:auto; border:1px solid var(--rule);
+              border-radius:10px; background:var(--shade); }
+  figcaption{ font-size:13.5px; color:var(--body); margin-top:9px; padding-left:2px; }
+  figcaption b{ color:var(--teal); font-weight:600; }
+
+  footer{ border-top:1px solid var(--rule); background:var(--card); }
+  footer .in{ max-width:1200px; margin:0 auto; padding:30px 24px 44px; font-size:13.5px; }
+
+  @media print{
+    nav.toc{ display:none; }
+    .wrap{ display:block; max-width:none; padding:0; }
+    body{ background:#fff; color:#000; font-size:11pt; }
+    .term{ background:#f2f2f2; }
+    .term pre{ color:#000; white-space:pre-wrap; }
+    section.sec + section.sec{ page-break-before:auto; }
+    .ex, .note, .tw{ break-inside:avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="cover-in">
+    <p class="eyebrow">The Odyssey · Sổ tay buổi 01</p>
+    <h1>Terminal, GitHub, Markdown và cách làm việc nhóm bằng Git</h1>
+    <p class="lede">Bản ghi lại đầy đủ những gì đã dạy ở buổi 01, viết dưới dạng sổ tay để tra
+      lại khi làm thật. Mỗi lệnh trong đây đều kèm: lệnh đó làm gì, bạn sẽ thấy gì trên màn hình,
+      và nếu nó báo lỗi thì nghĩa là gì.</p>
+    <div class="meta">
+      <span><b>Dành cho</b> mentor mới, chưa từng làm kỹ thuật</span>
+      <span><b>Repo đội</b> <code>UEH-ISB/mt-01-the-odyssey</code></span>
+      <span><b>Nguồn</b> <code>08_training_histories/buoi-1.txt</code></span>
+      <span><b>Kèm thêm</b> Phần 6 — dùng Claude Code (chưa dạy trên lớp)</span>
+      <span><b>Cách dùng</b> mở bằng trình duyệt; in ra được</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<nav class="toc" aria-label="Mục lục">
+  <p class="t">Mục lục</p>
+  <ol>
+    <li><a href="#s0"><span class="n">0</span><span>Chuẩn bị máy</span></a></li>
+    <li><a href="#s1"><span class="n">1</span><span>Terminal</span></a></li>
+    <li><a href="#s2"><span class="n">2</span><span>GitHub</span></a></li>
+    <li><a href="#s3"><span class="n">3</span><span>Kéo project về máy</span></a></li>
+    <li><a href="#s4"><span class="n">4</span><span>Markdown &amp; VS Code</span></a></li>
+    <li><a href="#s5"><span class="n">5</span><span>Làm việc nhóm bằng Git</span></a></li>
+    <li><a href="#s6"><span class="n">6</span><span>Dùng Claude Code</span></a></li>
+    <li><a href="#s7"><span class="n">7</span><span>Khi làm sai</span></a></li>
+    <li><a href="#s8"><span class="n">8</span><span>Bảng tra lệnh</span></a></li>
+    <li><a href="#s9"><span class="n">9</span><span>Bảng tra lỗi</span></a></li>
+    <li><a href="#s10"><span class="n">10</span><span>Từ vựng</span></a></li>
+    <li><a href="#s11"><span class="n">11</span><span>Việc về nhà</span></a></li>
+  </ol>
+</nav>
+
+<main>
+
+<!-- ===================== 0 ===================== -->
+<section class="sec" id="s0">
+  <h2><span class="hn">Phần 0</span>Chuẩn bị máy trước khi đọc tiếp</h2>
+  <p class="sub">Năm chủ đề của buổi 01 đều là thao tác tay. Không cài đủ bốn thứ dưới đây thì
+    đọc chỉ là đọc, và buổi 02 sẽ không chạy được.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Thứ cần có</th><th>Vì sao</th><th>Kiểm tra bằng cách nào</th></tr></thead>
+      <tbody>
+        <tr><td><b>Terminal</b></td><td>Nơi bạn ra lệnh cho máy. macOS và Linux có sẵn; Windows dùng <b>Git Bash</b> đi kèm Git.</td><td>Mở được cửa sổ có dấu nhắc lệnh</td></tr>
+        <tr><td><b>Git</b></td><td>Công cụ lưu lịch sử thay đổi của mã nguồn và tài liệu.</td><td><code>git --version</code></td></tr>
+        <tr><td><b>VS Code</b></td><td>Trình soạn thảo để đọc và sửa file, có sẵn bản xem trước Markdown.</td><td><code>code --version</code></td></tr>
+        <tr><td><b>Tài khoản GitHub</b></td><td>Danh tính của bạn trên repo đội. Mọi commit đều ghi tên bạn.</td><td>Đăng nhập được <code>github.com</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="term">
+    <p class="cap">Kiểm tra một lượt</p>
+<pre><b>git --version</b>
+<i>git version 2.39.5 (Apple Git-154)</i>
+
+<b>code --version</b>
+<i>1.95.3</i>
+
+<b>git config --global user.name</b>
+<i>Nguyen Van A</i>
+<b>git config --global user.email</b>
+<i>a.nguyen@example.com</i></pre>
+  </div>
+
+  <p>Hai lệnh cuối là <b>khai tên</b>. Git đóng tên và email này vào từng commit, nên nếu chưa
+    khai, lịch sử repo sẽ không biết ai làm gì. Khai một lần cho cả máy:</p>
+
+  <div class="term">
+<pre><b>git config --global user.name "Nguyen Van A"</b>
+<b>git config --global user.email "a.nguyen@example.com"</b></pre>
+  </div>
+
+  <div class="note warn">
+    <span class="lb">Lưu ý</span>
+    <p>Dùng đúng email đã gắn vào tài khoản GitHub. Dùng email khác thì commit vẫn lên được,
+      nhưng GitHub không nhận ra là của bạn — ảnh đại diện mất, và phần đóng góp không được
+      tính cho bạn.</p>
+  </div>
+</section>
+
+<!-- ===================== 1 ===================== -->
+<section class="sec" id="s1">
+  <h2><span class="hn">Phần 1</span>Terminal: nơi bạn ra lệnh cho máy</h2>
+  <p class="sub">Terminal là một cửa sổ bạn gõ chữ vào và máy làm. Không có nút bấm, không có
+    menu. Đổi lại, mọi việc đều gọi tên được — nên đó cũng là ngôn ngữ duy nhất mà một agent
+    có thể đưa cho bạn để bạn chạy lại y nguyên.</p>
+
+  <h3>1.1 · Mở nó ra</h3>
+  <div class="kv">
+    <dt>macOS</dt><dd><code>Cmd</code> + <code>Space</code> → gõ <code>Terminal</code> → <code>Enter</code></dd>
+    <dt>Windows</dt><dd>Start → <code>Git Bash</code> (cài cùng Git). Đừng dùng Command Prompt cũ.</dd>
+    <dt>Trong VS Code</dt><dd><code>Ctrl</code> + <code>`</code> (dấu huyền, bên trái số 1)</dd>
+  </div>
+
+  <h3>1.2 · Đọc dòng nhắc lệnh</h3>
+  <p>Dòng máy in ra trước khi bạn gõ gọi là <b>prompt</b> (dấu nhắc lệnh). Nó cho bạn biết
+    <b>bạn đang đứng ở đâu</b> — và 90% lỗi của người mới là chạy lệnh đúng ở thư mục sai.</p>
+
+  <div class="term">
+    <p class="cap">Prompt nói gì</p>
+<pre>an@MacBook-Pro <u>mt-01-the-odyssey</u> %
+<i>│  │                  │               └ hết prompt, phần bạn gõ bắt đầu ở đây</i>
+<i>│  │                  └ thư mục bạn đang đứng  ← quan trọng nhất</i>
+<i>│  └ tên máy</i>
+<i>└ tên người dùng</i></pre>
+  </div>
+
+  <p>Trong sổ tay này, mọi khối màu đen đều viết <b>lệnh bằng màu vàng</b> và
+    <i>kết quả máy in ra bằng màu xám</i>. Bạn chỉ gõ phần màu vàng.</p>
+
+  <h3>1.3 · Sáu lệnh chạy được 90% công việc</h3>
+
+  <div class="tw">
+    <table class="cmd">
+      <thead><tr><th>Lệnh</th><th>Đọc là</th><th>Làm gì</th></tr></thead>
+      <tbody>
+        <tr><td><code>pwd</code></td><td>print working directory</td><td>In ra đường dẫn thư mục đang đứng. Lệnh đầu tiên khi bạn không chắc mình ở đâu.</td></tr>
+        <tr><td><code>ls</code></td><td>list</td><td>Liệt kê file và thư mục ở đây.</td></tr>
+        <tr><td><code>ls -la</code></td><td>list, long, all</td><td>Liệt kê dạng bảng, <b>kèm cả file ẩn</b> (tên bắt đầu bằng dấu chấm, ví dụ <code>.git</code>, <code>.env</code>).</td></tr>
+        <tr><td><code>cd &lt;thư-mục&gt;</code></td><td>change directory</td><td>Đi vào một thư mục.</td></tr>
+        <tr><td><code>cd ..</code></td><td></td><td>Lùi ra thư mục cha, một cấp.</td></tr>
+        <tr><td><code>cat &lt;file&gt;</code></td><td>concatenate</td><td>In toàn bộ nội dung một file ra màn hình.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="term">
+    <p class="cap">Một phiên làm việc thật</p>
+<pre><b>pwd</b>
+<i>/Users/an</i>
+
+<b>ls</b>
+<i>Desktop    Documents   Downloads   Projects</i>
+
+<b>cd Projects</b>
+<b>pwd</b>
+<i>/Users/an/Projects</i>
+
+<b>ls -la</b>
+<i>total 0</i>
+<i>drwxr-xr-x   4 an  staff   128 Oct 29 09:12 .</i>
+<i>drwxr-xr-x  22 an  staff   704 Oct 29 09:10 ..</i>
+<i>drwxr-xr-x  18 an  staff   576 Oct 29 09:12 </i><u>mt-01-the-odyssey</u>
+
+<b>cd mt-01-the-odyssey</b>
+<b>cat README.md</b>
+<i># MT-01 — The Odyssey</i>
+<i>...</i>
+
+<b>cd ..</b>
+<b>pwd</b>
+<i>/Users/an/Projects</i></pre>
+  </div>
+
+  <h3>1.4 · Đường dẫn: bốn ký hiệu phải nhớ</h3>
+  <div class="tw">
+    <table class="cmd">
+      <thead><tr><th>Ký hiệu</th><th>Nghĩa</th><th>Ví dụ</th></tr></thead>
+      <tbody>
+        <tr><td><code>~</code></td><td>Thư mục nhà của bạn</td><td><code>cd ~</code> → về <code>/Users/an</code></td></tr>
+        <tr><td><code>.</code></td><td>Thư mục hiện tại</td><td><code>code .</code> → mở thư mục này bằng VS Code</td></tr>
+        <tr><td><code>..</code></td><td>Thư mục cha</td><td><code>cd ../..</code> → lùi hai cấp</td></tr>
+        <tr><td><code>/</code></td><td>Dấu phân cấp</td><td><code>cd docs/giao-trinh</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Đường dẫn bắt đầu bằng <code>/</code> hoặc <code>~</code> là <b>tuyệt đối</b> — chạy ở đâu cũng
+    đến đúng chỗ. Đường dẫn không bắt đầu bằng hai ký tự đó là <b>tương đối</b> — nó tính từ nơi
+    bạn đang đứng, nên <code>cd docs</code> chỉ chạy được khi trong thư mục hiện tại <i>có</i>
+    <code>docs</code>.</p>
+
+  <h3>1.5 · Bốn thứ giúp bạn gõ ít đi</h3>
+  <div class="tw">
+    <table class="cmd">
+      <thead><tr><th>Phím</th><th>Tác dụng</th></tr></thead>
+      <tbody>
+        <tr><td><code>Tab</code></td><td>Gõ vài chữ đầu rồi nhấn <code>Tab</code>, máy điền tiếp tên file/thư mục. Nếu nó không điền, nghĩa là <b>cái tên đó không tồn tại ở đây</b> — một cách kiểm tra chính tả miễn phí.</td></tr>
+        <tr><td><code>↑</code> / <code>↓</code></td><td>Lật lại các lệnh đã gõ. Dùng liên tục khi lặp một chu trình.</td></tr>
+        <tr><td><code>Ctrl</code> + <code>C</code></td><td>Dừng lệnh đang chạy. Lệnh bị treo, server đang chạy — bấm cái này.</td></tr>
+        <tr><td><code>clear</code> hoặc <code>Ctrl</code> + <code>L</code></td><td>Xoá màn hình cho sạch. Không xoá gì khác.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>1.6 · Đọc lỗi — kỹ năng quan trọng nhất của buổi 01</h3>
+  <p>Terminal không có hộp thoại báo lỗi. Nó in chữ, nhiều chữ, và <b>dòng quan trọng thường
+    không phải dòng cuối</b>. Quy tắc đọc:</p>
+  <ol>
+    <li>Tìm dòng có chữ <code>ERROR</code>, hoặc dòng cuối của một khối <code>Traceback</code>.</li>
+    <li><b>Bỏ qua</b> mọi dòng bắt đầu bằng <code>[notice]</code> và <code>WARNING</code>. Chúng là
+      lời nhắc, không phải lỗi.</li>
+    <li>Đọc nguyên văn. Đừng đoán. Nếu không hiểu, copy đúng dòng đó đưa cho agent và hỏi.</li>
+  </ol>
+
+  <div class="term">
+    <p class="cap">Bẫy kinh điển — lỗi nằm ở giữa, không phải ở cuối</p>
+<pre><b>pip install -e ".[dev]"</b>
+<i>Obtaining file:///Users/an/Projects/mt-01-the-odyssey</i>
+<s>ERROR: file:///Users/an/Projects/mt-01-the-odyssey does not appear to be a</s>
+<s>Python project: neither 'setup.py' nor 'pyproject.toml' found.</s>
+<i>[notice] A new release of pip is available: 24.0 -&gt; 24.2</i>
+<i>[notice] To update, run: pip install --upgrade pip</i></pre>
+  </div>
+  <p>Hai dòng <code>[notice]</code> ở dưới cùng khiến người mới tưởng lệnh chỉ nhắc cập nhật.
+    Thật ra lệnh <b>đã thất bại</b>: repo không có <code>pyproject.toml</code>.</p>
+
+  <div class="tw">
+    <table class="cmd">
+      <thead><tr><th>Lỗi thường gặp</th><th>Nghĩa thật</th><th>Làm gì</th></tr></thead>
+      <tbody>
+        <tr><td><code>command not found</code></td><td>Máy không có chương trình đó, hoặc gõ sai tên.</td><td>Kiểm tra chính tả; nếu đúng thì chưa cài.</td></tr>
+        <tr><td><code>No such file or directory</code></td><td>Đường dẫn sai, hoặc bạn đang đứng sai thư mục.</td><td><code>pwd</code> rồi <code>ls</code>. Dùng <code>Tab</code> để gõ tên.</td></tr>
+        <tr><td><code>Permission denied</code></td><td>Không có quyền với file/thư mục đó.</td><td>Xem lại mình đang ghi vào đâu. <b>Đừng</b> phản xạ gắn <code>sudo</code>.</td></tr>
+        <tr><td><code>not a git repository</code></td><td>Thư mục này không phải repo.</td><td><code>cd</code> vào thư mục repo (nơi có <code>.git</code>).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ex">
+    <p class="lb">Bài tập 1.1 · 8 phút</p>
+    <h4>Tự định vị trong máy của mình</h4>
+    <ol>
+      <li>Mở Terminal. Chạy <code>pwd</code>, ghi lại đường dẫn.</li>
+      <li>Tạo thư mục làm việc: <code>mkdir -p ~/Projects</code> rồi <code>cd ~/Projects</code>.</li>
+      <li>Chạy <code>ls -la</code>. Đếm xem có bao nhiêu dòng bắt đầu bằng <code>d</code> (là thư mục).</li>
+      <li>Gõ <code>cd Pro</code> rồi nhấn <code>Tab</code>. Quan sát máy điền tiếp hay không.</li>
+      <li>Cố ý gõ sai: <code>cd khong-ton-tai</code>. Đọc nguyên văn lỗi, ghi lại.</li>
+    </ol>
+    <p class="done"><b>Xong khi</b> bạn nói được câu: “Tôi đang ở <code>___</code>, thư mục này có <code>___</code> thư mục con.”</p>
+  </div>
+</section>
+
+<!-- ===================== 2 ===================== -->
+<section class="sec" id="s2">
+  <h2><span class="hn">Phần 2</span>GitHub: nơi mã nguồn của đội sống</h2>
+  <p class="sub">Trước khi gõ lệnh nào, phải tách được hai thứ hay bị gộp làm một.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th></th><th>Git</th><th>GitHub</th></tr></thead>
+      <tbody>
+        <tr><td><b>Là gì</b></td><td>Một chương trình chạy trên máy bạn</td><td>Một website</td></tr>
+        <tr><td><b>Làm gì</b></td><td>Ghi lại lịch sử thay đổi file</td><td>Giữ một bản sao để cả đội dùng chung, kèm chỗ bàn luận</td></tr>
+        <tr><td><b>Không có mạng</b></td><td>Vẫn chạy bình thường</td><td>Không vào được</td></tr>
+        <tr><td><b>Thay thế được bằng</b></td><td>Không có gì tiện hơn</td><td>GitLab, Bitbucket…</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Nói gọn: <b>Git là cái máy, GitHub là cái kho công cộng.</b> Buổi 01 dùng cả hai, và mọi
+    lệnh <code>git …</code> bạn gõ đều là Git — chỉ có <code>push</code>, <code>pull</code>,
+    <code>clone</code> là thực sự nói chuyện với GitHub.</p>
+
+  <h3>2.1 · Mười từ phải hiểu trước khi làm</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Từ</th><th>Nghĩa trong công việc hằng ngày</th></tr></thead>
+      <tbody>
+        <tr><td><b>repository</b> (repo)<br><i>kho mã</i></td><td>Một thư mục được Git theo dõi. Repo đội ta: <code>UEH-ISB/mt-01-the-odyssey</code>.</td></tr>
+        <tr><td><b>commit</b><br><i>điểm lưu</i></td><td>Một lần chụp ảnh trạng thái file, kèm lời nhắn giải thích vì sao. Không bao giờ mất.</td></tr>
+        <tr><td><b>branch</b><br><i>nhánh</i></td><td>Một dòng lịch sử song song, để bạn sửa mà không ảnh hưởng người khác.</td></tr>
+        <tr><td><b>main</b></td><td>Nhánh chính — bản “thật”. Mọi thứ vào được đây đều đã qua review.</td></tr>
+        <tr><td><b>remote</b> / <b>origin</b></td><td>Bản repo nằm trên GitHub. <code>origin</code> là tên mặc định mà máy bạn gọi nó.</td></tr>
+        <tr><td><b>clone</b></td><td>Tải toàn bộ repo (kèm cả lịch sử) về máy. Làm <b>một lần</b>.</td></tr>
+        <tr><td><b>pull</b></td><td>Lấy phần người khác đã thêm trên GitHub về máy. Làm <b>thường xuyên</b>.</td></tr>
+        <tr><td><b>push</b></td><td>Đẩy commit của bạn lên GitHub.</td></tr>
+        <tr><td><b>pull request</b> (PR)</td><td>Một lời đề nghị: “xin gộp nhánh của tôi vào <code>main</code>”. Là chỗ để người khác đọc và góp ý.</td></tr>
+        <tr><td><b>review</b></td><td>Người khác đọc PR của bạn rồi <b>Approve</b> (đồng ý) hoặc <b>Request changes</b> (yêu cầu sửa).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.2 · Đọc một trang repo</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Tab</th><th>Bạn đến đây để</th></tr></thead>
+      <tbody>
+        <tr><td><b>Code</b></td><td>Xem file. Hộp chọn bên trái cho đổi nhánh — mặc định là <code>main</code>. Nút <b>Code</b> xanh chứa đường link để clone.</td></tr>
+        <tr><td><b>Issues</b></td><td>Danh sách việc cần làm và lỗi cần sửa, mỗi việc một số thứ tự.</td></tr>
+        <tr><td><b>Pull requests</b></td><td>Danh sách đề nghị gộp đang chờ. Nơi bạn vào để review người khác.</td></tr>
+        <tr><td><b>Actions</b></td><td>Máy tự chạy kiểm thử mỗi khi có PR. Dấu ✓ xanh là qua, ✗ đỏ là hỏng.</td></tr>
+        <tr><td><b>Settings</b></td><td>Quyền truy cập, luật nhánh. Chỉ người quản trị repo mở được.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.3 · HTTPS hay SSH</h3>
+  <p>Nút <b>Code</b> xanh cho hai dạng đường link. Chọn một, và dùng nó suốt.</p>
+  <div class="term">
+<pre><i># HTTPS — dễ bắt đầu; GitHub sẽ hỏi tên đăng nhập và một Personal Access Token</i>
+<b>https://github.com/UEH-ISB/mt-01-the-odyssey.git</b>
+
+<i># SSH — cài khoá một lần, sau đó không phải nhập gì nữa</i>
+<b>git@github.com:UEH-ISB/mt-01-the-odyssey.git</b></pre>
+  </div>
+  <div class="note stop">
+    <span class="lb">Quan trọng</span>
+    <p>Khi GitHub hỏi mật khẩu trong terminal, nó <b>không</b> nhận mật khẩu đăng nhập website.
+      Nó cần một <b>Personal Access Token</b> — tạo ở <i>Settings → Developer settings →
+      Personal access tokens</i>. Token là mật khẩu: không dán vào file trong repo, không gửi
+      trong chat nhóm.</p>
+  </div>
+
+  <div class="ex">
+    <p class="lb">Bài tập 2.1 · 10 phút</p>
+    <h4>Nhận diện repo đội</h4>
+    <ol>
+      <li>Mở <code>github.com/UEH-ISB/mt-01-the-odyssey</code>.</li>
+      <li>Đếm số nhánh đang có (hộp chọn nhánh ở tab <b>Code</b>).</li>
+      <li>Mở tab <b>Pull requests</b>, ghi lại số PR đang mở.</li>
+      <li>Mở tab <b>Actions</b>, xem lần chạy gần nhất qua hay hỏng.</li>
+      <li>Vào <code>docs/giao-trinh/</code> và mở <code>00-README.md</code> ngay trên web.</li>
+    </ol>
+    <p class="done"><b>Xong khi</b> bạn nói được repo có mấy nhánh, mấy PR đang mở, và lần kiểm thử gần nhất kết quả thế nào.</p>
+  </div>
+</section>
+
+<!-- ===================== 3 ===================== -->
+<section class="sec" id="s3">
+  <h2><span class="hn">Phần 3</span>Kéo project từ link Git về máy</h2>
+  <p class="sub">Một lệnh duy nhất, nhưng phải chạy ở đúng chỗ và phải kiểm tra sau khi chạy.</p>
+
+  <h3>3.1 · Chọn chỗ đặt trước khi clone</h3>
+  <p><code>git clone</code> tạo một thư mục mới <b>ngay tại nơi bạn đang đứng</b>. Nên luôn
+    <code>cd</code> về thư mục làm việc trước, nếu không repo sẽ nằm rải rác trong Downloads
+    hay Desktop.</p>
+
+  <div class="term">
+    <p class="cap">Clone — và bốn lệnh kiểm tra ngay sau đó</p>
+<pre><b>mkdir -p ~/Projects &amp;&amp; cd ~/Projects</b>
+
+<b>git clone https://github.com/UEH-ISB/mt-01-the-odyssey.git</b>
+<i>Cloning into 'mt-01-the-odyssey'...</i>
+<i>remote: Enumerating objects: 412, done.</i>
+<i>Receiving objects: 100% (412/412), 1.84 MiB | 3.2 MiB/s, done.</i>
+<i>Resolving deltas: 100% (118/118), done.</i>
+
+<b>cd mt-01-the-odyssey</b>
+
+<b>git status</b>
+<i>On branch </i><u>main</u>
+<i>Your branch is up to date with 'origin/main'.</i>
+<i>nothing to commit, working tree clean</i>
+
+<b>git remote -v</b>
+<i>origin  https://github.com/UEH-ISB/mt-01-the-odyssey.git (fetch)</i>
+<i>origin  https://github.com/UEH-ISB/mt-01-the-odyssey.git (push)</i>
+
+<b>git log --oneline -5</b>
+<i>1f57521 revert: khoi phuc cache + queue slide 3, 7 buoi 03</i>
+<i>7d72b71 docs: bo slide 9 khoi deck buoi 01</i>
+<i>a50e1b8 fix: hop pass check bi cat o slide tong ket buoi 02</i>
+<i>d122f0c docs: bon file cho moi buoi</i>
+<i>e09bac1 docs: giam co chu slide tong ket</i>
+
+<b>git ls-files | wc -l</b>
+<i>     104</i></pre>
+  </div>
+
+  <div class="note">
+    <span class="lb">Bốn câu hỏi của bốn lệnh</span>
+    <p><code>git status</code> — tôi đang ở nhánh nào, có gì chưa lưu?<br>
+      <code>git remote -v</code> — máy tôi đang nối với repo nào trên GitHub?<br>
+      <code>git log --oneline -5</code> — năm việc gần nhất đội đã làm là gì?<br>
+      <code>git ls-files | wc -l</code> — repo đang theo dõi bao nhiêu file?</p>
+  </div>
+
+  <h3>3.2 · Lấy đường link ở đâu trên GitHub</h3>
+  <figure>
+    <img src="img/github-lay-link.jpg" alt="Trang repo trên GitHub, nút Code màu xanh đang mở, tab HTTPS được chọn, bên dưới là ô chứa đường link clone và nút sao chép">
+    <figcaption><b>Nút <code>&lt;&gt; Code</code> màu xanh</b> ở góc phải trên danh sách file → chọn
+      tab <b>HTTPS</b> → bấm <b>biểu tượng hai ô vuông</b> bên phải ô link để sao chép. Dán cái đó
+      vào sau <code>git clone</code>. Tab <b>SSH</b> cho link dạng <code>git@github.com:…</code>,
+      chỉ dùng khi bạn đã cài khoá SSH.</figcaption>
+  </figure>
+
+  <h3>3.3 · clone một lần, pull mãi mãi</h3>
+  <p>Đây là chỗ người mới nhầm nhiều nhất: clone lại lần nữa <b>không</b> cập nhật repo cũ, nó
+    tạo thêm một bản sao thứ hai và bạn sẽ sửa vào bản sai.</p>
+  <div class="tw">
+    <table class="cmd">
+      <thead><tr><th>Lệnh</th><th>Dùng khi</th><th>Bao lâu một lần</th></tr></thead>
+      <tbody>
+        <tr><td><code>git clone &lt;url&gt;</code></td><td>Máy chưa có repo này</td><td>Một lần duy nhất</td></tr>
+        <tr><td><code>git pull</code></td><td>Đã có repo, muốn lấy phần mới của người khác</td><td>Mỗi lần bắt đầu làm việc</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="term">
+<pre><b>cd ~/Projects/mt-01-the-odyssey</b>
+<b>git pull</b>
+<i>remote: Enumerating objects: 9, done.</i>
+<i>Updating 1f57521..3b8c0a2</i>
+<i>Fast-forward</i>
+<i> docs/giao-trinh/00-README.md | 12 ++++++++----</i>
+<i> 1 file changed, 8 insertions(+), 4 deletions(-)</i></pre>
+  </div>
+  <p><code>Fast-forward</code> nghĩa là Git chỉ cần kéo bạn tiến lên, không có gì xung đột.
+    Đây là kết quả bạn muốn thấy.</p>
+
+  <h3>3.4 · Khi clone thất bại</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Máy in ra</th><th>Nghĩa</th><th>Cách xử lý</th></tr></thead>
+      <tbody>
+        <tr><td><code>Repository not found</code></td><td>Sai đường link, hoặc repo riêng tư và bạn chưa được mời.</td><td>Soát lại link; nếu đúng thì nhờ người quản trị thêm bạn làm collaborator.</td></tr>
+        <tr><td><code>destination path ... already exists</code></td><td>Thư mục đó đã có. Bạn đã clone rồi.</td><td><code>cd</code> vào nó và <code>git pull</code>, đừng clone lại.</td></tr>
+        <tr><td><code>Authentication failed</code></td><td>Nhập mật khẩu website thay vì token.</td><td>Tạo Personal Access Token và dùng nó làm mật khẩu.</td></tr>
+        <tr><td><code>Permission denied (publickey)</code></td><td>Dùng link SSH nhưng chưa nạp khoá.</td><td>Đổi sang link HTTPS, hoặc cài khoá SSH.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ex">
+    <p class="lb">Bài tập 3.1 · 12 phút</p>
+    <h4>Clone repo đội và tự chứng minh là đã clone đúng</h4>
+    <ol>
+      <li><code>cd ~/Projects</code> rồi clone repo đội.</li>
+      <li><code>cd</code> vào repo, chạy <code>git status</code>. Ghi lại tên nhánh.</li>
+      <li>Chạy <code>git log --oneline -5</code>. Ghi lại lời nhắn của commit mới nhất.</li>
+      <li>Chạy <code>git ls-files | wc -l</code>. Ghi lại con số.</li>
+      <li>Chạy <code>ls docs/giao-trinh/</code>. Kể tên các file bạn thấy.</li>
+    </ol>
+    <p class="done"><b>Xong khi</b> bạn đưa ra được bốn bằng chứng: tên nhánh, commit mới nhất, số file được theo dõi, nội dung thư mục giáo trình.</p>
+  </div>
+</section>
+
+<!-- ===================== 4 ===================== -->
+<section class="sec" id="s4">
+  <h2><span class="hn">Phần 4</span>File Markdown và cách sửa bằng VS Code</h2>
+  <p class="sub">Gần như toàn bộ tài liệu của The Odyssey là file <code>.md</code>. Lý do: đó là
+    văn bản thuần, nên Git so sánh được từng dòng — và agent đọc được mà không cần mở ứng dụng nào.</p>
+
+  <h3>4.1 · Markdown là gì</h3>
+  <p>Markdown là quy ước dùng vài ký tự thường để ra định dạng. Bạn gõ <code>**chữ**</code>, khi
+    hiển thị nó thành <b>chữ</b>. File vẫn là văn bản thuần — mở bằng <code>cat</code> cũng đọc được.</p>
+  <p>So với Word: Word nhúng định dạng vào một tệp nhị phân, nên Git chỉ biết “file đã đổi”.
+    Markdown để Git chỉ đúng <b>dòng nào</b> đổi, <b>chữ nào</b> thêm vào. Đó là lý do cả bộ giáo
+    trình nằm trong <code>.md</code> chứ không phải <code>.docx</code>.</p>
+
+  <h3>4.2 · Toàn bộ cú pháp bạn cần</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Bạn gõ</th><th>Hiện ra</th><th>Dùng để</th></tr></thead>
+      <tbody>
+        <tr><td><code># Tiêu đề</code></td><td>Tiêu đề cấp 1</td><td>Mỗi file đúng một cái, ở dòng đầu</td></tr>
+        <tr><td><code>## Mục</code> · <code>### Mục con</code></td><td>Tiêu đề cấp 2, 3</td><td>Chia phần</td></tr>
+        <tr><td><code>**đậm**</code></td><td><b>đậm</b></td><td>Nhấn một thuật ngữ</td></tr>
+        <tr><td><code>*nghiêng*</code></td><td><i>nghiêng</i></td><td>Ghi chú nhẹ</td></tr>
+        <tr><td><code>`mã`</code></td><td><code>mã</code></td><td>Tên lệnh, tên file, tên biến</td></tr>
+        <tr><td><code>- mục</code></td><td>Danh sách gạch đầu dòng</td><td>Liệt kê không thứ tự</td></tr>
+        <tr><td><code>1. mục</code></td><td>Danh sách số</td><td>Các bước có thứ tự</td></tr>
+        <tr><td><code>- [ ] việc</code></td><td>Ô đánh dấu</td><td>Checklist — GitHub hiện thành ô tích được</td></tr>
+        <tr><td><code>&gt; câu</code></td><td>Khối trích dẫn</td><td>Dẫn lời, ghi chú quan trọng</td></tr>
+        <tr><td><code>[chữ](đường-dẫn)</code></td><td>Liên kết</td><td>Trỏ sang file khác trong repo</td></tr>
+        <tr><td><code>![mô tả](ảnh.png)</code></td><td>Ảnh</td><td>Chèn hình</td></tr>
+        <tr><td><code>---</code></td><td>Đường kẻ ngang</td><td>Ngăn hai phần</td></tr>
+        <tr><td><code>| a | b |</code><br><code>|---|---|</code></td><td>Bảng</td><td>Dữ liệu có cột</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="term">
+    <p class="cap">Khối mã — ba dấu huyền mở, ba dấu huyền đóng</p>
+<pre><i>Gõ trong file .md:</i>
+
+```bash
+git status
+git log --oneline -5
+```
+
+<i>Chữ "bash" sau ba dấu huyền cho GitHub biết tô màu theo ngôn ngữ nào.</i></pre>
+  </div>
+
+  <div class="note warn">
+    <span class="lb">Hai lỗi Markdown hay gặp nhất</span>
+    <p><b>Thiếu dòng trống.</b> Trước một tiêu đề, một bảng hay một danh sách phải có một dòng
+      trống, nếu không nó dính vào đoạn trên và không hiện đúng.<br>
+      <b>Đường dẫn tương đối tính từ chỗ đặt file.</b> Một liên kết viết trong
+      <code>docs/giao-trinh/slide/x.md</code> trỏ tới file ở <code>docs/giao-trinh/</code> phải là
+      <code>../ten-file.md</code>, không phải <code>ten-file.md</code>.</p>
+  </div>
+
+  <h3>4.3 · VS Code: sáu thao tác</h3>
+  <div class="tw">
+    <table class="cmd">
+      <thead><tr><th>Việc</th><th>Cách làm</th><th>Ghi chú</th></tr></thead>
+      <tbody>
+        <tr><td>Mở cả repo</td><td>Trong terminal: <code>code .</code></td><td>Luôn mở <b>thư mục</b>, đừng mở lẻ từng file — Git chỉ hoạt động khi VS Code biết gốc repo.</td></tr>
+        <tr><td>Tìm file theo tên</td><td><code>Cmd/Ctrl</code> + <code>P</code> → gõ tên</td><td>Nhanh hơn bấm trong cây thư mục rất nhiều.</td></tr>
+        <tr><td>Xem bản hiển thị</td><td><code>Cmd/Ctrl</code> + <code>Shift</code> + <code>V</code></td><td>Mở bản xem trước Markdown cạnh file.</td></tr>
+        <tr><td>Lưu</td><td><code>Cmd/Ctrl</code> + <code>S</code></td><td>Dấu chấm tròn ở tên tab nghĩa là <b>chưa lưu</b>.</td></tr>
+        <tr><td>Mở terminal trong VS Code</td><td><code>Ctrl</code> + <code>`</code></td><td>Nó tự đứng ở gốc repo — khỏi phải <code>cd</code>.</td></tr>
+        <tr><td>Xem mình đã sửa gì</td><td>Biểu tượng <b>Source Control</b> ở cột trái</td><td>Bấm một file để xem từng dòng thêm/xoá.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note stop">
+    <span class="lb">Quy tắc không có ngoại lệ</span>
+    <p><b>Lưu trước khi commit.</b> Git chỉ thấy phần đã ghi xuống đĩa. Sửa mà chưa
+      <code>Cmd+S</code> thì <code>git status</code> không thấy gì, và bạn sẽ commit một thay đổi
+      rỗng rồi tưởng mình đã làm xong.</p>
+  </div>
+
+  <div class="ex">
+    <p class="lb">Bài tập 4.1 · 10 phút</p>
+    <h4>Sửa một file Markdown và tự nhìn thấy thay đổi</h4>
+    <ol>
+      <li>Trong repo: <code>code .</code></li>
+      <li><code>Cmd/Ctrl</code> + <code>P</code> → mở <code>docs/giao-trinh/00-README.md</code>.</li>
+      <li><code>Cmd/Ctrl</code> + <code>Shift</code> + <code>V</code> để mở bản xem trước, đặt cạnh file.</li>
+      <li>Tạo file mới <code>NHAP-&lt;tên-bạn&gt;.md</code>, viết trong đó: một tiêu đề <code>#</code>,
+        một đoạn có chữ đậm, một danh sách ba mục, một khối mã <code>bash</code>, và một bảng hai cột.</li>
+      <li>Lưu. Mở bản xem trước và kiểm tra cả năm thứ hiện đúng.</li>
+      <li>Trong terminal chạy <code>git status</code>. File mới phải xuất hiện ở mục <b>Untracked files</b>.</li>
+    </ol>
+    <p class="done"><b>Xong khi</b> bản xem trước hiện đúng cả năm kiểu định dạng, và <code>git status</code> nhìn thấy file của bạn.</p>
+  </div>
+</section>
+
+<!-- ===================== 5 ===================== -->
+<section class="sec" id="s5">
+  <h2><span class="hn">Phần 5</span>Làm việc nhóm bằng Git</h2>
+  <p class="sub">Phần dài nhất, và là phần duy nhất bạn sẽ lặp lại mỗi ngày. Học nó như học một
+    vòng lặp tám bước, không phải học tám lệnh rời rạc.</p>
+
+  <div class="loop">
+    <span>1 · pull</span><i>→</i>
+    <span>2 · branch</span><i>→</i>
+    <span>3 · sửa</span><i>→</i>
+    <span>4 · add</span><i>→</i>
+    <span>5 · commit</span><i>→</i>
+    <span>6 · push</span><i>→</i>
+    <span>7 · PR + review</span><i>→</i>
+    <span>8 · merge</span><i>↺</i>
+  </div>
+
+  <h3>5.1 · Vì sao phải có nhánh</h3>
+  <p>Cả bốn người cùng sửa <code>main</code> thì mỗi lần ai đó lưu, người khác lập tức bị ảnh
+    hưởng — và không ai kịp đọc trước khi nó thành bản thật. Nhánh giải quyết điều đó: bạn sửa
+    trong không gian riêng, xong rồi <b>xin phép</b> gộp vào.</p>
+  <div class="note">
+    <span class="lb">Luật của đội</span>
+    <p><b>Không ai tự merge pull request của chính mình.</b> PR của bạn phải có một người khác
+      bấm Approve. Đây là luật, không phải lời khuyên.</p>
+  </div>
+
+  <h3>5.2 · Bước 1–2 · Cập nhật rồi tách nhánh</h3>
+  <div class="term">
+<pre><b>git switch main</b>          <i># chắc chắn đang đứng ở nhánh chính</i>
+<b>git pull</b>                 <i># lấy phần mới nhất của đội — LÀM TRƯỚC khi tách nhánh</i>
+
+<b>git switch -c docs/an-sua-readme</b>
+<i>Switched to a new branch 'docs/an-sua-readme'</i>
+
+<b>git status</b>
+<i>On branch </i><u>docs/an-sua-readme</u>
+<i>nothing to commit, working tree clean</i></pre>
+  </div>
+  <p><code>-c</code> là <i>create</i>: tạo nhánh mới rồi nhảy sang. Bỏ <code>-c</code> thì chỉ
+    chuyển sang nhánh đã có.</p>
+
+  <h4>Đặt tên nhánh</h4>
+  <div class="tw">
+    <table class="cmd">
+      <thead><tr><th>Dạng</th><th>Dùng khi</th><th>Ví dụ</th></tr></thead>
+      <tbody>
+        <tr><td><code>docs/&lt;việc&gt;</code></td><td>Sửa tài liệu</td><td><code>docs/an-them-muc-luc</code></td></tr>
+        <tr><td><code>feat/&lt;việc&gt;</code></td><td>Thêm tính năng</td><td><code>feat/api-danh-gia</code></td></tr>
+        <tr><td><code>fix/&lt;việc&gt;</code></td><td>Sửa lỗi</td><td><code>fix/test-asyncio</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Chữ thường, nối bằng dấu gạch ngang, không dấu tiếng Việt, không khoảng trắng. Tên nhánh
+    hiện trong danh sách PR — người review đọc nó trước khi đọc mã.</p>
+
+  <h3>5.3 · Bước 3–4 · Sửa, rồi chọn phần nào đem đi lưu</h3>
+  <p>Giữa “đã sửa” và “đã commit” có một bước ở giữa, gọi là <b>staging area</b> (khu vực chờ).
+    <code>git add</code> đưa thay đổi vào khu vực chờ; <code>git commit</code> mới thật sự lưu.
+    Bước trung gian này để bạn commit đúng những gì liên quan, thay vì gom tất cả vào một cục.</p>
+
+  <div class="term">
+    <p class="cap">git status — đọc ba vùng</p>
+<pre><b>git status</b>
+<i>On branch docs/an-sua-readme</i>
+
+<u>Changes to be committed:</u>        <i>← đã add, sẽ vào commit tới</i>
+<i>        modified:   docs/giao-trinh/00-README.md</i>
+
+<u>Changes not staged for commit:</u>  <i>← đã sửa, CHƯA add</i>
+<i>        modified:   README.md</i>
+
+<u>Untracked files:</u>               <i>← Git chưa từng biết file này</i>
+<i>        NHAP-an.md</i></pre>
+  </div>
+
+  <div class="term">
+    <p class="cap">Xem chính xác mình đã đổi gì, rồi mới add</p>
+<pre><b>git diff</b>
+<i>diff --git a/docs/giao-trinh/00-README.md b/docs/giao-trinh/00-README.md</i>
+<i>@@ -12,6 +12,7 @@</i>
+<i> | buoi-01.md | Buổi 01 |</i>
+<s>-| buoi-02.md | Buổi 02 |</s>
+<u>+| buoi-02.md | Buổi 02 — môi trường, Git, lỗi thật |</u>
+
+<b>git add docs/giao-trinh/00-README.md</b>   <i># add đúng một file</i>
+<b>git add .</b>                              <i># add mọi thứ — chỉ dùng khi đã đọc git status</i></pre>
+  </div>
+  <div class="note warn">
+    <span class="lb">Cẩn thận với <code>git add .</code></span>
+    <p>Nó gom mọi file đang thay đổi, kể cả thứ bạn không có ý đẩy lên — file nháp, file khoá
+      bí mật, thư mục tạm. Đọc <code>git status</code> trước, mỗi lần.</p>
+  </div>
+
+  <h3>5.4 · Bước 5 · Commit, kèm một lời nhắn người khác đọc được</h3>
+  <div class="term">
+<pre><b>git commit -m "docs: mo ta ro hon cho buoi-02 trong bang muc luc"</b>
+<i>[docs/an-sua-readme 9a3f1c8] docs: mo ta ro hon cho buoi-02 trong bang muc luc</i>
+<i> 1 file changed, 1 insertion(+), 1 deletion(-)</i></pre>
+  </div>
+  <div class="tw">
+    <table class="cmd">
+      <thead><tr><th>Tiền tố</th><th>Nghĩa</th></tr></thead>
+      <tbody>
+        <tr><td><code>docs:</code></td><td>Chỉ sửa tài liệu</td></tr>
+        <tr><td><code>feat:</code></td><td>Thêm tính năng mới</td></tr>
+        <tr><td><code>fix:</code></td><td>Sửa một lỗi</td></tr>
+        <tr><td><code>test:</code></td><td>Thêm hoặc sửa kiểm thử</td></tr>
+        <tr><td><code>chore:</code></td><td>Việc dọn dẹp, cấu hình</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Lời nhắn tốt nói <b>vì sao</b>, không nói <i>đã bấm gì</i>. <code>docs: them bang tra lenh
+    cho mentor moi</code> là tốt. <code>update file</code>, <code>fix</code>, <code>asdf</code>
+    là vô dụng — ba tháng sau không ai hiểu nữa.</p>
+
+  <div class="note stop">
+    <span class="lb"><code>git status</code> sạch không có nghĩa là đã lưu hết</span>
+    <p><code>git status</code> chỉ so sánh với những file Git <b>đang theo dõi</b>. Một file bị
+      <code>.gitignore</code> chặn, hay một file bạn chưa bao giờ <code>git add</code>, vẫn làm
+      <code>git status</code> im lặng. Muốn biết thật sự repo đang giữ những gì, dùng:</p>
+  </div>
+  <div class="term">
+<pre><b>git ls-files | wc -l</b>              <i># repo đang theo dõi bao nhiêu file</i>
+<b>git ls-files | grep giao-trinh</b>    <i># file của tôi có nằm trong đó không</i>
+<b>git status --ignored</b>              <i># những gì đang bị .gitignore chặn</i></pre>
+  </div>
+
+  <h3>5.5 · Bước 6 · Push lên GitHub</h3>
+  <div class="term">
+<pre><b>git push -u origin docs/an-sua-readme</b>
+<i>Enumerating objects: 9, done.</i>
+<i>To https://github.com/UEH-ISB/mt-01-the-odyssey.git</i>
+<i> * [new branch]      docs/an-sua-readme -&gt; docs/an-sua-readme</i>
+<u>remote: Create a pull request for 'docs/an-sua-readme' on GitHub by visiting:</u>
+<u>remote:   https://github.com/UEH-ISB/mt-01-the-odyssey/pull/new/docs/an-sua-readme</u></pre>
+  </div>
+  <p><code>-u origin &lt;nhánh&gt;</code> chỉ cần ở lần push đầu của nhánh đó — nó nối nhánh trên
+    máy với nhánh trên GitHub. Từ lần thứ hai, gõ <code>git push</code> là đủ.</p>
+  <p>GitHub in luôn đường link tạo PR. Copy nó, mở trình duyệt. Đó là cách nhanh nhất.</p>
+
+  <h3>5.6 · Bước 7 · Mở pull request</h3>
+  <ol>
+    <li>Mở đường link GitHub vừa in, hoặc vào tab <b>Pull requests</b> → <b>New pull request</b>.</li>
+    <li>Kiểm tra hai hộp ở trên: <b>base</b> phải là <code>main</code>, <b>compare</b> là nhánh của bạn.
+      Sai chiều là PR vô nghĩa.</li>
+    <li><b>Tiêu đề</b>: viết như lời nhắn commit — một câu, nói việc gì.</li>
+    <li><b>Mô tả</b>: ba dòng là đủ, theo mẫu dưới đây.</li>
+    <li>Bên phải, ở <b>Reviewers</b>, chọn một người trong đội.</li>
+    <li>Bấm <b>Create pull request</b>.</li>
+  </ol>
+  <div class="term">
+    <p class="cap">Mẫu mô tả PR — dán vào rồi điền</p>
+<pre><b>## Đã làm gì</b>
+Mô tả lại dòng buoi-02 trong bảng mục lục của 00-README.md.
+
+<b>## Vì sao</b>
+Dòng cũ chỉ ghi "Buổi 02", mentor mới không biết buổi đó dạy gì.
+
+<b>## Kiểm tra thế nào</b>
+Mở docs/giao-trinh/00-README.md trên tab Files changed, xem bảng hiện đúng.</pre>
+  </div>
+
+  <h3>5.7 · Review PR của người khác</h3>
+  <p>Review là một nửa công việc, không phải việc phụ. Bạn sẽ review nhiều hơn là được review.</p>
+  <ol>
+    <li>Mở PR → tab <b>Files changed</b>. Màu xanh là dòng thêm, màu đỏ là dòng xoá.</li>
+    <li>Đưa chuột vào một dòng, bấm dấu <b>+</b> xanh để góp ý đúng dòng đó.</li>
+    <li>Bấm <b>Review changes</b> ở góc trên phải, chọn một trong ba:</li>
+  </ol>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Lựa chọn</th><th>Nghĩa</th><th>Dùng khi</th></tr></thead>
+      <tbody>
+        <tr><td><b>Comment</b></td><td>Góp ý, chưa kết luận</td><td>Bạn có câu hỏi, chưa đồng ý cũng chưa phản đối</td></tr>
+        <tr><td><b>Approve</b></td><td>Đồng ý gộp</td><td>Bạn đã đọc hết và thấy đúng</td></tr>
+        <tr><td><b>Request changes</b></td><td>Yêu cầu sửa trước khi gộp</td><td>Có chỗ sai, hoặc thiếu bằng chứng đã kiểm tra</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">
+    <span class="lb">Ba câu hỏi khi review</span>
+    <p>① Mô tả PR có nói rõ <b>vì sao</b>, không chỉ <i>đã đổi gì</i>?<br>
+      ② Có cách nào tôi tự kiểm tra lại được — một lệnh, một đường dẫn, một ảnh?<br>
+      ③ Có file nào bị kéo vào mà không liên quan đến việc này?</p>
+    <p>Góp ý nhận xét mã, không nhận xét người. “Dòng này nên dùng đường dẫn tương đối” — tốt.
+      “Bạn làm cẩu thả” — vô ích.</p>
+  </div>
+
+  <h3>5.8 · Bước 8 · Merge, rồi dọn dẹp</h3>
+  <p>Người <b>review</b> bấm <b>Merge pull request</b>, không phải người viết. Sau khi PR được
+    gộp, chủ nhánh về máy làm ba việc:</p>
+  <div class="term">
+<pre><b>git switch main</b>
+<b>git pull</b>                                 <i># lấy về phần vừa được gộp</i>
+<b>git branch -d docs/an-sua-readme</b>         <i># xoá nhánh đã xong việc ở máy</i>
+<i>Deleted branch docs/an-sua-readme (was 9a3f1c8).</i></pre>
+  </div>
+  <p>Không xoá nhánh cũ thì sau ba tuần bạn có mười hai nhánh và không biết nhánh nào còn sống.</p>
+
+  <h3>5.9 · Xung đột (conflict)</h3>
+  <p>Xung đột xảy ra khi bạn và người khác sửa <b>cùng một dòng</b> của cùng một file. Git không
+    tự đoán được ai đúng, nên nó dừng lại và hỏi bạn.</p>
+  <div class="term">
+<pre><b>git pull</b>
+<s>CONFLICT (content): Merge conflict in docs/giao-trinh/00-README.md</s>
+<i>Automatic merge failed; fix conflicts and then commit the result.</i></pre>
+  </div>
+  <p>Mở file đó bằng VS Code, bạn sẽ thấy dấu hiệu như sau:</p>
+  <div class="term">
+<pre><s>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</s>
+| buoi-02.md | Buổi 02 — môi trường, Git, lỗi thật |     <i>← phần của BẠN</i>
+<s>=======</s>
+| buoi-02.md | Buổi 02 — chuẩn bị môi trường |            <i>← phần của NGƯỜI KHÁC</i>
+<s>&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main</s></pre>
+  </div>
+  <ol>
+    <li>Quyết định giữ phần nào — hoặc viết lại một dòng gộp cả hai ý.</li>
+    <li>Xoá sạch ba dòng dấu hiệu <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>,
+      <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>. Sót một dấu là file hỏng.</li>
+    <li>Lưu, rồi <code>git add &lt;file&gt;</code> và <code>git commit</code>.</li>
+  </ol>
+  <div class="note warn">
+    <span class="lb">Cách ít gặp xung đột nhất</span>
+    <p><code>git pull</code> <b>trước</b> khi tách nhánh, và giữ mỗi PR nhỏ. PR sửa một file thì
+      gần như không bao giờ xung đột. PR sửa hai mươi file thì chắc chắn có.</p>
+  </div>
+
+  <div class="note warn">
+    <span class="lb">Cả đội cùng sửa một bảng — sẽ có xung đột</span>
+    <p>Bài tập dưới đây cho cả bốn người điền vào <b>cùng một bảng</b> trong <code>README.md</code>.
+      Ai merge sau gần như chắc chắn gặp <code>CONFLICT</code>. Đó là chủ ý: xung đột đầu tiên
+      của bạn nên xảy ra ở một bảng đơn giản, lúc có người ngồi cạnh — không phải ở mã nguồn,
+      lúc một mình. Cách gỡ ở mục 5.9.</p>
+  </div>
+
+  <div class="ex">
+    <p class="lb">Bài tập 5.1 · 20 phút · làm theo cặp</p>
+    <h4>Một vòng lặp đầy đủ, từ nhánh đến merge</h4>
+    <ol>
+      <li><b>Cả hai</b>: <code>git switch main</code> rồi <code>git pull</code>.</li>
+      <li><b>Cả hai</b>: tách nhánh riêng, <code>git switch -c docs/&lt;tên-bạn&gt;-tu-gioi-thieu</code>.</li>
+      <li><b>Cả hai</b>: mở <code>README.md</code> ở gốc repo, tìm bảng <b>Đội ngũ</b>. Điền
+        <b>đúng một dòng của mình</b> — tên, tài khoản GitHub, vai mình nhận trong đội, và câu
+        mình chưa rõ về MT-01. <i>Không sửa dòng của người khác.</i></li>
+      <li><b>Cả hai</b>: <code>git diff</code> để tự kiểm — chỉ được thấy <b>một dòng</b> đổi màu.
+        Rồi <code>git add README.md</code> → <code>git commit -m "docs: them &lt;tên&gt; vao bang Doi ngu"</code>
+        → <code>git push -u origin &lt;nhánh&gt;</code>.</li>
+      <li><b>Cả hai</b>: mở PR vào <code>main</code>, chọn người kia làm reviewer.</li>
+      <li><b>Đổi vai</b>: mỗi người mở PR của người kia, đọc tab <b>Files changed</b>, để lại
+        <b>một góp ý đúng dòng</b>, rồi bấm <b>Approve</b>.</li>
+      <li><b>Người review</b> bấm <b>Merge pull request</b>. <i>Không ai merge PR của mình.</i></li>
+      <li><b>Cả hai</b>: <code>git switch main</code> → <code>git pull</code> → <code>git branch -d &lt;nhánh&gt;</code>.</li>
+      <li><b>Cả hai</b>: <code>git log --oneline -5</code>. Phải thấy commit của cả hai người.</li>
+    </ol>
+    <p class="done"><b>Xong khi</b> bảng Đội ngũ trên <code>main</code> có dòng của cả hai người,
+      mỗi PR có đúng một người khác Approve, và <code>git branch</code> ở máy không còn nhánh tạm nào.</p>
+  </div>
+</section>
+
+<!-- ===================== 6 ===================== -->
+<section class="sec" id="s6">
+  <h2><span class="hn">Phần 6</span>Dùng Claude Code</h2>
+  <p class="sub">Cả khoá học này dạy bạn xây một sản phẩm thật <b>cùng với một agent</b>. Nhưng
+    agent chỉ hữu ích khi bạn đã biết năm phần trên — nếu không, bạn không có cách nào biết nó
+    đang nói đúng hay đang đoán.</p>
+  <div class="note warn">
+    <span class="lb">Phần bổ sung</span>
+    <p>Năm phần đầu là nội dung đã trình bày ở buổi 01. Phần này <b>chưa dạy trên lớp</b> — thêm
+      vào để bạn tự đọc trước, vì từ buổi 02 trở đi mọi bài tập đều làm cùng agent.</p>
+  </div>
+
+  <h3>6.1 · Nó khác chat trên web ở chỗ nào</h3>
+  <p>Claude Code <b>đứng trong thư mục repo của bạn</b>. Nó đọc được file, chạy được lệnh, sửa
+    được file, và thấy kết quả lệnh. Bản chat trên trình duyệt thì không — bạn phải copy mọi thứ
+    qua lại bằng tay.</p>
+
+  <div class="note stop">
+    <span class="lb">Quy tắc nền</span>
+    <p><b><code>cd</code> vào repo trước, rồi mới gõ <code>claude</code>.</b> Agent chỉ nhìn thấy
+      thư mục nó được mở trong đó. Mở sai chỗ thì nó không thấy file của bạn — và thay vì nói
+      “tôi không thấy”, nó sẽ <b>đoán</b>.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Cách dùng</th><th>Hợp khi</th><th>Nhược</th></tr></thead>
+      <tbody>
+        <tr><td><b>CLI trong terminal</b><br><code>claude</code></td><td>Việc nhiều bước, chạy lệnh, đọc log. Là cách dùng chính của khoá này.</td><td>Xem diff dài hơi khó chịu mắt</td></tr>
+        <tr><td><b>Extension trên VS Code</b></td><td>Sửa tài liệu, xem thay đổi từng dòng ngay trong editor</td><td>Vẫn cần terminal cho Git</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>6.2 · Chạy lần đầu</h3>
+  <div class="term">
+<pre><b>npm install -g @anthropic-ai/claude-code</b>   <i># cài một lần cho cả máy</i>
+
+<b>cd ~/Projects/mt-01-the-odyssey</b>            <i># LUÔN cd vào repo trước</i>
+<b>claude</b>
+
+<i># lần đầu nó mở trình duyệt để bạn đăng nhập. Làm một lần.</i></pre>
+  </div>
+  <p>Sau khi vào, dòng dưới cùng là khung bạn gõ yêu cầu. Gõ tiếng Việt được. Thoát bằng
+    <code>/exit</code>, hoặc nhấn <code>Ctrl</code> + <code>C</code> hai lần.</p>
+
+  <h3>6.3 · <code>claude --resume</code> — nối lại phiên cũ</h3>
+  <p>Đóng cửa sổ là agent <b>quên sạch</b>. Hôm sau mở lại, nó không nhớ hôm qua hai người đã bàn
+    gì. Đây là lý do <code>--resume</code> quan trọng hơn người mới tưởng: nó mở danh sách các
+    phiên cũ trong đúng repo này để bạn chọn một phiên mà đi tiếp.</p>
+
+  <div class="term">
+    <p class="cap">Ba cách mở</p>
+<pre><b>claude</b>              <i># phiên mới, trắng trơn</i>
+<b>claude --continue</b>   <i># nối thẳng phiên GẦN NHẤT, không hỏi — viết tắt: claude -c</i>
+<b>claude --resume</b>     <i># hiện danh sách phiên cũ để chọn — viết tắt: claude -r</i></pre>
+  </div>
+
+  <div class="term">
+    <p class="cap">Màn hình <code>--resume</code> — chọn bằng phím mũi tên rồi Enter</p>
+<pre><i>  Chọn một phiên để nối tiếp:</i>
+
+<u>❯ 2 giờ trước    46 lượt   sua bang Doi ngu trong README, mo PR</u>
+<i>  hôm qua        12 lượt   doc loi make test, pytest-asyncio</i>
+<i>  3 ngày trước    8 lượt   clone repo, kiem tra git remote</i>
+
+<i>  ↑↓ di chuyển · Enter chọn · Esc thoát</i></pre>
+  </div>
+
+  <div class="note">
+    <span class="lb">Thói quen nên tập</span>
+    <p>Một việc — một phiên. Làm xong bảng Đội ngũ thì <b>đừng</b> dùng lại phiên đó để đi hỏi
+      chuyện khác; mở phiên mới. Phiên càng dài và càng lẫn lộn nhiều việc, agent càng hay lấy
+      nhầm thông tin của việc cũ. Khi quay lại đúng việc đang dở, <code>claude --resume</code> và
+      chọn đúng dòng của nó.</p>
+  </div>
+
+  <h4>Vài lệnh gạch chéo gõ ngay trong phiên</h4>
+  <div class="tw">
+    <table class="cmd">
+      <tbody>
+        <tr><td><code>/help</code></td><td>Liệt kê toàn bộ lệnh đang có — dùng cái này thay vì học thuộc</td></tr>
+        <tr><td><code>/clear</code></td><td>Xoá trí nhớ của phiên, bắt đầu lại từ đầu mà không phải thoát</td></tr>
+        <tr><td><code>/exit</code></td><td>Thoát</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>6.4 · Extension Claude trên VS Code</h3>
+  <p>Trong VS Code: biểu tượng <b>Extensions</b> ở cột trái → gõ <code>Claude</code> → <b>Install</b>.
+    Mở panel bằng biểu tượng Claude vừa xuất hiện trên cột trái.</p>
+
+  <figure>
+    <svg viewBox="0 0 880 300" role="img" aria-label="Bố cục VS Code khi bật panel Claude">
+      <rect x="0" y="0" width="880" height="300" fill="var(--card)"/>
+      <rect x="0" y="0" width="52" height="300" fill="var(--soft)"/>
+      <rect x="14" y="20" width="24" height="20" rx="3" fill="none" stroke="var(--body)" stroke-width="2"/>
+      <circle cx="26" cy="62" r="4" fill="var(--body)"/><circle cx="26" cy="74" r="4" fill="var(--body)"/>
+      <rect x="16" y="98" width="20" height="18" rx="3" fill="none" stroke="var(--body)" stroke-width="2"/>
+      <path d="M26 138 l10 6 -10 6 -10 -6 z" fill="var(--teal)"/>
+      <rect x="10" y="128" width="32" height="32" rx="6" fill="none" stroke="var(--teal)" stroke-width="2"/>
+      <text x="26" y="178" font-family="Be Vietnam Pro, sans-serif" font-size="9" fill="var(--teal)" text-anchor="middle">Claude</text>
+
+      <rect x="52" y="0" width="178" height="300" fill="var(--shade)"/>
+      <text x="68" y="26" font-family="Be Vietnam Pro, sans-serif" font-size="10" letter-spacing="1.5" fill="var(--body)">EXPLORER</text>
+      <text x="68" y="54" font-family="Be Vietnam Pro, sans-serif" font-size="12" fill="var(--ink)" font-weight="600">mt-01-the-odyssey</text>
+      <text x="80" y="78" font-family="Courier New, monospace" font-size="12" fill="var(--body)">docs/</text>
+      <text x="92" y="100" font-family="Courier New, monospace" font-size="12" fill="var(--body)">giao-trinh/</text>
+      <text x="80" y="122" font-family="Courier New, monospace" font-size="12" fill="var(--teal)">README.md</text>
+      <text x="80" y="144" font-family="Courier New, monospace" font-size="12" fill="var(--body)">JOURNAL.md</text>
+
+      <rect x="230" y="0" width="360" height="300" fill="var(--card)"/>
+      <rect x="230" y="0" width="360" height="30" fill="var(--soft)"/>
+      <text x="248" y="20" font-family="Courier New, monospace" font-size="11" fill="var(--ink)">README.md</text>
+      <text x="248" y="58" font-family="Be Vietnam Pro, sans-serif" font-size="10" letter-spacing="1.5" fill="var(--body)">EDITOR — THAY ĐỔI HIỆN NGAY TẠI ĐÂY</text>
+      <rect x="248" y="76" width="320" height="22" fill="var(--brick)" opacity="0.14"/>
+      <text x="258" y="92" font-family="Courier New, monospace" font-size="11.5" fill="var(--brick)">- | 2 | _(chưa điền)_ | _(chưa điền)_ |</text>
+      <rect x="248" y="104" width="320" height="22" fill="var(--teal)" opacity="0.16"/>
+      <text x="258" y="120" font-family="Courier New, monospace" font-size="11.5" fill="var(--teal)">+ | 2 | Tran Thi B | @tranthib |</text>
+      <text x="248" y="156" font-family="Courier New, monospace" font-size="11.5" fill="var(--body)">  | 3 | _(chưa điền)_ | _(chưa điền)_ |</text>
+
+      <rect x="590" y="0" width="290" height="300" fill="var(--shade)"/>
+      <text x="608" y="26" font-family="Be Vietnam Pro, sans-serif" font-size="10" letter-spacing="1.5" fill="var(--teal)">CLAUDE</text>
+      <rect x="608" y="44" width="254" height="60" rx="8" fill="var(--card)" stroke="var(--rule)"/>
+      <text x="620" y="66" font-family="Be Vietnam Pro, sans-serif" font-size="11.5" fill="var(--ink)">Điền dòng số 2 trong bảng Đội ngũ</text>
+      <text x="620" y="84" font-family="Be Vietnam Pro, sans-serif" font-size="11.5" fill="var(--ink)">của README.md: Tran Thi B,</text>
+      <text x="620" y="98" font-family="Be Vietnam Pro, sans-serif" font-size="11.5" fill="var(--ink)">GitHub @tranthib.</text>
+      <text x="608" y="132" font-family="Be Vietnam Pro, sans-serif" font-size="11.5" fill="var(--body)">Đã sửa README.md, dòng 27.</text>
+      <text x="608" y="152" font-family="Be Vietnam Pro, sans-serif" font-size="11.5" fill="var(--body)">Kiểm tra bằng:</text>
+      <rect x="608" y="162" width="254" height="26" rx="6" fill="var(--code-bg)"/>
+      <text x="620" y="180" font-family="Courier New, monospace" font-size="11.5" fill="var(--amber)">git diff README.md</text>
+      <rect x="608" y="246" width="254" height="36" rx="8" fill="var(--card)" stroke="var(--teal)" stroke-width="1.5"/>
+      <text x="620" y="269" font-family="Be Vietnam Pro, sans-serif" font-size="11.5" fill="var(--body)">Gõ yêu cầu ở đây…</text>
+    </svg>
+    <figcaption><b>Lợi của extension:</b> agent sửa file nào, bạn thấy ngay dòng đỏ (bị xoá) và
+      dòng xanh (được thêm) trong editor, không phải chờ chạy <code>git diff</code>. Nhưng commit,
+      push, mở PR thì <b>vẫn làm ở terminal</b> như Phần 5.</figcaption>
+  </figure>
+
+  <h3>6.5 · Bốn cách ra lệnh để agent không đoán</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Quy tắc</th><th>Đừng viết</th><th>Hãy viết</th></tr></thead>
+      <tbody>
+        <tr><td><b>Đưa đường dẫn, đừng tả</b></td><td>“sửa cái file readme kia”</td><td>“sửa <code>README.md</code> ở gốc repo, bảng Đội ngũ, dòng số 2”</td></tr>
+        <tr><td><b>Bắt dẫn nguồn</b></td><td>“buổi 02 dạy gì?”</td><td>“đọc <code>docs/giao-trinh/buoi-02.md</code> và <b>trích nguyên văn</b> dòng nói về điều đó”</td></tr>
+        <tr><td><b>Đòi lệnh tự kiểm</b></td><td>“xong chưa?”</td><td>“cho tôi <b>một lệnh</b> để tôi tự xác minh việc này đã xong”</td></tr>
+        <tr><td><b>Dán nguyên văn lỗi</b></td><td>“nó báo lỗi gì đó”</td><td>dán cả khối lỗi, từ dòng lệnh đến dòng <code>ERROR</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>6.6 · Ba việc không giao cho agent</h3>
+  <div class="note stop">
+    <span class="lb">Ranh giới</span>
+    <p><b>① Đừng để agent commit và push thay bạn khi bạn chưa đọc <code>git diff</code>.</b>
+      Tên bạn nằm trên commit đó. Người review sẽ hỏi bạn, không hỏi agent.</p>
+    <p><b>② Đừng dán khoá, token, mật khẩu vào khung chat.</b> Cần khoá thì để nó trong
+      <code>.env</code> — file đó đã bị <code>.gitignore</code> chặn sẵn.</p>
+    <p><b>③ Đừng tin agent khi nó nói về trạng thái repo.</b> Nó hay nói chắc nịch những con số
+      nó chưa hề đếm.</p>
+  </div>
+
+  <div class="term">
+    <p class="cap">Agent đoán — và cách bắt quả tang trong 5 giây</p>
+<pre><i>Bạn hỏi:  “repo này đang theo dõi bao nhiêu file?”</i>
+<s>Agent:    “Repo có khoảng 80 file.”          ← nó ĐOÁN, chưa chạy lệnh nào</s>
+
+<i>Bạn tự chạy:</i>
+<b>git ls-files | wc -l</b>
+<i>     106</i>        <i># con số này đổi theo thời gian — cái đúng là cái BẠN vừa chạy</i>
+
+<i>Câu đúng phải hỏi ngay từ đầu:</i>
+<u>“chạy lệnh để đếm, rồi dán nguyên văn kết quả cho tôi”</u></pre>
+  </div>
+
+  <div class="ex">
+    <p class="lb">Bài tập 6.1 · 12 phút</p>
+    <h4>Bắt quả tang agent đoán — rồi bắt nó sửa cách trả lời</h4>
+    <ol>
+      <li><code>cd</code> vào repo đội, chạy <code>claude</code>.</li>
+      <li>Hỏi nguyên văn: <i>“repo này đang theo dõi bao nhiêu file?”</i> — <b>ghi lại câu trả lời</b>.</li>
+      <li>Thoát ra terminal, tự chạy <code>git ls-files | wc -l</code>. So hai con số.</li>
+      <li>Vào lại bằng <code>claude --resume</code>, chọn đúng phiên vừa rồi. Yêu cầu:
+        <i>“từ giờ, mọi câu hỏi về trạng thái repo, hãy chạy lệnh trước rồi dán nguyên văn kết quả.”</i></li>
+      <li>Hỏi lại cùng câu hỏi. Lần này nó phải <b>chạy lệnh</b> trước khi trả lời.</li>
+      <li>Hỏi tiếp một câu có bẫy: <i>“file <code>docs/giao-trinh/buoi-05.md</code> nói gì?”</i>
+        — file đó <b>không tồn tại</b>. Agent phải nói là không có, chứ không được bịa.</li>
+    </ol>
+    <p class="done"><b>Xong khi</b> bạn chỉ ra được <b>một chỗ cụ thể</b> agent nói sai về repo,
+      và nối lại được phiên cũ bằng <code>claude --resume</code> thay vì mở phiên trắng.</p>
+  </div>
+</section>
+
+<!-- ===================== 7 ===================== -->
+<section class="sec" id="s7">
+  <h2><span class="hn">Phần 7</span>Khi làm sai: cách lùi lại</h2>
+  <p class="sub">Git được thiết kế để hầu hết sai sót đều gỡ được. Điều kiện duy nhất: biết mình
+    đang ở bước nào trong vòng lặp. Chạy <code>git status</code> trước, luôn luôn.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Tình huống</th><th>Lệnh</th><th>Hậu quả</th></tr></thead>
+      <tbody>
+        <tr><td>Sửa một file rồi muốn bỏ hết, chưa add</td><td><code>git restore &lt;file&gt;</code></td><td><b>Mất</b> phần vừa sửa, không lấy lại được</td></tr>
+        <tr><td>Đã <code>add</code> nhưng chưa commit, muốn bỏ ra khỏi khu vực chờ</td><td><code>git restore --staged &lt;file&gt;</code></td><td>Phần sửa vẫn còn, chỉ rời khu vực chờ</td></tr>
+        <tr><td>Commit rồi, lời nhắn viết sai, chưa push</td><td><code>git commit --amend -m "lời nhắn mới"</code></td><td>Viết lại commit vừa rồi</td></tr>
+        <tr><td>Commit rồi, muốn gỡ commit nhưng giữ phần sửa</td><td><code>git reset --soft HEAD~1</code></td><td>An toàn; phần sửa trở về khu vực chờ</td></tr>
+        <tr><td>Tách nhánh sai, chưa commit gì</td><td><code>git switch main</code></td><td>Nhánh kia vẫn còn đó, bỏ mặc được</td></tr>
+        <tr><td>Về nhánh vừa đứng trước đó</td><td><code>git switch -</code></td><td>Như nút “back”</td></tr>
+        <tr><td>Đã push và đã merge, phát hiện sai</td><td><code>git revert &lt;mã-commit&gt;</code></td><td>Tạo commit mới hoàn tác — <b>không</b> xoá lịch sử</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note stop">
+    <span class="lb">Hai thứ không bao giờ làm trên nhánh chung</span>
+    <p><code>git push --force</code> — xoá việc của người khác trên GitHub.<br>
+      <code>git reset --hard</code> khi chưa đọc <code>git status</code> — xoá vĩnh viễn phần
+      bạn đang sửa.<br>
+      Khi lịch sử đã lên nhánh chung, cách đúng là <b><code>git revert</code></b>: thêm một
+      commit hoàn tác, để ai cũng nhìn thấy chuyện gì đã xảy ra.</p>
+  </div>
+
+  <div class="note warn">
+    <span class="lb">Lỡ đẩy khoá bí mật lên GitHub</span>
+    <p>Xoá commit <b>không</b> giải quyết được — khoá đã lộ từ giây nó lên mạng. Việc đúng là
+      <b>thu hồi khoá đó</b> ở nơi phát hành và tạo khoá mới. File <code>.env</code> không bao
+      giờ được commit; repo đã chặn sẵn mọi biến thể <code>.env.*</code> trong
+      <code>.gitignore</code>, trừ <code>.env.example</code>.</p>
+  </div>
+</section>
+
+
+<!-- ===================== 8 ===================== -->
+<section class="sec" id="s8">
+  <h2><span class="hn">Phần 8</span>Bảng tra lệnh</h2>
+  <p class="sub">In phần này ra, dán cạnh màn hình. Bốn tuần đầu bạn sẽ nhìn nó mỗi ngày.</p>
+
+  <h3>Terminal</h3>
+  <div class="tw">
+    <table class="cmd">
+      <tbody>
+        <tr><td><code>pwd</code></td><td>Tôi đang ở thư mục nào</td></tr>
+        <tr><td><code>ls</code> · <code>ls -la</code></td><td>Liệt kê · liệt kê đầy đủ kèm file ẩn</td></tr>
+        <tr><td><code>cd &lt;dir&gt;</code> · <code>cd ..</code> · <code>cd ~</code></td><td>Vào · lùi một cấp · về thư mục nhà</td></tr>
+        <tr><td><code>mkdir -p &lt;dir&gt;</code></td><td>Tạo thư mục, tạo cả cấp cha nếu thiếu</td></tr>
+        <tr><td><code>cat &lt;file&gt;</code></td><td>In cả file ra màn hình</td></tr>
+        <tr><td><code>head -20 &lt;file&gt;</code></td><td>In 20 dòng đầu</td></tr>
+        <tr><td><code>grep "chữ" &lt;file&gt;</code></td><td>Tìm dòng có chứa chữ đó</td></tr>
+        <tr><td><code>wc -l &lt;file&gt;</code></td><td>Đếm số dòng</td></tr>
+        <tr><td><code>code .</code></td><td>Mở thư mục hiện tại bằng VS Code</td></tr>
+        <tr><td><code>clear</code></td><td>Xoá màn hình</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Git — xem và kiểm tra</h3>
+  <div class="tw">
+    <table class="cmd">
+      <tbody>
+        <tr><td><code>git status</code></td><td>Nhánh nào, file nào đã sửa, file nào đã add</td></tr>
+        <tr><td><code>git diff</code></td><td>Từng dòng tôi đã đổi, chưa add</td></tr>
+        <tr><td><code>git diff --staged</code></td><td>Từng dòng đã add, sắp vào commit</td></tr>
+        <tr><td><code>git log --oneline -10</code></td><td>Mười commit gần nhất, mỗi commit một dòng</td></tr>
+        <tr><td><code>git branch</code></td><td>Các nhánh ở máy; dấu <code>*</code> là nhánh hiện tại</td></tr>
+        <tr><td><code>git remote -v</code></td><td>Máy đang nối với repo nào trên GitHub</td></tr>
+        <tr><td><code>git ls-files | wc -l</code></td><td>Repo thật sự đang theo dõi bao nhiêu file</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Git — vòng lặp làm việc</h3>
+  <div class="tw">
+    <table class="cmd">
+      <tbody>
+        <tr><td><code>git clone &lt;url&gt;</code></td><td>Tải repo về máy — một lần duy nhất</td></tr>
+        <tr><td><code>git pull</code></td><td>Lấy phần mới của đội về</td></tr>
+        <tr><td><code>git switch main</code></td><td>Về nhánh chính</td></tr>
+        <tr><td><code>git switch -c &lt;nhánh&gt;</code></td><td>Tạo nhánh mới và nhảy sang</td></tr>
+        <tr><td><code>git add &lt;file&gt;</code></td><td>Đưa file vào khu vực chờ</td></tr>
+        <tr><td><code>git commit -m "..."</code></td><td>Lưu thành một điểm, kèm lời nhắn</td></tr>
+        <tr><td><code>git push -u origin &lt;nhánh&gt;</code></td><td>Đẩy nhánh mới lên GitHub, lần đầu</td></tr>
+        <tr><td><code>git push</code></td><td>Đẩy, từ lần thứ hai trở đi</td></tr>
+        <tr><td><code>git branch -d &lt;nhánh&gt;</code></td><td>Xoá nhánh đã merge, ở máy</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===================== 9 ===================== -->
+<section class="sec" id="s9">
+  <h2><span class="hn">Phần 9</span>Bảng tra lỗi</h2>
+  <p class="sub">Tìm theo đúng chữ máy in ra. Nếu không có trong bảng, copy nguyên văn dòng
+    <code>ERROR</code> đi hỏi — đừng diễn giải lại bằng lời của mình.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Máy in ra</th><th>Nghĩa</th><th>Làm gì</th></tr></thead>
+      <tbody>
+        <tr><td><code>fatal: not a git repository</code></td><td>Đang đứng ngoài repo</td><td><code>pwd</code>, rồi <code>cd</code> vào thư mục repo</td></tr>
+        <tr><td><code>fatal: repository not found</code></td><td>Sai link, hoặc chưa có quyền</td><td>Soát link; nhờ thêm quyền collaborator</td></tr>
+        <tr><td><code>Authentication failed</code></td><td>Nhập mật khẩu website thay vì token</td><td>Dùng Personal Access Token</td></tr>
+        <tr><td><code>Permission denied (publickey)</code></td><td>Link SSH, chưa cài khoá</td><td>Đổi sang HTTPS, hoặc cài khoá SSH</td></tr>
+        <tr><td><code>destination path already exists</code></td><td>Đã clone rồi</td><td><code>cd</code> vào và <code>git pull</code></td></tr>
+        <tr><td><code>nothing to commit, working tree clean</code></td><td>Không có gì mới — thường vì <b>chưa lưu file</b></td><td><code>Cmd/Ctrl</code> + <code>S</code> trong VS Code rồi thử lại</td></tr>
+        <tr><td><code>no upstream branch</code></td><td>Nhánh này chưa có bản trên GitHub</td><td><code>git push -u origin &lt;nhánh&gt;</code></td></tr>
+        <tr><td><code>CONFLICT (content)</code></td><td>Trùng dòng sửa với người khác</td><td>Xem lại mục 5.9</td></tr>
+        <tr><td><code>Updates were rejected</code></td><td>Trên GitHub có commit bạn chưa có</td><td><code>git pull</code> rồi push lại. <b>Không</b> dùng <code>--force</code>.</td></tr>
+        <tr><td><code>Please tell me who you are</code></td><td>Chưa khai tên và email</td><td>Xem lại Phần 0</td></tr>
+        <tr><td><code>error: pathspec ... did not match</code></td><td>Tên nhánh hoặc tên file gõ sai</td><td><code>git branch</code> để xem tên thật</td></tr>
+        <tr><td><code>[notice]</code> · <code>WARNING</code></td><td><b>Không phải lỗi</b></td><td>Bỏ qua. Tìm dòng <code>ERROR</code> ở phía trên.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===================== 10 ===================== -->
+<section class="sec" id="s10">
+  <h2><span class="hn">Phần 10</span>Từ vựng</h2>
+  <p class="sub">Những từ này sẽ xuất hiện trong mọi câu trả lời của agent và mọi PR của đội.
+    Không dịch chúng khi nói chuyện — dùng nguyên tiếng Anh, nhưng phải biết nó là gì.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Tiếng Anh</th><th>Tiếng Việt</th><th>Là gì</th></tr></thead>
+      <tbody>
+        <tr><td>terminal · shell</td><td>cửa sổ dòng lệnh</td><td>Nơi gõ lệnh cho máy</td></tr>
+        <tr><td>prompt</td><td>dấu nhắc lệnh</td><td>Dòng máy in ra trước khi bạn gõ; cho biết bạn đang ở đâu</td></tr>
+        <tr><td>directory · folder</td><td>thư mục</td><td>Chỗ chứa file</td></tr>
+        <tr><td>path</td><td>đường dẫn</td><td>Địa chỉ của một file hoặc thư mục</td></tr>
+        <tr><td>repository · repo</td><td>kho mã</td><td>Thư mục được Git theo dõi</td></tr>
+        <tr><td>clone</td><td>tải bản sao về</td><td>Lấy cả repo kèm lịch sử về máy</td></tr>
+        <tr><td>commit</td><td>điểm lưu</td><td>Một lần chụp trạng thái, kèm lời nhắn</td></tr>
+        <tr><td>staging area</td><td>khu vực chờ</td><td>Chỗ trung gian giữa “đã sửa” và “đã commit”</td></tr>
+        <tr><td>branch</td><td>nhánh</td><td>Dòng lịch sử song song</td></tr>
+        <tr><td>main</td><td>nhánh chính</td><td>Bản thật; chỉ vào được sau review</td></tr>
+        <tr><td>remote · origin</td><td>bản trên mạng</td><td>Bản repo nằm trên GitHub</td></tr>
+        <tr><td>push · pull</td><td>đẩy lên · kéo về</td><td>Hai chiều trao đổi với GitHub</td></tr>
+        <tr><td>pull request · PR</td><td>đề nghị gộp</td><td>Lời xin gộp nhánh vào <code>main</code></td></tr>
+        <tr><td>review</td><td>duyệt</td><td>Người khác đọc PR rồi Approve hoặc Request changes</td></tr>
+        <tr><td>merge</td><td>gộp</td><td>Nhập nhánh vào <code>main</code></td></tr>
+        <tr><td>conflict</td><td>xung đột</td><td>Hai người sửa cùng một dòng</td></tr>
+        <tr><td>diff</td><td>phần khác biệt</td><td>Những dòng đã thêm và đã xoá</td></tr>
+        <tr><td>Markdown · <code>.md</code></td><td>—</td><td>Văn bản thuần có quy ước định dạng</td></tr>
+        <tr><td>collaborator</td><td>người cộng tác</td><td>Người được cấp quyền ghi vào repo</td></tr>
+        <tr><td>token · PAT</td><td>khoá truy cập</td><td>Mật khẩu để terminal nói chuyện với GitHub</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===================== 11 ===================== -->
+<section class="sec" id="s11">
+  <h2><span class="hn">Phần 11</span>Việc về nhà và bảng tự kiểm</h2>
+
+  <h3>11.1 · Việc về nhà</h3>
+
+  <div class="note">
+    <span class="lb">Hiện vật phải nộp</span>
+    <p><b>Dòng của bạn trong bảng Đội ngũ của <code>README.md</code>, đã nằm trên
+      <code>main</code>, qua một PR được người khác Approve và merge.</b> Chỉ mở PR là chưa xong
+      — PR còn đang mở nghĩa là chưa nộp.</p>
+  </div>
+
+  <ol>
+    <li><b>Hoàn tất dòng của bạn trong bảng Đội ngũ.</b> Mở <code>README.md</code> ở gốc repo,
+      điền đúng dòng của mình: tên, tài khoản GitHub, vai mình nhận trong đội, câu mình chưa rõ
+      về MT-01. Làm trên một nhánh riêng, mở PR, nhờ một người trong đội review.
+      <b>Không sửa dòng của người khác, không sửa thẳng vào <code>main</code>.</b></li>
+
+    <li><b>Review PR của một người khác</b> trong đội: đọc tab <b>Files changed</b>, để lại ít
+      nhất một góp ý đúng dòng, rồi Approve hoặc Request changes. Nhớ luật —
+      <i>không ai merge PR của chính mình</i>, nên nếu bạn không review, PR của đồng đội nằm im.</li>
+
+    <li><b>Ghi lại ba lỗi bạn đã gặp ở buổi 01 vào <code>JOURNAL.md</code></b> — vẫn qua PR, không
+      sửa thẳng. Mỗi lỗi ba dòng: nguyên văn dòng máy in ra, nguyên nhân, và lệnh đã sửa được nó.
+      Ghi vào file đã có sẵn, đừng tạo file mới.</li>
+
+    <li><b>Chạy lại cả sáu bài tập trong sổ tay này một mình</b>, không xem lại phần hướng dẫn.
+      Mục tiêu: làm được vòng lặp tám bước mà không cần tra, và bắt được agent đoán ít nhất một lần.</li>
+
+    <li><b>Viết ra giấy vòng lặp tám bước</b> từ đầu đến cuối, không nhìn tài liệu, rồi đối chiếu
+      với mục 5 của sổ tay này.</li>
+  </ol>
+
+  <div class="note warn">
+    <span class="lb">Nếu PR của bạn báo xung đột</span>
+    <p>Cả đội cùng sửa một bảng, nên ai merge sau sẽ gặp <code>CONFLICT</code> ở
+      <code>README.md</code>. Giữ dòng của mình, giữ luôn dòng của người kia, xoá sạch ba dấu
+      hiệu <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> / <code>=======</code> /
+      <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>, rồi commit. Chi tiết ở mục 5.9.</p>
+  </div>
+
+  <h3>11.2 · Bảng tự kiểm</h3>
+  <p>Tự tích. Ô nào chưa tích được thì quay lại đúng phần tương ứng.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:44px">✓</th><th>Tôi làm được</th><th>Phần</th></tr></thead>
+      <tbody>
+        <tr><td>☐</td><td>Mở terminal và nói được tôi đang đứng ở thư mục nào</td><td class="num">1.2</td></tr>
+        <tr><td>☐</td><td>Dùng <code>cd</code>, <code>ls</code>, <code>cat</code> để đi tới một file và đọc nó</td><td class="num">1.3</td></tr>
+        <tr><td>☐</td><td>Đọc một khối lỗi và chỉ ra dòng <code>ERROR</code>, bỏ qua <code>[notice]</code></td><td class="num">1.6</td></tr>
+        <tr><td>☐</td><td>Nói rõ Git khác GitHub ở điểm nào</td><td class="num">2</td></tr>
+        <tr><td>☐</td><td>Clone repo đội và chứng minh bằng bốn lệnh kiểm tra</td><td class="num">3.1</td></tr>
+        <tr><td>☐</td><td>Biết khi nào dùng <code>clone</code>, khi nào dùng <code>pull</code></td><td class="num">3.3</td></tr>
+        <tr><td>☐</td><td>Viết được một file <code>.md</code> có tiêu đề, danh sách, bảng, khối mã</td><td class="num">4.2</td></tr>
+        <tr><td>☐</td><td>Mở repo bằng VS Code và xem bản hiển thị Markdown</td><td class="num">4.3</td></tr>
+        <tr><td>☐</td><td>Chạy trọn vòng lặp: pull → branch → commit → push → PR</td><td class="num">5.2–5.6</td></tr>
+        <tr><td>☐</td><td><b>Dòng của tôi đã nằm trong bảng Đội ngũ của <code>README.md</code> trên <code>main</code></b></td><td class="num">5.1 · 11.1</td></tr>
+        <tr><td>☐</td><td>Gỡ được một <code>CONFLICT</code> trong <code>README.md</code> mà không nhờ ai</td><td class="num">5.9</td></tr>
+        <tr><td>☐</td><td>Review PR của người khác và để lại góp ý đúng dòng</td><td class="num">5.7</td></tr>
+        <tr><td>☐</td><td>Đọc được <code>git status</code> và nói đúng ba vùng của nó</td><td class="num">5.3</td></tr>
+        <tr><td>☐</td><td>Biết <code>git status</code> sạch vẫn <b>không</b> có nghĩa là đã lưu hết</td><td class="num">5.4</td></tr>
+        <tr><td>☐</td><td>Mở được Claude Code <b>đứng trong thư mục repo</b>, và nối lại phiên cũ bằng <code>claude --resume</code></td><td class="num">6.2–6.3</td></tr>
+        <tr><td>☐</td><td>Chỉ ra được một chỗ agent nói sai về repo, và tự kiểm lại bằng lệnh</td><td class="num">6.6</td></tr>
+        <tr><td>☐</td><td>Gỡ được một thay đổi chưa commit, không cần hỏi ai</td><td class="num">7</td></tr>
+        <tr><td>☐</td><td>Nhắc lại được luật của đội: <b>không ai merge PR của chính mình</b></td><td class="num">5.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note stop">
+    <span class="lb">Điều kiện sang buổi 02</span>
+    <p>Buổi 02 bắt đầu bằng việc chạy repo trên máy của bạn. Nếu ô <b>clone repo đội</b> và ô
+      <b>dòng của tôi đã nằm trong bảng Đội ngũ</b> chưa tích được, buổi 02 sẽ không chạy — hãy
+      làm xong hai ô đó trước khi đến.</p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <div class="in">
+    <p><b>Sổ tay buổi 01 · The Odyssey.</b> Ghi lại từ
+      <code>08_training_histories/buoi-1.txt</code>. Nằm trong repo tại
+      <code>docs/giao-trinh/buoi-01_manual.html</code>.</p>
+    <p>Tài liệu liên quan: <code>docs/giao-trinh/buoi-01.md</code> (giáo án),
+      <code>docs/giao-trinh/slide/buoi-01.html</code> (slide),
+      <code>docs/giao-trinh/slide/buoi-01_ex.md</code> (sách bài tập).</p>
+  </div>
+</footer>
+
+<script>
+  // to sang muc luc theo section dang doc
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  function mark() {
+    var y = window.scrollY + 120, k = 0;
+    for (var j = 0; j < secs.length; j++) { if (secs[j] && secs[j].offsetTop <= y) k = j; }
+    links.forEach(function (a, j) { a.classList.toggle('on', j === k); });
+  }
+  window.addEventListener('scroll', mark, { passive: true });
+  mark();
+</script>
+
+</body>
+</html>
