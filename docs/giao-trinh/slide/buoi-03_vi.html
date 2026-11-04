@@ -951,7 +951,7 @@ Nhấn mạnh dấu ngoặc màu hổ phách: mọi bài tập của chương n�
 <p class="tx">Đọc <code class="path">docs/de-bai.md</code> và thiết kế MT-01 thành năm khối như slide 3:</p>
 <ul class="tx">
 <li><b>chức năng chung</b> của mỗi khối</li>
-<li>cái gì <b>đi qua</b> giữa các khối; <b>3 vai</b> đi vào ở đâu</li>
+<li>cái gì <b>đi qua</b> giữa các khối; <b>2 vai</b> (sinh viên, giảng viên) đi vào ở đâu</li>
 <li>một <b>công nghệ</b> cho mỗi khối, kèm lý do lấy từ de-bai.md</li>
 </ul>
 <p class="nt">Chỉ ở mức tổng quan — chưa có endpoint, bảng hay code.</p>
@@ -961,7 +961,7 @@ Nhấn mạnh dấu ngoặc màu hổ phách: mọi bài tập của chương n�
 <div class="inp" style="font-size:19px;gap:14px 12px">
 <b>Kiến thức</b><span>Kiến trúc 5 khối (slide 3–8) · client–server · vai trò và quyền hạn</span>
 <b>Công cụ</b><span>Claude Code — plan mode, CLAUDE.md, skills, hooks · Mermaid cho diagram</span>
-<b>File</b><span><code class="path">docs/de-bai.md</code> — “Ba năng lực”, “Ba vai”, “Yêu cầu đầu ra”, “Phạm vi cố tình loại”</span>
+<b>File</b><span><code class="path">docs/de-bai.md</code> — “Ba năng lực”, “Hai vai”, “Yêu cầu đầu ra”, “Phạm vi cố tình loại”</span>
 <b>Slide</b><span>3 năm khối · 4 nhà hàng · 5 luồng dữ liệu · 6 định nghĩa · 7 thuộc tính · 8 SDLC</span>
 </div>
 </div>
@@ -974,12 +974,10 @@ Nhấn mạnh dấu ngoặc màu hổ phách: mọi bài tập của chương n�
   <g font-size="16" font-weight="600" text-anchor="middle">
     <rect x="0" y="8" width="130" height="44" rx="22" fill="#EDEDE7"/><text x="65" y="36">Sinh viên</text>
     <rect x="0" y="64" width="130" height="44" rx="22" fill="#EDEDE7"/><text x="65" y="92">Giảng viên</text>
-    <rect x="0" y="120" width="130" height="44" rx="22" fill="#EDEDE7"/><text x="65" y="148">Quản lý</text>
   </g>
   <g stroke="#7E8A96" stroke-width="2.5" fill="none">
     <line x1="134" y1="30" x2="196" y2="78" marker-end="url(#ah)"/>
     <line x1="134" y1="86" x2="196" y2="86" marker-end="url(#ah)"/>
-    <line x1="134" y1="142" x2="196" y2="94" marker-end="url(#ah)"/>
   </g>
   <rect x="202" y="36" width="180" height="100" rx="10" fill="#E7F0F1" stroke="#1C6B72" stroke-width="1.5"/>
   <text x="292" y="74" text-anchor="middle" font-size="19" font-weight="600">Front-End</text>
@@ -1008,10 +1006,10 @@ Nhấn mạnh dấu ngoặc màu hổ phách: mọi bài tập của chương n�
 <p class="os">Khối · chức năng · công nghệ tiềm năng · lý do từ de-bai.md</p>
 <table class="tt" style="font-size:17px">
 <tr><th style="width:13%">Khối</th><th style="width:31%">Chức năng chung</th><th style="width:14%">Công nghệ</th><th>Lý do (de-bai.md)</th></tr>
-<tr><td>Front-End</td><td>trang theo vai: chat, report, dashboard</td><td class="te">React</td><td>đăng nhập 3 vai; scalable và sẵn sàng cho production (slide 13)</td></tr>
-<tr><td>Back-End</td><td>kiểm tra vai, áp dụng rule, gọi agent</td><td class="te">FastAPI</td><td>ngôn ngữ thân thiện (Python, giống agent); <code>async</code>/<code>await</code> phục vụ nhiều request cùng lúc; từ chối “approve” từ vai khác (403)</td></tr>
-<tr><td>AI Agent</td><td>trả lời và review dựa trên tài liệu đã duyệt</td><td class="te">LangGraph</td><td>nhiều bước: tìm, trích dẫn, từ chối; tạm dừng đến khi giảng viên duyệt</td></tr>
-<tr><td>Database</td><td>users, đề cương, report, tài liệu đã duyệt; tuỳ chọn cache + job queue</td><td class="te">PostgreSQL</td><td>miễn phí; record liên kết + trạng thái <code>PENDING</code>; không dùng vector DB trả phí</td></tr>
+<tr><td>Front-End</td><td>trang theo vai: assignment, kết quả PLO, duyệt test bank</td><td class="te">React</td><td>đăng nhập 2 vai; dùng được ở 360 px; scalable và sẵn sàng cho production (slide 13)</td></tr>
+<tr><td>Back-End</td><td>kiểm tra vai, áp dụng rule, gọi agent</td><td class="te">FastAPI</td><td>ngôn ngữ thân thiện (Python, giống agent); <code>async</code>/<code>await</code> phục vụ nhiều request cùng lúc; từ chối “approve” từ sinh viên (403)</td></tr>
+<tr><td>AI Agent</td><td>sinh test bank kèm trọng số PLO; gợi ý phần cần đọc cho PLO thiếu</td><td class="te">LangGraph</td><td>nhiều bước: đọc, soạn, tìm, trích dẫn; tạm dừng đến khi giảng viên duyệt</td></tr>
+<tr><td>Database</td><td>users, môn học, câu hỏi + trọng số PLO, bài nộp, kết quả PLO; tuỳ chọn cache + job queue</td><td class="te">PostgreSQL</td><td>miễn phí; record liên kết + trạng thái <code>PENDING</code>; không dùng vector DB trả phí</td></tr>
 <tr><td>DevOps</td><td>build, test, deploy, monitor</td><td class="te">AWS</td><td>cloud chuyên nghiệp, tin cậy cho “Web app deploy công khai”</td></tr>
 </table>
 <p class="nt">Quyết định để ngỏ cho nhóm: de-bai.md ghi “Streamlit trước” cho bản cơ bản — dùng React ngay, hay để sau?</p>
@@ -1020,11 +1018,11 @@ Nhấn mạnh dấu ngoặc màu hổ phách: mọi bài tập của chương n�
 </div>
 <aside>Bài tập 1.1 biến slide 3 đến 8 thành bức tranh MT-01 của chính nhóm. Mọi bài tập hôm nay đều có cùng hai slide: slide đầu nêu nhiệm vụ, input và công cụ, và output mong đợi; slide thứ hai đưa ra các bước, các bước phải làm tay, và từ khoá để tự học.
 
-Nhiệm vụ có ba phần: chức năng chung của từng khối trong năm khối, cái gì đi qua giữa chúng và ba vai đi vào ở đâu, và một công nghệ cho mỗi khối. Giữ ở mức tổng quan — nếu có ai bắt đầu viết endpoint hay cột của bảng, hãy dừng họ lại; đó là bài tập 1.2 và 1.3.
+Nhiệm vụ có ba phần: chức năng chung của từng khối trong năm khối, cái gì đi qua giữa chúng và hai vai (sinh viên, giảng viên) đi vào ở đâu, và một công nghệ cho mỗi khối. Giữ ở mức tổng quan — nếu có ai bắt đầu viết endpoint hay cột của bảng, hãy dừng họ lại; đó là bài tập 1.2 và 1.3.
 
-Input là một file, de-bai.md, cộng kiến thức từ slide 3 đến 8 và Claude Code làm công cụ. Output là một file gồm block diagram và một bảng. Các công nghệ trên hình — React, FastAPI, LangGraph, PostgreSQL, AWS — là stack tiềm năng khoá học dùng, và mỗi lý do phải trỏ tới một dòng trong de-bai.md hoặc một thuộc tính nhóm cần: React cho đăng nhập ba vai và scale được lên production; FastAPI vì Python là ngôn ngữ thân thiện dùng chung với agent, async và await cho một server xử lý nhiều request cùng lúc, và server phải trả về 403; agent nhiều bước có giảng viên duyệt; không dùng vector database trả phí; AWS vì deploy công khai cần một cloud chuyên nghiệp, tin cậy.
+Input là một file, de-bai.md, cộng kiến thức từ slide 3 đến 8 và Claude Code làm công cụ. Output là một file gồm block diagram và một bảng. Các công nghệ trên hình — React, FastAPI, LangGraph, PostgreSQL, AWS — là stack tiềm năng khoá học dùng, và mỗi lý do phải trỏ tới một dòng trong de-bai.md hoặc một thuộc tính nhóm cần: React cho đăng nhập hai vai và scale được lên production; FastAPI vì Python là ngôn ngữ thân thiện dùng chung với agent, async và await cho một server xử lý nhiều request cùng lúc, và server phải trả về 403; agent nhiều bước có giảng viên duyệt; không dùng vector database trả phí; AWS vì deploy công khai cần một cloud chuyên nghiệp, tin cậy.
 
-Hàng Database cũng cho phép tuỳ chọn cache và job queue — nhóm chỉ thêm khi MT-01 cần, ví dụ khi review đề cương chạy lâu. Có một mâu thuẫn được cố ý để ngỏ: de-bai.md ghi Streamlit trước cho bản cơ bản. Nhóm tự quyết định và ghi lại lý do; mentor không quyết định thay.</aside>
+Hàng Database cũng cho phép tuỳ chọn cache và job queue — nhóm chỉ thêm khi MT-01 cần, ví dụ khi sinh test bank chạy lâu. Có một mâu thuẫn được cố ý để ngỏ: de-bai.md ghi Streamlit trước cho bản cơ bản. Nhóm tự quyết định và ghi lại lý do; mentor không quyết định thay.</aside>
 </section>
 
 <!-- ============ 6b · EXERCISE 1: STEPS WITH CLAUDE CODE ============ -->
@@ -1036,11 +1034,11 @@ Hàng Database cũng cho phép tuỳ chọn cache và job queue — nhóm chỉ 
 <div style="flex:1;display:flex;gap:24px;align-items:stretch">
 <div style="width:820px;display:flex;flex-direction:column;gap:8px">
 <p class="lb">Các bước chính · prompt mẫu</p>
-<div class="st"><p class="sn">1</p><div><p class="stt">Khởi động + project memory <span class="tag rec">một lần</span></p><p class="sd"><code>claude</code> · <code>/model</code> · <code>/init</code> tạo bản nháp CLAUDE.md, rồi:</p><p class="pr">“Phân tích docs/de-bai.md và ghi thông tin chính của dự án — nhiệm vụ chính, input, output — vào CLAUDE.md.”</p><p class="sd">Thiết lập các skill + hook chính — khuyến nghị: <b>deep research</b>, <b>documentation</b>, <b>visualization</b>, …</p></div></div>
-<div class="st"><p class="sn">2</p><div><p class="stt">Đọc đề bài</p><p class="pr">“Liệt kê 3 vai và năng lực của vai A, B, C — mỗi mục kèm mục trong de-bai.md mà nó lấy từ đó.”</p></div></div>
-<div class="st"><p class="sn">3</p><div><p class="stt">Vẽ diagram <span class="sd">— plan mode <kbd>Shift+Tab</kbd></span></p><p class="pr">“Vẽ MT-01 thành 5 khối bằng Mermaid: Front-End, Back-End, AI Agent, Database, DevOps. Mỗi khối một dòng chức năng, mũi tên ghi rõ cái gì đi qua, 3 vai đi vào ở đâu. Chỉ ở mức tổng quan.”</p></div></div>
-<div class="st"><p class="sn">4</p><div><p class="stt">Đề xuất công nghệ <span class="sd">— skill <b>interview</b></span></p><p class="pr">/interview “Chọn một công nghệ cho mỗi khối. So sánh 2 lựa chọn (vd. React vs Streamlit) theo de-bai.md, rồi hỏi tôi từng câu một. Đừng chọn thay tôi.”</p></div></div>
-<div class="st"><p class="sn">5</p><div><p class="stt">Đối chiếu với de-bai.md <span class="sd">— một skill</span></p><p class="pr">/de-bai-guard docs/systems/ARCHITECTURE_5BLOCK.md → rule | block | OK/MISSING</p></div></div>
+<div class="st"><p class="sn">1</p><div><p class="stt">Khởi động + project memory <span class="tag rec">một lần</span></p><p class="sd"><code>claude</code> · <code>/model</code> · <code>/init</code> tạo bản nháp CLAUDE.md, rồi:</p><p class="pr">“Phân tích docs/de-bai.md và ghi thông tin chính của dự án — nhiệm vụ chính, input, output — vào CLAUDE.md.”</p><p class="sd">Skill khuyến nghị: <b>tech-matching</b>, <b>learn-by-keywords</b> (prompt tạo: khung phải)</p></div></div>
+<div class="st"><p class="sn">2</p><div><p class="stt">Đọc đề bài</p><p class="pr">“Liệt kê 2 vai (được / không được làm gì) và 3 năng lực A, B, C, kèm mục de-bai.md.”</p></div></div>
+<div class="st"><p class="sn">3</p><div><p class="stt">Vẽ diagram <span class="sd">— plan mode <kbd>Shift+Tab</kbd></span></p><p class="pr">“Vẽ MT-01 thành 5 khối bằng Mermaid: Front-End, Back-End, AI Agent, Database, DevOps. Mỗi khối một dòng chức năng, mũi tên ghi rõ cái gì đi qua, 2 vai đi vào ở đâu. Chỉ ở mức tổng quan.”</p></div></div>
+<div class="st"><p class="sn">4</p><div><p class="stt">Đề xuất công nghệ <span class="sd">— skill <b>tech-matching</b></span></p><p class="pr">/tech-matching “Input: de-bai.md. Mỗi khối: top 3 công nghệ (lợi ích, chi phí, nguồn, link). Hỏi tôi từng câu một; đừng chọn thay tôi.”</p></div></div>
+<div class="st"><p class="sn">5</p><div><p class="stt">Đối chiếu với de-bai.md <span class="sd">— prompt thường</span></p><p class="pr">“Đối chiếu file với de-bai.md → bảng rule | OK/MISSING/CONFLICT; đừng tự sửa.”</p></div></div>
 <div class="st"><p class="sn">6</p><div><p class="stt">Giữ context gọn</p><p class="sd"><code>/compact</code> khi chat dài · <code>/clear</code> giữa các task · <code>/context</code> để xem cái gì đang chiếm chỗ</p></div></div>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:8px">
@@ -1052,14 +1050,13 @@ Hàng Database cũng cho phép tuỳ chọn cache và job queue — nhóm chỉ 
 <tr><td>Dùng</td><td>tự động khi bắt đầu phiên</td><td>khớp theo <code>description</code>, hoặc gõ <code>/&lt;name&gt;</code></td><td>tự động khi <code>PreToolUse</code>, <code>PostToolUse</code>, <code>Stop</code>; exit 2 sẽ chặn</td></tr>
 <tr><td>Khi nào</td><td>sự thật và quy tắc đúng cho cả dự án</td><td>task lặp lại với cùng các bước</td><td>quy tắc không bao giờ được phá</td></tr></table>
 <div style="display:flex;gap:12px">
-<pre class="code" style="flex:1;font-size:13px;line-height:1.32;padding:8px 12px"><span class="c"># .claude/skills/de-bai-guard/SKILL.md</span>
----
-name: <span class="k">de-bai-guard</span>
-description: <span class="k">Use when reviewing an
-  MT-01 design against de-bai.md</span>
----
-1. Read roles + scope in de-bai.md
-2. Table: rule | block | OK/MISSING</pre>
+<pre class="code" style="flex:1;font-size:13px;line-height:1.32;padding:8px 12px"><span class="c"># prompt tạo skill (đủ bản: file bài tập)</span>
+“Tạo <span class="k">.claude/skills/tech-matching</span>/SKILL.md:
+ từ tài liệu · yêu cầu · input · output · tài
+ nguyên → top k công nghệ; hỏi tôi chọn.”
+“Tạo <span class="k">.claude/skills/learn-by-keywords</span>/SKILL.md:
+ từ danh sách keyword → giới thiệu · bối cảnh ·
+ lý thuyết · ứng dụng · ví dụ · link.”</pre>
 <pre class="code" style="flex:1;font-size:13px;line-height:1.32;padding:8px 12px"><span class="c"># .claude/settings.json → "hooks"</span>
 "PreToolUse": [{
   "matcher": <span class="k">"Edit|Write"</span>,
@@ -1085,7 +1082,7 @@ description: <span class="k">Use when reviewing an
 <p><span>5-tier architecture</span><span>C4 model</span><span>Mermaid flowchart</span><span>tech-stack trade-offs</span><span>ADR</span><span>CLAUDE.md memory</span><span>Agent Skills</span><span>Claude Code hooks</span></p>
 </div>
 </div>
-<aside>Cột trái là phần việc chính: sáu bước, mỗi bước có một prompt copy được. Bước 1 làm một lần cho mỗi repository — một người chạy /init, yêu cầu Claude phân tích de-bai.md và ghi nhiệm vụ chính, input và output vào CLAUDE.md, review bản nháp rồi commit; những người khác lấy về bằng git pull. Cũng người đó thiết lập các skill và hook nhóm sẽ dùng lại — ví dụ deep research, documentation và visualization. Bước 2 đến 4 tạo ra file: trước tiên là ba vai và năng lực của vai A, B, C kèm mục nguồn, sau đó là diagram trong plan mode để Claude đưa ra kế hoạch trước khi viết, rồi chọn công nghệ bằng skill interview — Claude so sánh hai lựa chọn và hỏi nhóm từng câu một. Claude được dặn không được chọn — nhóm chọn. Bước 5 dùng một project skill để đối chiếu file với de-bai.md. Bước 6 là giữ vệ sinh: /compact thu gọn cuộc hội thoại dài, /clear bắt đầu lại giữa các task.
+<aside>Cột trái là phần việc chính: sáu bước, mỗi bước có một prompt copy được. Bước 1 làm một lần cho mỗi repository — một người chạy /init, yêu cầu Claude phân tích de-bai.md và ghi nhiệm vụ chính, input và output vào CLAUDE.md, review bản nháp rồi commit; những người khác lấy về bằng git pull. Cũng người đó thiết lập các skill và hook nhóm sẽ dùng lại — hai skill khuyến nghị là tech-matching (từ tài liệu, yêu cầu, input, output và tài nguyên, tìm top k công nghệ phù hợp) và learn-by-keywords (từ một danh sách keyword, đưa ra giới thiệu, bối cảnh, lý thuyết chính, ứng dụng và ví dụ); prompt tạo hai skill này nằm ở khung code bên phải và đầy đủ trong file bài tập. Bước 2 đến 4 tạo ra file: trước tiên là hai vai và ba năng lực A, B, C kèm mục nguồn, sau đó là diagram trong plan mode để Claude đưa ra kế hoạch trước khi viết, rồi chọn công nghệ bằng skill tech-matching — Claude tìm top k công nghệ cho mỗi khối và hỏi nhóm từng câu một. Claude được dặn không được chọn — nhóm chọn. Bước 5 là một prompt thường để đối chiếu file với de-bai.md. Bước 6 là giữ vệ sinh: /compact thu gọn cuộc hội thoại dài, /clear bắt đầu lại giữa các task.
 
 Cột phải so sánh ba loại file thay đổi cách Claude làm việc, từ mềm nhất đến cứng nhất. CLAUDE.md là lời khuyên, được đọc mỗi phiên. Skill là quy trình, chỉ được nạp khi request khớp với description của nó hoặc khi gọi đúng tên. Hook là cưỡng chế: harness chạy nó khi có sự kiện, dù Claude muốn hay không. Mỗi bài tập tiếp theo thêm một mục vào CLAUDE.md, viết một skill và thêm một hook. Repository này đã có ba logging hook; người học thêm vào, không bao giờ thay thế chúng.
 
@@ -1442,80 +1439,63 @@ Cột cuối hữu ích nhất cho mentor: mọi hàng đều kiểm tra đượ
 <!-- student -->
 <div class="role">
 <p class="who" style="background:#1C6B72">Sinh viên</p>
-<div class="page key">
-<p class="pt">Chat <span>trang chính</span></p>
-<svg width="330" height="136" viewBox="0 0 330 150">
-  <rect x="0" y="0" width="330" height="150" rx="8" fill="#F6F6F2" stroke="#D9DBD4"/>
-  <rect x="0" y="0" width="70" height="150" rx="8" fill="#EDEDE7"/>
-  <rect x="8" y="10" width="54" height="14" rx="4" fill="#1C6B72"/><rect x="8" y="32" width="54" height="10" rx="3" fill="#D9DBD4"/><rect x="8" y="48" width="54" height="10" rx="3" fill="#D9DBD4"/>
-  <rect x="190" y="10" width="130" height="20" rx="10" fill="#1C6B72"/>
-  <rect x="80" y="38" width="190" height="52" rx="8" fill="#FFFFFF" stroke="#D9DBD4"/>
-  <rect x="90" y="48" width="150" height="7" rx="3" fill="#C9CCC4"/><rect x="90" y="61" width="120" height="7" rx="3" fill="#C9CCC4"/>
-  <rect x="90" y="74" width="62" height="11" rx="5" fill="#E7F0F1" stroke="#1C6B72"/><text x="121" y="83" text-anchor="middle" font-size="8" fill="#1C6B72">[1] nguồn</text>
-  <rect x="80" y="114" width="240" height="26" rx="8" fill="#FFFFFF" stroke="#7E8A96"/><circle cx="306" cy="127" r="8" fill="#1C6B72"/>
+<div class="page">
+<p class="pt">Assignment</p>
+<ul>
+<li>10 câu mỗi session — chỉ câu đã duyệt</li>
+<li>Nộp bài</li>
+</ul>
+<p class="cmpn"><b>Components:</b> QuestionCard · AnswerOptions · SubmitBar</p>
+<p><span class="api"><b>GET</b> /sessions/{id}/assignment</span><span class="api"><b>POST</b> /assignments/{id}/submit</span></p>
+</div>
+<div class="page key" style="flex:1">
+<p class="pt">Kết quả PLO <span>trang chính</span></p>
+<svg width="330" height="90" viewBox="0 0 330 96">
+  <rect x="0" y="0" width="330" height="96" rx="8" fill="#F6F6F2" stroke="#D9DBD4"/>
+  <g font-size="10" fill="#48515E"><text x="10" y="24">PLO1</text><text x="10" y="48">PLO2</text><text x="10" y="72">PLO3</text></g>
+  <rect x="44" y="15" width="170" height="12" rx="3" fill="#1C6B72"/>
+  <rect x="44" y="39" width="130" height="12" rx="3" fill="#1C6B72" opacity=".8"/>
+  <rect x="44" y="63" width="50" height="12" rx="3" fill="#A3302A"/><text x="100" y="73" font-size="10" font-weight="700" fill="#A3302A">thiếu</text>
+  <rect x="244" y="58" width="76" height="24" rx="6" fill="#E7F0F1" stroke="#1C6B72"/><text x="282" y="74" text-anchor="middle" font-size="10" fill="#1C6B72">[1] nguồn</text>
 </svg>
 <ul>
-<li>Hỏi về một học phần</li>
-<li>Trả lời kèm <b>trích dẫn</b></li>
-<li><b>Từ chối</b> kèm lý do</li>
-<li>Glossary song ngữ</li>
+<li>Mức đạt từng PLO · PLO còn thiếu</li>
+<li>Truy ngược tới câu và trọng số</li>
+<li>Gợi ý đọc <b>kèm nguồn</b> → assignment mới</li>
 </ul>
-<p class="cmpn"><b>Components:</b> ChatHistory · MessageList · SourceChip · ChatInput</p>
-<p><span class="api"><b>POST</b> /chat</span><span class="api"><b>GET</b> /glossary</span></p>
+<p class="cmpn"><b>Components:</b> PloBars · TraceList · ReadingCard · SourceChip</p>
+<p><span class="api"><b>GET</b> /me/results</span><span class="api"><b>GET</b> /me/recommendations</span><span class="api"><b>POST</b> /me/assignments/next</span></p>
 </div>
 </div>
 <!-- lecturer -->
 <div class="role">
 <p class="who" style="background:#16202E">Giảng viên</p>
 <div class="page">
-<p class="pt">Upload đề cương</p>
+<p class="pt">Upload môn học</p>
 <ul>
-<li>Upload file đề cương</li>
+<li>Upload syllabus + nội dung môn</li>
 <li>Xem tiến độ và lỗi</li>
 </ul>
 <p class="cmpn"><b>Components:</b> FileDrop · ProgressBar</p>
-<p><span class="api"><b>POST</b> /syllabi</span></p>
+<p><span class="api"><b>POST</b> /courses</span></p>
 </div>
-<div class="page" style="flex:1">
-<p class="pt">Report review</p>
+<div class="page key" style="flex:1">
+<p class="pt">Test bank <span>trang chính</span></p>
 <svg width="330" height="90" viewBox="0 0 330 96">
   <rect x="0" y="0" width="330" height="96" rx="8" fill="#F6F6F2" stroke="#D9DBD4"/>
   <rect x="10" y="10" width="70" height="16" rx="8" fill="#E8B34A"/><text x="45" y="22" text-anchor="middle" font-size="10" font-weight="700">PENDING</text>
   <rect x="240" y="8" width="80" height="20" rx="6" fill="#1C6B72"/><text x="280" y="22" text-anchor="middle" font-size="11" font-weight="600" fill="#FFFFFF">Approve</text>
-  <g font-size="10" fill="#48515E"><text x="10" y="48">TC1 ✕</text><text x="10" y="64">TC2 ✓</text><text x="10" y="80">TC3 ✕</text></g>
-  <rect x="60" y="38" width="260" height="48" rx="6" fill="#FFFFFF" stroke="#D9DBD4"/>
-  <rect x="70" y="56" width="200" height="10" rx="3" fill="#FBE9A9"/>
+  <g font-size="10" fill="#48515E"><text x="10" y="48">Q1 · PLO1</text><text x="10" y="64">Q2 · PLO2</text><text x="10" y="80">Q3 · PLO1+3</text></g>
+  <rect x="150" y="38" width="170" height="48" rx="6" fill="#FFFFFF" stroke="#D9DBD4"/>
+  <rect x="160" y="56" width="60" height="10" rx="3" fill="#FBE9A9"/><text x="230" y="65" font-size="10" fill="#48515E">trọng số 0.6</text>
 </svg>
 <ul>
-<li>Kết quả theo <b>TC1–TC6</b></li>
-<li>Bấm vào một kết quả → dòng được trích</li>
+<li>Câu hỏi + PLO + trọng số gợi ý</li>
+<li>Sửa một trọng số</li>
 <li><code>PENDING</code> → <b>Approve</b></li>
 </ul>
-<p class="cmpn"><b>Components:</b> StatusBadge · FindingList · ApproveButton</p>
-<p><span class="api"><b>GET</b> /reports/{id}</span><span class="api"><b>POST</b> /reports/{id}/approve</span></p>
-</div>
-</div>
-<!-- manager -->
-<div class="role">
-<p class="who" style="background:#6B4A0C">Quản lý</p>
-<div class="page key">
-<p class="pt">Dashboard <span>trang chính</span></p>
-<svg width="330" height="136" viewBox="0 0 330 150">
-  <rect x="0" y="0" width="330" height="150" rx="8" fill="#F6F6F2" stroke="#D9DBD4"/>
-  <g><rect x="10" y="10" width="96" height="40" rx="6" fill="#FFFFFF" stroke="#D9DBD4"/><text x="20" y="40" font-size="16" font-weight="700">12/30</text>
-  <rect x="117" y="10" width="96" height="40" rx="6" fill="#FFFFFF" stroke="#D9DBD4"/><text x="127" y="40" font-size="16" font-weight="700">TC4</text>
-  <rect x="224" y="10" width="96" height="40" rx="6" fill="#FFFFFF" stroke="#D9DBD4"/><text x="234" y="40" font-size="16" font-weight="700">3 PLO</text></g>
-  <rect x="10" y="60" width="310" height="80" rx="6" fill="#FFFFFF" stroke="#D9DBD4"/>
-  <g fill="#1C6B72"><rect x="24" y="72" width="200" height="10" rx="3"/><rect x="24" y="88" width="150" height="10" rx="3" opacity=".8"/><rect x="24" y="104" width="110" height="10" rx="3" opacity=".6"/><rect x="24" y="120" width="70" height="10" rx="3" opacity=".4"/></g>
-</svg>
-<ul>
-<li>Số học phần đã review / tổng</li>
-<li>Tiêu chí yếu nhất</li>
-<li>PLO chưa học phần nào đáp ứng</li>
-<li><b>Chỉ số tổng</b> — không có dữ liệu sinh viên</li>
-</ul>
-<p class="cmpn"><b>Components:</b> StatTile · BarChart · Filter</p>
-<p><span class="api"><b>GET</b> /dashboard</span></p>
+<p class="cmpn"><b>Components:</b> QuestionTable · WeightEditor · StatusBadge · ApproveButton</p>
+<p><span class="api"><b>GET</b> /courses/{id}/questions</span><span class="api"><b>PATCH</b> /questions/{id}</span><span class="api"><b>POST</b> /questions/{id}/approve</span><span class="api"><b>GET</b> /courses/{id}/results</span></p>
 </div>
 </div>
 </div>
@@ -1530,7 +1510,7 @@ Nhiệm vụ bắt đầu từ hai file: de-bai.md và bản đồ 5 khối củ
 
 Input gồm React cơ bản. Người học chưa từng dùng React học components, props, state và routing với Claude làm gia sư — yêu cầu một giải thích ngắn kèm một ví dụ nhỏ, rồi đối chiếu với tài liệu chính thức.
 
-Đọc hình theo thứ tự vai, rồi trang, rồi component, rồi API. Hai trang chính là hai pattern ở slide 12: Chat của sinh viên, pattern để hỏi, và Dashboard của quản lý, pattern để theo dõi, chỉ có số tổng. Các trang của giảng viên là năng lực B: upload, đọc report theo từng tiêu chí, duyệt. Các chip tối màu dưới mỗi trang là các lời gọi API trang đó cần — danh sách này chính là input cho bài tập 1.3. Cột trái cho biết viết ở đâu: SPEC.md chứa vai, trang và API; UX.md chứa flow và trạng thái; các thư mục src là cấu trúc code mà kế hoạch sẽ lấp đầy.</aside>
+Đọc hình theo thứ tự vai, rồi trang, rồi component, rồi API. Hai trang chính: Test bank của giảng viên — cổng duyệt: sửa trọng số rồi Approve — và Kết quả PLO của sinh viên — kiểu dashboard để theo dõi ở slide 12: mỗi PLO một thanh, PLO nào thiếu, đọc ở đâu. MT-01 không có trang chat. Test bank là năng lực A, Kết quả PLO là năng lực B và C. Các chip tối màu dưới mỗi trang là các lời gọi API trang đó cần — danh sách này chính là input cho bài tập 1.3. Cột trái cho biết viết ở đâu: SPEC.md chứa vai, trang và API; UX.md chứa flow và trạng thái; các thư mục src là cấu trúc code mà kế hoạch sẽ lấp đầy.</aside>
 </section>
 
 <!-- ============ 10b · EXERCISE 2: STEPS ============ -->
@@ -1546,7 +1526,7 @@ Input gồm React cơ bản. Người học chưa từng dùng React học compo
 <tr><td class="n">3 · Lập kế hoạch <span class="tag today">hôm nay</span></td><td>Route, component, dữ liệu cho từng trang</td><td><kbd>Shift+Tab</kbd> plan mode: <span class="pr">“Lập kế hoạch route và component từ SPEC.md; chỉ tạo trang placeholder.”</span><i>· làm tay: vẽ cây route + cây component</i></td><td><b>FE_PLAN.md</b> → cây route, cây component, dữ liệu từng trang</td></tr>
 <tr><td class="n">4 · Guardrails <span class="tag later">buổi 4</span></td><td>Quy tắc chạy sau mỗi lần sửa</td><td><code>/hooks</code>: format + type-check sau mỗi lần sửa; permissions</td><td><b>.claude/settings.json</b> → hooks</td></tr>
 <tr><td class="n">5 · Design system <span class="tag later">buổi 4</span></td><td>Component nền từ token</td><td>Skill <code>ui-component</code>: cách nhóm xây một component</td><td><b>src/components/ui/</b> · <b>SKILL.md</b></td></tr>
-<tr><td class="n">6 · Tính năng <span class="tag later">buổi 4</span></td><td>Chat, Dashboard, Report…</td><td>Mỗi prompt một trang + phép kiểm nghiệm thu của nó</td><td><b>src/app/</b> các trang chạy trên mock data</td></tr>
+<tr><td class="n">6 · Tính năng <span class="tag later">buổi 4</span></td><td>Assignment, Kết quả PLO, Test bank…</td><td>Mỗi prompt một trang + phép kiểm nghiệm thu của nó</td><td><b>src/app/</b> các trang chạy trên mock data</td></tr>
 <tr><td class="n">7 · Kiểm tra trên trình duyệt <span class="tag later">buổi 4</span></td><td>Nhìn như người dùng nhìn</td><td>Claude in Chrome / Playwright: 360 px, bàn phím</td><td><b>FE_CHECK.md</b> → checklist, ảnh chụp màn hình</td></tr>
 <tr><td class="n">8 · Review + ship <span class="tag later">buổi 4</span> <span class="tag man">làm tay</span></td><td>Gia cố và deploy</td><td><code>/code-review</code> · <code>/security-review</code> · build</td><td>Ghi chú review · URL đã deploy</td></tr>
 </table>
@@ -1925,29 +1905,29 @@ Dải ở dưới là pattern chung mà mọi endpoint tuân theo, dù là dự 
   <!-- pages -->
   <g font-size="18" font-weight="600">
     <rect x="0" y="34" width="180" height="56" rx="10" fill="#E7F0F1" stroke="#1C6B72" stroke-width="1.5"/><text x="16" y="68">Login</text>
-    <rect x="0" y="106" width="180" height="56" rx="10" fill="#E7F0F1" stroke="#1C6B72" stroke-width="1.5"/><text x="16" y="140">Upload đề cương</text>
-    <rect x="0" y="178" width="180" height="96" rx="10" fill="#E7F0F1" stroke="#1C6B72" stroke-width="1.5"/><text x="16" y="232">Report review</text>
-    <rect x="0" y="290" width="180" height="96" rx="10" fill="#E7F0F1" stroke="#1C6B72" stroke-width="2.5"/><text x="16" y="344">Chat ★</text>
-    <rect x="0" y="402" width="180" height="56" rx="10" fill="#E7F0F1" stroke="#1C6B72" stroke-width="2.5"/><text x="16" y="436">Dashboard ★</text>
+    <rect x="0" y="106" width="180" height="56" rx="10" fill="#E7F0F1" stroke="#1C6B72" stroke-width="1.5"/><text x="16" y="140">Upload môn học</text>
+    <rect x="0" y="178" width="180" height="96" rx="10" fill="#E7F0F1" stroke="#1C6B72" stroke-width="2.5"/><text x="16" y="232">Test bank ★</text>
+    <rect x="0" y="290" width="180" height="96" rx="10" fill="#E7F0F1" stroke="#1C6B72" stroke-width="1.5"/><text x="16" y="344">Assignment</text>
+    <rect x="0" y="402" width="180" height="56" rx="10" fill="#E7F0F1" stroke="#1C6B72" stroke-width="2.5"/><text x="16" y="436">Kết quả PLO ★</text>
   </g>
   <!-- endpoints -->
   <g font-size="16" class="mono">
     <rect x="230" y="34" width="420" height="56" rx="10" fill="#F6F6F2" stroke="#D9DBD4"/>
     <rect x="242" y="48" width="58" height="28" rx="6" fill="#E8B34A"/><text x="271" y="68" text-anchor="middle" font-weight="700">POST</text><text x="312" y="68">/auth/login</text>
     <rect x="230" y="106" width="420" height="56" rx="10" fill="#F6F6F2" stroke="#D9DBD4"/>
-    <rect x="242" y="120" width="58" height="28" rx="6" fill="#E8B34A"/><text x="271" y="140" text-anchor="middle" font-weight="700">POST</text><text x="312" y="140">/syllabi</text>
+    <rect x="242" y="120" width="58" height="28" rx="6" fill="#E8B34A"/><text x="271" y="140" text-anchor="middle" font-weight="700">POST</text><text x="312" y="140">/courses</text>
     <rect x="230" y="178" width="420" height="96" rx="10" fill="#F6F6F2" stroke="#D9DBD4"/>
-    <rect x="242" y="190" width="58" height="28" rx="6" fill="#7FC4C9"/><text x="271" y="210" text-anchor="middle" font-weight="700">GET</text><text x="312" y="210">/reports/{id}</text>
-    <rect x="242" y="232" width="58" height="28" rx="6" fill="#E8B34A"/><text x="271" y="252" text-anchor="middle" font-weight="700">POST</text><text x="312" y="252">/reports/{id}/approve</text>
+    <rect x="242" y="190" width="58" height="28" rx="6" fill="#7FC4C9"/><text x="271" y="210" text-anchor="middle" font-weight="700">GET</text><text x="312" y="210">/courses/{id}/questions</text>
+    <rect x="242" y="232" width="58" height="28" rx="6" fill="#E8B34A"/><text x="271" y="252" text-anchor="middle" font-weight="700">POST</text><text x="312" y="252">/questions/{id}/approve</text>
     <rect x="230" y="290" width="420" height="96" rx="10" fill="#F6F6F2" stroke="#D9DBD4"/>
-    <rect x="242" y="302" width="58" height="28" rx="6" fill="#E8B34A"/><text x="271" y="322" text-anchor="middle" font-weight="700">POST</text><text x="312" y="322">/chat</text>
-    <rect x="242" y="344" width="58" height="28" rx="6" fill="#7FC4C9"/><text x="271" y="364" text-anchor="middle" font-weight="700">GET</text><text x="312" y="364">/glossary</text>
+    <rect x="242" y="302" width="58" height="28" rx="6" fill="#7FC4C9"/><text x="271" y="322" text-anchor="middle" font-weight="700">GET</text><text x="312" y="322">/sessions/{id}/assignment</text>
+    <rect x="242" y="344" width="58" height="28" rx="6" fill="#E8B34A"/><text x="271" y="364" text-anchor="middle" font-weight="700">POST</text><text x="312" y="364">/assignments/{id}/submit</text>
     <rect x="230" y="402" width="420" height="56" rx="10" fill="#F6F6F2" stroke="#D9DBD4"/>
-    <rect x="242" y="416" width="58" height="28" rx="6" fill="#7FC4C9"/><text x="271" y="436" text-anchor="middle" font-weight="700">GET</text><text x="312" y="436">/dashboard</text>
+    <rect x="242" y="416" width="58" height="28" rx="6" fill="#7FC4C9"/><text x="271" y="436" text-anchor="middle" font-weight="700">GET</text><text x="312" y="436">/me/results</text>
   </g>
   <g font-size="14" font-weight="600" fill="#1C6B72" text-anchor="end">
     <text x="638" y="67">bất kỳ</text><text x="638" y="139">giảng viên</text><text x="638" y="209">giảng viên</text>
-    <text x="638" y="251" fill="#A3302A">chỉ giảng viên</text><text x="638" y="321">sinh viên</text><text x="638" y="363">mọi vai</text><text x="638" y="435">quản lý</text>
+    <text x="638" y="251" fill="#A3302A">chỉ giảng viên</text><text x="638" y="321">sinh viên</text><text x="638" y="363">sinh viên</text><text x="638" y="435">sinh viên</text>
   </g>
   <g stroke="#7E8A96" stroke-width="2.5" fill="none">
     <line x1="184" y1="62" x2="224" y2="62" marker-end="url(#ah)"/>
@@ -1968,13 +1948,13 @@ Dải ở dưới là pattern chung mà mọi endpoint tuân theo, dù là dự 
   <rect x="720" y="214" width="340" height="110" rx="10" fill="#FFFFFF" stroke="#D9DBD4" stroke-width="1.5"/>
   <text x="740" y="248" font-size="20" font-weight="600">Services</text>
   <text x="740" y="276" font-size="15" fill="#48515E">Quy tắc MT-01: PENDING đến khi duyệt,</text>
-  <text x="740" y="300" font-size="15" fill="#48515E">số tổng, không dữ liệu cá nhân</text>
+  <text x="740" y="300" font-size="15" fill="#48515E">tính PLO theo trọng số, dữ liệu riêng</text>
   <rect x="720" y="354" width="160" height="104" rx="10" fill="#F3ECE2" stroke="#6B4A0C" stroke-width="1.5"/>
   <text x="800" y="396" text-anchor="middle" font-size="18" font-weight="600">Data</text>
   <text x="800" y="422" text-anchor="middle" font-size="14" fill="#48515E">PostgreSQL</text>
   <rect x="900" y="354" width="160" height="104" rx="10" fill="#FFFFFF" stroke="#1C6B72" stroke-width="1.5" stroke-dasharray="7 5"/>
   <text x="980" y="396" text-anchor="middle" font-size="18" font-weight="600">AI Agent</text>
-  <text x="980" y="422" text-anchor="middle" font-size="14" fill="#48515E">trả lời · review (BT 1.4)</text>
+  <text x="980" y="422" text-anchor="middle" font-size="14" fill="#48515E">sinh câu · gợi ý đọc</text>
   <g stroke="#7E8A96" stroke-width="2.5" fill="none">
     <line x1="890" y1="188" x2="890" y2="208" marker-end="url(#ah)"/>
     <line x1="800" y1="328" x2="800" y2="348" marker-end="url(#ah)"/>
@@ -1983,13 +1963,13 @@ Dải ở dưới là pattern chung mà mọi endpoint tuân theo, dù là dự 
   <!-- acceptance -->
   <rect x="0" y="510" width="1060" height="110" rx="10" fill="#FBEDEC" stroke="#A3302A" stroke-width="1.5"/>
   <text x="22" y="542" font-size="17" font-weight="700" fill="#A3302A">Acceptance test của de-bai</text>
-  <text x="22" y="570" font-size="17" fill="#16202E">Sinh viên gọi <tspan class="mono">POST /reports/{id}/approve</tspan> → <tspan font-weight="700">server</tspan> từ chối với <tspan class="mono" font-weight="700">403</tspan>.</text>
-  <text x="22" y="598" font-size="17" fill="#16202E">Quản lý gọi <tspan class="mono">GET /dashboard</tspan> → chỉ số tổng, không có dữ liệu sinh viên. Chỉ ẩn nút là chưa đủ.</text>
+  <text x="22" y="570" font-size="17" fill="#16202E">Sinh viên gọi <tspan class="mono">POST /questions/{id}/approve</tspan> → <tspan font-weight="700">server</tspan> từ chối với <tspan class="mono" font-weight="700">403</tspan>.</text>
+  <text x="22" y="598" font-size="17" fill="#16202E">Sinh viên xin câu hỏi <tspan class="mono">PENDING</tspan> hoặc kết quả của người khác → bị từ chối. Chỉ ẩn nút là chưa đủ.</text>
 </svg>
 <p class="os">Contract của một endpoint — trong API.md, mỗi endpoint một hàng</p>
 <table class="tt" style="font-size:16px">
 <tr><th>Method + route</th><th>Ai</th><th>JSON vào</th><th>JSON ra</th><th>Status code</th></tr>
-<tr><td><code>POST /reports/{id}/approve</code></td><td>giảng viên của học phần</td><td>— <span style="color:#7E8A96">(id nằm trong route)</span></td><td><code>{"id": 7, "status": "APPROVED"}</code></td><td>200 · 401 · 403 · 404</td></tr>
+<tr><td><code>POST /questions/{id}/approve</code></td><td>giảng viên của môn</td><td>— <span style="color:#7E8A96">(id nằm trong route)</span></td><td><code>{"id": 7, "status": "APPROVED"}</code></td><td>200 · 401 · 403 · 404</td></tr>
 </table>
 </div>
 </div>
@@ -2025,7 +2005,7 @@ Hình là bức tranh mong đợi, đọc từ trái sang phải. Các trang t�
 <ul>
 <li>Tự viết secret — <code>.env</code>, JWT secret, mật khẩu DB: <b>không bao giờ trong chat, không bao giờ trong git</b></li>
 <li><b>Cả nhóm quyết định role matrix</b>; đọc từng dòng code auth / kiểm tra role</li>
-<li>Tự chạy test 403: sinh viên → <code>POST /reports/{id}/approve</code></li>
+<li>Tự chạy test 403: sinh viên → <code>POST /questions/{id}/approve</code></li>
 <li>Credential cho cloud và CI, CORS origin — <b>đặt bằng tay</b> trong console</li>
 </ul>
 </div>
@@ -2494,9 +2474,9 @@ Sau đó đi qua hai lần chạy bên phải. Một lời chào bỏ qua tool h
 <div style="flex:1;display:flex;gap:24px;align-items:stretch">
 <div style="width:600px;display:flex;flex-direction:column;gap:8px">
 <p class="lb">① Nhiệm vụ · trả lời cho MT-01</p>
-<div class="q" style="padding:9px 16px"><p class="qn">1</p><div><p class="qt">Agent gì?</p><p class="qh" style="font-size:16px">Năng lực nào trước — trợ lý sinh viên (A), người review đề cương (B), hay cả hai?</p></div></div>
-<div class="q" style="padding:9px 16px"><p class="qn">2</p><div><p class="qt">Vì sao cần AI agent?</p><p class="qh" style="font-size:16px">Công việc có cần nhiều bước — tìm, kiểm tra, trích dẫn, quyết định? Nếu code thường hoặc một lời gọi LLM là đủ, hãy dùng cách đó.</p></div></div>
-<div class="q" style="padding:9px 16px"><p class="qn">3</p><div><p class="qt">Áp dụng ở đâu?</p><p class="qh" style="font-size:16px">Trang nào hiển thị kết quả của nó; khối nào gọi nó (back-end — không bao giờ là người dùng trực tiếp).</p></div></div>
+<div class="q" style="padding:9px 16px"><p class="qn">1</p><div><p class="qt">Agent gì?</p><p class="qh" style="font-size:16px">Năng lực nào trước — sinh test bank (A), đánh giá PLO (B), gợi ý đọc cá nhân hoá (C), hay cả ba?</p></div></div>
+<div class="q" style="padding:9px 16px"><p class="qn">2</p><div><p class="qt">Vì sao cần AI agent?</p><p class="qh" style="font-size:16px">Cần nhiều bước — đọc, soạn, tìm, trích dẫn? Nếu code thường hoặc một lời gọi LLM là đủ, hãy dùng cách đó — chấm theo PLO (B) có cần LLM không?</p></div></div>
+<div class="q" style="padding:9px 16px"><p class="qn">3</p><div><p class="qt">Áp dụng ở đâu?</p><p class="qh" style="font-size:16px">Trang nào hiển thị kết quả của nó (Test bank, Kết quả PLO); khối nào gọi nó (back-end — không bao giờ là người dùng trực tiếp).</p></div></div>
 <div class="q" style="padding:9px 16px"><p class="qn">4</p><div><p class="qt">Nó làm gì — và không làm gì?</p><p class="qh" style="font-size:16px">Phân loại mọi hành vi: được phép · cần duyệt · giới hạn · cấm.</p></div></div>
 <div class="q" style="padding:9px 16px"><p class="qn">5</p><div><p class="qt">Có nên dùng LangGraph?</p><p class="qh" style="font-size:16px">Có nếu cần state, rẽ nhánh, vòng lặp hoặc bước con người duyệt; de-bai.md: không multi-agent.</p></div></div>
 <div class="card" style="border-left-color:#E8B34A;margin-top:6px;padding:12px 20px">
@@ -2504,7 +2484,7 @@ Sau đó đi qua hai lần chạy bên phải. Một lời chào bỏ qua tool h
 <div class="inp" style="font-size:16px;gap:6px 12px">
 <b>Kiến thức</b><span>ML / DL / LLM cơ bản · AI agent là gì: tool, memory, vòng lặp · LangGraph (slide 27–29) — tự học cùng Claude</span>
 <b>Công cụ</b><span>Claude Code · LangGraph · một LLM API</span>
-<b>File</b><span><code class="path">de-bai.md</code> · bản đồ BT 1.1 · <code class="path">SPEC.md</code> (BT 1.2) · <code class="path">API.md</code> (BT 1.3) · <code class="path">data/rubric.yaml</code></span>
+<b>File</b><span><code class="path">de-bai.md</code> · bản đồ BT 1.1 · <code class="path">SPEC.md</code> (BT 1.2) · <code class="path">API.md</code> (BT 1.3) · <code class="path">data/plo.md</code></span>
 </div>
 </div>
 </div>
@@ -2515,27 +2495,28 @@ Sau đó đi qua hai lần chạy bên phải. Một lời chào bỏ qua tool h
 <p class="os">① Nhiệm vụ (Job)</p>
 <table class="tt">
 <tr><th style="width:20%">Năng lực</th><th>Agent làm</th><th style="width:34%">Xong khi</th></tr>
-<tr><td>A · trợ lý</td><td>trả lời từ tài liệu đã duyệt, kèm nguồn</td><td>câu trả lời + trích dẫn, hoặc từ chối</td></tr>
-<tr><td>B · reviewer</td><td>kiểm tra đề cương theo TC1–TC6</td><td>report nháp, trạng thái <code>PENDING</code></td></tr>
+<tr><td>A · test bank</td><td>soạn câu hỏi, mỗi câu gắn PLO + trọng số gợi ý</td><td>mọi câu ở trạng thái <code>PENDING</code></td></tr>
+<tr><td>B · đánh giá PLO</td><td>mức đạt từng PLO từ trọng số đã duyệt — <b>code thường</b>, không LLM</td><td>mức đạt + truy ngược tới câu</td></tr>
+<tr><td>C · cá nhân hoá</td><td>gợi ý đọc đúng chỗ, có nguồn; assignment mới từ câu đã duyệt</td><td>trích dẫn đúng chỗ</td></tr>
 </table>
 <p class="os">② Quy tắc (Rules)</p>
 <table class="tt">
-<tr><td style="width:20%"><span class="tag rec">được phép</span></td><td>tìm trong tài liệu đã duyệt · kiểm tra một tiêu chí · tra glossary</td></tr>
-<tr><td><span class="tag" style="background:#E8B34A;color:#16202E">cần duyệt</span></td><td>công bố report — chỉ giảng viên được duyệt</td></tr>
-<tr><td><span class="tag opt">giới hạn</span></td><td>không có nguồn → từ chối · tối đa N bước mỗi request</td></tr>
-<tr><td><span class="tag must">cấm</span></td><td>làm bài tập có chấm điểm · dữ liệu cá nhân sinh viên · multi-agent · vector DB trả phí</td></tr>
+<tr><td style="width:20%"><span class="tag rec">được phép</span></td><td>đọc syllabus + nội dung · soạn câu <code>PENDING</code> · tính PLO từ trọng số đã duyệt · trích nội dung môn</td></tr>
+<tr><td><span class="tag" style="background:#E8B34A;color:#16202E">cần duyệt</span></td><td>câu hỏi + trọng số vào assignment — chỉ giảng viên của môn duyệt</td></tr>
+<tr><td><span class="tag opt">giới hạn</span></td><td>không có đoạn phù hợp → không gợi ý · assignment 10 câu · tối đa N bước mỗi request</td></tr>
+<tr><td><span class="tag must">cấm</span></td><td>câu <code>PENDING</code> trong assignment · xem kết quả sinh viên khác · chấm tự luận · multi-agent · vector DB trả phí · dữ liệu thật</td></tr>
 </table>
 <p class="os">③ Flow — flowchart mà chương trình đi theo (slide 28)</p>
 <svg width="1020" height="176" viewBox="0 0 1020 176">
-  <g font-size="14" font-weight="700" fill="#7E8A96"><text x="0" y="34">A · trợ lý</text><text x="0" y="151">B · reviewer</text></g>
+  <g font-size="14" font-weight="700" fill="#7E8A96"><text x="0" y="34">C · cá nhân hoá</text><text x="0" y="151">A · test bank</text></g>
   <!-- row A -->
   <g font-size="14" text-anchor="middle">
     <rect x="110" y="12" width="64" height="34" rx="17" fill="#EDEDE7"/><text x="142" y="34" font-weight="700">START</text>
-    <rect x="200" y="10" width="140" height="38" rx="8" fill="#FFFFFF" stroke="#1C6B72" stroke-width="1.5"/><text x="270" y="34">kiểm tra request</text>
-    <rect x="366" y="10" width="140" height="38" rx="8" fill="#FFFFFF" stroke="#1C6B72" stroke-width="1.5"/><text x="436" y="34">tìm tài liệu</text>
-    <polygon points="590,4 650,29 590,54 530,29" fill="#FFFFFF" stroke="#16202E" stroke-width="1.5"/><text x="590" y="34">có nguồn?</text>
-    <rect x="690" y="2" width="160" height="34" rx="8" fill="#E7F0F1" stroke="#1C6B72" stroke-width="1.5"/><text x="770" y="24">trả lời + trích dẫn</text>
-    <rect x="690" y="52" width="160" height="34" rx="8" fill="#FBEDEC" stroke="#A3302A" stroke-width="1.5"/><text x="770" y="74">từ chối + lý do</text>
+    <rect x="200" y="10" width="140" height="38" rx="8" fill="#FFFFFF" stroke="#1C6B72" stroke-width="1.5"/><text x="270" y="34">lấy PLO thiếu</text>
+    <rect x="366" y="10" width="140" height="38" rx="8" fill="#FFFFFF" stroke="#1C6B72" stroke-width="1.5"/><text x="436" y="34">tìm trong nội dung</text>
+    <polygon points="590,4 650,29 590,54 530,29" fill="#FFFFFF" stroke="#16202E" stroke-width="1.5"/><text x="590" y="34">có đoạn?</text>
+    <rect x="690" y="2" width="160" height="34" rx="8" fill="#E7F0F1" stroke="#1C6B72" stroke-width="1.5"/><text x="770" y="24">đọc + assignment mới</text>
+    <rect x="690" y="52" width="160" height="34" rx="8" fill="#FBEDEC" stroke="#A3302A" stroke-width="1.5"/><text x="770" y="74">nói không có nguồn</text>
     <rect x="900" y="27" width="64" height="34" rx="17" fill="#1C6B72"/><text x="932" y="49" font-weight="700" fill="#FFFFFF">END</text>
   </g>
   <g stroke="#48515E" stroke-width="2" fill="none">
@@ -2551,9 +2532,9 @@ Sau đó đi qua hai lần chạy bên phải. Một lời chào bỏ qua tool h
   <!-- row B -->
   <g font-size="14" text-anchor="middle">
     <rect x="110" y="128" width="64" height="34" rx="17" fill="#EDEDE7"/><text x="142" y="150" font-weight="700">START</text>
-    <rect x="200" y="126" width="140" height="38" rx="8" fill="#FFFFFF" stroke="#1C6B72" stroke-width="1.5"/><text x="270" y="150">đọc đề cương</text>
-    <rect x="366" y="126" width="140" height="38" rx="8" fill="#FFFFFF" stroke="#1C6B72" stroke-width="1.5"/><text x="436" y="150">kiểm tra TC1–TC6</text>
-    <rect x="532" y="126" width="150" height="38" rx="8" fill="#FFFFFF" stroke="#1C6B72" stroke-width="1.5"/><text x="607" y="150">nháp · PENDING</text>
+    <rect x="200" y="126" width="140" height="38" rx="8" fill="#FFFFFF" stroke="#1C6B72" stroke-width="1.5"/><text x="270" y="150">đọc tài liệu môn</text>
+    <rect x="366" y="126" width="140" height="38" rx="8" fill="#FFFFFF" stroke="#1C6B72" stroke-width="1.5"/><text x="436" y="150">soạn câu + trọng số</text>
+    <rect x="532" y="126" width="150" height="38" rx="8" fill="#FFFFFF" stroke="#1C6B72" stroke-width="1.5"/><text x="607" y="150">lưu · PENDING</text>
     <rect x="708" y="126" width="168" height="38" rx="8" fill="#FBF5E6" stroke="#B07A12" stroke-width="2" stroke-dasharray="6 4"/><text x="792" y="150" font-weight="700">⏸ giảng viên duyệt</text>
     <rect x="900" y="128" width="64" height="34" rx="17" fill="#1C6B72"/><text x="932" y="150" font-weight="700" fill="#FFFFFF">END</text>
   </g>
@@ -2581,9 +2562,9 @@ Sau đó đi qua hai lần chạy bên phải. Một lời chào bỏ qua tool h
 </div>
 <aside>Bài tập 1.4 áp dụng slide 27 đến 29. Nhiệm vụ không đổi: trước khi vẽ một node nào, nhóm trả lời năm câu hỏi đơn giản — agent gì, vì sao lại cần agent, áp dụng ở đâu, được và không được làm gì, và LangGraph có đáng dùng không.
 
-Input là mọi thứ từ bài tập 1.1 đến 1.3 cộng de-bai.md và file rubric. Người học mới làm quen với machine learning, LLM và agent học cơ bản với Claude làm gia sư: yêu cầu một giải thích ngắn kèm một ví dụ nhỏ, rồi đối chiếu với slide 27 đến 29 và tài liệu chính thức.
+Input là mọi thứ từ bài tập 1.1 đến 1.3 cộng de-bai.md và data/plo.md. Người học mới làm quen với machine learning, LLM và agent học cơ bản với Claude làm gia sư: yêu cầu một giải thích ngắn kèm một ví dụ nhỏ, rồi đối chiếu với slide 27 đến 29 và tài liệu chính thức.
 
-Output mong đợi là AGENT.md gồm ba phần. Bảng Job nói agent làm gì theo từng năng lực và làm sao biết là xong. Bảng Rules phân loại mọi hành vi thành được phép, cần duyệt, giới hạn và cấm — mỗi mục truy được về de-bai.md. Phần mới là phần ba, flow: directed graph mức khái quát từ slide 28, mỗi năng lực một hàng. Năng lực A kiểm tra request, tìm tài liệu đã duyệt, rồi hoặc trả lời kèm trích dẫn hoặc từ chối kèm lý do. Năng lực B đọc đề cương, kiểm tra sáu tiêu chí, viết nháp report ở trạng thái PENDING rồi tạm dừng: ô nét đứt là interrupt human-in-the-loop, nơi giảng viên duyệt. Chỉ có ô và mũi tên — state, node và code để sang chương sau.
+Output mong đợi là AGENT.md gồm ba phần. Bảng Job nói agent làm gì theo từng năng lực và làm sao biết là xong — lưu ý năng lực B, tính mức đạt theo PLO, chỉ là phép tính trên trọng số đã duyệt: code thường, không cần LLM, và đó chính là câu trả lời cho câu hỏi 2. Bảng Rules phân loại mọi hành vi thành được phép, cần duyệt, giới hạn và cấm — mỗi mục truy được về de-bai.md. Phần mới là phần ba, flow: directed graph mức khái quát từ slide 28, mỗi năng lực một hàng. Hàng trên là năng lực C: lấy các PLO còn thiếu từ B, tìm đoạn tương ứng trong nội dung môn, rồi hoặc gợi ý đọc kèm assignment mới hoặc nói rõ không có nguồn. Hàng dưới là năng lực A: đọc tài liệu môn, soạn câu hỏi kèm trọng số PLO, lưu ở trạng thái PENDING rồi tạm dừng: ô nét đứt là interrupt human-in-the-loop, nơi giảng viên duyệt. Chỉ có ô và mũi tên — state, node và code để sang chương sau.
 
 Nếu nhóm chọn LangGraph, LANGGRAPH_NOTES.md chứa ghi chú chung ngắn gọn kèm version đã cài và các link chính thức.</aside>
 </section>
@@ -2601,8 +2582,8 @@ Nếu nhóm chọn LangGraph, LANGGRAPH_NOTES.md chứa ghi chú chung ngắn g�
 <tr><td class="n">3 · Thiết kế graph <span class="tag later">chương sau</span></td><td>Flow → state, node, edge, tool</td><td><kbd>Shift+Tab</kbd> plan mode, bắt đầu từ flow trong AGENT.md</td><td><b>AGENT_GRAPH.md</b> → state schema, Mermaid graph</td></tr>
 <tr><td class="n">4 · Tool + node <span class="tag later">chương sau</span></td><td>Mỗi lần một tool hoặc node</td><td>Skill <code>add-node</code> · mỗi prompt một cái</td><td><b>src/agent/tools/ · nodes/</b> + unit tests</td></tr>
 <tr><td class="n">5 · Memory + duyệt <span class="tag later">chương sau</span> <span class="tag man">làm tay</span></td><td>Lưu state; tạm dừng chờ giảng viên</td><td>Prompt kèm ô duyệt từ flow · <i>không tự động duyệt</i></td><td><b>graph.py</b> → checkpointer, interrupt</td></tr>
-<tr><td class="n">6 · Kết nối <span class="tag later">chương sau</span></td><td>Công khai qua FastAPI, hiển thị trong React</td><td>Dùng endpoint của BT 1.3 + trang Chat của BT 1.2</td><td><b>routers/chat.py</b> · trang Chat có streaming</td></tr>
-<tr><td class="n">7 · Test + đánh giá <span class="tag later">chương sau</span> <span class="tag man">làm tay</span></td><td>Golden dataset, eval vòng 1</td><td>“Case cho trả lời, trích dẫn, từ chối” · <i>con người viết câu trả lời mong đợi</i></td><td><b>eval/</b> → ≥ 45 case, bảng kết quả</td></tr>
+<tr><td class="n">6 · Kết nối <span class="tag later">chương sau</span></td><td>Công khai qua FastAPI, hiển thị trong React</td><td>Dùng endpoint của BT 1.3 + trang Test bank và Kết quả PLO của BT 1.2</td><td><b>routers/questions.py · me.py</b> · trang hiển thị kết quả agent</td></tr>
+<tr><td class="n">7 · Test + đánh giá <span class="tag later">chương sau</span> <span class="tag man">làm tay</span></td><td>Golden dataset, eval vòng 1</td><td>“Case cho sinh câu + trọng số, chấm theo PLO, gợi ý đọc có nguồn, từ chối câu PENDING” · <i>con người viết câu trả lời mong đợi</i></td><td><b>eval/</b> → ≥ 45 case, bảng kết quả</td></tr>
 <tr><td class="n">8 · Guardrails + ship <span class="tag later">chương sau</span></td><td>Từ chối, giới hạn bước, review</td><td><code>/code-review</code> · hooks · test từ chối</td><td><b>tests/test_guardrails.py</b> · ghi chú review</td></tr>
 </table>
 <div class="low">

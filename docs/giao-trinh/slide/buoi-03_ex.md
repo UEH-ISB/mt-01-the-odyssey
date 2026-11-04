@@ -102,7 +102,7 @@ Each document you write in `docs/systems/` is a step 1 – 3 artifact; steps 4 �
 Read [`docs/de-bai.md`](../../de-bai.md) and design MT-01 as the five blocks of slide 3 — overview only, no endpoints, tables or code:
 
 - the **general function** of each block (Front-End, Back-End, AI Agent, Database, DevOps);
-- what **flows** between blocks, and where the **three roles** (student, lecturer, programme manager) enter;
+- what **flows** between blocks, and where the **two roles** (student, lecturer) enter;
 - a **technology** for each block, with a short **reason taken from `de-bai.md`** (an application requirement or a scope limit).
 
 ### Input & tools
@@ -111,7 +111,7 @@ Read [`docs/de-bai.md`](../../de-bai.md) and design MT-01 as the five blocks of 
 |---|---|
 | **Knowledge** | 5-block architecture (slides 3 – 8) · client–server · roles and permissions |
 | **Tools** | Claude Code — plan mode, CLAUDE.md, skills, hooks · Mermaid for the diagram |
-| **Files** | `docs/de-bai.md` — *Ba năng lực*, *Ba vai và ranh giới quyền*, *Yêu cầu đầu ra*, *Phạm vi cố tình loại khỏi đề* · `docs/architecture_diagram.md` (template picture) |
+| **Files** | `docs/de-bai.md` — *Ba năng lực*, *Hai vai và ranh giới quyền*, *Yêu cầu đầu ra*, *Phạm vi cố tình loại khỏi đề* · `docs/architecture_diagram.md` (template picture) |
 
 ### Expected output — `docs/systems/ARCHITECTURE_5BLOCK.md`
 
@@ -119,10 +119,10 @@ Two parts: a **block diagram** and a **table** — block · general function · 
 
 | Block | General function | Potential technology | Reason (from `de-bai.md`) |
 |---|---|---|---|
-| Front-End | pages per role: chat, report, dashboard | **React** | 3-role login (*Ba vai…*); scalable and production-ready (slide 13) |
-| Back-End | checks the role, applies the rules, calls the agent | **FastAPI** | friendly language — Python, like the agent; `async` / `await` serves many requests at once; the server must refuse "approve" from other roles → 403 (*Ba vai…*) |
-| AI Agent | answers and reviews from approved material | **LangGraph** | several steps — find, cite, refuse — and a pause until the lecturer approves (*B · Chuẩn hóa môn học*) |
-| Database | users, syllabi, reports, approved material; optional cache + job queue (Redis / SQS) — only if needed | **PostgreSQL** | free; linked records and a `PENDING` status; no paid vector DB (*Phạm vi*) |
+| Front-End | pages per role: assignment, PLO result, test-bank review | **React** | 2-role login (*Hai vai…*); web app usable at 360 px (*Yêu cầu đầu ra*); scalable and production-ready (slide 13) |
+| Back-End | checks the role, applies the rules, calls the agent | **FastAPI** | friendly language — Python, like the agent; `async` / `await` serves many requests at once; the server must refuse "approve" from the student → 403 (*Hai vai…*, *Acceptance demo*) |
+| AI Agent | drafts the test bank with PLO weights; suggests the part to read for a missing PLO | **LangGraph** | several steps — read, draft, find, cite — and a pause until the lecturer approves (*A · Ngân hàng câu hỏi gắn PLO*, *C · Cá nhân hoá*) |
+| Database | users, courses, questions + PLO weights, submissions, PLO results; optional cache + job queue (Redis / SQS) — only if needed | **PostgreSQL** | free; linked records and a `PENDING` status; no paid vector DB (*Phạm vi*) |
 | DevOps | build, test, deploy, monitor | **AWS** | professional and reliable cloud for "Web app deploy công khai" (*Yêu cầu đầu ra*) |
 
 > **Open decision.** `de-bai.md`, *Phạm vi cố tình loại khỏi đề*, says "Streamlit trước, đẹp sau" for the basic version. React now or later is the **team's** decision — write it under *Open decisions* (and, if React, in `ADR-001-frontend.md` in Exercise 1.2).
@@ -136,7 +136,7 @@ Based on: docs/de-bai.md · slides 3–8 of buoi-03.html
 ## Block diagram
 ```mermaid
 flowchart LR
-  SV([Student]) & GV([Lecturer]) & QL([Programme manager]) --> FE[Front-End · React]
+  SV([Student]) & GV([Lecturer]) --> FE[Front-End · React]
   FE <-->|HTTP + JSON| BE[Back-End · FastAPI]
   BE <-->|task / result| AG[AI Agent · LangGraph]
   AG <-->|prompt / tokens| LLM[(LLM provider)]
@@ -165,11 +165,11 @@ The repo, the team and `git clone` were set up in buổi 01 — run `git pull` a
 
 | # | Step | AI-aided — Claude Code | Manual way |
 |---|---|---|---|
-| 1 | **Start + project memory** (once per repo) | `claude` · `/model` · `/init` drafts or updates CLAUDE.md → record the project's main information (prompt a, below) · set up the important skills and hooks — recommended: deep research, documentation, visualization, … | write CLAUDE.md yourself |
+| 1 | **Start + project memory** (once per repo) | `claude` · `/model` · `/init` drafts or updates CLAUDE.md → record the project's main information (prompt a, below) · set up the important skills and hooks — recommended skills: **`tech-matching`**, **`learn-by-keywords`** (create them with the prompts in section B) | write CLAUDE.md yourself |
 | 2 | **Read the brief** | prompt b | read `de-bai.md` with a pen: underline every role, every must / must not, every status (`PENDING`), every number (403, 360 px, 45 cases) |
 | 3 | **Draw the diagram** — plan mode `Shift+Tab` | prompt c | draw the five boxes on paper, one sentence inside each, label every arrow |
-| 4 | **Propose technologies** — the **interview** skill | prompt d — Claude compares and interviews you, **you** choose | list 2 options per block, tick the one each `de-bai.md` line supports |
-| 5 | **Check against `de-bai.md`** | the `de-bai-guard` skill (section B above): `/de-bai-guard docs/systems/ARCHITECTURE_5BLOCK.md` | tick each rule of `de-bai.md` against the file |
+| 4 | **Propose technologies** — the **`tech-matching`** skill | prompt d — the skill finds the top 3 technologies per block, then interviews you; **you** choose | list 2 options per block, tick the one each `de-bai.md` line supports |
+| 5 | **Check against `de-bai.md`** | prompt e — a plain prompt, no skill: rule · section · where in the file · OK / MISSING / CONFLICT | tick each rule of `de-bai.md` against the file |
 | 6 | **Keep context small** | `/compact` in a long chat · `/clear` between tasks · `/context` to see what fills it | — |
 
 `/init` **writes or updates CLAUDE.md** by scanning the repo — it does *not* explain the repo to you. This repo already has a CLAUDE.md with the course rules: `/init` will propose changes; keep the rules, review, then share it with the team. To *understand* the repo, ask Claude: `I am new to this repository. Without editing anything, list the top-level folders with one line each, and quote the files that describe the course and the brief.`
@@ -186,7 +186,7 @@ Then set up the skills and hooks the team will reuse — sections A, B and C bel
 
 ### CLAUDE.md, skills and hooks — create, use, when
 
-Slide 10 puts these three side by side, from softest to hardest. **Every next exercise uses all three**, so learn them now. Set them up in this order: **A · CLAUDE.md** (the facts) → **B · skills** (the procedures) → **C · hooks** (the rules that must never break). Recommended starter skills: `interview`, `documentation`, `de-bai-guard`; recommended starter hooks: protect `data/`, protect secrets, format + lint after each edit.
+Slide 10 puts these three side by side, from softest to hardest. **Every next exercise uses all three**, so learn them now. Set them up in this order: **A · CLAUDE.md** (the facts) → **B · skills** (the procedures) → **C · hooks** (the rules that must never break). Recommended starter skills: **`tech-matching`**, **`learn-by-keywords`**; recommended starter hooks: protect `data/`, protect secrets, format + lint after each edit.
 
 | | **CLAUDE.md** — advice | **Skill** — know-how | **Hook** — enforcement |
 |---|---|---|---|
@@ -195,7 +195,7 @@ Slide 10 puts these three side by side, from softest to hardest. **Every next ex
 | **Create** | `/init` drafts it from the repo → edit with `/memory` or ask Claude → review → commit | write the file by hand, or ask “create a skill that…”. There is **no** `/skill` command | `/hooks`, or edit the JSON. **Add, never replace** — this repo already has 3 logging hooks |
 | **Use** | automatic — loaded when a session starts (folder files when Claude works there) | Claude loads it when your request matches its `description`; or type `/<name>` | automatic on `PreToolUse`, `PostToolUse`, `Stop`, …; for `PreToolUse`, exit code 2 blocks the action |
 | **When** | facts and preferences true for the whole project | a task you repeat with the same steps (review a design, add an endpoint) | a rule that must never break (protect `data/`, format after every edit) |
-| **MT-01 example** | “Role checks live on the server” · “Never edit files in `data/`” | `de-bai-guard` — check a design against `de-bai.md` | `protect_data.py` — block edits to `data/` |
+| **MT-01 example** | “Role checks live on the server” · “Never edit files in `data/`” | `tech-matching` — top-k technologies for a block, from the brief · `learn-by-keywords` — a primer for a list of terms | `protect_data.py` — block edits to `data/` |
 | **Next exercises** | a Front-end section (Ex 1.2) · a Back-end section (Ex 1.3) · `src/agent/CLAUDE.md` (Ex 1.4) | `ui-component` (Ex 1.2) · `add-endpoint` (Ex 1.3) · `add-node` (Ex 1.4) | format + type-check after each edit (Ex 1.2 – 1.3) · block edits to `data/` and reading `.env` |
 
 Rule of thumb: **preference → CLAUDE.md · repeated procedure → skill · must never break → hook.** The Git pre-push hook that logs AI use is a different mechanism — leave it alone.
@@ -213,7 +213,7 @@ Rule of thumb: **preference → CLAUDE.md · repeated procedure → skill · mus
 | 5 | **Team conventions and decisions, with the reason** | agreements live in heads, not code | “Error format `{detail, code}`” · “All HTTP calls go through `src/lib/api.ts`” |
 | 6 | **Hard rules — never / always** (security, data, secrets) | Claude optimises for “works”, not “allowed” | “Never edit `data/`” · “Never print or commit `.env` values” · “Role checks live on the server” |
 | 7 | **Workflow rules** | how *you* want to work | “Plan first (`Shift+Tab`) when a change touches > 3 files” · “Run the tests before saying done” · “Ask before adding a library” · “Cite the `de-bai.md` section” |
-| 8 | **Domain words and invariants** | not in any single file | roles student / lecturer / manager · status `PENDING` until the lecturer approves |
+| 8 | **Domain words and invariants** | not in any single file | roles student / lecturer · status `PENDING` until the lecturer approves |
 | 9 | **Pointers to documents**, not copies | copies go stale and fill the context | “Brief: `docs/de-bai.md` · Design: `docs/systems/`” (`@path` imports a file into every session — only for short files) |
 | 10 | **Gotchas** | learned the hard way | “Shell is Git Bash on Windows” · “port 8000 already used → `--port 8001`” |
 
@@ -254,7 +254,7 @@ never edit data/. Cite the de-bai.md section for each line. Keep every existing 
 
 Review the diff, then **add by hand** what only the team knows (rows 5, 7 and 10 above), and commit. Teammates get it with `git pull`.
 
-#### B · Skills — a general prompt, then three examples
+#### B · Skills — a general prompt, then the two starter skills
 
 **What a skill is:** a folder `.claude/skills/<name>/` containing `SKILL.md` (plus, if you want, templates or scripts next to it). The YAML header has a `name` and a `description`; the **description is what Claude matches** to decide when to load the skill, so write it as “Use when …” with the words a user would really say. The body is the procedure. There is no `/skill` command to create one — you create the file (by hand, or ask Claude to). Once it exists you can call it explicitly as `/<name>`; to check, type `/` and look for the name in the list.
 
@@ -289,99 +289,94 @@ Keep SKILL.md under 60 lines; long templates go in a separate file in the same f
 Do not touch other skills. Show me the file before saving.
 ```
 
-**Example 1 — `interview`** (used by prompt d, step 4): Claude asks, **you** decide.
+**Starter skill 1 — `tech-matching`.** Based on the documents, requirements, input, output and resources you give it, it finds the suitable technologies / frameworks / tools and returns the **top k** (default 3), with a benefit, a cost and a source for each. Claude proposes, **you** choose.
 
 ```text
-Create a project skill at .claude/skills/interview/SKILL.md.
-Purpose: when I must choose between options, or a spec is incomplete, interview me instead of deciding for me.
-Trigger: the description starts with "Use when" and names: choose between options, incomplete spec,
-"interview me", "help me choose", "open decisions".
-Inputs: the files or the topic I name in my request.
-Steps: 1) read the files and list the open decisions (max 10);
-2) for each, prepare 2–3 options, each with a one-line benefit, a one-line cost and the source line it relies on;
-3) ask ONE question at a time with AskUserQuestion, then wait for my answer;
-4) never choose for me — if I say "you choose", restate the trade-off and ask once more;
-5) write my answers into the target file under "Decisions", and what is left under "Open decisions".
-Output: a "Decisions" table — decision · choice · why · source.
-Rules: no source → mark "(suggestion)"; never batch questions; edit no file except the target.
-Done when: every decision is answered or listed under "Open decisions".
-Keep SKILL.md under 40 lines. Show me the file before saving.
+Create a project skill at .claude/skills/tech-matching/SKILL.md.
+Purpose: given documents, requirements, expected input and output, and available resources (team skills,
+budget, time), find the suitable technologies / frameworks / tools and return the top k for each need.
+Trigger: the description starts with "Use when" and names: choose a technology, tech stack, framework,
+library, tool, "which should we use", "compare options", "top k".
+Inputs: the files or text I name (documents / requirements / input / output / resources), and k (default 3).
+Steps: 1) read the inputs and list the needs — what must go in, what must come out, the constraints
+(scope limits, budget, team skills, deadline) — one line each, with the source line;
+2) for each need, list candidate technologies;
+3) score each candidate against the constraints: fit · cost / effort · maturity · risk;
+4) keep the top k per need — each with one-line benefit, one-line cost, the source line it relies on,
+and one official link (if you cannot fetch it, say so — do not fill in from memory);
+5) show the result as a table, then ask me ONE question at a time (AskUserQuestion) to pick — never choose for me.
+Output: a table — need · rank · technology · benefit · cost · source · link — and a "Decisions" list
+with my choices, saved only into the file I name.
+Rules: no source → mark "(suggestion)"; never choose for me; edit no file except the target; flag anything
+the brief rules out (e.g. a paid service).
+Done when: every need has k candidates with a source and a link, and every choice is recorded or left under "Open decisions".
+Keep SKILL.md under 50 lines. Show me the file before saving.
 ```
 
 Result to expect (about this):
 
 ```markdown
 ---
-name: interview
-description: Use when the user must choose between options or a spec is incomplete — interview the user one question at a time instead of deciding. Words: "interview me", "help me choose", "open decisions".
+name: tech-matching
+description: Use when choosing a technology, framework, library or tool from documents, requirements, input/output and resources — returns the top k per need with benefit, cost, source and link. Words: "which should we use", "tech stack", "compare options", "top k".
 ---
-# Interview
-Goal: turn open decisions into recorded decisions made by the user.
-1. Read the named files; list the open decisions (max 10).
-2. For each: 2–3 options, each with one-line benefit, one-line cost, source line (file + section).
-3. Ask ONE question with AskUserQuestion; wait. Never batch.
-4. Never choose for the user. If told "you choose", restate the trade-off and ask once more.
-5. Write answers to the target file: "Decisions" (decision · choice · why · source) and "Open decisions".
-Rules: no source → "(suggestion)". Edit only the target file.
-Done when: every decision is answered or listed under "Open decisions".
+# Tech matching
+Goal: top-k technologies per need, chosen by the user.
+1. Read the named inputs; list needs (input, output, constraints, resources), each with its source line.
+2. List candidates per need; score: fit · cost/effort · maturity · risk.
+3. Keep top k (default 3): one-line benefit, one-line cost, source line, official link.
+4. Show a table; ask ONE question at a time with AskUserQuestion. Never choose for the user.
+Output: table (need · rank · technology · benefit · cost · source · link) + "Decisions".
+Rules: no source → "(suggestion)". No link fetched → say so. Edit only the target file.
+Done when: every need has k candidates and every choice is recorded or listed under "Open decisions".
 ```
 
-**Example 2 — `documentation`**: every document looks the same and says where it came from.
+Use it (step 4): `/tech-matching` with the prompt d below. Reuse it in Exercises 1.2 – 1.4 — a UI library, a database driver, an LLM SDK — by changing only the input.
+
+**Starter skill 2 — `learn-by-keywords`.** You give it a list of keywords; it gives back the overall introduction, background, main theories, applications and examples — a primer to study from. It replaces the "Keywords — self-study" lists with a reading you can ask for at any time.
 
 ```text
-Create a project skill at .claude/skills/documentation/SKILL.md.
-Purpose: write or update a project document under docs/ (spec, architecture, ADR, API list, README)
-so that every document has the same header, structure and sources.
-Trigger: the description starts with "Use when" and names: write / update / draft a document, spec, ADR,
-README, architecture note, API list.
-Inputs: the document type and the source files I name.
-Steps: 1) find out the type (SPEC · ARCHITECTURE · ADR · API · README) and look in docs/ for an existing file
-of that type — update it, do not create a duplicate;
-2) first lines: "# <title>" then "Based on: <the files this document is based on>";
-3) use the template for the type — ADR: Context · Options · Decision · Why · Cost (5 short lines);
-SPEC / ARCHITECTURE: Purpose · Mermaid diagram · tables · Open decisions;
-4) every requirement or claim cites its source (file + section); no source → "(assumed)";
-5) prefer tables to paragraphs; add a Mermaid diagram when 3 or more parts connect;
-6) end with "## Open decisions" — what the team still has to decide;
-7) show the diff before saving; never delete existing text without asking.
-Output: one Markdown file under docs/ (docs/systems/ for design documents).
-Done when: the file has a "Based on:" line, at least one source per section, and an "Open decisions" section.
-Keep SKILL.md under 50 lines; put the ADR template in a separate adr-template.md next to it.
-Show me the files before saving.
+Create a project skill at .claude/skills/learn-by-keywords/SKILL.md.
+Purpose: given a list of keywords, explain each one as a short primer so a beginner can start studying.
+Trigger: the description starts with "Use when" and names: explain these keywords / terms, "teach me",
+"what is", "background of", "primer", "I do not know X".
+Inputs: a list of keywords (1 – 10) and, optionally, the project context (default: docs/de-bai.md).
+Steps: for each keyword, in this order:
+1) Introduction — what it is, in 3 lines, for someone who has never coded;
+2) Background — why it exists, which problem it solved, the date or version it appeared;
+3) Main theories / core ideas — 3 – 5 bullets, each one line;
+4) Applications — where it is used, with one example from MT-01 (cite the de-bai.md section);
+5) Example — the smallest runnable or readable example (3 – 10 lines);
+6) Next — one official documentation link and 1 – 2 related keywords.
+Then end with a suggested study order for the whole list.
+Output: a Markdown answer in chat; save to docs/notes/learn-<topic>.md only when I ask.
+Rules: say "I am not sure" instead of guessing; every official link must be one you fetched, else write
+"link not checked"; no invented versions or dates; keep each keyword under 25 lines.
+Done when: every keyword has the six parts and a study order is given.
+Keep SKILL.md under 50 lines. Show me the file before saving.
 ```
 
-Use it: `/documentation Write docs/systems/ADR-001-frontend.md from docs/de-bai.md and ARCHITECTURE_5BLOCK.md — React now or Streamlit first.`
-
-**Example 3 — `de-bai-guard`**: a *checking* skill. Same general format; the steps are “read the rules → output a table → never fix silently”.
-
-`.claude/skills/de-bai-guard/SKILL.md`:
+Result to expect (about this):
 
 ```markdown
 ---
-name: de-bai-guard
-description: Use when designing or reviewing any part of MT-01 (architecture, screens, API, agent) to check it against docs/de-bai.md — roles, PENDING approval, server-side 403, anonymity, scope exclusions.
+name: learn-by-keywords
+description: Use when the user gives keywords or terms to learn — returns introduction, background, main theories, applications with an MT-01 example, a small example and an official link per keyword. Words: "explain these keywords", "teach me", "primer".
 ---
-
-# de-bai guard
-
-1. Read docs/de-bai.md, sections "Ba vai và ranh giới quyền", "Yêu cầu đầu ra",
-   "Phạm vi cố tình loại khỏi đề", "Dữ liệu và giới hạn".
-2. For the file(s) under review, output one table:
-   | Rule | de-bai.md section | Where handled (file:line) | OK / MISSING / CONFLICT |
-3. Never fix silently. For every CONFLICT, show both sides and ask the user which one to change.
-4. If a rule cannot be checked from the file, write MISSING — do not guess.
+# Learn by keywords
+Goal: a beginner-level primer for each keyword, in a fixed shape.
+For each keyword:
+1. Introduction (3 lines)  2. Background (why it exists, when)  3. Main theories (3–5 bullets)
+4. Applications + one MT-01 example (cite de-bai.md)  5. Smallest example (3–10 lines)
+6. Next: one official link + 1–2 related keywords
+End: a study order for the whole list.
+Rules: say "not sure" instead of guessing; unfetched link → "link not checked". Chat output; save only on request.
+Done when: every keyword has the six parts and a study order is given.
 ```
 
-**Prompt to create it with Claude (AI-aided):**
+Use it: `/learn-by-keywords LangGraph StateGraph, checkpointer, interrupt, human-in-the-loop` — or paste the *Keywords — self-study* list of any exercise. **Open one link and check it** (the Manual rule below).
 
-```text
-Create a project skill at .claude/skills/de-bai-guard/SKILL.md that checks any MT-01 design file
-against docs/de-bai.md. The description must start with "Use when". Steps: read the listed
-de-bai sections, output a rule/section/where/status table, never fix silently.
-Show me the file before saving.
-```
-
-Other skills the next exercises add the same way: `ui-component` (Ex 1.2) · `add-endpoint` (Ex 1.3) · `add-node` (Ex 1.4); optional `deep-research` (find sources, 5 bullets + URL each) and `visualization` (Mermaid diagrams in one house style).
+Other skills the next exercises add the same way: `ui-component` (Ex 1.2) · `add-endpoint` (Ex 1.3) · `add-node` (Ex 1.4).
 
 #### C · Hooks — they run on events, not on your prompts
 
@@ -540,7 +535,7 @@ Test a hook **by hand** before you trust it: feed it a fake event, as in *Done w
 **Prompt b — read the brief**
 
 ```text
-Read @docs/de-bai.md. List the 3 roles and the capabilities of role A, B, C —
+Read @docs/de-bai.md. List the 2 roles, what each may and may not do, and the three capabilities A, B, C —
 each with the section it comes from. Do not edit anything.
 ```
 
@@ -550,20 +545,30 @@ each with the section it comes from. Do not edit anything.
 Read @docs/de-bai.md and slides 3–8 of docs/giao-trinh/slide/buoi-03.html (#overview to #sdlc).
 Plan docs/systems/ARCHITECTURE_5BLOCK.md at OVERVIEW level only:
 a Mermaid flowchart with the five blocks (Front-End, Back-End, AI Agent, Database, DevOps),
-the three roles and the external LLM provider; a one-line general function per block;
+the two roles and the external LLM provider; a one-line general function per block;
 each arrow labelled with what flows. No endpoints, no table schemas, no code.
 ```
 
-**Prompt d — propose technologies with the interview skill**
+**Prompt d — propose technologies with the `tech-matching` skill**
 
-An *interview* skill (`.claude/skills/interview/SKILL.md`, created like section B) makes Claude ask **you** questions one at a time instead of deciding.
+The `tech-matching` skill (`.claude/skills/tech-matching/SKILL.md`, created in section B) finds the top 3 candidates per block and then asks **you** one question at a time instead of deciding.
 
 ```text
-/interview Choose a technology for each of the five blocks. For each block, compare 2 options
-(e.g. React vs Streamlit for the Front-End) against docs/de-bai.md: the "Yêu cầu đầu ra" requirements
-and the "Phạm vi cố tình loại khỏi đề" limits, one-line reason each, citing the section.
+/tech-matching Input: docs/de-bai.md — "Ba năng lực", "Yêu cầu đầu ra", "Phạm vi cố tình loại khỏi đề".
+Needs: one technology for each of the five blocks (Front-End, Back-End, AI Agent, Database, DevOps).
+Resources: a student team, 15 sessions, free or low-cost tools only. k = 3.
+For each block, return the top 3 with benefit, cost, the de-bai.md section it relies on, and an official link.
 Then ask me one question at a time. Do not choose for me. When all five are answered,
 add the "Blocks" table (block · general function · technology · reason) to ARCHITECTURE_5BLOCK.md.
+```
+
+**Prompt e — check against `de-bai.md`** (a plain prompt, no skill)
+
+```text
+Read docs/de-bai.md and docs/systems/ARCHITECTURE_5BLOCK.md. For every rule in "Hai vai và ranh giới quyền",
+"Yêu cầu đầu ra", "Phạm vi cố tình loại khỏi đề" and "Dữ liệu và giới hạn", output a table:
+rule | de-bai.md section | where in the file | OK / MISSING / CONFLICT.
+Do not fix anything. For each CONFLICT show both sides and ask me which one to change.
 ```
 
 ### Keep context small
@@ -602,7 +607,7 @@ grep -c 'log_hook' .claude/settings.json                        # 3 — logging 
 echo '{"tool_input":{"file_path":"data/plo.md"},"cwd":"."}' | python .claude/hooks/protect_data.py; echo "exit=$?"   # exit=2
 echo '{"tool_input":{"file_path":"docs/x.md"},"cwd":"."}'   | python .claude/hooks/protect_data.py; echo "exit=$?"   # exit=0
 # skills and the secrets hook
-ls .claude/skills/{interview,documentation,de-bai-guard}/SKILL.md   # 3 files, no "No such file"
+ls .claude/skills/{tech-matching,learn-by-keywords}/SKILL.md      # 2 files, no "No such file"
 grep -c '^description: Use when' .claude/skills/*/SKILL.md          # 1 per file
 echo '{"tool_name":"Read","tool_input":{"file_path":".env"}}'        | python .claude/hooks/block_secrets.py; echo "exit=$?"   # exit=2
 echo '{"tool_name":"Read","tool_input":{"file_path":"README.md"}}'   | python .claude/hooks/block_secrets.py; echo "exit=$?"   # exit=0
@@ -635,7 +640,7 @@ From [`docs/de-bai.md`](../../de-bai.md) + the 5-block map of Exercise 1.1, prop
 
 | | |
 |---|---|
-| **Knowledge** | React basics — components, props, state, routing (self-learn with Claude, see the Appendix) · the chat and dashboard patterns (slide 12) |
+| **Knowledge** | React basics — components, props, state, routing (self-learn with Claude, see the Appendix) · the chat and dashboard patterns (slide 12) — MT-01 uses the dashboard-style one |
 | **Tools** | Claude Code · React + Vite + TypeScript · React Router · optional `frontend-design` plugin / Figma |
 | **Files** | `docs/de-bai.md` · `docs/systems/ARCHITECTURE_5BLOCK.md` (Ex 1.1) |
 
@@ -647,13 +652,14 @@ From [`docs/de-bai.md`](../../de-bai.md) + the 5-block map of Exercise 1.1, prop
 
 | Role | Page | Functions (what the user can do) | Components (draft) | APIs |
 |---|---|---|---|---|
-| All | **Login** | pick one of the 3 roles · works at 360 px | LoginForm · RolePicker | `POST /auth/login` |
-| Student | **Chat** ★ key page | ask about a course · answer **with citations** · **refusal with a reason** (no source, graded homework) · bilingual glossary | ChatHistory · MessageList · SourceChip · ChatInput | `POST /chat` · `GET /glossary` |
-| Lecturer | **Upload syllabus** | upload a syllabus file · see progress and errors | FileDrop · ProgressBar | `POST /syllabi` |
-| Lecturer | **Review report** | findings for TC1 – TC6 · click a finding → the quoted line · `PENDING` → **Approve** | StatusBadge · FindingList · ApproveButton | `GET /reports/{id}` · `POST /reports/{id}/approve` |
-| Manager | **Dashboard** ★ key page | courses reviewed / total · weakest criteria · PLOs no course covers · **totals only**, no student data | StatTile · BarChart · Filter | `GET /dashboard` |
+| All | **Login** | pick one of the 2 roles · works at 360 px | LoginForm · RolePicker | `POST /auth/login` |
+| Lecturer | **Upload course** | upload syllabus + course content · see progress and errors | FileDrop · ProgressBar | `POST /courses` |
+| Lecturer | **Test bank** ★ key page | questions with PLO and suggested weights · edit a weight · `PENDING` → **Approve** | QuestionTable · WeightEditor · StatusBadge · ApproveButton | `GET /courses/{id}/questions` · `PATCH /questions/{id}` · `POST /questions/{id}/approve` |
+| Lecturer | **Class results** | see the PLO results of own class | ClassTable · PloBar | `GET /courses/{id}/results` |
+| Student | **Assignment** | 10 questions per session (approved ones only) · submit | QuestionCard · AnswerOptions · SubmitBar | `GET /sessions/{id}/assignment` · `POST /assignments/{id}/submit` |
+| Student | **My PLO result** ★ key page | level per PLO · missing PLOs · trace to question and weight · reading suggestion with its source · start a new assignment | PloBars · TraceList · ReadingCard · SourceChip | `GET /me/results` · `GET /me/recommendations` · `POST /me/assignments/next` |
 
-The two key pages are the two interface patterns of slide 12 — **Chat = asking** (history, message list, streamed answer, sources, input box; anatomy on slide 14) and **Dashboard = watching** (KPI tiles, charts, filters; aggregated numbers only). The API column is the **input of Exercise 1.3**. Hiding the Approve button from students is UX; the **server** still has to refuse (Ex 1.3).
+The two key pages: **Test bank** (review and approve — the lecturer's gate: table, edit, status) and **My PLO result** (watching — one bar per PLO, what is missing, where to read; a dashboard-style view, slide 12). MT-01 has no chat page. The API column is the **input of Exercise 1.3**. Hiding the Approve button from students is UX; the **server** still has to refuse (Ex 1.3).
 
 **② Docs and code structure**
 
@@ -672,7 +678,7 @@ The two key pages are the two interface patterns of slide 12 — **Chat = asking
 | **3 Plan** · today | Routes, components, data per page | `Shift+Tab` plan mode → approve → placeholder pages · *manual:* draw the trees | `FE_PLAN.md` |
 | **4 Guardrails** · buổi 4 | Make rules automatic before the big build | `/hooks`: format + type-check after every edit; permissions | `.claude/settings.json` → `PostToolUse` hooks |
 | **5 Design system** · buổi 4 | Base components from the tokens | Skill `ui-component`: how we build one component | `src/components/ui/` · `.claude/skills/ui-component/SKILL.md` |
-| **6 Features** · buổi 4 | Fill the pages: Chat, Dashboard, Report… | One page per prompt, with its acceptance check in the prompt | `src/app/` pages working on mock data |
+| **6 Features** · buổi 4 | Fill the pages: Assignment, My PLO result, Test bank… | One page per prompt, with its acceptance check in the prompt | `src/app/` pages working on mock data |
 | **7 Browser check** · buổi 4 | See it as users do | Claude in Chrome / Playwright: 360 px, keyboard only, back-end stopped (slide 15) | `docs/systems/FE_CHECK.md` → checklist, screenshots |
 | **8 Review + ship** · buổi 4 · **manual** | Harden and deploy | `/code-review` · `/security-review` · `npm run build` · *manual:* deploy settings, domain | review notes · deployed URL |
 
@@ -705,7 +711,7 @@ Then create src/lib/api.ts with one typed function STUB per API in the "API list
 Ask me before adding any library.
 ```
 
-*Expected:* a CLAUDE.md diff of 15 – 30 lines; `api.ts` with functions such as `login`, `uploadSyllabus`, `getReport`, `approveReport`, `ask`, `getDashboard`, each returning a typed placeholder.
+*Expected:* a CLAUDE.md diff of 15 – 30 lines; `api.ts` with functions such as `login`, `uploadCourse`, `getQuestions`, `updateWeight`, `approveQuestion`, `getAssignment`, `submitAssignment`, `getMyResults`, `getRecommendations`, `nextAssignment`, each returning a typed placeholder.
 
 ### Step 2 · Pages, UX and look
 
@@ -719,15 +725,15 @@ Ask me before adding any library.
 Read docs/de-bai.md and docs/systems/ARCHITECTURE_5BLOCK.md (and my sketches in docs/systems/img/ if any).
 Draft docs/systems/SPEC.md in this shape:
 1. A table: role · page · functions · components · API (method + route) — one row per page.
-2. Give Chat and Dashboard the most detail — they are the key pages.
+2. Give Test bank and My PLO result the most detail — they are the key pages.
 3. An "API list": one row per API with method, route, which page calls it, which role may call it.
-   Mark as MUST every API the "Acceptance demo" of de-bai.md needs (login, upload, report, approve,
-   chat, dashboard); mark the others "later".
+   Mark as MUST every API the "Acceptance demo" of de-bai.md needs (login, upload, questions, edit weight,
+   approve, assignment, submit, results, recommendations, next assignment); mark the others "later".
 Mark anything not in de-bai.md or my sketch with "(assumed)".
 Then ask me ONE question at a time to keep, drop or rename each page and API.
 ```
 
-*Expected:* the table on this page's "Expected output" (your names may differ) and an API list of 6 – 8 rows, 6 of them MUST.
+*Expected:* the table on this page's "Expected output" (your names may differ) and an API list of 8 – 10 rows, most of them MUST.
 
 *Optional, for a complex UI:* install design plugins and let the `frontend-design` skill guide visuals.
 
@@ -754,13 +760,13 @@ Accessibility targets (WCAG 2.2 AA, contrast ≥ 4.5:1, keyboard-only) · Open q
 
 ```markdown
 ## User flows
-### Student — ask and get a cited answer
-1. Log in as student → Chat
-2. Type a question → answer streams in → sources under the answer
-3. Ask a graded-homework question → refusal with the reason
-### Lecturer — submit and approve
-1. Upload syllabus → progress → "Report ready (PENDING)"
-2. Open report → click finding TC3 → the quoted line is highlighted → Approve
+### Lecturer — review and approve the test bank
+1. Log in as lecturer → Upload course → progress → "Test bank ready (PENDING)"
+2. Open Test bank → change one weight → Approve → status APPROVED
+### Student — assignment and PLO result
+1. Log in as student → Assignment: 10 questions (approved ones only) → submit
+2. My PLO result → a PLO is still missing → reading suggestion with its source → new assignment
+3. Try to open a PENDING question or another student's result → refused
 ## States
 | Page | Loading | Empty | Error |
 …
@@ -780,7 +786,7 @@ Present them side by side. After I pick one, write src/styles/tokens.css as CSS 
 
 ### Step 3 · Plan in plan mode
 
-*Manual:* draw the route tree (`/login`, `/student/chat`, `/lecturer/upload`, `/lecturer/reports/:id`, `/manager/dashboard` — your names may differ), the component tree for each page, which `api.ts` function each needs, and where state lives (URL, server, component).
+*Manual:* draw the route tree (`/login`, `/lecturer/upload`, `/lecturer/test-bank`, `/lecturer/results`, `/student/assignment`, `/student/results` — your names may differ), the component tree for each page, which `api.ts` function each needs, and where state lives (URL, server, component).
 
 *AI-aided (plan mode):*
 
@@ -798,7 +804,7 @@ Starting points to reuse next session:
 
 - **4 Guardrails** — `Add PostToolUse hooks that run the formatter and "npx tsc --noEmit" after every edit to a .ts/.tsx file. Keep every existing hook. Show me the settings.json diff.`
 - **5 Design system** — `Create a skill .claude/skills/ui-component/SKILL.md: how we build one component in this repo (tokens only, props typed, one story/example, keyboard accessible).`
-- **6 Features** — one page per prompt: `Build the Chat page per SPEC.md and UX.md using api.ts stubs. Done when: messages render, sources show under answers, a refusal shows its reason, works at 360 px.`
+- **6 Features** — one page per prompt: `Build the Test bank page per SPEC.md and UX.md using api.ts stubs. Done when: questions list with PLO and weight, a weight can be edited, Approve works, the page is for the lecturer only, works at 360 px.`
 - **7 Browser check** — open every page at 360 px; keyboard-only pass; stop the back-end and watch the errors (slide 15). Record results in `FE_CHECK.md`.
 - **8 Review + ship** — `/code-review`, `/security-review`, check no secrets in the bundle, deploy with the DevOps section.
 
@@ -817,7 +823,7 @@ React components · props & state · React Router · Vite · TypeScript strict �
 
 ```bash
 ls docs/systems/{SPEC,UX,FE_PLAN,ADR-001-frontend}.md          # 4 files, no "No such file"
-grep -c 'MUST' docs/systems/SPEC.md                            # ≥ 6 — the APIs the acceptance demo needs
+grep -c 'MUST' docs/systems/SPEC.md                            # ≥ 8 — the APIs the acceptance demo needs
 grep -c '360' docs/systems/UX.md                               # ≥ 1
 grep -c 'api.ts' CLAUDE.md                                     # ≥ 1
 npm run build                                                  # exits 0
@@ -829,7 +835,7 @@ npm run dev                                                    # open each page 
 
 - Calling `fetch` inside components instead of `src/lib/api.ts`. → `grep -rn "fetch(" src/app src/components` should print nothing.
 - Hiding the Approve button and calling it "permission". → Fine for UX, but Exercise 1.3 must still return 403.
-- Chat without refusals, Dashboard with per-student rows. → Both break `de-bai.md`.
+- A student page that shows a `PENDING` question or another student's result, or a lecturer page that shows another lecturer's course. → Both break `de-bai.md`.
 
 ---
 
@@ -857,13 +863,13 @@ From [`docs/de-bai.md`](../../de-bai.md) + the 5-block map (Ex 1.1) + the pages 
 
 ### Every endpoint in five parts (slide 21)
 
-| Part | Example (`POST /api/v1/chat`) |
+| Part | Example (`POST /api/v1/assignments/{id}/submit`) |
 |---|---|
-| ① Request — method + route + JSON body | `POST /api/v1/chat` · `{"message": "What is a CLO?"}` |
-| ② Input class — checks the body | `class ChatRequest(BaseModel): message: str` → wrong shape: **422** |
-| ③ Async function — does the work | `async def chat(req)` · `await agent.ainvoke(...)` — waits for the LLM without blocking other users |
-| ④ Output class — shapes the reply | `class ChatResponse(BaseModel): answer: str; sources: list[str]` |
-| ⑤ Response — status + JSON body | `200 OK` · `{"answer": "…", "sources": ["syllabus.md"]}` · errors: 401 · 403 · 404 · 422 · 500 |
+| ① Request — method + route + JSON body | `POST /api/v1/assignments/{id}/submit` · `{"answers": [{"question_id": 3, "choice": "B"}, …]}` |
+| ② Input class — checks the body | `class SubmitRequest(BaseModel): answers: list[Answer]` → wrong shape: **422** |
+| ③ Async function — does the work | `async def submit(id, req)` · scores the answers with the approved weights (plain code); the agent's `await agent.ainvoke(...)` is for generation and reading suggestions — it waits for the LLM without blocking other users |
+| ④ Output class — shapes the reply | `class SubmitResponse(BaseModel): plo_levels: dict[str, float]; missing: list[str]; trace: list[TraceItem]` |
+| ⑤ Response — status + JSON body | `200 OK` · `{"plo_levels": {"PLO1": 0.8}, "missing": ["PLO3"], "trace": [...]}` · errors: 401 · 403 · 404 · 422 · 500 |
 
 `API.md` describes every MT-01 endpoint with these five parts plus **allowed roles**.
 
@@ -874,24 +880,24 @@ From [`docs/de-bai.md`](../../de-bai.md) + the 5-block map (Ex 1.1) + the pages 
 ```
 FE page (Ex 1.2)        API endpoint (API.md)            who may call        Back-end layers
 ──────────────        ─────────────────────            ────────────        ───────────────
-Login           ──►   POST /auth/login                 any            ┐
-Upload syllabus ──►   POST /syllabi                    lecturer       │    Routers   check the JSON (schemas) → 422
-Review report   ──►   GET  /reports/{id}               lecturer       ├──►           auth: token → who + role (deps.py)
-                      POST /reports/{id}/approve       lecturer only  │              not logged in → 401 · role not allowed → 403
-Chat ★          ──►   POST /chat                       student        │       ▼
-                      GET  /glossary                   all roles      │    Services  MT-01 rules: PENDING until approved,
-Dashboard ★     ──►   GET  /dashboard                  manager        ┘              totals without personal data
-                                                                              ▼
+Login           ──►   POST  /auth/login                     any             ┐
+Upload course   ──►   POST  /courses                        lecturer        │    Routers   check the JSON (schemas) → 422
+Test bank ★     ──►   GET   /courses/{id}/questions         lecturer (own)  ├──►           auth: token → who + role (deps.py)
+                      PATCH /questions/{id}                 lecturer (own)  │              not logged in → 401 · role not allowed → 403
+                      POST  /questions/{id}/approve         lecturer only   │       ▼
+Assignment      ──►   GET   /sessions/{id}/assignment       student         │    Services  MT-01 rules: PENDING until approved,
+                      POST  /assignments/{id}/submit        student         │              PLO level from approved weights, own data only
+My PLO result ★ ──►   GET   /me/results · /me/recommendations   student     ┘              ▼
                                                                   Data (PostgreSQL)  ·  AI Agent (Ex 1.4)
 ```
 
-The endpoints are an example — each team derives its own from the API list in `SPEC.md`. **Acceptance tests from `de-bai.md`:** a student calls `POST /reports/{id}/approve` → the **server** refuses with **403**; the manager calls `GET /dashboard` → totals only, no student data.
+The endpoints are an example — each team derives its own from the API list in `SPEC.md`. **Acceptance tests from `de-bai.md`:** a student calls `POST /questions/{id}/approve` → the **server** refuses with **403**; a student asks for a `PENDING` question or another student's result → refused; a lecturer asks for another lecturer's course → refused.
 
 **② The contract of one endpoint** — one row per endpoint in `API.md`:
 
 | Method + route | Who | JSON in | JSON out | Status codes |
 |---|---|---|---|---|
-| `POST /api/v1/reports/{id}/approve` | lecturer of the course | — (id in the route) | `{"id": 7, "status": "APPROVED"}` | 200 · 401 · 403 · 404 |
+| `POST /api/v1/questions/{id}/approve` | lecturer of the course | — (id in the route) | `{"id": 7, "status": "APPROVED"}` | 200 · 401 · 403 · 404 |
 
 **③ Code, docs and rules**
 
@@ -920,7 +926,7 @@ Steps tagged **manual** contain a sub-step a person must do by hand (see "Manual
 
 ### Step 1 · Scaffold and write the rules
 
-*Manual:* create `src/api/routers/`, `src/api/schemas/`, `src/server/services/`; one empty `APIRouter` per resource (auth, syllabi, reports, chat, dashboard); include each in `src/main.py`.
+*Manual:* create `src/api/routers/`, `src/api/schemas/`, `src/server/services/`; one empty `APIRouter` per resource (auth, courses, questions, assignments, results); include each in `src/main.py`.
 
 *AI-aided:*
 
@@ -928,7 +934,7 @@ Steps tagged **manual** contain a sub-step a person must do by hand (see "Manual
 Without editing: explain src/main.py, src/api/routes.py and src/models/schemas.py in 10 lines total.
 Then propose (do not write yet) a "Back-end" section for CLAUDE.md:
 - routers only handle HTTP (parse, validate, call a service, map errors to status codes);
-- services hold MT-01 rules (approval flow, aggregation, anonymity) and never import FastAPI;
+- services hold MT-01 rules (approval flow, PLO scoring from approved weights, own-data-only) and never import FastAPI;
 - every role check happens on the server, in a dependency, before the handler body;
 - one error format: {"detail": "...", "code": "..."}.
 Show me the diff before saving.
@@ -936,16 +942,16 @@ Show me the diff before saving.
 
 ### Step 2 · Define the API → `docs/systems/API.md`
 
-*Manual:* walk the API list in `SPEC.md`. For every API write one row in the five-part format above, plus allowed roles. Cross-check each row against the *Ba vai và ranh giới quyền* table in `de-bai.md`. **The role matrix is always signed off by the team** — even when Claude drafted it.
+*Manual:* walk the API list in `SPEC.md`. For every API write one row in the five-part format above, plus allowed roles. Cross-check each row against the *Hai vai và ranh giới quyền* table in `de-bai.md`. **The role matrix is always signed off by the team** — even when Claude drafted it.
 
 *AI-aided:*
 
 ```text
-Read docs/systems/SPEC.md, docs/systems/UX.md, src/lib/api.ts and the "Ba vai và ranh giới quyền" table in docs/de-bai.md.
+Read docs/systems/SPEC.md, docs/systems/UX.md, src/lib/api.ts and the "Hai vai và ranh giới quyền" table in docs/de-bai.md.
 Write docs/systems/API.md:
 1. A table, one row per endpoint: method · route (under /api/v1) · allowed roles · input class · output class · success code · error codes.
 2. For each class, a field list with types.
-3. A section "Role matrix": endpoints × (student, lecturer, manager) with ✓ / 403.
+3. A section "Role matrix": endpoints × (student, lecturer) with ✓ / 403, and "own data only" where it applies.
 Every endpoint must map to at least one function in src/lib/api.ts — list any mismatch at the end.
 Then create the matching Pydantic classes in src/api/schemas/.
 ```
@@ -954,20 +960,20 @@ Then create the matching Pydantic classes in src/api/schemas/.
 
 | Method | Route | Roles | Input | Output | OK | Errors |
 |---|---|---|---|---|---|---|
-| POST | `/api/v1/reports/{id}/approve` | lecturer (owner of the course) | — | `Report` | 200 | 401 not logged in · **403 wrong role / not owner** · 404 · 409 already approved |
+| POST | `/api/v1/questions/{id}/approve` | lecturer (owner of the course) | — | `Question` | 200 | 401 not logged in · **403 wrong role / not owner** · 404 · 409 already approved |
 
-Check yourself (all must be "no" in the role matrix): Can a student read a `PENDING` report? Can a lecturer read another lecturer's syllabus? Can a manager read one student's question?
+Check yourself (all must be "no" in the role matrix): Can a student read a `PENDING` question? Can a student read another student's result? Can a lecturer read or edit another lecturer's course?
 
 ### Step 3 · Plan in plan mode → `BACKEND_PLAN.md` + `tasks.json`
 
-*Manual:* draw the layers (router → service → data / agent, slide 22), the data model (e.g. User, Course, Syllabus, Report, Finding — names are yours), and the full path of one request ("lecturer approves report 7").
+*Manual:* draw the layers (router → service → data / agent, slide 22), the data model (e.g. User, Course, Question, QuestionPlo with its weight, Submission, PloResult — names are yours), and the full path of one request ("lecturer approves question 7").
 
 *AI-aided (plan mode):*
 
 ```text
 Read CLAUDE.md and docs/systems/API.md.
 Plan the back-end: layers and what each may import; data model (entities, key fields, relations — no SQL yet);
-the request flow for "lecturer approves report" and "student calls approve" step by step.
+the request flow for "lecturer approves question" and "student calls approve" step by step.
 Save as docs/systems/BACKEND_PLAN.md.
 Also write docs/systems/tasks.json: a list of small tasks, each {"id","title","files","test"},
 where "test" is a command that fails before the task and passes after.
@@ -980,9 +986,9 @@ EXCEPT the role dependency, which reads the X-Role header and returns 403 when t
 ```json
 [
   {"id": "BE-01", "title": "Role dependency reads X-Role, 403 on wrong role",
-   "files": ["src/server/deps.py", "src/api/routers/reports.py"],
+   "files": ["src/server/deps.py", "src/api/routers/questions.py"],
    "test": "pytest tests/test_roles.py -q"},
-  {"id": "BE-02", "title": "POST /syllabi stores upload, returns id", "files": ["…"], "test": "…"}
+  {"id": "BE-02", "title": "POST /courses stores upload, returns id", "files": ["…"], "test": "…"}
 ]
 ```
 
@@ -1000,7 +1006,7 @@ EXCEPT the role dependency, which reads the X-Role header and returns 403 when t
 
 - Write secrets yourself — `.env`, JWT secret, DB password: **never in the chat, never in git**.
 - **Decide the role matrix** as a team; read every line of the auth / role-check code.
-- Run the 403 test yourself: student → `POST /reports/{id}/approve`.
+- Run the 403 test yourself: student → `POST /questions/{id}/approve`.
 - Cloud and CI credentials, CORS origins — **set by hand** in the console.
 
 ### Keywords — self-study
@@ -1014,9 +1020,9 @@ uvicorn src.main:app --reload
 # in a second terminal:
 curl -s localhost:8000/openapi.json | python -c "import json,sys; print(len(json.load(sys.stdin)['paths']))"
 #   = number of distinct routes in your API.md
-curl -s -o /dev/null -w "%{http_code}\n" -X POST localhost:8000/api/v1/reports/1/approve -H "X-Role: student"
+curl -s -o /dev/null -w "%{http_code}\n" -X POST localhost:8000/api/v1/questions/1/approve -H "X-Role: student"
 #   403   (adjust the route to your API.md — keep the test)
-curl -s -o /dev/null -w "%{http_code}\n" -X POST localhost:8000/api/v1/reports/1/approve -H "X-Role: lecturer"
+curl -s -o /dev/null -w "%{http_code}\n" -X POST localhost:8000/api/v1/questions/1/approve -H "X-Role: lecturer"
 #   501   (skeleton: allowed, not implemented yet)
 python -c "import json; t=json.load(open('docs/systems/tasks.json')); print(len(t), all('test' in x for x in t))"
 #   N True
@@ -1040,9 +1046,9 @@ Answer five plain questions for MT-01. They work for any AI project.
 
 | # | Question | Think about |
 |---|---|---|
-| 1 | **What agent?** | Which capability first — the student assistant (A), the syllabus reviewer (B), or both? |
-| 2 | **Why an AI agent?** | Does the job need several steps and decisions — find, check, cite, refuse? If plain code or a single LLM call does it, use that instead. |
-| 3 | **Where is it applied?** | Which pages show its results (Chat, Review report); which block calls it — the back-end, never users directly. |
+| 1 | **What agent?** | Which capability first — test-bank generation (A), PLO assessment (B), personalised reading (C), or all three? |
+| 2 | **Why an AI agent?** | Does the job need several steps and decisions — read, draft, find, cite, refuse? If plain code or a single LLM call does it, use that instead. Is scoring (B) a job for an LLM? |
+| 3 | **Where is it applied?** | Which pages show its results (Test bank, My PLO result); which block calls it — the back-end, never users directly. |
 | 4 | **What does it do — and not do?** | Sort every behaviour: allowed · needs approval · limited · banned. |
 | 5 | **Should we use LangGraph?** | Yes if the work needs state, branches, loops or a pause for human approval (MT-01's lecturer approval). No if it is one call. `de-bai.md`: no multi-agent. |
 
@@ -1052,7 +1058,7 @@ Answer five plain questions for MT-01. They work for any AI project.
 |---|---|
 | **Knowledge** | ML / DL / LLM basics · what an AI agent is: tools, memory, loop · LangGraph as a graph (slides 27 – 29) — self-learn with Claude (see the Appendix) |
 | **Tools** | Claude Code · LangGraph · an LLM API |
-| **Files** | `docs/de-bai.md` · `ARCHITECTURE_5BLOCK.md` (Ex 1.1) · `SPEC.md` (Ex 1.2) · `API.md` (Ex 1.3) · `data/rubric.yaml` |
+| **Files** | `docs/de-bai.md` · `ARCHITECTURE_5BLOCK.md` (Ex 1.1) · `SPEC.md` (Ex 1.2) · `API.md` (Ex 1.3) · `data/plo.md` |
 
 ### Expected output
 
@@ -1074,32 +1080,34 @@ Based on: de-bai.md · SPEC.md · API.md · ARCHITECTURE_5BLOCK.md
 ## 1. Job
 | Capability | Agent does | Done when | Source |
 |---|---|---|---|
-| A · assistant | answers from approved material, with sources | answer + citation, or a refusal with reason | de-bai.md "A · Trợ lý người học" |
-| B · reviewer  | checks a syllabus against TC1–TC6            | draft report, status PENDING               | de-bai.md "B · Chuẩn hóa môn học" |
+| A · test bank | from syllabus + course content, drafts questions, each with PLO(s) and suggested weights | every question saved as PENDING, with ≥ 1 PLO and a weight | de-bai.md "A · Ngân hàng câu hỏi gắn PLO" |
+| B · PLO assessment | scores a submission per PLO from the approved weights — **plain code, no LLM** (question 2) | level per PLO + trace to each question and weight | de-bai.md "B · Đánh giá learning outcome theo PLO" |
+| C · personalise | for a missing PLO, finds the part of the course content to read and cites it; builds a new assignment from approved questions | reading cites the exact place; assignment has only approved questions | de-bai.md "C · Cá nhân hoá theo sinh viên" |
 
 ## 2. Rules
 | Kind | Rule | Source |
 |---|---|---|
-| Allowed        | search approved material · check one rubric criterion · look up the glossary | … |
-| Needs approval | publishing a report — only the course's lecturer approves                      | … |
-| Limit          | no source → refuse with reason · max N steps per request (N = team decision)  | … |
-| Banned         | graded homework (even asked indirectly) · personal student data · multi-agent · fine-tuning · paid vector DB | de-bai.md "Phạm vi cố tình loại khỏi đề" |
+| Allowed        | read syllabus and course content · draft questions and suggested weights as PENDING · compute PLO levels from approved weights · quote course content | … |
+| Needs approval | a question or weight enters an assignment — only the course's lecturer approves | de-bai.md "Hai vai…" |
+| Limit          | no matching passage → say so, no reading suggestion · max N steps per request (N = team decision) · 10 questions per assignment | de-bai.md "Cần chốt" 3 |
+| Banned         | a PENDING question in an assignment · another student's results · LMS integration · essay grading · multi-agent · fine-tuning · paid vector DB · real student data | de-bai.md "Phạm vi cố tình loại khỏi đề", "Dữ liệu và giới hạn" |
 
 ## 3. Flow (boxes and arrows only — state and nodes come next chapter)
 ```mermaid
 flowchart LR
-  subgraph A [A · assistant]
-    A0([START]) --> A1[check request] --> A2[find approved material] --> A3{source?}
-    A3 -->|yes| A4[answer + cite] --> A9([END])
-    A3 -->|no| A5[refuse + reason] --> A9
+  subgraph A [A · test bank]
+    A0([START]) --> A1[read syllabus + content] --> A2[draft questions + PLO weights] --> A3[save as PENDING]
+    A3 --> A4[/pause: lecturer approves/] --> A9([END])
   end
-  subgraph B [B · reviewer]
-    B0([START]) --> B1[read syllabus] --> B2[check TC1–TC6] --> B3[draft report · PENDING]
-    B3 --> B4[/pause: lecturer approves/] --> B9([END])
+  subgraph C [C · personalise]
+    C0([START]) --> C1[take the missing PLOs from B] --> C2[find the passage in course content] --> C3{passage found?}
+    C3 -->|yes| C4[reading + source] --> C5[pick approved questions on those PLOs] --> C6[new assignment] --> C9([END])
+    C3 -->|no| C7[say no source] --> C9
   end
 ```
 
 ## 4. Open decisions
+- The six items in de-bai.md "Cần chốt" — the team decides: threshold for a missing PLO · weights sum to 100%? · size and stop of the loop · "finished reading" · ESL · programme manager.
 - …
 ```
 
@@ -1128,8 +1136,8 @@ Sources: <official URL 1> · <official URL 2> · <official URL 3>
 | **3 Design the graph** · next | Flow → state, nodes, edges, tools — before code | `Shift+Tab` plan mode, starting from the Flow in `AGENT.md` | `AGENT_GRAPH.md` → state schema, Mermaid graph |
 | **4 Tools + nodes** · next | One tool or node at a time | Skill `add-node`; one per prompt | `src/agent/tools/`, `nodes/` + unit tests |
 | **5 Memory + approval** · next · **manual** | Save state; pause for the lecturer | Prompt with the approval box from the Flow · *manual:* no auto-approve | `graph.py` → checkpointer, interrupt |
-| **6 Connect** · next | Expose via FastAPI, show in React | Use the Ex 1.3 endpoint + the Ex 1.2 Chat page | `routers/chat.py` · Chat page streaming |
-| **7 Test + evaluate** · next · **manual** | Golden dataset, eval round 1, traces | Prompt: cases for answer, cite, refuse · *manual:* people write and check the expected answers | `eval/` → ≥ 45 cases, results table (`de-bai.md` *Yêu cầu đầu ra*) |
+| **6 Connect** · next | Expose via FastAPI, show in React | Use the Ex 1.3 endpoints + the Ex 1.2 Test bank and My PLO result pages | `routers/questions.py` · `routers/me.py` · pages show agent output |
+| **7 Test + evaluate** · next · **manual** | Golden dataset, eval round 1, traces | Prompt: cases for generate + weights, scoring by PLO, cited reading, refusing a PENDING question · *manual:* people write and check the expected answers | `eval/` → ≥ 45 cases, results table (`de-bai.md` *Yêu cầu đầu ra*) |
 | **8 Guardrails + ship** · next | Refusals, step limits, review | `/code-review` · hooks · refusal tests | `tests/test_guardrails.py` · review notes |
 
 ### Step 1 · Job, rules and flow → `AGENT.md`
