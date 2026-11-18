@@ -219,6 +219,13 @@ Rule of thumb: **preference → CLAUDE.md · repeated procedure → skill · mus
 
 **Do not put in:** secrets or API keys · whole documents (link them) · what a linter or formatter already enforces · things that change daily (use `tasks.json` or issues) · vague advice (“write clean code”). Keep it short — a long CLAUDE.md is read less carefully.
 
+> **Note — how CLAUDE.md is loaded (why it must be short)**
+> - **Loaded in full** when you start `claude`: `./CLAUDE.md`, parent-folder `CLAUDE.md`, `~/.claude/CLAUDE.md`, and any file pulled in with `@path`. A sub-folder `CLAUDE.md` loads only when Claude works in that folder.
+> - **Links are not followed**: `[text](.agents/rules/x.md)` is just a pointer, so Claude must open the file itself. Use `@.agents/rules/x.md` if a short file must be loaded every session.
+> - **Read once from disk, sent on every prompt.** The model has no memory between turns: each request sends the whole conversation again, CLAUDE.md included. Every line costs context on every turn, so keep it concise.
+> - **Edits mid-session**: the session keeps the copy it read at startup. Restart `claude` to be sure an edit takes effect. After `/compact`, CLAUDE.md is loaded again.
+> - **Check**: `/memory` lists the loaded files · `/context` shows how many tokens “Memory files” use.
+
 *Skeleton to fill in (add under the course rules already in this repo's CLAUDE.md):*
 
 ````markdown
